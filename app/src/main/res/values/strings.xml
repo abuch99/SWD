@@ -1,0 +1,24 @@
+<resources>
+    <string name="swd">Student Welfare Division</string>
+    <string name="app_name">SWD</string>
+    <string name="login">Login</string>
+    <string name="ID">User ID:</string>
+    <string name="pwd">Password:</string>
+    <string name="home">Home</string>
+    <string name="connect">Connect</string>
+    <string name="notices">Notices</string>
+    <string name="chronicles">Chronicles</string>
+    <string name="complaint">Chronicles</string>
+    <string name="feed">Feed</string>
+    <string name="mess">Mess</string>
+    <string name="docs">Documents</string>
+    <string name="uploads">Uploads</string>
+    <string name="logout">Logout</string>
+    <string name="title_activity_nav">Nav</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+</resources>

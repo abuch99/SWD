@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Login">
+
+    <ImageView
+        android:id="@+id/acad"
+        style="@style/background_img"
+        android:src="@drawable/acad" />
+
+    <ImageView
+        android:id="@+id/login"
+        style="@style/logo"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login"
+        android:layout_marginTop="16dp"
+        android:textSize="20dp"
+        android:gravity="center_horizontal"
+        android:text="@string/swd"
+        android:textColor="#FFFFFF"
+        android:textAllCaps="true"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login"
+        android:layout_marginTop="48dp"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/input_layout">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/id_fill"
+                style="@style/login_names"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/ID" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true"
+            style="@style/input_layout">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/pwd_fill"
+                style="@style/login_names"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/pwd"
+                android:inputType="textPassword" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/submit"
+            style="@style/button_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="@dimen/right"
+            android:layout_marginTop="16dp"
+            android:text="@string/login" />
+
+    </LinearLayout>
+</RelativeLayout>

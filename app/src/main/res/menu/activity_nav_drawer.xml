@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/home"
+            android:title="@string/home"/>
+        <item
+            android:id="@+id/connect"
+            android:title="@string/connect"/>
+        <item
+            android:id="@+id/notices"
+            android:title="@string/notices"/>
+        <item
+            android:id="@+id/chronicles"
+            android:title="@string/chronicles"/>
+        <item
+            android:id="@+id/complaint"
+            android:title="@string/complaint"/>
+        <item
+            android:id="@+id/feed"
+            android:title="@string/feed"/>
+        <item
+            android:id="@+id/mess"
+            android:title="@string/mess"/>
+        <item
+            android:id="@+id/docs"
+            android:title="@string/docs"/>
+        <item
+            android:id="@+id/uploads"
+            android:title="@string/uploads"/>
+        <item
+            android:id="@+id/logout"
+            android:title="@string/logout"/>
+
+    </group>
+
+</menu>
