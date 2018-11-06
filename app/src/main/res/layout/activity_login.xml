@@ -44,7 +44,8 @@
                 style="@style/login_names"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/ID" />
+                android:hint="@string/ID"
+                android:textColor="#FFFFFF"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -59,7 +60,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/pwd"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                android:textColor="#FFFFFF"/>
         </android.support.design.widget.TextInputLayout>
 
 
