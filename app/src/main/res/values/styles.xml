@@ -37,11 +37,8 @@
     </style>
 
     <style name="input_layout">
-        <item name="android:textColor">#FFFFFF</item>
         <item name="android:textColorHint">#c1cdc1</item>
         <item name="passwordToggleTint">#FFFFFF</item>
-        <item name="android:colorControlNormal">#c1cdc1</item>
-        <item name="android:colorAccent">#FFFFFF</item>
 
     </style>
 
