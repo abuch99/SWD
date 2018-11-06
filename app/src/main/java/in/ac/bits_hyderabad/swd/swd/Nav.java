@@ -36,6 +36,9 @@ public class Nav extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.home);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.layout_frame,new HomeFragment()).commit();
     }
 
     @Override
@@ -63,10 +66,13 @@ public class Nav extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
+        switch (id) {
+
+            case R.id.action_settings: return true;
+
+            case R.id.logout:          return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -79,23 +85,22 @@ public class Nav extends AppCompatActivity
 
         if (id == R.id.home) {
             fragment = new HomeFragment();
-        } else if (id == R.id.connect) {
-
+        }else if (id == R.id.connect) {
+            fragment = new ConnectFragment();
         } else if (id == R.id.notices) {
-
-        } else if (id == R.id.chronicles) {
-
-        } else if (id == R.id.complaint) {
-
-        } else if (id == R.id.feed) {
-
-        } else if (id == R.id.mess) {
-
+            fragment = new NoticeFragment();
+        }  else if (id == R.id.complaint) {
+            fragment =  new ComplaintFragment();
+        }  else if (id == R.id.mess) {
+            fragment = new MessFragment();
         } else if (id == R.id.docs) {
-
+            fragment = new DocFragment();
         } else if (id == R.id.uploads) {
-
+            fragment = new UploadFragment();
+        } else if (id == R.id.goodies) {
+            fragment = new GoodiesFragment();
         }
+
         if (fragment==null)
         {
             return false;

@@ -5,34 +5,39 @@
 
         <item
             android:id="@+id/home"
-            android:title="@string/home"/>
+            android:icon="@drawable/ic_home"
+            android:title="@string/home" />
         <item
             android:id="@+id/connect"
-            android:title="@string/connect"/>
+            android:icon="@drawable/ic_forum"
+            android:title="@string/connect" />
         <item
             android:id="@+id/notices"
-            android:title="@string/notices"/>
-        <item
-            android:id="@+id/chronicles"
-            android:title="@string/chronicles"/>
+            android:icon="@drawable/ic_assignment"
+            android:title="@string/notices" />
+
         <item
             android:id="@+id/complaint"
-            android:title="@string/complaint"/>
-        <item
-            android:id="@+id/feed"
-            android:title="@string/feed"/>
+            android:icon="@drawable/ic_feedback"
+            android:title="@string/complaint" />
+
         <item
             android:id="@+id/mess"
-            android:title="@string/mess"/>
+            android:icon="@drawable/ic_restaurant"
+            android:title="@string/mess" />
+
+        <item
+            android:id="@+id/goodies"
+            android:icon="@drawable/ic_feedback"
+            android:title="@string/goodies" />
         <item
             android:id="@+id/docs"
-            android:title="@string/docs"/>
+            android:icon="@drawable/ic_subject"
+            android:title="@string/docs" />
         <item
             android:id="@+id/uploads"
-            android:title="@string/uploads"/>
-        <item
-            android:id="@+id/logout"
-            android:title="@string/logout"/>
+            android:icon="@drawable/ic_up"
+            android:title="@string/uploads" />
 
     </group>
 

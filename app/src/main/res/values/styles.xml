@@ -6,8 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="coordinatorLayoutStyle">@style/Widget.Design.CoordinatorLayout</item>
-
+        <item name="coordinatorLayoutStyle">@style/Widget.Support.CoordinatorLayout</item>
     </style>
 
     <style name="logo">
@@ -17,6 +16,15 @@
         <item name="android:gravity">center_horizontal</item>
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_marginTop">@dimen/top</item>
+    </style>
+
+    <style name="docs_header">
+
+        <item name="android:padding">@dimen/top</item>
+        <item name="android:color">#000000</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text</item>
+        <item name="android:textColor">#FFFFFF</item>
     </style>
 
     <style name="heading">
@@ -31,7 +39,10 @@
     <style name="input_layout">
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textColorHint">#c1cdc1</item>
-        <item name="android:">#FFFFFF</item>
+        <item name="passwordToggleTint">#FFFFFF</item>
+        <item name="android:colorControlNormal">#c1cdc1</item>
+        <item name="android:colorAccent">#FFFFFF</item>
+
     </style>
 
     <style name="login_names">
