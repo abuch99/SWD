@@ -8,14 +8,14 @@
 
 
     <ImageView
-        android:id="@+id/login"
+        android:id="@+id/admin_login"
         style="@style/logo"
         android:src="@drawable/logo" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/login"
+        android:layout_below="@id/admin_login"
         android:layout_marginTop="16dp"
         android:gravity="center_horizontal"
         android:text="@string/login_admin"

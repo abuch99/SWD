@@ -1,4 +1,7 @@
 package in.ac.bits_hyderabad.swd.swd.admin.fragment;
 
-public class Admin__MigrationFragment {
+
+import android.support.v4.app.Fragment;
+
+public class Admin__MigrationFragment extends Fragment {
 }

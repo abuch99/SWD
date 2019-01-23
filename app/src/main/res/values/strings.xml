@@ -48,5 +48,26 @@
     <string name="admin_nav_counselor">Counselor</string>
     <!--Admin  nav menu end-->
 
+    <!--Admin search spinner start-->
+    <string-array name="admin_search">
+
+        <item name="search_default">Please select</item>
+        <item name="search_name">Name</item>
+        <item name="search_id">ID Number</item>
+        <item name="search_room">Room Number</item>
+        <item name="search_gender">Gender(M/F)</item>
+        <item name="search_date">Date(YYYY-MM-DD)</item>
+        <item name="search_city">City</item>
+        <item name="search_state">State</item>
+        <item name="search_blood">Blood Group</item>
+        <item name="search_nation">Nationality</item>
+
+    </string-array>
+    <!--Admin search spinner end-->
+
+    <!--Admin search start-->
+    <string name="admin_criteria">Criteria: </string>
+    <string name="admin_string">Search String: </string>
+    <!--Admin search end-->
 
 </resources>
