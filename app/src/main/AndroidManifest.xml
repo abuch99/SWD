@@ -4,7 +4,8 @@
 
     <!--
     android:icon="@drawable/logo"
-    android:roundIcon="@mipmap/ic_launcher_round" -->
+    android:roundIcon="@mipmap/ic_launcher_round"
+    -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -12,16 +13,22 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login">
+        <activity android:name=".user.activity.User_Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".Nav"
+            android:name=".user.activity.User_Nav"
             android:label="@string/title_activity_nav"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".admin.activity.Admin_Login" />
+        <activity
+            android:name=".admin.activity.Admin_Nav"
+            android:label="@string/title_activity_admin__nav"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

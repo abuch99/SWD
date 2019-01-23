@@ -1,9 +1,19 @@
 <resources>
+    <!-- App name -->
     <string name="swd">Student Welfare Division</string>
     <string name="app_name">SWD</string>
+
+    <!--User_Login Screen start -->
     <string name="login">Login</string>
     <string name="ID">User ID:</string>
     <string name="pwd">Password:</string>
+    <string name="forgot_pwd">Forgot Password</string>
+    <string name="admin">Admin Side</string>
+    <string name="login_admin">Administration Login</string>
+
+    <!--User_Login screen end -->
+
+    <!--User nav menu start-->
     <string name="home">Home</string>
     <string name="connect">Connect</string>
     <string name="notices">Notices</string>
@@ -18,8 +28,25 @@
     <string name="goodies">Goodies</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">SWD Office</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <!--User nav menu end-->
+
+    <!--Admin nav menu start-->
+    <string name="title_activity_admin__nav">Admin_Nav</string>
+    <string name="admin_nav_search">Search</string>
+    <string name="admin_nav_doc">Document Generation</string>
+    <string name="admin_nav_mess">Mess Balance</string>
+    <string name="admin_nav_goodies">Goodies</string>
+    <string name="admin_nav_gate">Main Gate</string>
+    <string name="admin_nav_alumni">Alumni</string>
+    <string name="admin_nav_mcn">MCN</string>
+    <string name="admin_nav_details">Details</string>
+    <string name="admin_nav_disco">Disciplinary Committee</string>
+    <string name="admin_nav_migration">Migration</string>
+    <string name="admin_nav_counselor">Counselor</string>
+    <!--Admin  nav menu end-->
+
+
 </resources>

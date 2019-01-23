@@ -1,12 +1,12 @@
-package in.ac.bits_hyderabad.swd.swd;
+package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
-public class contact_list {
+public class User_contact_list {
 
     private String name;
     private String number;
     private String desig;
 
-    public contact_list(String name, String number, String desig)
+    public User_contact_list(String name, String number, String desig)
     {
         this.name=name;
         this.number=number;

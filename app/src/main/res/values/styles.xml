@@ -36,9 +36,15 @@
         <item name="android:layout_marginTop">@dimen/top</item>
     </style>
 
-    <style name="input_layout">
+    <style name="login_input_layout">
         <item name="android:textColorHint">#c1cdc1</item>
         <item name="passwordToggleTint">#FFFFFF</item>
+
+    </style>
+
+    <style name="admin_input_layout">
+        <item name="android:textColorHint">#000000</item>
+        <item name="passwordToggleTint">#000000</item>
 
     </style>
 

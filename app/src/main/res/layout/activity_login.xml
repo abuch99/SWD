@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login">
+    tools:context=".user.activity.User_Login">
 
     <ImageView
         android:id="@+id/acad"
@@ -21,11 +21,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/login"
         android:layout_marginTop="16dp"
-        android:textSize="20sp"
         android:gravity="center_horizontal"
         android:text="@string/swd"
+        android:textAllCaps="true"
         android:textColor="#FFFFFF"
-        android:textAllCaps="true"/>
+        android:textSize="20sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/input_layout">
+            android:theme="@style/login_input_layout">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/id_fill"
@@ -45,14 +45,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/ID"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+            style="@style/login_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:passwordToggleEnabled="true"
-            style="@style/input_layout">
+            app:passwordToggleEnabled="true">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/pwd_fill"
@@ -61,19 +61,51 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/pwd"
                 android:inputType="textPassword"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF" />
         </android.support.design.widget.TextInputLayout>
 
 
-        <Button
-            android:id="@+id/submit"
-            style="@style/button_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/right"
-            android:layout_marginTop="16dp"
-            android:text="@string/login" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <Button
+                android:id="@+id/submit"
+                style="@style/button_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="@dimen/right"
+                android:layout_marginTop="16dp"
+                android:text="@string/login" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/forgot_pwd"
+                    android:textColor="#FFFFFF"
+                    android:id="@+id/login_forgot_pwd" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="@string/admin"
+                    android:textColor="#FFFFFF"
+                    android:id="@+id/login_admin" />
+
+
+            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 </RelativeLayout>

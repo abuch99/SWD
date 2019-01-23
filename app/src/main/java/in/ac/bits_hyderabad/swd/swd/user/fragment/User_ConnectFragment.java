@@ -1,6 +1,5 @@
-package in.ac.bits_hyderabad.swd.swd;
+package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,13 +11,15 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class ConnectFragment extends Fragment {
+import in.ac.bits_hyderabad.swd.swd.R;
+
+public class User_ConnectFragment extends Fragment {
 
     private String num;
     private ListView listView;
-    private contact_adapter cAdapter;
+    private User_contact_adapter cAdapter;
 
-    private ArrayList<contact_list> list = new ArrayList<>();
+    private ArrayList<User_contact_list> list = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class ConnectFragment extends Fragment {
         Button mButton;
         mButton=(Button) mView.findViewById(R.id.resp_call);
 
-        list.add(new contact_list("SSD", "9427109837", "Associate Dean"));
+        list.add(new User_contact_list("SSD", "9427109837", "Associate Dean"));
 
 
 

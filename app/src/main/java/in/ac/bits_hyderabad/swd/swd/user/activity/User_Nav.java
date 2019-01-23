@@ -1,11 +1,8 @@
-package in.ac.bits_hyderabad.swd.swd;
+package in.ac.bits_hyderabad.swd.swd.user.activity;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,7 +12,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class Nav extends AppCompatActivity
+import in.ac.bits_hyderabad.swd.swd.user.fragment.*;
+
+import in.ac.bits_hyderabad.swd.swd.R;
+
+
+public class User_Nav extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
@@ -38,7 +40,7 @@ public class Nav extends AppCompatActivity
         navigationView.setCheckedItem(R.id.home);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.layout_frame,new HomeFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.layout_frame, new User_HomeFragment()).commit();
     }
 
     @Override
@@ -84,21 +86,21 @@ public class Nav extends AppCompatActivity
         Fragment fragment = null;
 
         if (id == R.id.home) {
-            fragment = new HomeFragment();
+            fragment = new User_HomeFragment();
         }else if (id == R.id.connect) {
-            fragment = new ConnectFragment();
+            fragment = new User_ConnectFragment();
         } else if (id == R.id.notices) {
-            fragment = new NoticeFragment();
+            fragment = new User_NoticeFragment();
         }  else if (id == R.id.complaint) {
-            fragment =  new ComplaintFragment();
+            fragment = new User_ComplaintFragment();
         }  else if (id == R.id.mess) {
-            fragment = new MessFragment();
+            fragment = new User_MessFragment();
         } else if (id == R.id.docs) {
-            fragment = new DocFragment();
+            fragment = new User_DocFragment();
         } else if (id == R.id.uploads) {
-            fragment = new UploadFragment();
+            fragment = new User_UploadFragment();
         } else if (id == R.id.goodies) {
-            fragment = new GoodiesFragment();
+            fragment = new User_GoodiesFragment();
         }
 
         if (fragment==null)

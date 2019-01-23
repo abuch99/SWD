@@ -1,4 +1,4 @@
-package in.ac.bits_hyderabad.swd.swd;
+package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class UploadFragment extends Fragment {
+import in.ac.bits_hyderabad.swd.swd.R;
+
+public class User_DocFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -17,7 +19,7 @@ public class UploadFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         // Defines the xml file for the fragment
-        View view = inflater.inflate(R.layout.upload_fragment, parent, false);
+        View view = inflater.inflate(R.layout.doc_fragment, parent, false);
         return view;
     }
 }

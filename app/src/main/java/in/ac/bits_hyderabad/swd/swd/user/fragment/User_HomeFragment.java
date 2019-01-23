@@ -1,6 +1,5 @@
-package in.ac.bits_hyderabad.swd.swd;
+package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class HomeFragment extends Fragment implements View.OnClickListener {
+import in.ac.bits_hyderabad.swd.swd.R;
+
+public class User_HomeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,12 +48,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.mess:
-                Fragment fragment = new MessFragment();
+                Fragment fragment = new User_MessFragment();
                 replaceFragment(fragment);
                 break;
 
             case R.id.goodies:
-                fragment = new GoodiesFragment();
+                fragment = new User_GoodiesFragment();
                 replaceFragment(fragment);
                 break;
 
