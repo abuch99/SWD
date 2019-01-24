@@ -27,6 +27,7 @@
 
         <EditText
             style="@style/login_names"
+            android:id="@+id/admin_doc_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -48,6 +49,7 @@
 
             <Button
                 style="@style/button_admin_doc"
+                android:id="@+id/admin_bonafide"
                 android:layout_width="110dp"
                 android:layout_height="75dp"
                 android:layout_weight="1"
@@ -58,12 +60,14 @@
                 android:layout_width="110dp"
                 android:layout_height="75dp"
                 android:layout_weight="1"
+                android:id="@+id/admin_noc"
                 android:text="@string/admin_doc_noc" />
 
             <Button
                 style="@style/button_admin_doc"
                 android:layout_width="110dp"
                 android:layout_height="match_parent"
+                android:id="@+id/admin_character"
                 android:layout_weight="1"
                 android:text="@string/admin_doc_character" />
         </TableRow>
@@ -84,7 +88,7 @@
 
             <Button
                 style="@style/button_admin_doc"
-
+                android:id="@+id/admin_vacation"
                 android:layout_width="110dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -94,13 +98,14 @@
                 style="@style/button_admin_doc"
 
                 android:layout_width="110dp"
+                android:id="@+id/admin_fee_estimate"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/admin_doc_fee_estimate" />
 
             <Button
                 style="@style/button_admin_doc"
-
+                android:id="@+id/admin_duplicate"
                 android:layout_width="110dp"
                 android:layout_height="75dp"
                 android:layout_weight="1"
@@ -127,6 +132,7 @@
                 android:layout_width="110dp"
                 android:layout_height="75dp"
                 android:layout_weight="1"
+                android:id="@+id/admin_duplicate_compre"
                 android:text="@string/admin_doc_duplicate_compre" />
 
             <Button
@@ -135,14 +141,17 @@
                 android:layout_width="110dp"
                 android:layout_height="75dp"
                 android:layout_weight="1"
+                android:id="@+id/admin_fee_receipt2"
                 android:text="@string/admin_doc_fee_receipt_2" />
 
             <Button
                 style="@style/button_admin_doc"
                 android:layout_width="110dp"
                 android:layout_height="75dp"
+                android:id="@+id/admin_fee_receipt1"
                 android:layout_weight="1"
                 android:text="@string/admin_doc_fee_receipt_1" />
         </TableRow>
     </TableLayout>
+
 </LinearLayout>

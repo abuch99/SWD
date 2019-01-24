@@ -15,6 +15,11 @@ public interface APIService {
     @FormUrlEncoded
     Call<AuthenticationData> loginUser(@Field("my_id") String my_id,
                                        @Field("password") String password);
+
+    @POST("docgen.php")
+    @FormUrlEncoded
+    Call<AuthenticationData> bonafideAdmin(@Field("enterid") String enter_id,
+                                           @Field("bonafide") String bonafide);
 //
 //    @POST("register_user.php")
 //    @FormUrlEncoded

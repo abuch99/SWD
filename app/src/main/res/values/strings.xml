@@ -81,5 +81,6 @@
     <string name="admin_doc_duplicate_compre">New ID (compre)</string>
     <string name="admin_doc_fee_receipt_2">Fee Receipt(II)</string>
     <string name="admin_doc_fee_receipt_1">Fee Receipt(I)</string>
+    <string name="admin_doc_submit">Submit</string>
     <!--Admin Doc End-->
 </resources>
