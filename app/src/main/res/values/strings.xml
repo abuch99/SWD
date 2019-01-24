@@ -10,7 +10,6 @@
     <string name="forgot_pwd">Forgot Password</string>
     <string name="admin">Admin Side</string>
     <string name="login_admin">Administration Login</string>
-
     <!--User_Login screen end -->
 
     <!--User nav menu start-->
@@ -49,7 +48,7 @@
     <!--Admin  nav menu end-->
 
     <!--Admin search spinner start-->
-    <string-array name="admin_search">
+    <string-array name="admin_search_spinner">
 
         <item name="search_default">Please select</item>
         <item name="search_name">Name</item>
@@ -70,4 +69,17 @@
     <string name="admin_string">Search String: </string>
     <!--Admin search end-->
 
+    <!--Admin Doc start-->
+    <string name="admin_doc">Document Generation</string>
+    <string name="admin_doc_id">Enter ID: </string>
+    <string name="admin_doc_bonafide">Bonafide</string>
+    <string name="admin_doc_noc">NOC</string>
+    <string name="admin_doc_character">Good Character</string>
+    <string name="admin_doc_vacation">Vacation Letter</string>
+    <string name="admin_doc_fee_estimate">Fee Estimate</string>
+    <string name="admin_doc_duplicate">New ID</string>
+    <string name="admin_doc_duplicate_compre">New ID (compre)</string>
+    <string name="admin_doc_fee_receipt_2">Fee Receipt(II)</string>
+    <string name="admin_doc_fee_receipt_1">Fee Receipt(I)</string>
+    <!--Admin Doc End-->
 </resources>
