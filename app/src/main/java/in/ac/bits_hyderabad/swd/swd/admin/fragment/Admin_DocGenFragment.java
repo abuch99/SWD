@@ -23,4 +23,4 @@ public class Admin_DocGenFragment extends Fragment {
         return view;
     }
 }
-}
+

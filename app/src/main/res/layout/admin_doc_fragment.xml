@@ -55,7 +55,6 @@
 
             <Button
                 style="@style/button_admin_doc"
-
                 android:layout_width="110dp"
                 android:layout_height="75dp"
                 android:layout_weight="1"

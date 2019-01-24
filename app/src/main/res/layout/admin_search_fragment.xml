@@ -30,6 +30,7 @@
             android:layout_marginRight="@dimen/right"
             android:layout_marginTop="@dimen/top"
             style="@android:style/Widget.Holo.Light.Spinner"
+            android:id="@+id/admin_search_spinner" />
 
             />
     </LinearLayout>

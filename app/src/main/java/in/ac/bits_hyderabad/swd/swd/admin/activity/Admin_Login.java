@@ -19,11 +19,6 @@ public class Admin_Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_login);
 
-        Spinner spinner = (Spinner) findViewById(R.id.admin_login_spinner);
-        final ArrayAdapter<CharSequence> admin_spinner_adapter = ArrayAdapter.createFromResource(this,
-                R.array.admin_spinner, android.R.layout.simple_spinner_item);
-        admin_spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(admin_spinner_adapter);
 
         Button mButton;
 
@@ -37,25 +32,6 @@ public class Admin_Login extends AppCompatActivity {
             }
         });
 
-        Spinner admin_spinner = (Spinner) findViewById(R.id.admin_login_spinner);
-        admin_spinner.setPrompt(admin_spinner_adapter.getItem(0));
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-
-                String str = parentView.getItemAtPosition(position).toString();
-                Intent intent = new Intent(getApplicationContext(), User_Nav.class);
-                intent.putExtra("message", str);
-
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-            }
-
-        });
     }
 }
