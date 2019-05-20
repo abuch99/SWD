@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="in.ac.bits_hyderabad.swd.swd">
-
     <!--
     android:icon="@drawable/logo"
     android:roundIcon="@mipmap/ic_launcher_round"
@@ -12,13 +11,22 @@
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".user.activity.User_Login">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".user.activity.Splash_Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".user.activity.Profile"
+            android:label="@string/title_activity_profile"
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".user.activity.Settings" />
+        <activity android:name=".user.activity.User_Login">
+
         </activity>
         <activity
             android:name=".user.activity.User_Nav"
@@ -28,7 +36,7 @@
         <activity
             android:name=".admin.activity.Admin_Nav"
             android:label="@string/title_activity_admin__nav"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import javax.security.auth.callback.Callback;
 
 import in.ac.bits_hyderabad.swd.swd.R;
+import in.ac.bits_hyderabad.swd.swd.admin.activity.Admin_Nav;
 import in.ac.bits_hyderabad.swd.swd.databaseconnection.APIService;
 import in.ac.bits_hyderabad.swd.swd.databaseconnection.APIUtils;
 import in.ac.bits_hyderabad.swd.swd.databaseconnection.responseclasses.AuthenticationData;
@@ -53,13 +54,7 @@ public class Admin_DocGenFragment extends Fragment implements View.OnClickListen
         switch (view.getId()) {
             case R.id.admin_bonafide:
                 final String name = "bonafide";
-                docGenUsingApi = APIUtils.getAPIService();
-                docGenUsingApi.bonafideAdmin(enterid, name).enqueue(new Callback<AuthenticationData>() {
-                    @Override
-                    public void onResponse(Call<AuthenticationData> call, Response<AuthenticationData> response) {
-                        Toast.makeText(Admin_DocGenFragment.this, "Downloading", Toast.LENGTH_SHORT).show();
-                    }
-                });
+
 
 
         }

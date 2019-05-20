@@ -1,12 +1,12 @@
 <resources>
     <!-- App name -->
-    <string name="swd">Student Welfare Division</string>
+    <string name="swd">Student   Welfare   Division</string>
     <string name="app_name">SWD</string>
 
     <!--User_Login Screen start -->
     <string name="login">Login</string>
-    <string name="ID">User ID:</string>
-    <string name="pwd">Password:</string>
+    <string name="ID">User ID</string>
+    <string name="pwd">Password</string>
     <string name="forgot_pwd">Forgot Password</string>
     <string name="admin">Admin Side</string>
     <string name="login_admin">Administration Login</string>
@@ -24,6 +24,7 @@
     <string name="uploads">Uploads</string>
     <string name="logout">Logout</string>
     <string name="title_activity_nav">Nav</string>
+    <string name="title_activity_profile">My Profile</string>
     <string name="goodies">Goodies</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -82,5 +83,46 @@
     <string name="admin_doc_fee_receipt_2">Fee Receipt(II)</string>
     <string name="admin_doc_fee_receipt_1">Fee Receipt(I)</string>
     <string name="admin_doc_submit">Submit</string>
+    <string name="settings">Settings</string>
+    <string name="toolbar_title">Student Welfare Division</string>
+    <string name="connect_title">Connect</string>
+    <string name="notices_title">Notices</string>
+    <string name="complaints_title">Complaint</string>
+    <string name="mess_title">Mess</string>
+    <string name="docs_title">Documents</string>
+    <string name="uploads_title">Uploads</string>
+    <string name="goodies_title">Goodies</string>
+    <string name="goo">goo</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!--Admin Doc End-->
+
+    <!--profile activity-->
+    <string name="field_name">Name :</string>
+    <string name="field_room_no">Room No. :</string>
+    <string name="field_phone_no">Phone No. :</string>
+    <string name="field_Id_no">ID No. :</string>
+    <string name="field_DOB">DOB :</string>
+    <string name="field_gender">Gender :</string>
+    <string name="field_nationality">Nationality :</string>
+    <string name="field_per_mail">Personal Email :</string>
+    <string name="field_blood_group">Blood Group :</string>
+    <string name="field_address">Address :</string>
+    <string name="field_city">City/Town :</string>
+    <string name="field_state">State :</string>
+    <string name="field_ac_no">Account No. :</string>
+    <string name="field_bank_name">Bank Name :</string>
+    <string name="field_ifsc">IFSC Code :</string>
+    <string name="field_fname">Father\'s Name :</string>
+    <string name="field_fphone">Father\'s Phone No. :</string>
+    <string name="field_femail">Father\'s Email :</string>
+    <string name="field_foccupation">Father\'s Occupation :</string>
+    <string name="field_mname">Mother\'s Name :</string>
+    <string name="field_mphone">Mother\'s Phone No. :</string>
+    <string name="field_memail">Mother\'s Email :</string>
+    <string name="field_moccupation">Mother\'s Occupation :</string>
+    <string name="BASE_URL">http://swd.bits-hyderabad.ac.in/swd_app/index.php</string>
+
+
 </resources>
