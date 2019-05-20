@@ -36,5 +36,9 @@
         <item
             android:id="@+id/admin_nav_counselor"
             android:title="@string/admin_nav_counselor" />
+        <item
+            android:id="@+id/admin_nav_settings"
+            android:title="@string/action_settings"/>
+
     </group>
 </menu>

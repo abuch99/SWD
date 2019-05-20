@@ -2,19 +2,25 @@ package in.ac.bits_hyderabad.swd.swd.databaseconnection;
 
 
 import java.util.List;
+import java.util.Map;
 
 import in.ac.bits_hyderabad.swd.swd.databaseconnection.responseclasses.AuthenticationData;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
+import retrofit2.http.QueryMap;
 
 public interface APIService {
 
-    @POST("login_user.php")
+    @POST("index.php")
+
     @FormUrlEncoded
-    Call<AuthenticationData> loginUser(@Field("my_id") String my_id,
-                                       @Field("password") String password);
+    Call<ResponseBody> loginUser(@Field("tag") String login,
+                                 @Field("id")String id,
+                                 @Field("pwd")String pwd);
 
     @POST("docgen.php")
     @FormUrlEncoded
