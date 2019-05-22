@@ -23,32 +23,32 @@
     <style name="docs_header">
 
         <item name="android:padding">@dimen/top</item>
-        <item name="android:color">#000000</item>
+        <item name="android:color">@color/black</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/text</item>
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">@color/whiteText</item>
     </style>
 
     <style name="heading">
-        <item name="android:textColor">#000000</item>
-        <item name="android:textSize">32sp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
         <item name="android:gravity">center_horizontal</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/top</item>
-        <item name="android:layout_marginRight">8dp</item>
-        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:text">@string/swd</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">"@color/whiteText"</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="login_input_layout">
-        <item name="android:textColorHint">#c1cdc1</item>
-        <item name="passwordToggleTint">#FFFFFF</item>
+        <item name="android:textColorHint">@color/colorHint</item>
+        <item name="passwordToggleTint">@color/whiteText</item>
 
     </style>
 
     <style name="admin_input_layout">
-        <item name="android:textColorHint">#000000</item>
-        <item name="passwordToggleTint">#000000</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="passwordToggleTint">@color/black</item>
 
     </style>
 
@@ -62,7 +62,7 @@
 
     <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColorPrimary">#000</item>
+        <item name="android:textColorPrimary">@color/black</item>
     </style>
 
     <style name="background_img">
@@ -72,9 +72,23 @@
     </style>
 
     <style name="button_login">
-        <item name="android:textSize">@dimen/text</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textColor">#000000</item>
+        <item name="android:layout_gravity">left</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item  name="android:fontFamily">sans-serif</item>
+        <item name="android:background">@drawable/btn_login</item>
     </style>
+
+    <style name="button_home">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:layout_gravity">left</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item  name="android:fontFamily">sans-serif</item>
+        <item name="android:background">@drawable/btn_home</item>
+    </style>
+
 
     <style name="button_admin_doc">
         <item name="android:textSize">16sp</item>

@@ -4,58 +4,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/audi"
-        style="@style/background_img"
-        android:src="@drawable/audi"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/audi"
+            style="@style/background_img"
+            android:src="@drawable/audi"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/logo"
-                style="@style/logo"
-                android:src="@drawable/logo" />
 
-            <Button
-                android:id="@+id/btnMess"
-                android:layout_width="200dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/top"
-                android:text="Mess" />
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btnGoodies"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/top"
-                android:text="Goodies" />
+                <ImageView
+                    android:id="@+id/logo"
+                    style="@style/logo"
+                    android:layout_marginBottom="16dp"
+                    android:src="@drawable/logo" />
+
+                <Button
+                    android:id="@+id/btnMess"
+                    style="@style/button_home"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/top"
+                    android:text="Mess"
+                    android:textSize="17sp" />
+
+                <Button
+                    android:id="@+id/btnGoodies"
+                    style="@style/button_home"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/top"
+                    android:text="Goodies"
+                    android:textSize="17sp" />
 
 
-            <Button
-                android:id="@+id/btnContact"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/top"
-                android:text="Contact Us" />
+                <Button
+                    android:id="@+id/btnContact"
+                    style="@style/button_home"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/top"
+                    android:text="Contact Us"
+                    android:textSize="17sp" />
 
-        </LinearLayout>
+            </LinearLayout>
 
 
-    </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>
