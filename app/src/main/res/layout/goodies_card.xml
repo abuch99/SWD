@@ -44,7 +44,7 @@
                     android:text="ATMOS HOODIE"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:textSize="20sp"
+                    android:textSize="25sp"
                     android:layout_margin="5dp"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -55,12 +55,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
+                        android:textSize="15sp"
                         android:text="Organised by: "/>
                     <TextView
                         android:id="@+id/tvGoodieHost"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="CRUx BPHC"
+                        android:textSize="15sp"
                         android:layout_margin="5dp"/>
 
                 </LinearLayout>
@@ -73,11 +75,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
+                        android:textSize="15sp"
                         android:text="Price: "/>
                     <TextView
                         android:id="@+id/tvGoodiePrice"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="15sp"
                         android:text=" 220 "
                         android:layout_margin="5dp"/>
 
@@ -91,11 +95,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
+                        android:textSize="15sp"
                         android:text="Host Name: "/>
                     <TextView
                         android:id="@+id/tvGoodieHosterName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="15sp"
                         android:text="PRASOON BAGHEL"
                         android:layout_margin="5dp"/>
 
@@ -109,12 +115,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
+                        android:textSize="15sp"
                         android:text="Mobile: "/>
                     <TextView
                         android:id="@+id/tvGoodieHosterMobile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="9133260431"
+                        android:textSize="15sp"
                         android:layout_margin="5dp"/>
 
                 </LinearLayout>

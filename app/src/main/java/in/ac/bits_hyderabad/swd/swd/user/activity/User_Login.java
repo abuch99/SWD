@@ -98,6 +98,7 @@ public class User_Login extends AppCompatActivity {
                     success = false;
                 }
                 if (!success) {
+                    dialog.hide();
                     return;
                 }
                 RequestQueue queue = Volley.newRequestQueue(User_Login.this);

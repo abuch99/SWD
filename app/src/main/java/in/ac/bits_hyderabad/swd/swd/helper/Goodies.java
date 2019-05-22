@@ -9,6 +9,16 @@ public class Goodies {
     public String host_name;
     public String mobile;
 
+    public Goodies(String id, String name, String host, String price, String host_name, String mobile)
+    {
+        this.id=id;
+        this.name=name;
+        this.host=host;
+        this.price=price;
+        this.host_name=host_name;
+        this.mobile=mobile;
+    }
+
     public String getId() {
         return id;
     }

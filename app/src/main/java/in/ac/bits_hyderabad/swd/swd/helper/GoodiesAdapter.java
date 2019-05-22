@@ -1,7 +1,7 @@
 package in.ac.bits_hyderabad.swd.swd.helper;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,11 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.security.Permission;
 import java.util.ArrayList;
 
 import in.ac.bits_hyderabad.swd.swd.R;
-import in.ac.bits_hyderabad.swd.swd.databases.GoodiesTable;
 
 public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHolder> {
 
@@ -24,10 +22,10 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
         void onItemClicked(int index);
     }
 
-    public GoodiesAdapter(Context context,ArrayList<Goodies> goodies)
+    public GoodiesAdapter(Fragment fragment, ArrayList<Goodies> goodies)
     {
         this.goodies=goodies;
-        activity=(itemClicked)context;
+        activity=(itemClicked)fragment;
     }
 
     @NonNull
@@ -57,7 +55,7 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
 
         ImageView ivGoodie;
         TextView tvGoodieName,tvGoodieHost,tvGoodiePrice,tvGoodieHosterName,tvGoodieHosterMobile;
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             ivGoodie=itemView.findViewById(R.id.ivGoodie);
@@ -70,6 +68,7 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    activity.onItemClicked(goodies.indexOf(v.getTag()));
 
                 }
             });
