@@ -84,14 +84,14 @@
                 android:text="@string/login"/>
 
 
-            <!--<TextView-->
-            <!--android:id="@+id/login_admin"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="8dp"-->
-            <!--android:gravity="center"-->
-            <!--android:text="@string/admin"-->
-            <!--android:textColor="#FFFFFF" />-->
+            <TextView
+            android:id="@+id/login_admin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text=""
+            android:textColor="#FFFFFF" />
 
 
         </LinearLayout>

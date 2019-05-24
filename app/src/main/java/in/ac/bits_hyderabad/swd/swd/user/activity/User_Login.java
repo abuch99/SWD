@@ -46,26 +46,22 @@ public class User_Login extends AppCompatActivity {
     TextView mTextView;
     ProgressDialog dialog;
 
-
     UserTable userTable;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        userTable=new UserTable(getApplicationContext());
+        userTable = new UserTable(getApplicationContext());
         setContentView(R.layout.activity_login);
-
-
 
         checkLogin();
 
-        dialog=new ProgressDialog(this);
+        dialog = new ProgressDialog(this);
         dialog.setMessage("Logging In");
 
         dialog.setCanceledOnTouchOutside(false);
         dialog.setInverseBackgroundForced(false);
-
 
         mTextView = (TextView) findViewById(R.id.login_admin);
 
@@ -85,10 +81,10 @@ public class User_Login extends AppCompatActivity {
                 dialog.show();
                 final EditText my_id_get, password_get;
                 my_id_get = findViewById(R.id.id_fill);
-                password_get =findViewById(R.id.pwd_fill);
+                password_get = findViewById(R.id.pwd_fill);
                 final String my_id = my_id_get.getText().toString().trim();
                 final String password = password_get.getText().toString();
-                boolean success=true;
+                boolean success = true;
                 if (my_id.isEmpty()) {
                     my_id_get.setError("Cannot be empty");
                     success = false;
@@ -103,7 +99,7 @@ public class User_Login extends AppCompatActivity {
                 }
                 RequestQueue queue = Volley.newRequestQueue(User_Login.this);
 
-                StringRequest request=new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
+                StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.e("LoginResponse: ", response);
@@ -113,28 +109,23 @@ public class User_Login extends AppCompatActivity {
                         //if wrong credentials
                         //{"tag":"login","error":true,"error_msg":"Error occured in Logging In"}
 
-                        try{
-                            JSONObject object=new JSONObject(response);
-                            if(!object.getBoolean("error"))
-                            {
+                        try {
+                            JSONObject object = new JSONObject(response);
+                            if (!object.getBoolean("error")) {
                                 userTable.deleteAll();
-                                object.put("password",password);
+                                object.put("password", password);
                                 userTable.createEntry(object);
                                 checkLogin();
-                            }
-                            else {
+                            } else {
                                 Toast.makeText(User_Login.this, "Wrong ID or Password", Toast.LENGTH_SHORT).show();
                                 dialog.hide();
                             }
 
-                        }catch(JSONException e)
-                        {
+                        } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(User_Login.this,"Wrong Id or Password!!",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(User_Login.this, "Wrong Id or Password!!", Toast.LENGTH_SHORT).show();
                             dialog.hide();
                         }
-
-
 
 
                     }
@@ -145,14 +136,14 @@ public class User_Login extends AppCompatActivity {
                         Toast.makeText(User_Login.this, "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
                         dialog.hide();
                     }
-                }){
+                }) {
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
 
                         Map<String, String> params = new HashMap<>();
-                        params.put("tag","login");
-                        params.put("id",my_id);
-                        params.put("pwd",password);
+                        params.put("tag", "login");
+                        params.put("id", my_id);
+                        params.put("pwd", password);
 
                         return params;
 
@@ -161,7 +152,6 @@ public class User_Login extends AppCompatActivity {
 
 
                 queue.add(request);
-
 
 
             }
@@ -190,7 +180,6 @@ public class User_Login extends AppCompatActivity {
 //                startActivity(intent);
 
 
-
     }
 
     @Override
@@ -202,14 +191,12 @@ public class User_Login extends AppCompatActivity {
 
 
     public void checkLogin() {
-        if(userTable.hasData())
-        {
-            Intent intent=new Intent(User_Login.this,User_Nav.class);
-            if(getIntent().getStringExtra("default")!=null)
-            {
-                intent.putExtra("default",getIntent().getStringArrayExtra("default"));
-                if(getIntent().getLongExtra("uploadedTime",-1)!=-1){
-                    intent.putExtra("uploadedTime",getIntent().getLongExtra("uploadedTime",-1));
+        if (userTable.hasData()) {
+            Intent intent = new Intent(User_Login.this, User_Nav.class);
+            if (getIntent().getStringExtra("default") != null) {
+                intent.putExtra("default", getIntent().getStringArrayExtra("default"));
+                if (getIntent().getLongExtra("uploadedTime", -1) != -1) {
+                    intent.putExtra("uploadedTime", getIntent().getLongExtra("uploadedTime", -1));
                 }
             }
             startActivity(intent);
