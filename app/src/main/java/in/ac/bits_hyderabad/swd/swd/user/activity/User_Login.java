@@ -63,16 +63,6 @@ public class User_Login extends AppCompatActivity {
         dialog.setCanceledOnTouchOutside(false);
         dialog.setInverseBackgroundForced(false);
 
-        mTextView = (TextView) findViewById(R.id.login_admin);
-
-        mTextView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(User_Login.this, Admin_Login.class);
-                startActivity(intent);
-            }
-        });
 
         mbutton = (Button) findViewById(R.id.submit);
         mbutton.setOnClickListener(new View.OnClickListener() {
