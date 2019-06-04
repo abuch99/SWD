@@ -4,7 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="actionBarStyle">@style/custom_style</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/colorPrimaryLight</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:homeAsUpIndicator">@drawable/back_btn</item>
@@ -35,7 +35,7 @@
         <item name="android:gravity">center_horizontal</item>
         <item name="android:text">@string/swd</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">"@color/whiteText"</item>
+        <item name="android:textColor">@color/whiteText</item>
         <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
     </style>

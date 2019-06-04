@@ -37,7 +37,7 @@
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
         android:src="@drawable/ic_update_details"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="@color/colorPrimaryLight"
         android:elevation="5dp"
         />
 

@@ -68,13 +68,7 @@
             android:layout_marginLeft="@dimen/left"
             android:layout_marginRight="@dimen/right">
 
-            <TextView
-                android:id="@+id/login_forgot_pwd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity= "right"
-                android:text="@string/forgot_pwd"
-                android:textColor="@color/whiteText" />
+
 
             <Button
                 android:id="@+id/submit"
@@ -83,8 +77,17 @@
                 android:layout_height="36dp"
                 android:text="@string/login"/>
 
-
             <TextView
+                android:id="@+id/login_forgot_pwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity= "right"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="5dp"
+                android:text="@string/forgot_pwd"
+                android:textColor="@color/whiteText" />
+
+            <!--<TextView
             android:id="@+id/login_admin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -92,7 +95,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="#FFFFFF" />
-
+            -->
 
         </LinearLayout>
 
