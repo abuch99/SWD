@@ -64,10 +64,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:layout_marginLeft="@dimen/left"
-            android:layout_marginRight="@dimen/right">
-
+            android:layout_marginRight="@dimen/right"
+            android:orientation="vertical">
 
 
             <Button
@@ -75,13 +74,13 @@
                 style="@style/button_login"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
-                android:text="@string/login"/>
+                android:text="@string/login" />
 
             <TextView
                 android:id="@+id/login_forgot_pwd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity= "right"
+                android:layout_gravity="right"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="5dp"
                 android:text="@string/forgot_pwd"
