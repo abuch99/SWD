@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".user.activity.ForgotPassword"></activity>
         <activity android:name=".user.activity.Splash_Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,11 +24,9 @@
         <activity
             android:name=".user.activity.Profile"
             android:label="@string/title_activity_profile"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity android:name=".user.activity.Settings" />
-        <activity android:name=".user.activity.User_Login">
-
-        </activity>
+        <activity android:name=".user.activity.User_Login"></activity>
         <activity
             android:name=".user.activity.User_Nav"
             android:label="@string/title_activity_nav"

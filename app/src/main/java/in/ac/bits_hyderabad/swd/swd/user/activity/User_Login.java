@@ -41,6 +41,8 @@ import retrofit2.Callback;
 public class User_Login extends AppCompatActivity {
 
     Button mbutton;
+    TextView tvloginFgtPass;
+
     private APIService loginUsingApi;
 
     TextView mTextView;
@@ -65,6 +67,7 @@ public class User_Login extends AppCompatActivity {
 
 
         mbutton = (Button) findViewById(R.id.submit);
+        tvloginFgtPass=findViewById(R.id.login_forgot_pwd);
         mbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -168,7 +171,13 @@ public class User_Login extends AppCompatActivity {
                     Toast.makeText(User_Login.this, "WRONG", Toast.LENGTH_LONG).show();
                 }*/
 //                startActivity(intent);
-
+            tvloginFgtPass.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent= new Intent(User_Login.this, ForgotPassword.class);
+                    startActivity(intent);
+                }
+            });
 
     }
 
