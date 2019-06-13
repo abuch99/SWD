@@ -12,6 +12,13 @@
     <string name="login_admin">Administration Login</string>
     <!--User_Login screen end -->
 
+    <!--Forgot Password-->
+    <string name="BitsMail">\@hyderabad.bits-pilani.ac.in</string>
+    <string name="TextForgotPassword">Fill your BITS mail ID and check the same for reset link.</string>
+    <string name="passwordRecovery">PASSWORD RECOVERY</string>
+    <string name="submitForgot_pass">SUBMIT</string>
+    <string name="RESET_URL">http://swd.bits-hyderabad.ac.in/passmail.php</string>
+
     <!--User nav menu start-->
     <string name="home">Home</string>
     <string name="connect">Connect</string>
