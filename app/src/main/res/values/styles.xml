@@ -77,6 +77,7 @@
         <item name="android:layout_gravity">left</item>
         <item name="android:layout_marginTop">16dp</item>
         <item  name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:background">@drawable/btn_login</item>
     </style>
 
