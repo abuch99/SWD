@@ -9,6 +9,7 @@
     <ImageView
         android:id="@+id/acad"
         style="@style/background_img"
+        android:tint="#4F000000"
         android:src="@drawable/acad" />
 
     <ImageView
