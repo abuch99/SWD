@@ -9,11 +9,39 @@ public class Goodies {
     public String host_name;
     public String mobile;
 
-    public Goodies(String id, String name, String host, String price, String host_name, String mobile)
+    /*{"g_id":"1000",
+    "name":"Duplicate ID Card",
+    "hosted_by":"Student Welfare Division",
+    "img":"bits_logo.png",
+    "link":"",
+    "active":"1",
+    "xs":"0",
+    "s":"0",
+    "m":"0",
+    "l":"0",
+    "xl":"0",
+    "xxl":"0",
+    "xxxl":"0",
+    "qut":"0",
+    "min_amount":"0",
+    "max_amount":"0",
+    "max_quantity":"0",
+    "price":"75",
+    "closing_datetime":"2019-05-14 00:00:00",
+    "delivery_date":"0000-00-00",
+    "custom":"0",
+    "acceptance":"0",
+    "hoster_name":"Student Welfare Division",
+    "hoster_mob_num":"",
+    "view_uid":"prasanth",
+    "uploaded_on":"2019-04-14 15:08:37"}
+     */
+    public Goodies(String id, String name, String host,String image, String price, String host_name, String mobile)
     {
         this.id=id;
         this.name=name;
         this.host=host;
+        this.image=image;
         this.price=price;
         this.host_name=host_name;
         this.mobile=mobile;

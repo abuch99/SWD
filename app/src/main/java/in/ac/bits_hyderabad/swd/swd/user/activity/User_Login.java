@@ -2,6 +2,7 @@ package in.ac.bits_hyderabad.swd.swd.user.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,6 +41,8 @@ import retrofit2.Callback;
 
 public class User_Login extends AppCompatActivity {
 
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
     Button mbutton;
     TextView tvloginFgtPass;
 
@@ -55,8 +58,9 @@ public class User_Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         userTable = new UserTable(getApplicationContext());
+        preferences=getApplicationContext().getSharedPreferences("USER_LOGIN_DETAILS",MODE_PRIVATE);
+        editor=preferences.edit();
         setContentView(R.layout.activity_login);
-
         checkLogin();
 
         dialog = new ProgressDialog(this);
@@ -105,6 +109,9 @@ public class User_Login extends AppCompatActivity {
                         try {
                             JSONObject object = new JSONObject(response);
                             if (!object.getBoolean("error")) {
+                                editor.putString("username",my_id);
+                                editor.putString("password" ,password);
+                                editor.commit();
                                 userTable.deleteAll();
                                 object.put("password", password);
                                 userTable.createEntry(object);

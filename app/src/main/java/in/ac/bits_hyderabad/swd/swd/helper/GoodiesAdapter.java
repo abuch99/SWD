@@ -1,15 +1,22 @@
 package in.ac.bits_hyderabad.swd.swd.helper;
 
+import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import in.ac.bits_hyderabad.swd.swd.R;
 
@@ -38,6 +45,17 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull GoodiesAdapter.ViewHolder viewHolder, int i) {
+
+        Context context =viewHolder.ivGoodie.getContext();
+
+        String ImageUrl= "http://swd.bits-hyderabad.ac.in/goodies/img/"+goodies.get(i).getImage();
+        Log.e("Image url",ImageUrl);
+
+        Picasso.get().load(ImageUrl)
+                .resize(125,125)
+                .placeholder(R.drawable.ic_loading)
+                .centerInside().error(R.drawable.ic_error)
+                .into(viewHolder.ivGoodie);
         viewHolder.itemView.setTag(goodies.get(i));
         viewHolder.tvGoodieName.setText(goodies.get(i).getName());
         viewHolder.tvGoodieHost.setText(goodies.get(i).getHost());
@@ -57,6 +75,7 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
         TextView tvGoodieName,tvGoodieHost,tvGoodiePrice,tvGoodieHosterName,tvGoodieHosterMobile;
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
+
 
             ivGoodie=itemView.findViewById(R.id.ivGoodie);
             tvGoodieName=itemView.findViewById(R.id.tvGoodieName);
