@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -32,7 +34,7 @@ import java.util.Map;
 import in.ac.bits_hyderabad.swd.swd.R;
 import in.ac.bits_hyderabad.swd.swd.databases.UserTable;
 
-public class Profile extends AppCompatActivity  {
+public class Profile extends AppCompatActivity {
 
 
     UserTable mUserTable;
@@ -110,15 +112,13 @@ public class Profile extends AppCompatActivity  {
                 {
                     try{
                             JSONObject object=mUserTable.getJsonObject();
-                            Log.e("fabupdateonclick_beforesave",object.toString());
+                            Log.e("fabupdate_beforesave",object.toString());
                             object=saveDatatoJson(object);
-                            Log.e("fabupdateonclick_aftersave",object.toString());
+                            Log.e("fabupdate_aftersave",object.toString());
                             disable_EditText();
                             updatetoServer(object);
-                            mUserTable.createEntry(object);
-                            Log.e("chk",mUserTable.getJsonObject().toString());
-                            fabUpdate.setImageResource(R.drawable.ic_update_details);
-                            updating=false;
+
+
                     }
                     catch (JSONException e)
                     {
@@ -128,6 +128,83 @@ public class Profile extends AppCompatActivity  {
             }
         });
 
+    }
+    public void updatetoServer(final JSONObject object)throws JSONException {
+        dialog.show();
+        StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("Updateresponse",response);
+                dialog.hide();
+                dialog.dismiss();
+                try{
+                    JSONObject obj = new JSONObject(response);
+                    if (!obj.getBoolean("error")) {
+                        Toast.makeText(Profile.this, "Updated successfully", Toast.LENGTH_SHORT).show();
+                        mUserTable.deleteAll();
+                        //mUserTable.createEntry(object);
+                        successfull=true;
+                        Log.e("chk",mUserTable.getJsonObject().toString());
+                        fabUpdate.setImageResource(R.drawable.ic_update_details);
+                        updating=false;
+                        //Log.e("obj in table before change",mUserTable.getJsonObject().toString());
+                        //Log.e("object to be created",object.toString());
+                        mUserTable.createEntry(object);
+                        Log.e("obj after change",mUserTable.getJsonObject().toString());
+                    }
+                    else{
+                        Toast.makeText(Profile.this, "Unknown error occurred!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+
+            }
+        },new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                dialog.hide();
+                Toast.makeText(Profile.this,"Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                try {
+                    Map<String, String> params = JSONtoMap(object);
+                    params.put("tag", "update_details");
+//                    Log.e("save sent",params.toString());
+                    return params;
+                } catch (JSONException e) {
+//                    Log.e("Error",e.toString());
+                }
+                return null;
+            }
+        };
+        queue.add(request);
+
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.profile_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case (R.id.btnRefreshProfile):
+            {
+
+            }
+        }
+        return true;
     }
 
     @Override
@@ -276,59 +353,5 @@ public class Profile extends AppCompatActivity  {
 
         return object;
     }
-    public void updatetoServer(final JSONObject object)throws JSONException {
-        dialog.show();
-        StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.e("Updateresponse",response);
-                dialog.hide();
-                dialog.dismiss();
-                try{
-                    JSONObject obj = new JSONObject(response);
-                    if (!obj.getBoolean("error")) {
-                        Toast.makeText(Profile.this, "Updated successfully", Toast.LENGTH_SHORT).show();
-                        mUserTable.deleteAll();
-                        successfull=true;
-                        Log.e("obj in table before change",mUserTable.getJsonObject().toString());
-                        Log.e("object to be created",object.toString());
-                        Log.e("obj in table after change",mUserTable.getJsonObject().toString());
-                    }
-                    else{
-                        Toast.makeText(Profile.this, "Unknown error occurred!", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                catch (JSONException e)
-                {
-                    e.printStackTrace();
-                }
-
-            }
-        },new Response.ErrorListener(){
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-                dialog.hide();
-                Toast.makeText(Profile.this,"Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
-
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                try {
-                    Map<String, String> params = JSONtoMap(object);
-                    params.put("tag", "update_details");
-//                    Log.e("save sent",params.toString());
-                    return params;
-                } catch (JSONException e) {
-//                    Log.e("Error",e.toString());
-                }
-                return null;
-            }
-        };
-            queue.add(request);
-
-        }
-
 
 }
