@@ -12,4 +12,8 @@
     <color name="semiTransparentColor80">#80ffffff</color>
     <color name="semiTransparentColor50">#50ffffff</color>
     <color name="semiTransparentColor20">#20ffffff</color>
+
+    <color name="semiTransparentColor80black">#80000000</color>
+    <color name="semiTransparentColor50black">#50000000</color>
+    <color name="semiTransparentColor20black">#20000000</color>
 </resources>

@@ -130,6 +130,22 @@
     <string name="field_memail">Mother\'s Email :</string>
     <string name="field_moccupation">Mother\'s Occupation :</string>
     <string name="BASE_URL">http://swd.bits-hyderabad.ac.in/swd_app/index.php</string>
+    <string name="quantityofGoodies">Quantity</string>
+
+    <!--Order goodies-->
+    <string name="xs">XS</string>
+    <string name="s">S</string>
+    <string name="m">M</string>
+    <string name="goodieImageUrl">swd.bits-hyderabad.ac.in/goodies/img/</string>
+    <string name="l">L</string>
+    <string name="xl">XL</string>
+    <string name="xxl">XXL</string>
+    <string name="xxxl">XXXL</string>
+    <string name="qty">Quantity</string>
+    <string name="null_hint"></string>
+    <string name="custom_name">Custom Name</string>
+    <string name="custom_name_hint">This will be printed on the item</string>
+    <string name="cbAgree_text">I agree to pay the above mentioned amount from my Other Advances Account</string>
 
 
 </resources>

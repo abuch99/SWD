@@ -105,4 +105,36 @@
 
     </style>
 
+    <style name="text_view_goodies">
+        <item name="android:gravity">end</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="edit_text_goodies">
+        <item name="android:hint">@string/quantityofGoodies</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:inputType">number</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:background">@drawable/edit_text</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+    <style name="edit_text_custom_name">
+        <item name="android:hint">@string/custom_name_hint</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:background">@drawable/edit_text</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
 </resources>
