@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".admin.activity.Admin_Login">
+
+
+    <ImageView
+        android:id="@+id/admin_login"
+        style="@style/logo"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/admin_login"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:text="@string/login_admin"
+        android:textAllCaps="true"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/admin_login"
+        android:layout_marginTop="48dp"
+        android:orientation="vertical">
+
+
+        <android.support.design.widget.TextInputLayout
+            style="@style/admin_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/pwd_fill"
+                style="@style/login_names"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/pwd"
+                android:inputType="textPassword"
+                android:textColor="#000000" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/admin_login_submit"
+            style="@style/button_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/right"
+            android:layout_marginRight="@dimen/right"
+            android:layout_marginTop="16dp"
+            android:text="@string/login" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

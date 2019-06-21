@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            tools:context=".user.activity.Profile">
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/card_background"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_personal_detail"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="PERSONAL DETAILS"
+
+                        android:textColor="@color/black"
+                        android:textSize="20sp"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textSize="16sp"
+                android:paddingTop="5dp"
+
+                android:textColor="@color/black"
+                android:text="@string/field_name"/>
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/colorPrimaryLight"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:paddingTop="5dp"
+                android:text="@string/field_room_no"/>
+            <EditText
+                android:id="@+id/etRoom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/colorPrimaryLight"
+                android:gravity="center_vertical"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:paddingTop="5dp"
+                android:text="@string/field_phone_no"/>
+            <EditText
+                android:id="@+id/etPhn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryLight"
+                android:background="@drawable/edit_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:paddingTop="5dp"
+                android:text="@string/field_Id_no"/>
+            <EditText
+                android:id="@+id/etId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryLight"
+                android:background="@drawable/edit_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textSize="16sp"
+                android:paddingTop="5dp"
+                android:textColor="@color/black"
+                android:text="@string/field_DOB"/>
+            <EditText
+                android:id="@+id/etDOB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/colorPrimaryLight"
+                android:gravity="center_vertical"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textSize="16sp"
+                android:paddingTop="5dp"
+
+                android:textColor="@color/black"
+                android:text="@string/field_gender"/>
+            <EditText
+                android:id="@+id/etGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/colorPrimaryLight"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textSize="16sp"
+                android:paddingTop="5dp"
+                android:text="@string/field_nationality"/>
+            <EditText
+                android:id="@+id/etNat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:paddingTop="5dp"
+                android:text="@string/field_per_mail"/>
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:paddingTop="5dp"
+                android:text="@string/field_blood_group"/>
+            <EditText
+                android:id="@+id/etBlood"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryLight"
+                android:background="@drawable/edit_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textSize="16sp"
+                android:paddingTop="5dp"
+                android:textColor="@color/black"
+                android:text="@string/field_address"/>
+            <EditText
+                android:id="@+id/etAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/colorPrimaryLight"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:paddingTop="5dp"
+                android:text="@string/field_city"/>
+            <EditText
+                android:id="@+id/etCity"
+                android:layout_width="match_parent"
+                android:textColor="@color/colorPrimaryLight"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:paddingTop="5dp"
+                android:text="@string/field_state"/>
+            <EditText
+                android:id="@+id/etState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/colorPrimaryLight"
+                android:padding="5dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:textSize="18sp" />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/card_background"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_parent_details"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="PARENTS DETAILS"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textSize="16sp"
+                android:paddingTop="5dp"
+                android:textColor="@color/black"
+                android:text="@string/field_fname"/>
+            <EditText
+                android:id="@+id/etFname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/colorPrimaryLight"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:paddingTop="5dp"
+                android:text="@string/field_femail"/>
+            <EditText
+                android:id="@+id/etFemail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/colorPrimaryLight"
+                android:gravity="center_vertical"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:paddingTop="5dp"
+                android:text="@string/field_fphone"/>
+            <EditText
+                android:id="@+id/etFphn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textSize="16sp"
+                android:paddingTop="5dp"
+                android:textColor="@color/black"
+                android:text="@string/field_foccupation"/>
+            <EditText
+                android:id="@+id/etFocc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/colorPrimaryLight"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:paddingTop="5dp"
+                android:text="@string/field_mname"/>
+            <EditText
+                android:id="@+id/etMname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryLight"
+                android:background="@drawable/edit_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:paddingTop="5dp"
+                android:text="@string/field_memail"/>
+            <EditText
+                android:id="@+id/etMemail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:paddingTop="5dp"
+                android:text="@string/field_mphone"/>
+            <EditText
+                android:id="@+id/etMphn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/colorPrimaryLight"
+                android:padding="5dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textSize="16sp"
+                android:paddingTop="5dp"
+                android:textColor="@color/black"
+                android:text="@string/field_moccupation"/>
+            <EditText
+                android:id="@+id/etMocc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/colorPrimaryLight"
+                android:padding="5dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:textSize="18sp" />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/card_background"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_bank_details"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="BANK ACCOUNT DETAILS"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textSize="16sp"
+                android:paddingTop="5dp"
+                android:textColor="@color/black"
+                android:text="@string/field_bank_name"/>
+            <EditText
+                android:id="@+id/etBank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/colorPrimaryLight"
+                android:padding="5dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:textSize="18sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:paddingTop="5dp"
+                android:text="@string/field_ac_no"/>
+            <EditText
+                android:id="@+id/etAccNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/colorPrimaryLight"
+                android:padding="5dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:paddingTop="5dp"
+                android:text="@string/field_ifsc"/>
+            <EditText
+                android:id="@+id/etIfsc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/colorPrimaryLight"
+                android:layout_marginBottom="15dp"
+                android:padding="5dp"
+                android:background="@drawable/edit_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:textSize="18sp" />
+
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

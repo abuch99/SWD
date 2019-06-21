@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <ScrollView
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/audi">
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+        <!--<ImageView
+            android:id="@+id/audi"
+            style="@style/background_img"
+            android:src="@drawable/audi"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        -->
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/audi"
-                style="@style/background_img"
-                android:src="@drawable/audi" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -24,36 +34,43 @@
                 <ImageView
                     android:id="@+id/logo"
                     style="@style/logo"
+                    android:layout_marginBottom="16dp"
                     android:src="@drawable/logo" />
 
-
                 <Button
-                    android:id="@+id/mess"
+                    android:id="@+id/btnMess"
+                    style="@style/button_home"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/top"
-                    android:text="Mess" />
+                    android:text="Mess"
+                    android:textSize="17sp" />
 
                 <Button
-                    android:id="@+id/goodies"
+                    android:id="@+id/btnGoodies"
+                    style="@style/button_home"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/top"
-                    android:text="Goodies" />
+                    android:text="Goodies"
+                    android:textSize="17sp" />
 
 
                 <Button
-                    android:id="@+id/contact"
+                    android:id="@+id/btnContact"
+                    style="@style/button_home"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/top"
-                    android:text="Contact Us" />
+                    android:text="Contact Us"
+                    android:textSize="17sp" />
+
             </LinearLayout>
 
 
         </RelativeLayout>
-    </ScrollView>
-</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

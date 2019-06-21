@@ -1,9 +1,25 @@
 <resources>
-    <string name="swd">Student Welfare Division</string>
+    <!-- App name -->
+    <string name="swd">Student   Welfare   Division</string>
     <string name="app_name">SWD</string>
+
+    <!--User_Login Screen start -->
     <string name="login">Login</string>
-    <string name="ID">User ID:</string>
-    <string name="pwd">Password:</string>
+    <string name="ID">User ID</string>
+    <string name="pwd">Password</string>
+    <string name="forgot_pwd">Forgot Password</string>
+    <string name="admin">Admin Side</string>
+    <string name="login_admin">Administration Login</string>
+    <!--User_Login screen end -->
+
+    <!--Forgot Password-->
+    <string name="BitsMail">\@hyderabad.bits-pilani.ac.in</string>
+    <string name="TextForgotPassword">Fill your BITS mail ID and check the same for reset link.</string>
+    <string name="passwordRecovery">PASSWORD RECOVERY</string>
+    <string name="submitForgot_pass">SUBMIT</string>
+    <string name="RESET_URL">http://swd.bits-hyderabad.ac.in/passmail.php</string>
+
+    <!--User nav menu start-->
     <string name="home">Home</string>
     <string name="connect">Connect</string>
     <string name="notices">Notices</string>
@@ -15,11 +31,105 @@
     <string name="uploads">Uploads</string>
     <string name="logout">Logout</string>
     <string name="title_activity_nav">Nav</string>
+    <string name="title_activity_profile">My Profile</string>
     <string name="goodies">Goodies</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">SWD Office</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <!--User nav menu end-->
+
+    <!--Admin nav menu start-->
+    <string name="title_activity_admin__nav">Admin_Nav</string>
+    <string name="admin_nav_search">Search</string>
+    <string name="admin_nav_doc">Document Generation</string>
+    <string name="admin_nav_mess">Mess Balance</string>
+    <string name="admin_nav_goodies">Goodies</string>
+    <string name="admin_nav_gate">Main Gate</string>
+    <string name="admin_nav_alumni">Alumni</string>
+    <string name="admin_nav_mcn">MCN</string>
+    <string name="admin_nav_details">Details</string>
+    <string name="admin_nav_disco">Disciplinary Committee</string>
+    <string name="admin_nav_migration">Migration</string>
+    <string name="admin_nav_counselor">Counselor</string>
+    <!--Admin  nav menu end-->
+
+    <!--Admin search spinner start-->
+    <string-array name="admin_search_spinner">
+
+        <item name="search_default">Please select</item>
+        <item name="search_name">Name</item>
+        <item name="search_id">ID Number</item>
+        <item name="search_room">Room Number</item>
+        <item name="search_gender">Gender(M/F)</item>
+        <item name="search_date">Date(YYYY-MM-DD)</item>
+        <item name="search_city">City</item>
+        <item name="search_state">State</item>
+        <item name="search_blood">Blood Group</item>
+        <item name="search_nation">Nationality</item>
+
+    </string-array>
+    <!--Admin search spinner end-->
+
+    <!--Admin search start-->
+    <string name="admin_criteria">Criteria: </string>
+    <string name="admin_string">Search String: </string>
+    <!--Admin search end-->
+
+    <!--Admin Doc start-->
+    <string name="admin_doc">Document Generation</string>
+    <string name="admin_doc_id">Enter ID: </string>
+    <string name="admin_doc_bonafide">Bonafide</string>
+    <string name="admin_doc_noc">NOC</string>
+    <string name="admin_doc_character">Good Character</string>
+    <string name="admin_doc_vacation">Vacation Letter</string>
+    <string name="admin_doc_fee_estimate">Fee Estimate</string>
+    <string name="admin_doc_duplicate">New ID</string>
+    <string name="admin_doc_duplicate_compre">New ID (compre)</string>
+    <string name="admin_doc_fee_receipt_2">Fee Receipt(II)</string>
+    <string name="admin_doc_fee_receipt_1">Fee Receipt(I)</string>
+    <string name="admin_doc_submit">Submit</string>
+    <string name="settings">Settings</string>
+    <string name="toolbar_title">Student Welfare Division</string>
+    <string name="connect_title">Connect</string>
+    <string name="notices_title">Notices</string>
+    <string name="complaints_title">Complaint</string>
+    <string name="mess_title">Mess</string>
+    <string name="docs_title">Documents</string>
+    <string name="uploads_title">Uploads</string>
+    <string name="goodies_title">Goodies</string>
+    <string name="goo">goo</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--Admin Doc End-->
+
+    <!--profile activity-->
+    <string name="field_name">Name :</string>
+    <string name="field_room_no">Room No. :</string>
+    <string name="field_phone_no">Phone No. :</string>
+    <string name="field_Id_no">ID No. :</string>
+    <string name="field_DOB">DOB :</string>
+    <string name="field_gender">Gender :</string>
+    <string name="field_nationality">Nationality :</string>
+    <string name="field_per_mail">Personal Email :</string>
+    <string name="field_blood_group">Blood Group :</string>
+    <string name="field_address">Address :</string>
+    <string name="field_city">City/Town :</string>
+    <string name="field_state">State :</string>
+    <string name="field_ac_no">Account No. :</string>
+    <string name="field_bank_name">Bank Name :</string>
+    <string name="field_ifsc">IFSC Code :</string>
+    <string name="field_fname">Father\'s Name :</string>
+    <string name="field_fphone">Father\'s Phone No. :</string>
+    <string name="field_femail">Father\'s Email :</string>
+    <string name="field_foccupation">Father\'s Occupation :</string>
+    <string name="field_mname">Mother\'s Name :</string>
+    <string name="field_mphone">Mother\'s Phone No. :</string>
+    <string name="field_memail">Mother\'s Email :</string>
+    <string name="field_moccupation">Mother\'s Occupation :</string>
+    <string name="BASE_URL">http://swd.bits-hyderabad.ac.in/swd_app/index.php</string>
+
+
 </resources>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/admin_nav_search"
+            android:title="@string/admin_nav_search" />
+        <item
+            android:id="@+id/admin_nav_doc"
+            android:title="@string/admin_nav_doc" />
+        <item
+            android:id="@+id/admin_nav_mess"
+            android:title="@string/admin_nav_mess" />
+
+        <item
+            android:id="@+id/admin_nav_goodies"
+            android:title="@string/admin_nav_goodies" />
+
+        <item
+            android:id="@+id/admin_nav_gate"
+            android:title="@string/admin_nav_gate" />
+
+        <item
+            android:id="@+id/admin_nav_alumni"
+            android:title="@string/admin_nav_alumni" />
+        <item
+            android:id="@+id/admin_nav_mcn"
+            android:title="@string/admin_nav_mcn" />
+        <item
+            android:id="@+id/admin_nav_details"
+            android:title="@string/admin_nav_details" />
+        <item
+            android:id="@+id/admin_nav_disco"
+            android:title="@string/admin_nav_disco" />
+        <item
+            android:id="@+id/admin_nav_counselor"
+            android:title="@string/admin_nav_counselor" />
+        <item
+            android:id="@+id/admin_nav_settings"
+            android:title="@string/action_settings"/>
+
+    </group>
+</menu>
