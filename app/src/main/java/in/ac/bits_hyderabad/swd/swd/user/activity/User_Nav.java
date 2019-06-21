@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.graphics.Point;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -23,10 +24,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.net.URL;
 
 import in.ac.bits_hyderabad.swd.swd.databases.UserTable;
 import in.ac.bits_hyderabad.swd.swd.user.fragment.*;
@@ -36,17 +42,19 @@ import in.ac.bits_hyderabad.swd.swd.R;
 
 public class User_Nav extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener  {
-    NavigationView navigationView;
-    Fragment fragment;
+    public NavigationView navigationView;
+    public Fragment fragment;
     FragmentManager manager;
 
     UserTable mUserTable;
     ActionBar actionBar;
     DrawerLayout drawer;
 
+    ImageView header_img;
     TextView tvNav_header_Id_No,tvNav_header_name;
 
     Button btnMess;
+    String urlImageIcard;
 
 
 
@@ -59,6 +67,9 @@ public class User_Nav extends AppCompatActivity
         toolbar.setTitle(R.string.toolbar_title);
         setSupportActionBar(toolbar);
         //space for floating button if needed
+
+
+
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -74,11 +85,37 @@ public class User_Nav extends AppCompatActivity
 
         tvNav_header_Id_No=navigationView.getHeaderView(0).findViewById(R.id.tvIdNavHeader);
         tvNav_header_name=navigationView.getHeaderView(0).findViewById(R.id.tvNameNavHeader);
-
+        header_img=navigationView.getHeaderView(0).findViewById(R.id.header_img);
         mUserTable=new UserTable(getApplicationContext());
 
         tvNav_header_name.setText(mUserTable.getName());
         tvNav_header_Id_No.setText(mUserTable.getID());
+
+        Log.e("error",mUserTable.getUID().substring(5)+"    "+mUserTable.getUID().substring(1,5)+"    "+mUserTable.getUID()+"    "+header_img.toString());
+        /*String four_digits=mUserTable.getUID().substring(5);//0459
+        String year=mUserTable.getUID().substring(1,5);//2018
+        String degree=null;//f
+        switch (mUserTable.getUID().charAt(0)){
+            case 'f':
+               degree="fd";
+               break;
+            case 'h':
+                degree="hd";
+                break;
+            case 'p':
+                degree="phd";
+                break;
+        }
+        urlImageIcard="http://swd.bits-hyderabad.ac.in/components/navbar/id/2018/fd/0459H.jpg";//"http://swd.bits-hyderabad.ac.in/components/navbar/id/"+year+"/"+degree+"/"+four_digits+"H.jpg";
+        Picasso.get().load(urlImageIcard)
+                .resize(125,125)
+                .centerInside()
+                .onlyScaleDown()
+                .placeholder(R.drawable.ic_loading)
+                .error(R.drawable.ic_error)
+                .into(header_img);
+
+*/
         JSONObject o=new JSONObject();
 
         Log.e("name and id and pwd" ,mUserTable.getName()+mUserTable.getID());

@@ -27,14 +27,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:padding="5dp"
         android:layout_marginTop="25dp">
 
-        <ImageView
-            android:id="@+id/ivimageOrder"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_marginLeft="15dp"/>
+        <android.support.v7.widget.CardView
+            android:layout_width="135dp"
+            android:layout_height="135dp"
+            android:layout_margin="5dp">
 
+
+            <ImageView
+                android:id="@+id/ivimageOrder"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:layout_gravity="center"
+                tools:srcCompat="@tools:sample/avatars[0]" />
+
+        </android.support.v7.widget.CardView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,6 +63,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -77,6 +87,7 @@
 
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/llprice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -102,13 +113,32 @@
                     android:text="225"/>
 
             </LinearLayout>
-            <TextView
-                android:id="@+id/tvSizeChart"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/llSize"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Size Chart"
-                style="@style/text_view_goodies"
-                android:layout_marginLeft="30dp"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Size Chart"
+                    style="@style/text_view_goodies"
+                    android:layout_marginLeft="30dp"/>
+
+                <TextView
+                    android:id="@+id/tvSizeChart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/tvGoodieOrderPrice"
+                    android:layout_marginLeft="10dp"
+                    android:padding="5dp"
+                    android:textSize="15sp"
+                    android:textStyle="italic"
+                    android:textColor="@color/blueText"
+                    android:text="click here"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -252,6 +282,58 @@
                 style="@style/edit_text_goodies"
                 android:layout_toRightOf="@id/tvxxxl"/>
         </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlminamt_fraiser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvminamt_fraiser"
+                android:layout_width="150dp"
+                android:padding="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_marginLeft="15dp"
+                android:text="@string/minamt_fraiser"/>
+
+            <TextView
+                android:id="@+id/tvminamt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_toEndOf="@id/tvminamt_fraiser"
+                android:padding="0dp"
+                android:text="500"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlmaxamt_fraiser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+            <TextView
+                android:id="@+id/tvmaxamt_fraiser"
+                android:layout_width="150dp"
+                android:padding="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="@string/maxamt_fraiser"
+                android:gravity="right"/>
+
+            <TextView
+                android:id="@+id/tvmaxamt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="24dp"
+                android:layout_marginBottom="0dp"
+                android:layout_toEndOf="@id/tvmaxamt_fraiser"
+                android:padding="0dp"
+                android:text="500"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/rlqty"
             android:layout_width="wrap_content"

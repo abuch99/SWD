@@ -86,7 +86,10 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
                 myDialog.getWindow().setBackgroundDrawableResource(R.color.semiTransparentColor80black);
                 image=myDialog.findViewById(R.id.ivFullGoodieImage);
 
+
                 Picasso.get().load(ImageUrl)
+                        .resize(1500,1500)
+                        .centerInside()
                         .placeholder(R.drawable.ic_loading)
                         .error(R.drawable.ic_error)
                         .into(image);

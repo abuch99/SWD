@@ -13,8 +13,10 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jsibbold.zoomage.ZoomageView;
 import com.squareup.picasso.Picasso;
@@ -26,13 +28,15 @@ import in.ac.bits_hyderabad.swd.swd.helper.Goodies;
 
 public class OrderGoodie extends AppCompatActivity {
 
+    Boolean fundraiser;
     Toolbar toolbar;
-    TextView tvHost,tvPrice,tvSizeChart,tvGoodieOrderName;
-    RelativeLayout rlxs,rls,rlm,rll,rlxl,rlxxl,rlxxxl,rlqty,rlcustom;
-    EditText etxsQty,etsQty,etmQty,etlQty,etxlQty,etxxlQty,etxxxlQty,etCustom;
+    TextView tvHost,tvPrice,tvSizeChart,tvGoodieOrderName,tvminamt,tvmaxamt,tvQty;
+    RelativeLayout rlxs,rls,rlm,rll,rlxl,rlxxl,rlxxxl,rlqty,rlcustom,rlminamt_fraiser,rlmaxamt_fraiser;
+    EditText etxsQty,etsQty,etmQty,etlQty,etxlQty,etxxlQty,etxxxlQty,etCustom,etQty;
     CheckBox cbAgree;
     Button btnOrder;
     ImageView ivImageOrder;
+    LinearLayout llsize,llprice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +52,21 @@ public class OrderGoodie extends AppCompatActivity {
 
         initViews();
         btnOrder.setVisibility(View.GONE);
-        Intent intent=getIntent();
+        final Intent intent=getIntent();
         final Goodies goodie=intent.getParcelableExtra("goodieClicked");
+
+
 
         Log.e("GoodieRecieved",goodie.getName());
 
         tvGoodieOrderName.setText(goodie.getName());
         tvHost.setText(goodie.getHost());
         tvPrice.setText(goodie.getPrice());
+
+        rlminamt_fraiser.setVisibility(View.GONE);
+        rlmaxamt_fraiser.setVisibility(View.GONE);
+        fundraiser=false;
+
         Log.e("image url","swd.bits-hyderabad.ac.in/goodies/img/"+goodie.getImage());
 
         Picasso.get().load("http://swd.bits-hyderabad.ac.in/goodies/img/"+goodie.getImage())
@@ -89,7 +100,7 @@ public class OrderGoodie extends AppCompatActivity {
         }
         else
         {
-            tvSizeChart.setVisibility(View.GONE);
+            llsize.setVisibility(View.GONE);
         }
 
 
@@ -120,7 +131,16 @@ public class OrderGoodie extends AppCompatActivity {
         if(goodie.getQut().equals("0")){
             rlqty.setVisibility(View.GONE);
         }
-
+        if(!(goodie.getMin_amount().equals("0")&&goodie.getMax_amount().equals("0")))
+        {
+            fundraiser=true;
+            tvQty.setText("Amount");
+            llprice.setVisibility(View.GONE);
+            rlminamt_fraiser.setVisibility(View.VISIBLE);
+            tvminamt.setText(goodie.getMin_amount());
+            rlmaxamt_fraiser.setVisibility(View.VISIBLE);
+            tvmaxamt.setText(goodie.getMax_amount());
+        }
         cbAgree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -139,6 +159,22 @@ public class OrderGoodie extends AppCompatActivity {
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(fundraiser){
+                    if(!etQty.getText().toString().isEmpty()){
+                        int entered_amt=Integer.parseInt(etQty.getText().toString());
+                        int min=Integer.parseInt(goodie.getMin_amount());
+                        int max=Integer.parseInt(goodie.getMax_amount());
+                        if(!(entered_amt>=min&&entered_amt<=max)){
+                            Toast.makeText(OrderGoodie.this,"Please enter an amount in the given limits!",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else
+                    {
+                        etQty.setError("You cannot leave this field empty");
+                    }
+
+                }
 
             }
         });
@@ -160,8 +196,13 @@ public class OrderGoodie extends AppCompatActivity {
     {
         tvHost=findViewById(R.id.tvHost);
         tvPrice=findViewById(R.id.tvPrice);
+        llsize=findViewById(R.id.llSize);
+        llprice=findViewById(R.id.llprice);
         tvSizeChart=findViewById(R.id.tvSizeChart);
         tvGoodieOrderName=findViewById(R.id.tvGoodieOrderName);
+        tvminamt=findViewById(R.id.tvminamt);
+        tvmaxamt=findViewById(R.id.tvmaxamt);
+        tvQty=findViewById(R.id.tvqty);
         rlxs=findViewById(R.id.rlxs);
         rls=findViewById(R.id.rls);
         rlm=findViewById(R.id.rlm);
@@ -169,6 +210,8 @@ public class OrderGoodie extends AppCompatActivity {
         rlxl=findViewById(R.id.rlxl);
         rlxxl=findViewById(R.id.rlxxl);
         rlxxxl=findViewById(R.id.rlxxxl);
+        rlminamt_fraiser=findViewById(R.id.rlminamt_fraiser);
+        rlmaxamt_fraiser=findViewById(R.id.rlmaxamt_fraiser);
         rlqty=findViewById(R.id.rlqty);
         rlcustom=findViewById(R.id.rlcustom);
         etxsQty=findViewById(R.id.etxsQty);
@@ -178,6 +221,7 @@ public class OrderGoodie extends AppCompatActivity {
         etxlQty=findViewById(R.id.etxlQty);
         etxxlQty=findViewById(R.id.etxxlQty);
         etxxxlQty=findViewById(R.id.etxxxlQty);
+        etQty=findViewById(R.id.etQty);
         etCustom=findViewById(R.id.etCustomName);
         cbAgree=findViewById(R.id.cbAgree);
         btnOrder=findViewById(R.id.btnOrder);

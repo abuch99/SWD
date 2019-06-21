@@ -1,12 +1,14 @@
 package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -45,6 +47,7 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
     RecyclerView.LayoutManager mLayoutManager;
     ProgressDialog dialog;
     ArrayList<Goodies> goodies;
+    SwipeRefreshLayout swipeRefresh;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,6 +65,8 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
+        swipeRefresh=view.findViewById(R.id.swipeRefresh);
+        swipeRefresh.setRefreshing(true);
         dialog=new ProgressDialog(getContext());
         dialog.setMessage("Loading...");
         dialog.setCanceledOnTouchOutside(false);
@@ -75,6 +80,16 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
         mAdaptor=new GoodiesAdapter(getActivity(),this,goodies);
         rvGoodiesList.setAdapter(mAdaptor);
         mAdaptor.notifyDataSetChanged();
+
+
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                goodies.clear();
+                mAdaptor.notifyDataSetChanged();
+                loadGoodies();
+            }
+        });
     }
 
     @Override
@@ -85,7 +100,6 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
     }
     public  void loadGoodies()
     {
-        dialog.show();
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
         StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
@@ -126,13 +140,13 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
                         Log.e("added", obj.toString());
                     }
                     mAdaptor.notifyDataSetChanged();
-                    dialog.hide();
+                    swipeRefresh.setRefreshing(false);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
                     Log.e("exc: ",e.toString());
-                    dialog.hide();
+                    swipeRefresh.setRefreshing(false);
                 }
 
 
@@ -142,7 +156,7 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
             public void onErrorResponse(VolleyError error) {
                 Log.e("Error", error.toString());
                 Toast.makeText(getContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
-                dialog.hide();
+                swipeRefresh.setRefreshing(false);
             }
         }) {
             @Override
@@ -158,6 +172,6 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
 
         queue.add(request);
 
-
     }
+
 }

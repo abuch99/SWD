@@ -145,6 +145,8 @@
     <string name="null_hint"></string>
     <string name="custom_name">Custom Name</string>
     <string name="custom_name_hint">This will be printed on the item</string>
+    <string name="minamt_fraiser">Minimum :</string>
+    <string name="maxamt_fraiser">Maximum :</string>
     <string name="cbAgree_text">I agree to pay the above mentioned amount from my Other Advances Account</string>
 
 
