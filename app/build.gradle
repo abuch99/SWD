@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "in.ac.bits_hyderabad.swd.swd"
-        minSdkVersion 23
+        minSdkVersion 22
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -39,4 +39,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
 
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    implementation 'com.jsibbold:zoomage:1.2.0'
 }
