@@ -247,6 +247,7 @@ public class Goodies implements Parcelable {
         this.image = image;
     }
 
+
     public String getPrice() {
         return price;
     }

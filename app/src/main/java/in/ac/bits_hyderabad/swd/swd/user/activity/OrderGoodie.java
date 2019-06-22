@@ -3,6 +3,7 @@ package in.ac.bits_hyderabad.swd.swd.user.activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jsibbold.zoomage.ZoomageView;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Array;
@@ -98,11 +100,33 @@ public class OrderGoodie extends AppCompatActivity {
                 }
             });
         }
+
         else
         {
             llsize.setVisibility(View.GONE);
         }
 
+
+            ivImageOrder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ImageView image;
+                    Dialog myDialog = new Dialog(OrderGoodie.this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+                    myDialog.setContentView(R.layout.my_dialog);
+                    myDialog.getWindow().setBackgroundDrawableResource(R.color.semiTransparentColor99black);
+                    image = myDialog.findViewById(R.id.ivFullGoodieImage);
+
+                    String ImageUrl = "http://swd.bits-hyderabad.ac.in/goodies/img/" + goodie.getImage();
+
+                    Picasso.get().load(ImageUrl)
+                            .resize(1500, 1500)
+                            .centerInside()
+                            .placeholder(R.drawable.ic_loading)
+                            .error(R.drawable.ic_error)
+                            .into(image);
+                    myDialog.show();
+                }
+            });
 
         if(goodie.getXs().equals("0")){
             rlxs.setVisibility(View.GONE);
@@ -189,6 +213,8 @@ public class OrderGoodie extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
+        this.finishAfterTransition();
         super.onBackPressed();
     }
 
