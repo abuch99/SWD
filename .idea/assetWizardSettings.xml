@@ -34,12 +34,9 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="75" />
                             <entry key="opacityPercent" value="50" />
-                            <entry key="outputName" value="ic_loading" />
-                            <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\PRASOON BAGHEL\Downloads\Spinner-1s-200px.svg" />
-                            <entry key="width" value="75" />
+                            <entry key="outputName" value="ic_error" />
+                            <entry key="sourceFile" value="C:\Users\PRASOON BAGHEL\Desktop\iconfinder_error_2639809.svg" />
                           </map>
                         </option>
                       </PersistentState>

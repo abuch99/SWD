@@ -1,10 +1,14 @@
 package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -32,6 +36,7 @@ import java.util.Map;
 import in.ac.bits_hyderabad.swd.swd.R;
 import in.ac.bits_hyderabad.swd.swd.helper.Goodies;
 import in.ac.bits_hyderabad.swd.swd.helper.GoodiesAdapter;
+import in.ac.bits_hyderabad.swd.swd.user.activity.OrderGoodie;
 import in.ac.bits_hyderabad.swd.swd.user.activity.User_Login;
 import in.ac.bits_hyderabad.swd.swd.user.activity.User_Nav;
 
@@ -42,6 +47,7 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
     RecyclerView.LayoutManager mLayoutManager;
     ProgressDialog dialog;
     ArrayList<Goodies> goodies;
+    SwipeRefreshLayout swipeRefresh;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,8 +65,11 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
+        swipeRefresh=view.findViewById(R.id.swipeRefresh);
+        swipeRefresh.setRefreshing(true);
         dialog=new ProgressDialog(getContext());
         dialog.setMessage("Loading...");
+        dialog.setCanceledOnTouchOutside(false);
         goodies=new ArrayList<Goodies>();
         loadGoodies();//define your goodies array list here
         Log.e("goodie array list",goodies.toString());
@@ -68,19 +77,29 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
         rvGoodiesList.setHasFixedSize(false);
         mLayoutManager =new LinearLayoutManager(this.getActivity());
         rvGoodiesList.setLayoutManager(mLayoutManager);
-        mAdaptor=new GoodiesAdapter(this,goodies);
+        mAdaptor=new GoodiesAdapter(getActivity(),this,goodies);
         rvGoodiesList.setAdapter(mAdaptor);
         mAdaptor.notifyDataSetChanged();
+
+
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                goodies.clear();
+                mAdaptor.notifyDataSetChanged();
+                loadGoodies();
+            }
+        });
     }
 
     @Override
     public void onItemClicked(int index) {
-        Log.e("hello","hello");
-
+        Intent intent=new Intent(getActivity(),OrderGoodie.class);
+        intent.putExtra("goodieClicked",goodies.get(index));
+        startActivity(intent);
     }
     public  void loadGoodies()
     {
-        dialog.show();
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
         StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
@@ -99,19 +118,35 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
                         String host=obj.getString("hosted_by");
                         String image=obj.getString("img");
                         String price=obj.getString("price");
+                        String size_chart=obj.getString("link");
+                        String xs=obj.getString("xs");
+                        String s=obj.getString("s");
+                        String m=obj.getString("m");
+                        String l=obj.getString("l");
+                        String xl=obj.getString("xl");
+                        String xxl=obj.getString("xxl");
+                        String xxxl=obj.getString("xxxl");
+                        String qut=obj.getString("qut");
+                        String min_amount=obj.getString("min_amount");
+                        String max_amount=obj.getString("max_amount");
+                        String max_quantity=obj.getString("max_quantity");
+                        String custom=obj.getString("custom");
+                        String view_uid=obj.getString("view_uid");
                         String host_name=obj.getString("hoster_name");
                         String mobile=obj.getString("hoster_mob_num");
-                        goodies.add(new Goodies(id,name,host,image,price,host_name,mobile));
+
+                        /*{"g_id":"1000","name":"Duplicate ID Card","hosted_by":"Student Welfare Division","img":"bits_logo.png", "link":"","active":"1","xs":"0","s":"0","m":"0","l":"0","xl":"0","xxl":"0","xxxl":"0","qut":"0","min_amount":"0","max_amount":"0","max_quantity":"0","price":"75","closing_datetime":"2019-05-14 00:00:00","delivery_date":"0000-00-00","custom":"0","acceptance":"0","hoster_name":"Student Welfare Division","hoster_mob_num":"","view_uid":"prasanth","uploaded_on":"2019-04-14 15:08:37"} */
+                        goodies.add(new Goodies(id,name,host,image,price,size_chart,xs,s,m,l,xl,xxl,xxxl,qut,min_amount,max_amount,max_quantity,custom,view_uid,host_name,mobile));
                         Log.e("added", obj.toString());
                     }
                     mAdaptor.notifyDataSetChanged();
-                    dialog.hide();
+                    swipeRefresh.setRefreshing(false);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
                     Log.e("exc: ",e.toString());
-                    dialog.hide();
+                    swipeRefresh.setRefreshing(false);
                 }
 
 
@@ -121,7 +156,7 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
             public void onErrorResponse(VolleyError error) {
                 Log.e("Error", error.toString());
                 Toast.makeText(getContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
-                dialog.hide();
+                swipeRefresh.setRefreshing(false);
             }
         }) {
             @Override
@@ -137,6 +172,6 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
 
         queue.add(request);
 
-
     }
+
 }

@@ -1,21 +1,15 @@
 package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
-import java.util.ArrayList;
-
 
 import in.ac.bits_hyderabad.swd.swd.R;
 import in.ac.bits_hyderabad.swd.swd.user.activity.User_Nav;
@@ -45,28 +39,28 @@ public class User_HomeFragment extends Fragment  {
 
         //btnMess.setVisibility(View.INVISIBLE);
 
-
         btnContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                         "mailto", "swdnucleus@hyderabad.bits-pilani.ac.in", null));
                 startActivity(Intent.createChooser(intent, "Choose an Email client :"));
-
             }
         });
         btnGoodies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment = new User_GoodiesFragment();
-                ((User_Nav)getActivity()).replaceFragment(fragment,"goodies",getString(R.string.goodies_title));
+                ((User_Nav)getActivity()).fragment=new User_GoodiesFragment();
+                ((User_Nav)getActivity()).replaceFragment(((User_Nav)getActivity()).fragment,"goodies",getString(R.string.goodies_title));
+                ((User_Nav) getActivity()).navigationView.setCheckedItem(R.id.goodies);
             }
         });
         btnMess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment = new User_MessFragment();
-                ((User_Nav)getActivity()).replaceFragment(fragment,"mess",getString(R.string.mess_title));
+                ((User_Nav)getActivity()).fragment=new User_MessFragment();
+                ((User_Nav)getActivity()).replaceFragment(((User_Nav)getActivity()).fragment,"mess",getString(R.string.mess_title));
+                ((User_Nav) getActivity()).navigationView.setCheckedItem(R.id.mess);
             }
         });
 

@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent" >
+<LinearLayout
+
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".user.activity.OrderGoodie">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/orderGoodiesToolbar"
+        android:layout_width="match_parent"
+        android:background="@drawable/bgnd_dark"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        style="@style/AppTheme"
+        app:titleTextColor="@color/whiteText"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_marginTop="25dp">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="135dp"
+            android:layout_height="135dp"
+            android:layout_margin="5dp">
+
+
+            <ImageView
+                android:id="@+id/ivimageOrder"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:layout_gravity="center"
+                tools:srcCompat="@tools:sample/avatars[0]" />
+
+        </android.support.v7.widget.CardView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvGoodieOrderName"
+                android:layout_width="wrap_content"
+                android:layout_height= "wrap_content"
+                android:text="DUPLICATE ID CARD"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/ivimageOrder"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvGoodieOrderHost"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="Hosted by :"
+                    android:textStyle="normal"
+                    android:textSize="15sp"
+                    android:padding="5dp"
+                    android:layout_marginLeft="30dp"/>
+
+                <TextView
+                    android:id="@+id/tvHost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:padding="5dp"
+                    android:textSize="15sp"
+                    android:text="Student Welfare Division"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/llprice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvGoodieOrderPrice"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="Price :"
+                    android:textStyle="normal"
+                    android:textSize="15sp"
+                    android:padding="5dp"
+                    android:layout_marginLeft="30dp"/>
+
+                <TextView
+                    android:id="@+id/tvPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/tvGoodieOrderPrice"
+                    android:layout_marginLeft="10dp"
+                    android:padding="5dp"
+                    android:textSize="15sp"
+                    android:text="225"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/llSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Size Chart"
+                    style="@style/text_view_goodies"
+                    android:layout_marginLeft="30dp"/>
+
+                <TextView
+                    android:id="@+id/tvSizeChart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/tvGoodieOrderPrice"
+                    android:layout_marginLeft="10dp"
+                    android:padding="5dp"
+                    android:textSize="15sp"
+                    android:textStyle="italic"
+                    android:textColor="@color/blueText"
+                    android:text="click here"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp">
+
+        <!--<TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order:"
+            android:layout_marginLeft="100dp"
+            android:layout_marginBottom="5dp"/>
+        -->
+        <RelativeLayout
+            android:id="@+id/rlxs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+            <TextView
+                android:id="@+id/tvxs"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@string/xs"
+                style="@style/text_view_goodies"/>
+            <EditText
+                android:id="@+id/etxsQty"
+                android:layout_width="@dimen/width_editText"
+                android:layout_height="wrap_content"
+                style="@style/edit_text_goodies"
+                android:layout_toRightOf="@id/tvxs"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rls"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+            <TextView
+                android:id="@+id/tvs"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@string/s"
+                style="@style/text_view_goodies"/>
+            <EditText
+                android:id="@+id/etsQty"
+                android:layout_width="@dimen/width_editText"
+                android:layout_height="wrap_content"
+                style="@style/edit_text_goodies"
+                android:layout_toRightOf="@id/tvs"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+            <TextView
+                android:id="@+id/tvm"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@string/m"
+                style="@style/text_view_goodies"/>
+            <EditText
+                android:id="@+id/etmQty"
+                android:layout_width="@dimen/width_editText"
+                android:layout_height="wrap_content"
+                style="@style/edit_text_goodies"
+                android:layout_toRightOf="@id/tvm"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+            <TextView
+                android:id="@+id/tvl"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@string/l"
+                style="@style/text_view_goodies"/>
+            <EditText
+                android:id="@+id/etlQty"
+                android:layout_width="@dimen/width_editText"
+                android:layout_height="wrap_content"
+                style="@style/edit_text_goodies"
+                android:layout_toRightOf="@id/tvl"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlxl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+            <TextView
+                android:id="@+id/tvxl"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@string/xl"
+                style="@style/text_view_goodies"/>
+            <EditText
+                android:id="@+id/etxlQty"
+                android:layout_width="@dimen/width_editText"
+                android:layout_height="wrap_content"
+                style="@style/edit_text_goodies"
+                android:layout_toRightOf="@id/tvxl"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlxxl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+            <TextView
+                android:id="@+id/tvxxl"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@string/xxl"
+                style="@style/text_view_goodies"/>
+            <EditText
+                android:id="@+id/etxxlQty"
+                android:layout_width="@dimen/width_editText"
+                android:layout_height="wrap_content"
+                style="@style/edit_text_goodies"
+                android:layout_toRightOf="@id/tvxxl"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlxxxl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+            <TextView
+                android:id="@+id/tvxxxl"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@string/xxxl"
+                style="@style/text_view_goodies"/>
+            <EditText
+                android:id="@+id/etxxxlQty"
+                android:layout_width="@dimen/width_editText"
+                android:layout_height="wrap_content"
+                style="@style/edit_text_goodies"
+                android:layout_toRightOf="@id/tvxxxl"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlminamt_fraiser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvminamt_fraiser"
+                android:layout_width="150dp"
+                android:padding="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_marginLeft="15dp"
+                android:text="@string/minamt_fraiser"/>
+
+            <TextView
+                android:id="@+id/tvminamt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_toEndOf="@id/tvminamt_fraiser"
+                android:padding="0dp"
+                android:text="500"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlmaxamt_fraiser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+            <TextView
+                android:id="@+id/tvmaxamt_fraiser"
+                android:layout_width="150dp"
+                android:padding="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="@string/maxamt_fraiser"
+                android:gravity="right"/>
+
+            <TextView
+                android:id="@+id/tvmaxamt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="24dp"
+                android:layout_marginBottom="0dp"
+                android:layout_toEndOf="@id/tvmaxamt_fraiser"
+                android:padding="0dp"
+                android:text="500"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlqty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+            <TextView
+                android:id="@+id/tvqty"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@string/qty"
+                style="@style/text_view_goodies"/>
+            <EditText
+                android:id="@+id/etQty"
+                android:layout_width="@dimen/width_editText"
+                android:layout_height="wrap_content"
+                style="@style/edit_text_goodies"
+                android:hint="@string/null_hint"
+                android:layout_toRightOf="@id/tvqty"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlcustom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvCustomName"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                style="@style/text_view_goodies"
+                android:layout_marginTop="10dp"
+                android:text="@string/custom_name"/>
+            <EditText
+                android:id="@+id/etCustomName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                style="@style/edit_text_custom_name"
+                android:layout_toRightOf="@id/tvCustomName"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+        <CheckBox
+            android:id="@+id/cbAgree"
+            style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+            android:layout_width="300dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="@string/cbAgree_text" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order"
+        android:background="@drawable/edit_text"
+        android:backgroundTint="@color/colorPrimaryLight"
+        android:textColor="@color/whiteText"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>
+</ScrollView>
