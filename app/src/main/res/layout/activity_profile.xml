@@ -18,15 +18,17 @@
         app:titleTextColor="@color/whiteText"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    <fragment
-        android:id="@+id/frag_profile"
-        android:layout_width="match_parent"
-        android:layout_below="@id/profile_toolbar"
-        android:layout_height="match_parent"
-        android:name="in.ac.bits_hyderabad.swd.swd.user.fragment.User_ProfileFragment"
-        tools:layout="@layout/fragment_user_profile">
+        <fragment
+            android:id="@+id/frag_profile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/profile_toolbar"
+            android:name="in.ac.bits_hyderabad.swd.swd.user.fragment.User_ProfileFragment"
+            tools:layout="@layout/fragment_user_profile">
 
-    </fragment>
+        </fragment>
+
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabUpdate"

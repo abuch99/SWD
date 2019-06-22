@@ -37,8 +37,7 @@ public class User_HomeFragment extends Fragment  {
         btnGoodies=view.findViewById(R.id.btnGoodies);
         btnMess=view.findViewById(R.id.btnMess);
 
-        //btnMess.setVisibility(View.INVISIBLE);
-
+        //btnMess.setVisibility(View.INVISIBLE); v
         btnContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
