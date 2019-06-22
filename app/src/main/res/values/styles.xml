@@ -137,4 +137,12 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="edit_text_profile">
+        <item name="android:background">@drawable/edit_text</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:enabled">true</item>
+        <item name="android:focusable">true</item>
+
+    </style>
+
 </resources>

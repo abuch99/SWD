@@ -3,6 +3,7 @@ package in.ac.bits_hyderabad.swd.swd.user.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.media.Image;
 import android.os.Bundle;
@@ -33,8 +34,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URL;
-
-import in.ac.bits_hyderabad.swd.swd.databases.UserTable;
 import in.ac.bits_hyderabad.swd.swd.user.fragment.*;
 
 import in.ac.bits_hyderabad.swd.swd.R;
@@ -46,12 +45,13 @@ public class User_Nav extends AppCompatActivity
     public Fragment fragment;
     FragmentManager manager;
 
-    UserTable mUserTable;
+    //UserTable mUserTable;
     ActionBar actionBar;
     DrawerLayout drawer;
 
     ImageView header_img;
     TextView tvNav_header_Id_No,tvNav_header_name;
+    SharedPreferences prefs;
 
     Button btnMess;
     String urlImageIcard;
@@ -68,17 +68,11 @@ public class User_Nav extends AppCompatActivity
         setSupportActionBar(toolbar);
         //space for floating button if needed
 
-
-
-
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-
-
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.home);
@@ -86,12 +80,14 @@ public class User_Nav extends AppCompatActivity
         tvNav_header_Id_No=navigationView.getHeaderView(0).findViewById(R.id.tvIdNavHeader);
         tvNav_header_name=navigationView.getHeaderView(0).findViewById(R.id.tvNameNavHeader);
         header_img=navigationView.getHeaderView(0).findViewById(R.id.header_img);
-        mUserTable=new UserTable(getApplicationContext());
+        //mUserTable=new UserTable(getApplicationContext());
 
-        tvNav_header_name.setText(mUserTable.getName());
-        tvNav_header_Id_No.setText(mUserTable.getID());
+        prefs=getApplicationContext().getSharedPreferences("USER_LOGIN_DETAILS",MODE_PRIVATE);
 
-        Log.e("error",mUserTable.getUID().substring(5)+"    "+mUserTable.getUID().substring(1,5)+"    "+mUserTable.getUID()+"    "+header_img.toString());
+        tvNav_header_name.setText(prefs.getString("name",null));
+        tvNav_header_Id_No.setText(prefs.getString("id",null));
+
+        //Log.e("error",mUserTable.getUID().substring(5)+"    "+mUserTable.getUID().substring(1,5)+"    "+mUserTable.getUID()+"    "+header_img.toString());
         /*String four_digits=mUserTable.getUID().substring(5);//0459
         String year=mUserTable.getUID().substring(1,5);//2018
         String degree=null;//f
@@ -118,7 +114,7 @@ public class User_Nav extends AppCompatActivity
 */
         JSONObject o=new JSONObject();
 
-        Log.e("name and id and pwd" ,mUserTable.getName()+mUserTable.getID());
+        Log.e("name and id and pwd" ,prefs.getString("name",null)+prefs.getString("id",null));
         fragment=new User_HomeFragment();
         manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.layout_frame, fragment,"home").commit();
@@ -292,7 +288,11 @@ public class User_Nav extends AppCompatActivity
         manager.beginTransaction().replace(R.id.layout_frame,fragment,"home").commit();
     }
     private void logout() {
-        mUserTable.deleteAll();
+        Log.e("prefs before logout",prefs.toString());
+        SharedPreferences.Editor editor=prefs.edit();
+        editor.clear();
+        editor.commit();
+        Log.e("prefs after logout",prefs.toString());
         startActivity(new Intent(this, User_Login.class));
         finish();
     }

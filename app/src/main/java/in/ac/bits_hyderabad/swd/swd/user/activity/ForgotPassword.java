@@ -54,6 +54,7 @@ public class ForgotPassword extends AppCompatActivity {
                 if(username.isEmpty())
                 {
                     Toast.makeText(ForgotPassword.this,"Please enter your BITS Mail",Toast.LENGTH_LONG).show();
+                    dialog.hide();
                 }
                 else if(username.substring(0,4).equalsIgnoreCase("F201") )
                 {
@@ -61,6 +62,7 @@ public class ForgotPassword extends AppCompatActivity {
                 }
                 else
                 {
+                    dialog.hide();
                     Toast.makeText(ForgotPassword.this,"Please enter your BITS Mail in the correct format!!",Toast.LENGTH_LONG).show();
                 }
             }
