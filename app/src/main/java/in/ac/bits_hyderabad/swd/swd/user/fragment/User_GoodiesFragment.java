@@ -74,6 +74,7 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
         loadGoodies();//define your goodies array list here
         Log.e("goodie array list",goodies.toString());
         rvGoodiesList=view.findViewById(R.id.rvGoodiesList);
+        rvGoodiesList.bringToFront();
         rvGoodiesList.setHasFixedSize(false);
         mLayoutManager =new LinearLayoutManager(this.getActivity());
         rvGoodiesList.setLayoutManager(mLayoutManager);
