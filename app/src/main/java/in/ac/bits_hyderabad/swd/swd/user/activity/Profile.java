@@ -2,16 +2,18 @@ package in.ac.bits_hyderabad.swd.swd.user.activity;
 
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
+import android.os.Build;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.LoaderManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -32,18 +34,19 @@ import java.util.Iterator;
 import java.util.Map;
 
 import in.ac.bits_hyderabad.swd.swd.R;
-import in.ac.bits_hyderabad.swd.swd.databases.UserTable;
 
 public class Profile extends AppCompatActivity {
 
 
-    UserTable mUserTable;
+    //UserTable mUserTable;
     EditText etName,etRoom,etPhn,etId,etDOB,etGender,etNat,etEmail,etBlood,etAddress,etCity,etState
             ,etFname,etFphn,etFemail,etFocc,etMname,etMphn,etMemail,etMocc,etBank,etAccNo,etIfsc;
     ActionBar actionBar;
-
     FloatingActionButton fabUpdate;
+    String uid,password;
 
+    SharedPreferences prefs;
+    JSONObject object;
     Boolean updating=false;
     Boolean successfull=false;
     ProgressDialog dialog;
@@ -68,6 +71,280 @@ public class Profile extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
+        prefs=getApplicationContext().getSharedPreferences("USER_LOGIN_DETAILS",MODE_PRIVATE);
+        uid=prefs.getString("uid",null);
+        password=prefs.getString("password",null);
+        initialize_views();
+        //mUserTable=new UserTable(getApplicationContext());
+        reload();
+
+        queue= Volley.newRequestQueue(this);
+
+        fabUpdate=findViewById(R.id.fabUpdate);
+        fabUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!updating)
+                {
+                    onEditClick();
+                    updating=true;
+                    fabUpdate.setImageResource(R.drawable.ic_save);
+                }
+                else
+                {
+                    try {
+                        JSONObject updatedObj=getupdatedJSONObject(object);
+                        updatetoServer(updatedObj);
+                    }
+                    catch (JSONException e){
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        });
+
+    }
+
+    public void reload() {
+
+        dialog.show();
+        RequestQueue queue = Volley.newRequestQueue(Profile.this);
+
+        StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("LoginResponse: ", response);
+                //if correct credentials
+                //response {"tag":"login","error":false,"uid":"abcd","name":"Monil Shah","id":"abcd","branch":"A3PS","room":"G 270","gender":"M","phone":"9553305670","email":"abcd@gmail.com","dob":"1996-07-19","father":"Atul Shah","mother":"Sejal Shah","fmail":"atulshah1965@reddifmail.com","fphone":"9825543307","foccup":"Businessman","mmail":null,"moccup":"Homemaker","hphone":"02613015838","homeadd":"702 Manibhadra Enclave,B\/h Sargam Shopping Center,Parle Point .","city":"Surat","state":"Gujarat","localadd":null,"guardian":null,"gphone":null,"nation":"India","blood":"AB+","bank":"State Bank Of Hyderabad","acno":"62352253278","ifsc":"ifsc1234","pimage":null,"time":"2016-02-03 14:07:21"}
+                //if wrong credentials
+                //{"tag":"login","error":true,"error_msg":"Error occured in Logging In"}
+
+                try {
+
+                    object = new JSONObject(response);
+                    if (!object.getBoolean("error")) {
+                        try {
+                            setData(object);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        disable_EditText();
+                    } else {
+                        Toast.makeText(Profile.this, "Something went wrong!!", Toast.LENGTH_SHORT).show();
+                        dialog.hide();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(Profile.this, "Something went wrong!!", Toast.LENGTH_SHORT).show();
+                    dialog.hide();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error", error.toString());
+                Toast.makeText(Profile.this, "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+                dialog.hide();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params = new HashMap<>();
+                params.put("tag", "login");
+                params.put("id", uid );
+                params.put("pwd", password);
+
+                return params;
+
+            }
+        };
+
+
+        queue.add(request);
+
+
+    }
+    public void setData(JSONObject object)throws JSONException {
+        etName.setText(object.getString("name"));
+        etRoom.setText(object.getString("room"));
+        etPhn.setText(object.getString("phone"));
+        etId.setText(object.getString("id"));
+        etGender.setText(object.getString("gender"));
+        etDOB.setText(object.getString("dob"));
+        etEmail.setText(object.getString("email"));
+        etBlood.setText(object.getString("blood"));
+        etAddress.setText(object.getString("homeadd"));
+        etCity.setText(object.getString("city"));
+        etState.setText(object.getString("state"));
+        etNat.setText(object.getString("nation"));
+        etFname.setText(object.getString("father"));
+        etFphn.setText(object.getString("fphone"));
+        etFemail.setText(object.getString("fmail"));
+        etFocc.setText(object.getString("foccup"));
+        etMname.setText(object.getString("mother"));
+        etMemail.setText(object.getString("mmail"));
+        etMphn.setText(object.getString("hphone"));
+        etMocc.setText(object.getString("moccup"));
+        etBank.setText(object.getString("bank"));
+        etAccNo.setText(object.getString("acno"));
+        etIfsc.setText(object.getString("ifsc"));
+
+        dialog.hide();
+    }
+    public void disable_EditText() {
+        etName.setEnabled(false);
+        etRoom.setEnabled(false);
+        etPhn.setEnabled(false);
+        etId.setEnabled(false);
+        etGender.setEnabled(false);
+        etDOB.setEnabled(false);
+        etNat.setEnabled(false);
+        etIfsc.setEnabled(false);
+        etAccNo.setEnabled(false);
+        etMocc.setEnabled(false);
+        etMphn.setEnabled(false);
+        etMemail.setEnabled(false);
+        etMname.setEnabled(false);
+        etState.setEnabled(false);
+        etCity.setEnabled(false);
+        etAddress.setEnabled(false);
+        etBlood.setEnabled(false);
+        etEmail.setEnabled(false);
+        etFocc.setEnabled(false);
+        etFemail.setEnabled(false);
+        etFname.setEnabled(false);
+        etFphn.setEnabled(false);
+        etBank.setEnabled(false);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            etRoom.setTextColor(getColor(R.color.colorAccent));
+            etPhn.setTextColor(getColor(R.color.colorAccent));
+            etIfsc.setTextColor(getColor(R.color.colorAccent));
+            etAccNo.setTextColor(getColor(R.color.colorAccent));
+            etMocc.setTextColor(getColor(R.color.colorAccent));
+            etMphn.setTextColor(getColor(R.color.colorAccent));
+            etMemail.setTextColor(getColor(R.color.colorAccent));
+            etState.setTextColor(getColor(R.color.colorAccent));
+            etCity.setTextColor(getColor(R.color.colorAccent));
+            etAddress.setTextColor(getColor(R.color.colorAccent));
+            etEmail.setTextColor(getColor(R.color.colorAccent));
+            etFocc.setTextColor(getColor(R.color.colorAccent));
+            etFemail.setTextColor(getColor(R.color.colorAccent));
+            etFphn.setTextColor(getColor(R.color.colorAccent));
+        }
+        etRoom.setBackground(getDrawable(R.drawable.edit_text));
+        etPhn.setBackground(getDrawable(R.drawable.edit_text));
+        etIfsc.setBackground(getDrawable(R.drawable.edit_text));
+        etAccNo.setBackground(getDrawable(R.drawable.edit_text));
+        etMocc.setBackground(getDrawable(R.drawable.edit_text));
+        etMphn.setBackground(getDrawable(R.drawable.edit_text));
+        etEmail.setBackground(getDrawable(R.drawable.edit_text));
+        etMemail.setBackground(getDrawable(R.drawable.edit_text));
+        etState.setBackground(getDrawable(R.drawable.edit_text));
+        etCity.setBackground(getDrawable(R.drawable.edit_text));
+        etAddress.setBackground((getDrawable(R.drawable.edit_text)));
+        etFocc.setBackground((getDrawable(R.drawable.edit_text)));
+        etFemail.setBackground((getDrawable(R.drawable.edit_text)));
+        etFphn.setBackground(getDrawable(R.drawable.edit_text));
+        etBank.setBackground(getDrawable(R.drawable.edit_text));
+
+
+    }
+    public void onEditClick() {
+
+        etRoom.setEnabled(true);
+        etPhn.setEnabled(true);
+        etIfsc.setEnabled(true);
+        etAccNo.setEnabled(true);
+        etMocc.setEnabled(true);
+        etMphn.setEnabled(true);
+        etMemail.setEnabled(true);
+        etState.setEnabled(true);
+        etCity.setEnabled(true);
+        etAddress.setEnabled(true);
+        etEmail.setEnabled(true);
+        etFocc.setEnabled(true);
+        etFemail.setEnabled(true);
+        etFphn.setEnabled(true);
+        etBank.setEnabled(true);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            etRoom.setTextColor(getColor(R.color.black));
+            etPhn.setTextColor(getColor(R.color.black));
+            etIfsc.setTextColor(getColor(R.color.black));
+            etAccNo.setTextColor(getColor(R.color.black));
+            etMocc.setTextColor(getColor(R.color.black));
+            etMphn.setTextColor(getColor(R.color.black));
+            etMemail.setTextColor(getColor(R.color.black));
+            etState.setTextColor(getColor(R.color.black));
+            etCity.setTextColor(getColor(R.color.black));
+            etAddress.setTextColor(getColor(R.color.black));
+            etEmail.setTextColor(getColor(R.color.black));
+            etFocc.setTextColor(getColor(R.color.black));
+            etFemail.setTextColor(getColor(R.color.black));
+            etFphn.setTextColor(getColor(R.color.black));
+            etBank.setTextColor(getColor(R.color.black));
+        }
+
+
+        etRoom.setBackground(getDrawable(R.drawable.edit_text_selected));
+        etPhn.setBackground(getDrawable(R.drawable.edit_text_selected));
+        etIfsc.setBackground(getDrawable(R.drawable.edit_text_selected));
+        etAccNo.setBackground(getDrawable(R.drawable.edit_text_selected));
+        etMocc.setBackground(getDrawable(R.drawable.edit_text_selected));
+        etMphn.setBackground(getDrawable(R.drawable.edit_text_selected));
+        etEmail.setBackground(getDrawable(R.drawable.edit_text_selected));
+        etMemail.setBackground(getDrawable(R.drawable.edit_text_selected));
+        etState.setBackground(getDrawable(R.drawable.edit_text_selected));
+        etCity.setBackground(getDrawable(R.drawable.edit_text_selected));
+        etAddress.setBackground((getDrawable(R.drawable.edit_text_selected)));
+        etFocc.setBackground((getDrawable(R.drawable.edit_text_selected)));
+        etFemail.setBackground((getDrawable(R.drawable.edit_text_selected)));
+        etFphn.setBackground(getDrawable(R.drawable.edit_text_selected));
+        etBank.setBackground(getDrawable(R.drawable.edit_text_selected));
+
+        etRoom.setFocusable(true);
+        etPhn.setFocusable(true);
+        etIfsc.setFocusable(true);
+        etAccNo.setFocusable(true);
+        etMocc.setFocusable(true);
+        etMphn.setFocusable(true);
+        etMemail.setFocusable(true);
+        etState.setFocusable(true);
+        etCity.setFocusable(true);
+        etAddress.setFocusable(true);
+        etEmail.setFocusable(true);
+        etFocc.setFocusable(true);
+        etFemail.setFocusable(true);
+        etFphn.setFocusable(true);
+        etBank.setFocusable(true);
+
+
+        etRoom.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(etRoom, InputMethodManager.SHOW_IMPLICIT);
+
+    }
+    public static Map<String,String> JSONtoMap(JSONObject object)throws JSONException {
+        Map<String, String> map= new HashMap<String, String>();
+        if(object !=JSONObject.NULL)
+        {
+            Iterator<String> keysItr= object.keys();
+            while (keysItr.hasNext()) {
+                String key = keysItr.next();
+                String value = object.getString(key);
+
+                map.put(key, value);
+            }
+        }
+        return map;
+    }
+    public void initialize_views() {
         etName=findViewById(R.id.etName);
         etRoom=findViewById(R.id.etRoom);
         etPhn=findViewById(R.id.etPhn);
@@ -91,44 +368,8 @@ public class Profile extends AppCompatActivity {
         etBank=findViewById(R.id.etBank);
         etAccNo=findViewById(R.id.etAccNo);
         etIfsc=findViewById(R.id.etIfsc);
-
-
-        mUserTable=new UserTable(getApplicationContext());
-        reload();
-
-        queue= Volley.newRequestQueue(this);
-
-        fabUpdate=findViewById(R.id.fabUpdate);
-        fabUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!updating)
-                {
-                    onEditClick();
-                    updating=true;
-                    fabUpdate.setImageResource(R.drawable.ic_save);
-                }
-                else
-                {
-                    try{
-                            JSONObject object=mUserTable.getJsonObject();
-                            Log.e("fabupdate_beforesave",object.toString());
-                            object=saveDatatoJson(object);
-                            Log.e("fabupdate_aftersave",object.toString());
-                            disable_EditText();
-                            updatetoServer(object);
-
-
-                    }
-                    catch (JSONException e)
-                    {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
     }
+
     public void updatetoServer(final JSONObject object)throws JSONException {
         dialog.show();
         StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new Response.Listener<String>() {
@@ -141,16 +382,11 @@ public class Profile extends AppCompatActivity {
                     JSONObject obj = new JSONObject(response);
                     if (!obj.getBoolean("error")) {
                         Toast.makeText(Profile.this, "Updated successfully", Toast.LENGTH_SHORT).show();
-                        mUserTable.deleteAll();
-                        //mUserTable.createEntry(object);
                         successfull=true;
-                        Log.e("chk",mUserTable.getJsonObject().toString());
                         fabUpdate.setImageResource(R.drawable.ic_update_details);
                         updating=false;
-                        //Log.e("obj in table before change",mUserTable.getJsonObject().toString());
-                        //Log.e("object to be created",object.toString());
-                        mUserTable.createEntry(object);
-                        Log.e("obj after change",mUserTable.getJsonObject().toString());
+                        disable_EditText();
+
                     }
                     else{
                         Toast.makeText(Profile.this, "Unknown error occurred!", Toast.LENGTH_SHORT).show();
@@ -188,10 +424,6 @@ public class Profile extends AppCompatActivity {
 
     }
 
-
-
-
-
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -203,140 +435,31 @@ public class Profile extends AppCompatActivity {
         finish();
         super.onBackPressed();
     }
-    public void setData()throws JSONException
-    {
-        JSONObject object=new JSONObject();
-        object=mUserTable.getJsonObject();
 
-        etName.setText(object.getString(mUserTable.KEY_NAME));
-        etRoom.setText(object.getString(mUserTable.KEY_ROOM));
-        etPhn.setText(object.getString(mUserTable.KEY_PHONE));
-        etId.setText(object.getString(mUserTable.KEY_ID));
-        etGender.setText(object.getString(mUserTable.KEY_GENDER));
-        etDOB.setText(object.getString(mUserTable.KEY_DOB));
-        etEmail.setText(object.getString(mUserTable.KEY_EMAIL));
-        etBlood.setText(object.getString(mUserTable.KEY_BLOOD));
-        etAddress.setText(object.getString(mUserTable.KEY_HOMEADD));
-        etCity.setText(object.getString(mUserTable.KEY_CITY));
-        etState.setText(object.getString(mUserTable.KEY_STATE));
-        etNat.setText(object.getString(mUserTable.KEY_NATION));
-        etFname.setText(object.getString(mUserTable.KEY_FATHER));
-        etFphn.setText(object.getString(mUserTable.KEY_FPHONE));
-        etFemail.setText(object.getString(mUserTable.KEY_FMAIL));
-        etFocc.setText(object.getString(mUserTable.KEY_FOCCUP));
-        etMname.setText(object.getString(mUserTable.KEY_MOTHER));
-        etMemail.setText(object.getString(mUserTable.KEY_MMAIL));
-        etMphn.setText(object.getString(mUserTable.KEY_HPHONE));
-        etMocc.setText(object.getString(mUserTable.KEY_MOCCUP));
-        etBank.setText(object.getString(mUserTable.KEY_BANK));
-        etAccNo.setText(object.getString(mUserTable.KEY_ACNO));
-        etIfsc.setText(object.getString(mUserTable.KEY_IFSC));
-
-
-    }
-    public void reload() {
+    public JSONObject getupdatedJSONObject(JSONObject object) {
         try {
-            setData();
-        } catch (JSONException e) {
+            object.put("room",etRoom.getText().toString().trim());
+            object.put("phone",etPhn.getText().toString().trim());
+            object.put("ifsc",etIfsc.getText().toString().trim());
+            object.put("acno",etAccNo.getText().toString().trim());
+            object.put("bank",etBank.getText().toString().trim());
+            object.put("state",etState.getText().toString().trim());
+            object.put("city",etCity.getText().toString().trim());
+            object.put("homeadd",etAddress.getText().toString().trim());
+            object.put("email",etEmail.getText().toString().trim());
+            object.put("fphone",etFphn.getText().toString().trim());
+            object.put("fmail",etFemail.getText().toString().trim());
+            object.put("foccup",etFocc.getText().toString().trim());
+            object.put("mmail",etMemail.getText().toString().trim());
+            object.put("moccup",etMocc.getText().toString().trim());
+            object.put("hphone",etMphn.getText().toString().trim());
+        }
+        catch (JSONException e)
+        {
             e.printStackTrace();
         }
-        disable_EditText();
-    }
-    public void disable_EditText() {
-        etName.setEnabled(false);
-        etRoom.setEnabled(false);
-        etPhn.setEnabled(false);
-        etId.setEnabled(false);
-        etGender.setEnabled(false);
-        etDOB.setEnabled(false);
-        etNat.setEnabled(false);
-        etIfsc.setEnabled(false);
-        etAccNo.setEnabled(false);
-        etMocc.setEnabled(false);
-        etMphn.setEnabled(false);
-        etMemail.setEnabled(false);
-        etMname.setEnabled(false);
-        etState.setEnabled(false);
-        etCity.setEnabled(false);
-        etAddress.setEnabled(false);
-        etBlood.setEnabled(false);
-        etEmail.setEnabled(false);
-        etFocc.setEnabled(false);
-        etFemail.setEnabled(false);
-        etFname.setEnabled(false);
-        etFphn.setEnabled(false);
-        etBank.setEnabled(false);
-    }
-
-    public void onEditClick()
-    {
-        etRoom.setEnabled(true);
-        etPhn.setEnabled(true);
-        etIfsc.setEnabled(true);
-        etAccNo.setEnabled(true);
-        etMocc.setEnabled(true);
-        etMphn.setEnabled(true);
-        etMemail.setEnabled(true);
-        etState.setEnabled(true);
-        etCity.setEnabled(true);
-        etAddress.setEnabled(true);
-        etEmail.setEnabled(true);
-        etFocc.setEnabled(true);
-        etFemail.setEnabled(true);
-        etFphn.setEnabled(true);
-        etBank.setEnabled(true);
-
-        etRoom.setFocusable(true);
-        etPhn.setFocusable(true);
-        etIfsc.setFocusable(true);
-        etAccNo.setFocusable(true);
-        etMocc.setFocusable(true);
-        etMphn.setFocusable(true);
-        etMemail.setFocusable(true);
-        etState.setFocusable(true);
-        etCity.setFocusable(true);
-        etAddress.setFocusable(true);
-        etEmail.setFocusable(true);
-        etFocc.setFocusable(true);
-        etFemail.setFocusable(true);
-        etFphn.setFocusable(true);
-        etBank.setFocusable(true);
-
-    }
-    public static Map<String,String> JSONtoMap(JSONObject object)throws JSONException
-    {
-        Map<String, String> map= new HashMap<String, String>();
-        if(object !=JSONObject.NULL)
-        {
-            Iterator<String> keysItr= object.keys();
-            while (keysItr.hasNext()) {
-                String key = keysItr.next();
-                String value = object.getString(key);
-
-                map.put(key, value);
-            }
-        }
-        return map;
-    }
-
-    public JSONObject saveDatatoJson(JSONObject object)throws JSONException
-    {
-        object.put(mUserTable.KEY_ROOM,etRoom.getText().toString().trim());
-        object.put(mUserTable.KEY_PHONE,etPhn.getText().toString().trim());
-        object.put(mUserTable.KEY_IFSC,etIfsc.getText().toString().trim());
-        object.put(mUserTable.KEY_ACNO,etAccNo.getText().toString().trim());
-        object.put(mUserTable.KEY_MOCCUP,etMocc.getText().toString().trim());
-        object.put(mUserTable.KEY_HPHONE,etMphn.getText().toString().trim());
-        object.put(mUserTable.KEY_MMAIL,etMemail.getText().toString().trim());
-        object.put(mUserTable.KEY_STATE,etState.getText().toString().trim());
-        object.put(mUserTable.KEY_CITY,etCity.getText().toString().trim());
-        object.put(mUserTable.KEY_HOMEADD,etAddress.getText().toString().trim());
-        object.put(mUserTable.KEY_EMAIL,etEmail.getText().toString().trim());
-        object.put(mUserTable.KEY_FOCCUP,etFocc.getText().toString().trim());
-        object.put(mUserTable.KEY_FMAIL,etFemail.getText().toString().trim());
-        object.put(mUserTable.KEY_BANK,etBank.getText().toString().trim());
-
+        Log.e("objectafterupdate",object.toString());
         return object;
-    }
 
+    }
 }

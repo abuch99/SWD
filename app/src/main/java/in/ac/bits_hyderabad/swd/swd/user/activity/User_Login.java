@@ -32,12 +32,6 @@ import javax.security.auth.login.LoginException;
 import in.ac.bits_hyderabad.swd.swd.admin.activity.Admin_Login;
 import in.ac.bits_hyderabad.swd.swd.R;
 import in.ac.bits_hyderabad.swd.swd.databaseconnection.APIService;
-import in.ac.bits_hyderabad.swd.swd.databaseconnection.APIUtils;
-import in.ac.bits_hyderabad.swd.swd.databaseconnection.responseclasses.AuthenticationData;
-import in.ac.bits_hyderabad.swd.swd.databases.UserTable;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
 
 public class User_Login extends AppCompatActivity {
 
@@ -51,13 +45,11 @@ public class User_Login extends AppCompatActivity {
     TextView mTextView;
     ProgressDialog dialog;
 
-    UserTable userTable;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        userTable = new UserTable(getApplicationContext());
+        //userTable = new UserTable(getApplicationContext());
         preferences=getApplicationContext().getSharedPreferences("USER_LOGIN_DETAILS",MODE_PRIVATE);
         editor=preferences.edit();
         setContentView(R.layout.activity_login);
@@ -109,13 +101,22 @@ public class User_Login extends AppCompatActivity {
                         try {
                             JSONObject object = new JSONObject(response);
                             if (!object.getBoolean("error")) {
-                                editor.putString("username",my_id);
+                                editor.putInt("exists",1);
+                                editor.putString("name",object.getString("name"));
+                                editor.putString("uid",my_id);
                                 editor.putString("password" ,password);
+                                editor.putString("id",object.getString("id"));
+
                                 editor.commit();
+                                checkLogin();
+
+                                /*
                                 userTable.deleteAll();
                                 object.put("password", password);
                                 userTable.createEntry(object);
                                 checkLogin();
+                                */
+
                             } else {
                                 Toast.makeText(User_Login.this, "Wrong ID or Password", Toast.LENGTH_SHORT).show();
                                 dialog.hide();
@@ -197,7 +198,7 @@ public class User_Login extends AppCompatActivity {
 
 
     public void checkLogin() {
-        if (userTable.hasData()) {
+        /*if (userTable.hasData()) {
             Intent intent = new Intent(User_Login.this, User_Nav.class);
             if (getIntent().getStringExtra("default") != null) {
                 intent.putExtra("default", getIntent().getStringArrayExtra("default"));
@@ -207,6 +208,20 @@ public class User_Login extends AppCompatActivity {
             }
             startActivity(intent);
             finish();
+        }
+        */
+        if(preferences.getInt("exists",0)==1)
+        {
+            Intent intent = new Intent(User_Login.this, User_Nav.class);
+            if (getIntent().getStringExtra("default") != null) {
+                intent.putExtra("default", getIntent().getStringArrayExtra("default"));
+                if (getIntent().getLongExtra("uploadedTime", -1) != -1) {
+                    intent.putExtra("uploadedTime", getIntent().getLongExtra("uploadedTime", -1));
+                }
+            }
+            startActivity(intent);
+            finish();
+
         }
     }
 }
