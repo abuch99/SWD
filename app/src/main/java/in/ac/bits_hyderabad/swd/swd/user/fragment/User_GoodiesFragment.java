@@ -1,8 +1,10 @@
 package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
+import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -96,7 +98,9 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
     public void onItemClicked(int index) {
         Intent intent=new Intent(getActivity(),OrderGoodie.class);
         intent.putExtra("goodieClicked",goodies.get(index));
-        startActivity(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            startActivity(intent, ActivityOptions.makeCustomAnimation(getContext(),R.xml.slide_in_right,R.xml.slide_in_right).toBundle());
+        }
     }
     public  void loadGoodies()
     {
@@ -117,7 +121,7 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
                         String name=obj.getString("name");
                         String host=obj.getString("hosted_by");
                         String image=obj.getString("img");
-                        String price=obj.getString("price");
+                        String price="₹ "+obj.getString("price");
                         String size_chart=obj.getString("link");
                         String xs=obj.getString("xs");
                         String s=obj.getString("s");
@@ -127,8 +131,8 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
                         String xxl=obj.getString("xxl");
                         String xxxl=obj.getString("xxxl");
                         String qut=obj.getString("qut");
-                        String min_amount=obj.getString("min_amount");
-                        String max_amount=obj.getString("max_amount");
+                        String min_amount="₹ "+obj.getString("min_amount");
+                        String max_amount="₹ "+obj.getString("max_amount");
                         String max_quantity=obj.getString("max_quantity");
                         String custom=obj.getString("custom");
                         String view_uid=obj.getString("view_uid");

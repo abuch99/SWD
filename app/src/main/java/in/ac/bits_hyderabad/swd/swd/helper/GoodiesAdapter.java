@@ -17,9 +17,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jsibbold.zoomage.ZoomageView;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.net.URI;
@@ -36,6 +38,7 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
     itemClicked activity;
     Context context;
     ZoomageView image;
+    boolean error_loading=false;
 
     public interface itemClicked{
         void onItemClicked(int index);
@@ -57,7 +60,7 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GoodiesAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final GoodiesAdapter.ViewHolder viewHolder, final int i) {
 
         final String ImageUrl= "http://swd.bits-hyderabad.ac.in/goodies/img/"+goodies.get(i).getImage();//"All.jpg"  or   goodies.get(i).getImage()
 
@@ -65,11 +68,19 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
         final Context context =viewHolder.ivGoodie.getContext();
         Log.e("Image url",ImageUrl);
 
-        Picasso.get().load(ImageUrl)
-                .resize(125,125)
+        /*Picasso.get().load(ImageUrl)
+                .resize(700,700)
                 .placeholder(R.drawable.ic_loading)
                 .centerInside().error(R.drawable.ic_error)
                 .into(viewHolder.ivGoodie);
+        */
+
+        Picasso.get().load(ImageUrl)
+                .resize(500,500)
+                .placeholder(R.drawable.ic_loading)
+                .centerInside().error(R.drawable.ic_error)
+                .into(viewHolder.ivGoodie);
+
         viewHolder.itemView.setTag(goodies.get(i));
         viewHolder.tvGoodieName.setText(goodies.get(i).getName());
         viewHolder.tvGoodieHost.setText(goodies.get(i).getHost());
@@ -78,25 +89,30 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
         viewHolder.tvGoodieHosterMobile.setText(goodies.get(i).getMobile());
 
 
-        viewHolder.ivGoodie.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Dialog myDialog=new Dialog(context,android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
-                myDialog.setContentView(R.layout.my_dialog);
-                myDialog.getWindow().setBackgroundDrawableResource(R.color.semiTransparentColor80black);
-                image=myDialog.findViewById(R.id.ivFullGoodieImage);
+            viewHolder.ivGoodie.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
 
-                Picasso.get().load(ImageUrl)
-                        .resize(1500,1500)
-                        .centerInside()
-                        .placeholder(R.drawable.ic_loading)
-                        .error(R.drawable.ic_error)
-                        .into(image);
-                myDialog.show();
-            }
-        });
-    }
+                        Dialog myDialog=new Dialog(context,android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+                        myDialog.setContentView(R.layout.my_dialog);
+                        myDialog.getWindow().setBackgroundDrawableResource(R.color.semiTransparentColor99black);
+                        image=myDialog.findViewById(R.id.ivFullGoodieImage);
+
+
+                        Picasso.get().load(ImageUrl)
+                                .resize(1500,1500)
+                                .centerInside()
+                                .placeholder(R.drawable.ic_loading)
+                                .error(R.drawable.ic_error)
+                                .into(image);
+                        myDialog.show();
+
+
+                }
+            });
+
+        };
 
     @Override
     public int getItemCount() {
@@ -107,9 +123,9 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
 
         ImageView ivGoodie;
         TextView tvGoodieName,tvGoodieHost,tvGoodiePrice,tvGoodieHosterName,tvGoodieHosterMobile;
+
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
-
 
             ivGoodie=itemView.findViewById(R.id.ivGoodie);
             tvGoodieName=itemView.findViewById(R.id.tvGoodieName);
@@ -125,6 +141,7 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
 
                 }
             });
+
         }
 
     }

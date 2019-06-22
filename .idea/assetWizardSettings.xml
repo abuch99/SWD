@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/alert/ic_error_outline_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_navigate_next_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,10 +33,10 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="assetSourceType" value="FILE" />
-                            <entry key="opacityPercent" value="50" />
-                            <entry key="outputName" value="ic_error" />
-                            <entry key="sourceFile" value="C:\Users\PRASOON BAGHEL\Desktop\iconfinder_error_2639809.svg" />
+                            <entry key="color" value="e5001f" />
+                            <entry key="outputName" value="ic_next" />
+                            <entry key="overrideSize" value="true" />
+                            <entry key="sourceFile" value="C:\Users\PRASOON BAGHEL\Downloads\Spinner-1s-200px.svg" />
                           </map>
                         </option>
                       </PersistentState>
