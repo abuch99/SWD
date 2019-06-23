@@ -1,36 +1,25 @@
 package in.ac.bits_hyderabad.swd.swd.helper;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Point;
-import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jsibbold.zoomage.ZoomageView;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import java.net.URI;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import in.ac.bits_hyderabad.swd.swd.R;
-import in.ac.bits_hyderabad.swd.swd.user.activity.User_Nav;
 
 public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHolder> {
 

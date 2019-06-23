@@ -1,6 +1,6 @@
 package in.ac.bits_hyderabad.swd.swd.user.activity;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import in.ac.bits_hyderabad.swd.swd.R;

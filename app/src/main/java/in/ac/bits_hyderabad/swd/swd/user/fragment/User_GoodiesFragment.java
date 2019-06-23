@@ -2,17 +2,15 @@ package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
 import android.app.ActivityOptions;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,8 +37,6 @@ import in.ac.bits_hyderabad.swd.swd.R;
 import in.ac.bits_hyderabad.swd.swd.helper.Goodies;
 import in.ac.bits_hyderabad.swd.swd.helper.GoodiesAdapter;
 import in.ac.bits_hyderabad.swd.swd.user.activity.OrderGoodie;
-import in.ac.bits_hyderabad.swd.swd.user.activity.User_Login;
-import in.ac.bits_hyderabad.swd.swd.user.activity.User_Nav;
 
 public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.itemClicked {
 

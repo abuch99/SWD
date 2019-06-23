@@ -7,14 +7,13 @@
     -->
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".user.activity.OrderGoodie"></activity>
+        <activity android:name=".user.activity.OrderGoodie" />
         <activity android:name=".user.activity.ForgotPassword" />
         <activity android:name=".user.activity.Splash_Activity">
             <intent-filter>
@@ -30,14 +29,10 @@
         <activity android:name=".user.activity.Settings" />
         <activity android:name=".user.activity.User_Login" />
         <activity
-            android:name=".user.activity.User_Nav"
-            android:label="@string/title_activity_nav"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".admin.activity.Admin_Login" />
-        <activity
-            android:name=".admin.activity.Admin_Nav"
-            android:label="@string/title_activity_admin__nav"
-            android:theme="@style/AppTheme" />
+        android:name=".user.activity.User_Nav"
+        android:label="@string/title_activity_nav"
+        android:theme="@style/AppTheme" />
+
     </application>
 
 </manifest>
