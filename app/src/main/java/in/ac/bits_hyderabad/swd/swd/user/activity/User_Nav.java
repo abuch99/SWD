@@ -188,8 +188,8 @@ public class User_Nav extends AppCompatActivity
             case R.id.connect: {
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
-                /*Intent intent=new Intent(User_Nav.this, Connect.class);
-                startActivity(intent);*/
+                Intent intent=new Intent(User_Nav.this, Connect.class);
+                startActivity(intent);
                 break;
             }
             case R.id.notices: {
