@@ -1,6 +1,6 @@
 # SWD Mobiile Application
 
-My Course Guide is a web application created to aid university students in sharing their reviews of the various courses that they have studied.
+The SWD Mobile Application serves to provide ease of access for students to use the services offered by the Student Welfare Divison of BITS Pilani, Hyderabad Campus.
 
 
 ## Technologies Used
