@@ -109,18 +109,10 @@ public class Connect extends AppCompatActivity implements PersonAdapter.itemClic
     public void onItemClicked(int intent_action, String data) {
         switch (intent_action){
             case 0:
-                if (ContextCompat.checkSelfPermission(Connect.this, Manifest.permission.CALL_PHONE)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(Connect.this,
-                            new String[]{Manifest.permission.CALL_PHONE},
-                            1);
-                }
-                else{
-                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    Intent callIntent = new Intent(Intent.ACTION_DIAL);
                     callIntent.setData(Uri.parse("tel:"+data));//change the number
                     Log.e("number" , Uri.parse("tel:"+data).toString());
                     startActivity(callIntent);
-                }
 
                 break;
 
