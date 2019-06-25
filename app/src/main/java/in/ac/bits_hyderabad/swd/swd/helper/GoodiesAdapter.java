@@ -4,11 +4,15 @@ import android.app.Dialog;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.GestureDetectorCompat;
+import androidx.core.view.MotionEventCompat;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -24,10 +28,13 @@ import in.ac.bits_hyderabad.swd.swd.R;
 public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHolder> {
 
     private ArrayList<Goodies> goodies;
+    private  String DEBUG_TAG="touch event";
     itemClicked activity;
     Context context;
     ZoomageView image;
     boolean error_loading=false;
+
+    GestureDetector gestureDetector;
 
     public interface itemClicked{
         void onItemClicked(int index);
@@ -65,7 +72,7 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
         */
 
         Picasso.get().load(ImageUrl)
-                .resize(500,500)
+                .resize(600,600)
                 .placeholder(R.drawable.ic_loading)
                 .centerInside().error(R.drawable.ic_error)
                 .into(viewHolder.ivGoodie);
@@ -115,6 +122,7 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
+
 
             ivGoodie=itemView.findViewById(R.id.ivGoodie);
             tvGoodieName=itemView.findViewById(R.id.tvGoodieName);

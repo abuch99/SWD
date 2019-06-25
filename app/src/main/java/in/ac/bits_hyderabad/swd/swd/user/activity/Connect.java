@@ -2,17 +2,22 @@ package in.ac.bits_hyderabad.swd.swd.user.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.View;
 import android.widget.TableLayout;
 import android.widget.Toast;
 
@@ -23,6 +28,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
@@ -49,7 +55,7 @@ public class Connect extends AppCompatActivity implements PersonAdapter.itemClic
     Toolbar toolbarConnect;
     TabLayout tabLayout;
     ViewPager viewPager;
-
+    View v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +90,7 @@ public class Connect extends AppCompatActivity implements PersonAdapter.itemClic
         adapter.addFragment(new SMC_ConnectFragment(),"SMC");
         adapter.addFragment(new CRC_ConnectFragment(),"CRC");
         adapter.addFragment(new EC_ConnectFragment(),"EC");
-        viewPager.setOffscreenPageLimit(5);
+        viewPager.setOffscreenPageLimit(3);
         viewPager.setAdapter(adapter);
     }
 
@@ -103,10 +109,19 @@ public class Connect extends AppCompatActivity implements PersonAdapter.itemClic
     public void onItemClicked(int intent_action, String data) {
         switch (intent_action){
             case 0:
-                Intent callIntent = new Intent(Intent.ACTION_CALL_BUTTON);
-                callIntent.setData(Uri.parse("tel:"+data));//change the number
-                Log.e("number" , Uri.parse("tel:"+data).toString());
-                startActivity(callIntent);
+                if (ContextCompat.checkSelfPermission(Connect.this, Manifest.permission.CALL_PHONE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(Connect.this,
+                            new String[]{Manifest.permission.CALL_PHONE},
+                            1);
+                }
+                else{
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:"+data));//change the number
+                    Log.e("number" , Uri.parse("tel:"+data).toString());
+                    startActivity(callIntent);
+                }
+
                 break;
 
             case 1:
@@ -117,4 +132,5 @@ public class Connect extends AppCompatActivity implements PersonAdapter.itemClic
 
         }
     }
+
 }

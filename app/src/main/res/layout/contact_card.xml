@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
         android:padding="5dp"
         app:cardElevation="10dp">
 
@@ -34,7 +34,7 @@
                     android:layout_marginLeft="25dp"
                     android:text="Prasoon Baghel"
                     android:textAllCaps="true"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"/>
 
@@ -43,7 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="25dp"
                     android:text="Nucleus Member"
                     android:textSize="15sp" />
 
@@ -54,21 +54,23 @@
                 android:orientation="horizontal"
                 android:layout_weight="2"
                 android:paddingTop="25dp"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:paddingBottom="15dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp">
 
                 <ImageView
                     android:id="@+id/ivCall"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_call"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
                     android:background="@drawable/ripple_effect"
-                    android:layout_weight="1"/>
+                    android:src="@drawable/ic_call" />
                 <ImageView
                     android:id="@+id/ivMail"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/ic_mail"
                     android:background="@drawable/ripple_effect"
                     android:layout_weight="1"/>
