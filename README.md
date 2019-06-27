@@ -7,9 +7,6 @@ The SWD Mobile Application serves to provide ease of access for students to use 
 
 - Android Studio - Software to make android applications
 - Java - Backend for the Android application
-- XML - Frontend for the application
-- Git/Github - Version Control and Code Repository
-
 
 ## Contributors
 
