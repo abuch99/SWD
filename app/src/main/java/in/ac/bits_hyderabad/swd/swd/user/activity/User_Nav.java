@@ -306,7 +306,7 @@ public class User_Nav extends AppCompatActivity
 
     @Override
     protected void onResume() {
-        navigationView.setCheckedItem(R.id.home);
+        setHome();
         super.onResume();
     }
 }
