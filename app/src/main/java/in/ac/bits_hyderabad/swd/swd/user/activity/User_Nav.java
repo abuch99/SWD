@@ -192,24 +192,7 @@ public class User_Nav extends AppCompatActivity
                 startActivity(intent);
                 break;
             }
-            case R.id.notices: {
-                if (drawer.isDrawerOpen(GravityCompat.START))
-                    drawer.closeDrawer(GravityCompat.START);
-                actionBar.setTitle(R.string.notices_title);
-                navigationView.setCheckedItem(R.id.notices);
-                fragment=new User_NoticeFragment();
-                manager.beginTransaction().replace(R.id.layout_frame,fragment,"notices").commit();
-                break;
-            }
-            case R.id.complaint: {
-                if (drawer.isDrawerOpen(GravityCompat.START))
-                    drawer.closeDrawer(GravityCompat.START);
-                actionBar.setTitle(R.string.complaints_title);
-                navigationView.setCheckedItem(R.id.complaint);
-                fragment=new User_ComplaintFragment();
-                manager.beginTransaction().replace(R.id.layout_frame,fragment,"complaint").commit();
-                break;
-            }
+
             case R.id.mess: {
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
@@ -226,15 +209,6 @@ public class User_Nav extends AppCompatActivity
                 navigationView.setCheckedItem(R.id.docs);
                 fragment=new User_DocFragment();
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,"docs").commit();
-                break;
-            }
-            case R.id.uploads: {
-                if (drawer.isDrawerOpen(GravityCompat.START))
-                    drawer.closeDrawer(GravityCompat.START);
-                actionBar.setTitle(R.string.uploads_title);
-                navigationView.setCheckedItem(R.id.uploads);
-                fragment=new User_UploadFragment();
-                manager.beginTransaction().replace(R.id.layout_frame,fragment,"uploads").commit();
                 break;
             }
             case R.id.goodies: {
