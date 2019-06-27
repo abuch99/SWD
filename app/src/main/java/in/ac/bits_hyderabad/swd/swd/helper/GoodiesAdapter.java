@@ -1,19 +1,18 @@
 package in.ac.bits_hyderabad.swd.swd.helper;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Point;
-import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.core.view.GestureDetectorCompat;
+import androidx.core.view.MotionEventCompat;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
-import android.view.Display;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -22,20 +21,20 @@ import android.widget.TextView;
 import com.jsibbold.zoomage.ZoomageView;
 import com.squareup.picasso.Picasso;
 
-import java.net.URI;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import in.ac.bits_hyderabad.swd.swd.R;
-import in.ac.bits_hyderabad.swd.swd.user.activity.User_Nav;
 
 public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHolder> {
 
     private ArrayList<Goodies> goodies;
+    private  String DEBUG_TAG="touch event";
     itemClicked activity;
     Context context;
     ZoomageView image;
+    boolean error_loading=false;
+
+    GestureDetector gestureDetector;
 
     public interface itemClicked{
         void onItemClicked(int index);
@@ -57,7 +56,7 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GoodiesAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final GoodiesAdapter.ViewHolder viewHolder, final int i) {
 
         final String ImageUrl= "http://swd.bits-hyderabad.ac.in/goodies/img/"+goodies.get(i).getImage();//"All.jpg"  or   goodies.get(i).getImage()
 
@@ -65,11 +64,19 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
         final Context context =viewHolder.ivGoodie.getContext();
         Log.e("Image url",ImageUrl);
 
-        Picasso.get().load(ImageUrl)
-                .resize(125,125)
+        /*Picasso.get().load(ImageUrl)
+                .resize(700,700)
                 .placeholder(R.drawable.ic_loading)
                 .centerInside().error(R.drawable.ic_error)
                 .into(viewHolder.ivGoodie);
+        */
+
+        Picasso.get().load(ImageUrl)
+                .resize(600,600)
+                .placeholder(R.drawable.ic_loading)
+                .centerInside().error(R.drawable.ic_error)
+                .into(viewHolder.ivGoodie);
+
         viewHolder.itemView.setTag(goodies.get(i));
         viewHolder.tvGoodieName.setText(goodies.get(i).getName());
         viewHolder.tvGoodieHost.setText(goodies.get(i).getHost());
@@ -78,25 +85,30 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
         viewHolder.tvGoodieHosterMobile.setText(goodies.get(i).getMobile());
 
 
-        viewHolder.ivGoodie.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Dialog myDialog=new Dialog(context,android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
-                myDialog.setContentView(R.layout.my_dialog);
-                myDialog.getWindow().setBackgroundDrawableResource(R.color.semiTransparentColor80black);
-                image=myDialog.findViewById(R.id.ivFullGoodieImage);
+            viewHolder.ivGoodie.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
 
-                Picasso.get().load(ImageUrl)
-                        .resize(1500,1500)
-                        .centerInside()
-                        .placeholder(R.drawable.ic_loading)
-                        .error(R.drawable.ic_error)
-                        .into(image);
-                myDialog.show();
-            }
-        });
-    }
+                        Dialog myDialog=new Dialog(context,android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+                        myDialog.setContentView(R.layout.my_dialog);
+                        myDialog.getWindow().setBackgroundDrawableResource(R.color.semiTransparentColor99black);
+                        image=myDialog.findViewById(R.id.ivFullGoodieImage);
+
+
+                        Picasso.get().load(ImageUrl)
+                                .resize(1500,1500)
+                                .centerInside()
+                                .placeholder(R.drawable.ic_loading)
+                                .error(R.drawable.ic_error)
+                                .into(image);
+                        myDialog.show();
+
+
+                }
+            });
+
+        };
 
     @Override
     public int getItemCount() {
@@ -107,6 +119,7 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
 
         ImageView ivGoodie;
         TextView tvGoodieName,tvGoodieHost,tvGoodiePrice,tvGoodieHosterName,tvGoodieHosterMobile;
+
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
@@ -125,6 +138,7 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
 
                 }
             });
+
         }
 
     }

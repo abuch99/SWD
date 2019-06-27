@@ -4,36 +4,28 @@ import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
-import android.graphics.Point;
-import android.media.Image;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import com.google.android.material.navigation.NavigationView;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
-import android.view.Display;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URL;
 import in.ac.bits_hyderabad.swd.swd.user.fragment.*;
 
 import in.ac.bits_hyderabad.swd.swd.R;
@@ -196,10 +188,8 @@ public class User_Nav extends AppCompatActivity
             case R.id.connect: {
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
-                actionBar.setTitle(R.string.connect_title);
-                navigationView.setCheckedItem(R.id.connect);
-                fragment=new User_ConnectFragment();
-                manager.beginTransaction().replace(R.id.layout_frame,fragment,"connect").commit();
+                Intent intent=new Intent(User_Nav.this, Connect.class);
+                startActivity(intent);
                 break;
             }
             case R.id.notices: {
@@ -268,7 +258,17 @@ public class User_Nav extends AppCompatActivity
                                 logout();
                             }
                         })
-                        .setNegativeButton("Cancel", null)
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                navigationView.setCheckedItem(R.id.home);
+                            }
+                        }).setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        navigationView.setCheckedItem(R.id.home);
+                    }
+                })
                         .show();
                 break;
 
@@ -302,5 +302,11 @@ public class User_Nav extends AppCompatActivity
         transaction.replace(R.id.layout_frame, someFragment,tag);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    protected void onResume() {
+        navigationView.setCheckedItem(R.id.home);
+        super.onResume();
     }
 }

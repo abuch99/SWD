@@ -1,13 +1,17 @@
 package in.ac.bits_hyderabad.swd.swd.user.activity;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.app.KeyguardManager;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -22,11 +26,23 @@ import com.jsibbold.zoomage.ZoomageView;
 import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import in.ac.bits_hyderabad.swd.swd.R;
 import in.ac.bits_hyderabad.swd.swd.helper.Goodies;
 
 public class OrderGoodie extends AppCompatActivity {
+
+    private final int FUNDRAISER_TYPE=1;
+    private final int TSHIRT_TYPE=2;
+    private final int WORKSHOP_TYPE=3;
+    private final int IDCARD_TYPE=4;
+
+
+    ArrayList <EditText> sizes=new ArrayList<>();
+    ArrayList <String> sizes_available=new ArrayList<>();
+
+    Boolean AT_LEAST_ONE_TSHIRT_SIZE_ORDERD=false;
 
     Boolean fundraiser;
     Toolbar toolbar;
@@ -37,7 +53,8 @@ public class OrderGoodie extends AppCompatActivity {
     Button btnOrder;
     ImageView ivImageOrder;
     LinearLayout llsize,llprice;
-
+    int totalqty;
+    Boolean tshirt=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,10 +69,19 @@ public class OrderGoodie extends AppCompatActivity {
 
         initViews();
         btnOrder.setVisibility(View.GONE);
+        rlminamt_fraiser.setVisibility(View.GONE);
+        rlmaxamt_fraiser.setVisibility(View.GONE);
+
         final Intent intent=getIntent();
         final Goodies goodie=intent.getParcelableExtra("goodieClicked");
 
-
+        sizes_available.add(goodie.getXs());
+        sizes_available.add(goodie.getS());
+        sizes_available.add(goodie.getM());
+        sizes_available.add(goodie.getL());
+        sizes_available.add(goodie.getXl());
+        sizes_available.add(goodie.getXxl());
+        sizes_available.add(goodie.getXxxl());
 
         Log.e("GoodieRecieved",goodie.getName());
 
@@ -63,8 +89,7 @@ public class OrderGoodie extends AppCompatActivity {
         tvHost.setText(goodie.getHost());
         tvPrice.setText(goodie.getPrice());
 
-        rlminamt_fraiser.setVisibility(View.GONE);
-        rlmaxamt_fraiser.setVisibility(View.GONE);
+
         fundraiser=false;
 
         Log.e("image url","swd.bits-hyderabad.ac.in/goodies/img/"+goodie.getImage());
@@ -98,12 +123,35 @@ public class OrderGoodie extends AppCompatActivity {
                 }
             });
         }
+
         else
         {
             llsize.setVisibility(View.GONE);
         }
 
 
+            ivImageOrder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ImageView image;
+                    Dialog myDialog = new Dialog(OrderGoodie.this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+                    myDialog.setContentView(R.layout.my_dialog);
+                    myDialog.getWindow().setBackgroundDrawableResource(R.color.semiTransparentColor99black);
+                    image = myDialog.findViewById(R.id.ivFullGoodieImage);
+
+                    String ImageUrl = "http://swd.bits-hyderabad.ac.in/goodies/img/" + goodie.getImage();
+
+                    Picasso.get().load(ImageUrl)
+                            .resize(1500, 1500)
+                            .centerInside()
+                            .placeholder(R.drawable.ic_loading)
+                            .error(R.drawable.ic_error)
+                            .into(image);
+                    myDialog.show();
+                }
+            });
+
+            //KYA HI CHUTIYAAPP HAI YE
         if(goodie.getXs().equals("0")){
             rlxs.setVisibility(View.GONE);
         }
@@ -147,6 +195,12 @@ public class OrderGoodie extends AppCompatActivity {
 
                 if(isChecked)
                 {
+                    InputMethodManager imm = (InputMethodManager) OrderGoodie.this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    View view = OrderGoodie.this.getCurrentFocus();
+                    if (view == null) {
+                        view = new View(OrderGoodie.this);
+                    }
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     btnOrder.setVisibility(View.VISIBLE);
                 }
                 else
@@ -156,10 +210,16 @@ public class OrderGoodie extends AppCompatActivity {
             }
         });
 
+
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                // DATABASE TATTI HONE KE KARAD ITNA GANDA HUA HAI CODE
+
+                Log.e("OnClick","At least one size "+AT_LEAST_ONE_TSHIRT_SIZE_ORDERD);
+                Log.e("OnClick", fundraiser+"");
+                //goodie is a fundraiser
                 if(fundraiser){
                     if(!etQty.getText().toString().isEmpty()){
                         int entered_amt=Integer.parseInt(etQty.getText().toString());
@@ -168,12 +228,71 @@ public class OrderGoodie extends AppCompatActivity {
                         if(!(entered_amt>=min&&entered_amt<=max)){
                             Toast.makeText(OrderGoodie.this,"Please enter an amount in the given limits!",Toast.LENGTH_SHORT).show();
                         }
+                        else{
+                            auth_identity(FUNDRAISER_TYPE);
+                        }
                     }
                     else
                     {
                         etQty.setError("You cannot leave this field empty");
                     }
 
+                }
+                //goodie is not a fundraiser...REALLY TATTTTTTIIII DB (-_-)
+                else
+                {
+
+                    for( String str: sizes_available)
+                    {
+                        if (str.equals("1"))
+                        {
+                            tshirt=true;
+                            break;
+                        }
+                    }
+
+                    Log.e("OnClick", "came in else");
+                    // goodie is a t shirt type (needs a size)
+                    if(goodie.getQut().equals("0")&&tshirt){
+                        Log.e("OnClick", "tshirt");
+                        for(int i=0;i<sizes.size();i++)
+                        {
+                            if(!sizes.get(i).getText().toString().trim().isEmpty())
+                            {
+                                AT_LEAST_ONE_TSHIRT_SIZE_ORDERD=true;
+                                totalqty+=Integer.parseInt(sizes.get(i).getText().toString().trim());
+                            }
+                        }
+                        Log.e("After for loop","At least one size "+AT_LEAST_ONE_TSHIRT_SIZE_ORDERD);
+
+                        if(AT_LEAST_ONE_TSHIRT_SIZE_ORDERD){
+                            AT_LEAST_ONE_TSHIRT_SIZE_ORDERD=false;
+                            auth_identity(TSHIRT_TYPE);
+                        }
+                        else
+                        {
+                            Toast.makeText(OrderGoodie.this,"Enter quantity for at least one size!!",Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                    //goodie is id card , lunch, workshop type(does not need size) REALLY FUCK DB (-_-)
+                    else if(goodie.getQut().equals("1"))
+                    {
+                        Log.e("OnClick", "Workshop");
+                        if(!etQty.getText().toString().trim().isEmpty()){
+                            totalqty=Integer.parseInt(etQty.getText().toString().trim());
+                            auth_identity(WORKSHOP_TYPE);
+                        }
+                        else
+                        {
+                            Toast.makeText(OrderGoodie.this,"Please enter the quantity", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                    else
+                    {
+                        auth_identity(IDCARD_TYPE);
+                    }
                 }
 
             }
@@ -189,6 +308,8 @@ public class OrderGoodie extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
+        this.finishAfterTransition();
         super.onBackPressed();
     }
 
@@ -226,5 +347,51 @@ public class OrderGoodie extends AppCompatActivity {
         cbAgree=findViewById(R.id.cbAgree);
         btnOrder=findViewById(R.id.btnOrder);
         ivImageOrder=findViewById(R.id.ivimageOrder);
+
+        sizes.add(etxsQty);
+        sizes.add(etsQty);
+        sizes.add(etmQty);
+        sizes.add(etlQty);
+        sizes.add(etxlQty);
+        sizes.add(etxxlQty);
+        sizes.add(etxxxlQty);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK )
+        {
+            if(requestCode==FUNDRAISER_TYPE)
+            {
+                Toast.makeText(this, "Success: Verified user's identity", Toast.LENGTH_SHORT).show();
+            }
+            else if(requestCode==TSHIRT_TYPE)
+            {
+                Toast.makeText(this, "Success: Verified user's identity", Toast.LENGTH_SHORT).show();
+            }
+            else if(requestCode==WORKSHOP_TYPE)
+            {
+                Toast.makeText(this, "Success: Verified user's identity", Toast.LENGTH_SHORT).show();
+            }
+            else if(requestCode==IDCARD_TYPE)
+            {
+                Toast.makeText(this, "Success: Verified user's identity", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+        else
+        {
+            Toast.makeText(this, "Failure: Unable to verify user's identity", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void auth_identity(int REQUEST_CODE) {
+        KeyguardManager km = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
+
+        if (km.isKeyguardSecure()) {
+            Intent i = km.createConfirmDeviceCredentialIntent("Authentication required", "password");
+            startActivityForResult(i, REQUEST_CODE);
+        } else
+            Toast.makeText(OrderGoodie.this, "No any security setup done by user(pattern or password or pin or fingerprint", Toast.LENGTH_SHORT).show();
     }
 }

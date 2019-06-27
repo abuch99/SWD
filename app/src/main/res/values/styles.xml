@@ -1,13 +1,18 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <!-- Customize your theme here. -->
         <item name="actionBarStyle">@style/custom_style</item>
-        <item name="colorPrimary">@color/colorPrimaryLight</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:homeAsUpIndicator">@drawable/back_btn</item>
+
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <!--<item name="colorControlHighlight">@color/colorAccent</item>-->
+
+        <item name="homeAsUpIndicator">@drawable/back_btn</item>
         <item name="coordinatorLayoutStyle">@style/Widget.Support.CoordinatorLayout</item>
     </style>
 
@@ -43,6 +48,7 @@
     <style name="login_input_layout">
         <item name="android:textColorHint">@color/colorHint</item>
         <item name="passwordToggleTint">@color/whiteText</item>
+        <item name="android:layout_marginTop">16dp</item>
 
     </style>
 
@@ -60,9 +66,10 @@
 
     </style>
 
-    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="AppCompatAlertDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="colorAccent">@color/black</item>
         <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:actionButtonStyle">@style/Widget.AppCompat.ActionButton</item>
     </style>
 
     <style name="background_img">
@@ -72,11 +79,14 @@
     </style>
 
     <style name="button_login">
-        <item name="android:textSize">20sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textColor">#000000</item>
-        <item name="android:layout_gravity">left</item>
+        <item name="android:layout_gravity">center</item>
         <item name="android:layout_marginTop">16dp</item>
-        <item  name="android:fontFamily">sans-serif</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:fontFamily">sans-serif</item>
         <item name="android:textStyle">bold</item>
         <item name="android:background">@drawable/btn_login</item>
     </style>
@@ -86,7 +96,7 @@
         <item name="android:textColor">#000000</item>
         <item name="android:layout_gravity">left</item>
         <item name="android:layout_marginTop">16dp</item>
-        <item  name="android:fontFamily">sans-serif</item>
+        <item name="android:fontFamily">sans-serif</item>
         <item name="android:background">@drawable/btn_home</item>
     </style>
 
@@ -96,12 +106,13 @@
         <item name="android:textColor">#000000</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
-    </style>
-    <style name="custom_style" parent="Widget.AppCompat.ActionBar.Solid">
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"></style>
+
+    <style name="custom_style" parent="Widget.MaterialComponents.BottomAppBar">
         <item name="android:background">@drawable/bgnd</item>
     </style>
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
 
     </style>
 
@@ -143,6 +154,14 @@
         <item name="android:enabled">true</item>
         <item name="android:focusable">true</item>
 
+    </style>
+
+    <style name="CustomTabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabIndicatorColor">@android:color/white</item>
+        <item name="tabIndicatorHeight">3dp</item>
+        <item name="tabBackground">?attr/selectableItemBackground</item>
+        <item name="tabTextAppearance">@style/TextAppearance.MaterialComponents.Headline1</item>
+        <item name="tabSelectedTextColor">@android:color/white</item>
     </style>
 
 </resources>
