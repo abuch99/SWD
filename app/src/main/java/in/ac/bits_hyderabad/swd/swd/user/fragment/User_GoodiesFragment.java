@@ -128,8 +128,8 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
                         String xxl=obj.getString("xxl");
                         String xxxl=obj.getString("xxxl");
                         String qut=obj.getString("qut");
-                        String min_amount="₹ "+obj.getString("min_amount");
-                        String max_amount="₹ "+obj.getString("max_amount");
+                        String min_amount=obj.getString("min_amount");
+                        String max_amount=obj.getString("max_amount");
                         String max_quantity=obj.getString("max_quantity");
                         String custom=obj.getString("custom");
                         String view_uid=obj.getString("view_uid");

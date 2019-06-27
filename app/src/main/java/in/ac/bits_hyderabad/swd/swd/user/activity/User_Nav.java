@@ -188,8 +188,8 @@ public class User_Nav extends AppCompatActivity
             case R.id.connect: {
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
-                /*Intent intent=new Intent(User_Nav.this, Connect.class);
-                startActivity(intent);*/
+                Intent intent=new Intent(User_Nav.this, Connect.class);
+                startActivity(intent);
                 break;
             }
             case R.id.notices: {
@@ -258,7 +258,17 @@ public class User_Nav extends AppCompatActivity
                                 logout();
                             }
                         })
-                        .setNegativeButton("Cancel", null)
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                navigationView.setCheckedItem(R.id.home);
+                            }
+                        }).setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        navigationView.setCheckedItem(R.id.home);
+                    }
+                })
                         .show();
                 break;
 
@@ -292,5 +302,11 @@ public class User_Nav extends AppCompatActivity
         transaction.replace(R.id.layout_frame, someFragment,tag);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    protected void onResume() {
+        navigationView.setCheckedItem(R.id.home);
+        super.onResume();
     }
 }
