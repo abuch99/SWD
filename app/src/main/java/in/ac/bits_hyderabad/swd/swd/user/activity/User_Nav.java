@@ -48,6 +48,8 @@ public class User_Nav extends AppCompatActivity
     Button btnMess;
     String urlImageIcard;
 
+    String tag;
+
 
 
     @Override
@@ -147,7 +149,6 @@ public class User_Nav extends AppCompatActivity
             public void onClick(View v) {
                 Intent intent =new Intent(User_Nav.this,Profile.class);
                 startActivity(intent);
-
             }
         });
     }
@@ -177,12 +178,13 @@ public class User_Nav extends AppCompatActivity
         int id = item.getItemId();
         switch (id) {
             case R.id.home: {
+                tag="home";
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
                 actionBar.setTitle(R.string.toolbar_title);
                 navigationView.setCheckedItem(R.id.home);
                 fragment=new User_HomeFragment();
-                manager.beginTransaction().replace(R.id.layout_frame,fragment,"home").commit();
+                manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }
             case R.id.connect: {
@@ -194,30 +196,33 @@ public class User_Nav extends AppCompatActivity
             }
 
             case R.id.mess: {
+                tag="mess";
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
                 actionBar.setTitle(R.string.mess_title);
                 navigationView.setCheckedItem(R.id.mess);
                 fragment=new User_MessFragment();
-                manager.beginTransaction().replace(R.id.layout_frame,fragment,"mess").commit();
+                manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }
             case  R.id.docs: {
+                tag="docs";
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
                 actionBar.setTitle(R.string.docs_title);
                 navigationView.setCheckedItem(R.id.docs);
                 fragment=new User_DocFragment();
-                manager.beginTransaction().replace(R.id.layout_frame,fragment,"docs").commit();
+                manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }
             case R.id.goodies: {
+                tag="goodies";
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
                 actionBar.setTitle(R.string.goodies_title);
                 navigationView.setCheckedItem(R.id.goodies);
                 fragment=new User_GoodiesFragment();
-                manager.beginTransaction().replace(R.id.layout_frame,fragment,"goodies").commit();
+                manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }
             case R.id.logout: {
@@ -235,15 +240,13 @@ public class User_Nav extends AppCompatActivity
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                navigationView.setCheckedItem(R.id.home);
+                                navigationView.setCheckedItem(getSupportFragmentManager().findFragmentByTag(tag).getId());
                             }
                         }).setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialog) {
-                        navigationView.setCheckedItem(R.id.home);
                     }
-                })
-                        .show();
+                }).show();
                 break;
 
             }
@@ -280,7 +283,6 @@ public class User_Nav extends AppCompatActivity
 
     @Override
     protected void onResume() {
-        setHome();
         super.onResume();
     }
 }

@@ -16,5 +16,7 @@
     <color name="semiTransparentColor80black">#80000000</color>
     <color name="semiTransparentColor50black">#50000000</color>
     <color name="semiTransparentColor20black">#20000000</color>
+    <color name="semiTransparentColor05black">#05000000</color>
+    <color name="semiTransparentColor10black">#10000000</color>
     <color name="semiTransparentColor00black">#00000000</color>
 </resources>

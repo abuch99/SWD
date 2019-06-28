@@ -164,4 +164,12 @@
         <item name="tabSelectedTextColor">@android:color/white</item>
     </style>
 
+    <style name="quick_link_card" parent="CardView">
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_marginBottom">35dp</item>
+        <item name="cardCornerRadius">15dp</item>
+        <item name="cardElevation">15dp</item>
+    </style>
+
 </resources>
