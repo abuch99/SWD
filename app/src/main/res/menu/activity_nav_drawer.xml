@@ -11,15 +11,6 @@
             android:id="@+id/connect"
             android:icon="@drawable/ic_forum"
             android:title="@string/connect" />
-        <item
-            android:id="@+id/notices"
-            android:icon="@drawable/ic_assignment"
-            android:title="@string/notices" />
-
-        <item
-            android:id="@+id/complaint"
-            android:icon="@drawable/ic_feedback"
-            android:title="@string/complaint" />
 
         <item
             android:id="@+id/mess"
@@ -34,10 +25,6 @@
             android:id="@+id/docs"
             android:icon="@drawable/ic_subject"
             android:title="@string/docs" />
-        <item
-            android:id="@+id/uploads"
-            android:icon="@drawable/ic_up"
-            android:title="@string/uploads" />
         <item
             android:id="@+id/settings"
             android:icon="@drawable/ic_settings"
