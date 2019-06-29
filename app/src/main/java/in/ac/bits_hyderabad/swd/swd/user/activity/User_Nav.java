@@ -178,6 +178,7 @@ public class User_Nav extends AppCompatActivity
         int id = item.getItemId();
         switch (id) {
             case R.id.home: {
+                actionBar.setBackgroundDrawable(getDrawable(R.drawable.bgnd_dark));
                 tag="home";
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
@@ -200,6 +201,7 @@ public class User_Nav extends AppCompatActivity
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
                 actionBar.setTitle(R.string.mess_title);
+                actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
                 navigationView.setCheckedItem(R.id.mess);
                 fragment=new User_MessFragment();
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
@@ -207,6 +209,7 @@ public class User_Nav extends AppCompatActivity
             }
             case  R.id.docs: {
                 tag="docs";
+                actionBar.setBackgroundDrawable(getDrawable(R.drawable.bgnd_dark));
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
                 actionBar.setTitle(R.string.docs_title);
@@ -217,6 +220,7 @@ public class User_Nav extends AppCompatActivity
             }
             case R.id.goodies: {
                 tag="goodies";
+                actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
                 actionBar.setTitle(R.string.goodies_title);
@@ -260,6 +264,7 @@ public class User_Nav extends AppCompatActivity
 
     public void setHome(){
         actionBar.setTitle(R.string.toolbar_title);
+        actionBar.setBackgroundDrawable(getDrawable(R.drawable.bgnd_dark));
         navigationView.setCheckedItem(R.id.home);
         fragment=new User_HomeFragment();
         manager.beginTransaction().replace(R.id.layout_frame,fragment,"home").commit();

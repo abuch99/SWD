@@ -13,14 +13,21 @@
             android:title="@string/connect" />
 
         <item
+            android:id="@+id/goodies"
+            android:icon="@drawable/ic_feedback"
+            android:title="@string/goodies" />
+
+        <item
             android:id="@+id/mess"
             android:icon="@drawable/ic_restaurant"
             android:title="@string/mess" />
 
         <item
-            android:id="@+id/goodies"
-            android:icon="@drawable/ic_feedback"
-            android:title="@string/goodies" />
+            android:id="@+id/messReg"
+            android:icon="@drawable/ic_restaurant"
+            android:title="@string/messReg" />
+
+
         <item
             android:id="@+id/docs"
             android:icon="@drawable/ic_subject"

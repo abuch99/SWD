@@ -27,6 +27,7 @@
     <string name="complaint">Complaint</string>
     <string name="feed">Feed</string>
     <string name="mess">Mess</string>
+    <string name="messReg">Mess Registration</string>
     <string name="docs">Documents</string>
     <string name="uploads">Uploads</string>
     <string name="logout">Logout</string>

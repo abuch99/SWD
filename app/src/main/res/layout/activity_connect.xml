@@ -18,7 +18,7 @@
             android:id="@+id/toolbarConnect"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="@color/colorPrimaryLight"
+            android:background="@color/colorPrimary"
             app:contentInsetStartWithNavigation="0dp"
             app:titleTextColor="@color/whiteText"
             app:layout_scrollFlags="scroll|enterAlways"
@@ -34,7 +34,7 @@
             app:tabUnboundedRipple="true"
             app:tabTextAppearance="@style/TextAppearance.AppCompat"
             app:tabTextColor="@color/whiteText"
-            app:tabBackground="@color/colorPrimaryLight"
+            app:tabBackground="@color/colorPrimary"
             android:scrollbars="horizontal"
             app:tabMode="scrollable">
 

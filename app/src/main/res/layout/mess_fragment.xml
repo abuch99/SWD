@@ -1,12 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:id="@+id/clConnect"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent"
+    tools:context=".user.activity.Connect">
 
-    <WebView
-        android:id="@+id/mess_web"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        style="@style/AppTheme.AppBarOverlay">
 
-    </WebView>
-</RelativeLayout>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayoutMess"
+            android:layout_width="match_parent"
+            style="@style/CustomTabLayout"
+            android:layout_height="50dp"
+            app:tabGravity="fill"
+            app:tabUnboundedRipple="true"
+            app:tabTextAppearance="@style/TextAppearance.AppCompat"
+            app:tabTextColor="@color/whiteText"
+            app:tabBackground="@color/colorPrimary"
+            android:scrollbars="horizontal"
+            app:tabMode="fixed">
+
+
+        </com.google.android.material.tabs.TabLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPagerMess"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tabLayout"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+    </androidx.viewpager.widget.ViewPager>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

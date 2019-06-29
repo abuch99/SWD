@@ -10,6 +10,8 @@
 
         <item name="colorControlNormal">@color/colorPrimary</item>
         <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="actionButtonStyle">@style/ActionButton</item>
         <!--<item name="colorControlHighlight">@color/colorAccent</item>-->
 
         <item name="homeAsUpIndicator">@drawable/back_btn</item>
@@ -170,6 +172,10 @@
         <item name="android:layout_marginBottom">35dp</item>
         <item name="cardCornerRadius">15dp</item>
         <item name="cardElevation">15dp</item>
+    </style>
+
+    <style name="ActionButton" parent="@style/Widget.AppCompat.ActionButton">
+        <item name="android:buttonTint">@color/colorPrimaryLight</item>
     </style>
 
 </resources>

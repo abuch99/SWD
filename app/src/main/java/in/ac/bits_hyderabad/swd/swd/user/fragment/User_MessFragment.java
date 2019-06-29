@@ -1,30 +1,41 @@
 package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
-import android.annotation.TargetApi;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import in.ac.bits_hyderabad.swd.swd.R;
+import in.ac.bits_hyderabad.swd.swd.user.activity.OrderGoodie;
 
 public class User_MessFragment extends Fragment {
 
-    WebView mess_web;
-    String url = "http://swd.bits-hyderabad.ac.in/mess";
+
+    TabLayout tabLayoutMess;
+    ViewPager viewPagerMess;
+    MessMenuAdapter adapter;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -32,34 +43,69 @@ public class User_MessFragment extends Fragment {
         // Defines the xml file for the fragment
         View view = inflater.inflate(R.layout.mess_fragment, parent, false);
 
-        mess_web = (WebView) view.findViewById(R.id.mess_web);
-        mess_web.loadUrl(url);
-        mess_web.getSettings().setJavaScriptEnabled(true);
-        mess_web.setWebViewClient(new MyWebViewClient());
-
+        tabLayoutMess=view.findViewById(R.id.tabLayoutMess);
+        viewPagerMess=view.findViewById(R.id.viewPagerMess);
+        adapter=new MessMenuAdapter(getChildFragmentManager());
 
         return view;
     }
 
-    private class MyWebViewClient extends WebViewClient {
-        @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            // TODO Auto-generated method stub
-            super.onPageStarted(view, url, favicon);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        adapter.addFragment(new MessMenu(),"TODAY");
+        adapter.addFragment(new MessMenu(),"TOMORROW");
+
+        viewPagerMess.setAdapter(adapter);
+        tabLayoutMess.setupWithViewPager(viewPagerMess);
+
+    }
+
+    public class MessMenuAdapter extends FragmentPagerAdapter {
+
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public MessMenuAdapter(FragmentManager fm) {
+            super(fm);
         }
 
-        @SuppressWarnings("deprecation")
         @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            final Uri uri = Uri.parse(url);
-            return true;
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
         }
 
-        @TargetApi(Build.VERSION_CODES.N)
         @Override
-        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            view.loadUrl(request.getUrl().toString());
-            return true;
+        public int getCount() {
+            return mFragmentList.size();
         }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.grace_menu,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.grace:
+            {
+                Intent intent=new Intent(this.getActivity(), OrderGoodie.class);
+                break;
+            }
+        }
+        return true;
     }
 }
