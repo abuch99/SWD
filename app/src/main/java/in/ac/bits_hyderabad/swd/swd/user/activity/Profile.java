@@ -236,6 +236,7 @@ public class Profile extends AppCompatActivity {
             etFocc.setTextColor(getColor(R.color.colorAccent));
             etFemail.setTextColor(getColor(R.color.colorAccent));
             etFphn.setTextColor(getColor(R.color.colorAccent));
+            etBank.setTextColor(getColor(R.color.colorAccent));
         }
         etRoom.setBackground(getDrawable(R.drawable.edit_text));
         etPhn.setBackground(getDrawable(R.drawable.edit_text));

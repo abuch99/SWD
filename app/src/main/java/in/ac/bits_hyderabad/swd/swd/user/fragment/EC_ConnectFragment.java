@@ -91,7 +91,7 @@ public class EC_ConnectFragment extends Fragment {
                     for(int i=0;i<jsonArray.length();i++)
                     {
                         JSONObject obj=jsonArray.getJSONObject(i);
-                        if(obj.getString("heading").equals("Election Commission"))
+                        if(obj.getString("heading").contains("Election Commission"))
                         {
                             String name=obj.getString("name");
                             String designation=obj.getString("designation");
