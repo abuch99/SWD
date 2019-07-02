@@ -103,6 +103,7 @@ public class Connect extends AppCompatActivity implements PersonAdapter.itemClic
 
     @Override
     public void onBackPressed() {
+        finish();
         super.onBackPressed();
     }
 

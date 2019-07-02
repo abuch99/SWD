@@ -156,7 +156,7 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("Error", error.toString());
-                Toast.makeText(getContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
                 swipeRefresh.setRefreshing(false);
             }
         }) {

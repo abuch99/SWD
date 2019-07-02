@@ -433,6 +433,7 @@ public class Profile extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        dialog.dismiss();
         finish();
         super.onBackPressed();
     }
