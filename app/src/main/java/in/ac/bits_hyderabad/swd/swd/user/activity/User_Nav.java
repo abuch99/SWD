@@ -127,7 +127,7 @@ public class User_Nav extends AppCompatActivity
                 actionBar.setTitle(R.string.mess_title);
                 actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
                 navigationView.setCheckedItem(R.id.mess);
-                fragment=new User_MessFragment();
+                fragment=new User_MessFragment(prefs.getString("uid",null));
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }

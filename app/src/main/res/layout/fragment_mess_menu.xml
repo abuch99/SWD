@@ -1,143 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefreshMenu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".user.fragment.MessMenu">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp">
 
-        <com.google.android.material.card.MaterialCardView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="15dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvDay"
+            <LinearLayout
+                android:id="@+id/llMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:text="THURSDAY"
-                android:gravity="center"
-                android:layout_margin="10dp"/>
+                android:orientation="vertical"
+                android:padding="10dp">
 
-        </com.google.android.material.card.MaterialCardView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp">
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="15dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="Breakfast "
-                android:textSize="18sp"
-                android:layout_weight="2"/>
+                    <TextView
+                        android:id="@+id/tvDay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textAllCaps="true"
+                        android:gravity="center"
+                        android:layout_margin="10dp"/>
 
-            <TextView
-                android:id="@+id/tvBreakfast"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_gravity="center_vertical"
-                android:text="Milk, Tea, Coffee, Sprouts Wada Sambhar, Chutney Pav Bhaji / Missal pav Boost"
-                android:layout_weight="1"/>
+                </com.google.android.material.card.MaterialCardView>
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="Lunch "
-                android:textSize="18sp"
-                android:layout_weight="2"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Breakfast "
+                        android:textSize="18sp"
+                        android:layout_weight="2"/>
 
-            <TextView
-                android:id="@+id/tvLunch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_gravity="center_vertical"
-                android:text="Salad, Roti, Steamed Rice, Curd, Sambhar/Rasam, Papad/Fryums, Chutney Onion Garlic Rice, Achari Dal (Arhar) Chole, Dum Aloo Ajwain Puri, Boondi Raita"
-                android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/tvBreakfast"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"/>
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp">
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="Snacks "
-                android:textSize="18sp"
-                android:layout_weight="2"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Lunch "
+                        android:textSize="18sp"
+                        android:layout_weight="2"/>
 
-            <TextView
-                android:id="@+id/tvSnacks"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_gravity="center_vertical"
-                android:text="Milk, Tea, Coffee Cut Fuits Mysore Bonda/Set Dosa,Tomato Chutney"
-                android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/tvLunch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"/>
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp">
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="Dinner "
-                android:textSize="18sp"
-                android:layout_weight="2"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Snacks "
+                        android:textSize="18sp"
+                        android:layout_weight="2"/>
 
-            <TextView
-                android:id="@+id/tvDinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_gravity="center_vertical"
-                android:text="Salad, Roti, Steamed Rice, Curd, Sambhar/Rasam. Veg Fried Rice, Navaratan Dal Tadka (Arhar) Manchurian (Dry+ Gravy) , Black Chana dry Cut Fruits"
-                android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/tvSnacks"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"/>
 
-        </LinearLayout>
-    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Dinner "
+                        android:textSize="18sp"
+                        android:layout_weight="2"/>
+
+                    <TextView
+                        android:id="@+id/tvDinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
 
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
