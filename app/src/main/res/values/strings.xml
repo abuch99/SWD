@@ -97,6 +97,7 @@
     <string name="notices_title">Notices</string>
     <string name="complaints_title">Complaint</string>
     <string name="mess_title">Mess</string>
+    <string name="messReg_title">Mess Registration</string>
     <string name="docs_title">Documents</string>
     <string name="uploads_title">Uploads</string>
     <string name="goodies_title">Goodies</string>

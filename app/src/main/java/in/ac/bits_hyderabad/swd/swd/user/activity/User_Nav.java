@@ -131,6 +131,17 @@ public class User_Nav extends AppCompatActivity
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }
+            case R.id.messReg: {
+                tag="messReg";
+                if (drawer.isDrawerOpen(GravityCompat.START))
+                    drawer.closeDrawer(GravityCompat.START);
+                actionBar.setTitle(R.string.messReg_title);
+                actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
+                navigationView.setCheckedItem(R.id.messReg);
+                fragment=new UserMessRegFragment();
+                manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
+                break;
+            }
             case  R.id.docs: {
                 tag="docs";
                 actionBar.setBackgroundDrawable(getDrawable(R.drawable.bgnd_dark));
