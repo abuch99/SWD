@@ -27,6 +27,10 @@
             android:icon="@drawable/ic_restaurant"
             android:title="@string/messReg" />
 
+        <item
+            android:id="@+id/BusTimings"
+            android:title="212  Bus Timings"
+            android:icon="@drawable/ic_bus"/>
 
         <item
             android:id="@+id/docs"

@@ -9,6 +9,7 @@
     <color name="blueText">#8A9CFA</color>
     <color name="card_background">#eeeeee</color>
     <color name="black">#000000</color>
+    <color name="background">#f8f8ff</color>
     <color name="semiTransparentColor80">#80ffffff</color>
     <color name="semiTransparentColor50">#50ffffff</color>
     <color name="semiTransparentColor20">#20ffffff</color>

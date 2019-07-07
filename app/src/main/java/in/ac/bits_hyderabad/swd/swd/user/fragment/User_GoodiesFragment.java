@@ -98,6 +98,9 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             startActivity(intent, ActivityOptions.makeCustomAnimation(getContext(),R.xml.slide_in_right,R.xml.slide_in_right).toBundle());
         }
+        else{
+            startActivity(intent);
+        }
     }
     public  void loadGoodies()
     {
