@@ -142,23 +142,23 @@ public class User_Nav extends AppCompatActivity
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }
-            case R.id.BusTimings:{
-                tag="busTimings";
+            case R.id.BusTimings: {
+                tag = "busTimings";
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
                 actionBar.setTitle(R.string.busTimings);
                 actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
                 navigationView.setCheckedItem(R.id.BusTimings);
-                fragment=new BusTimingsFragment();
-                manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
+                fragment = new BusTimingsFragment();
+                manager.beginTransaction().replace(R.id.layout_frame, fragment, tag).commit();
                 break;
             }
             case  R.id.docs: {
                 tag="docs";
-                actionBar.setBackgroundDrawable(getDrawable(R.drawable.bgnd_dark));
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
                 actionBar.setTitle(R.string.docs_title);
+                actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
                 navigationView.setCheckedItem(R.id.docs);
                 fragment=new User_DocFragment();
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();

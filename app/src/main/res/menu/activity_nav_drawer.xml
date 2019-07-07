@@ -24,7 +24,7 @@
 
         <item
             android:id="@+id/messReg"
-            android:icon="@drawable/ic_restaurant"
+            android:icon="@drawable/ic_reg"
             android:title="@string/messReg" />
 
         <item

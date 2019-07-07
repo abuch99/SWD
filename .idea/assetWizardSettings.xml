@@ -146,9 +146,10 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_bus" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="ic_reg" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\PRASOON BAGHEL\Downloads\Spinner-1s-200px.svg" />
+                            <entry key="sourceFile" value="C:\Users\PRASOON BAGHEL\Downloads\Capture (1).svg" />
                           </map>
                         </option>
                       </PersistentState>
