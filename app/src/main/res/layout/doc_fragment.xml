@@ -1,17 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent" >
+
+<LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingTop="25dp"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
 
-        <TextView
-            android:layout_width="match_parent"
+        <include
+            android:id="@+id/layoutBonafied"
             android:layout_height="wrap_content"
-            android:text="@string/docs"
-            style="@style/docs_header"/>
+            android:layout_width="wrap_content"
+            layout="@layout/doc_card">
+        </include>
+
+        <include
+            android:id="@+id/layoutGoodCharacter"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            layout="@layout/doc_card">
+        </include>
+
     </LinearLayout>
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:paddingTop="25dp"
+        android:gravity="center_horizontal">
+
+        <include
+            android:id="@+id/layoutMedInsurance"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            layout="@layout/doc_card">
+        </include>
+
+        <include
+            android:id="@+id/layoutNoObjection"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            layout="@layout/doc_card">
+        </include>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:paddingTop="25dp"
+        android:gravity="center_horizontal">
+
+
+        <include
+            android:id="@+id/layoutVacationLetter"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            layout="@layout/doc_card">
+        </include>
+
+    </LinearLayout>
+
+</LinearLayout>
+</ScrollView>

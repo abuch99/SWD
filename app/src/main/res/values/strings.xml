@@ -162,4 +162,11 @@
 
     <string name="busTimeBits_to_Sec">06:55 , 07:55 , 08:50, 09:20, 09:50, 11:00, 12:00, 13:00, 14:00, 15:05, 16:05, 17:20, 18:15, 19:15, 20:15</string>
     <string name="busTimeSec_to_Bits">07:50, 08:20, 08:50, 09:50, 11:00, 12:00, 13:00, 14:10, 15:05, 16:05, 17:20, 18:15, 19:15, 20:15, 21:15</string>
+
+
+    <string name="doc_Bonafide">Bonafide Certificate</string>
+    <string name="doc_NOC">No Objection Certificate</string>
+    <string name="doc_GoodChar">Good Character Certificate</string>
+    <string name="doc_Medical">Medical Insurance Claim Form</string>
+    <string name="doc_Vacation">Vacation Letter</string>
 </resources>
