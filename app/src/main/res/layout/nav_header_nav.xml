@@ -76,10 +76,10 @@
 
 
     </RelativeLayout>
-    <!--<View
+    <View
         android:layout_width="match_parent"
         android:gravity="bottom"
         android:layout_height="5dp"
         android:background="#bebebe"/>
-    -->
+
 </LinearLayout>

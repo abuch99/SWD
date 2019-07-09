@@ -9,7 +9,8 @@
         android:layout_width="125dp"
         android:layout_height="140dp"
         app:cardCornerRadius="10dp"
-        android:layout_margin="15dp"
+        android:gravity="center_horizontal"
+        android:layout_margin="10dp"
         app:cardElevation="5dp">
 
         <LinearLayout

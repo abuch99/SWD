@@ -14,7 +14,7 @@
 
         <item
             android:id="@+id/goodies"
-            android:icon="@drawable/ic_feedback"
+            android:icon="@drawable/ic_goodie"
             android:title="@string/goodies" />
 
         <item
@@ -29,17 +29,14 @@
 
         <item
             android:id="@+id/BusTimings"
-            android:title="212  Bus Timings"
+            android:title="@string/_212_bus_timings"
             android:icon="@drawable/ic_bus"/>
 
         <item
             android:id="@+id/docs"
             android:icon="@drawable/ic_subject"
             android:title="@string/docs" />
-        <item
-            android:id="@+id/settings"
-            android:icon="@drawable/ic_settings"
-            android:title="@string/settings"/>
+
         <item
             android:id="@+id/logout"
             android:icon="@drawable/ic_logout"

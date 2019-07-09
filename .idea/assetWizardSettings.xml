@@ -136,7 +136,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/maps/ic_directions_bus_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/communication/ic_chat_bubble_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -147,9 +147,10 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_reg" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="ic_goodie" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\PRASOON BAGHEL\Downloads\Capture (1).svg" />
+                            <entry key="sourceFile" value="C:\Users\PRASOON BAGHEL\Downloads\iconfinder_5_-_Shopping_Bag_2102067.svg" />
                           </map>
                         </option>
                       </PersistentState>

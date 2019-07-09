@@ -197,6 +197,7 @@ public class OrderGoodie extends AppCompatActivity {
 
                 if(isChecked)
                 {
+                    btnOrder.setEnabled(true);
                     InputMethodManager imm = (InputMethodManager) OrderGoodie.this.getSystemService(Activity.INPUT_METHOD_SERVICE);
                     View view = OrderGoodie.this.getCurrentFocus();
                     if (view == null) {
@@ -230,6 +231,7 @@ public class OrderGoodie extends AppCompatActivity {
                         int max=Integer.parseInt(goodie.getMax_amount());
                         if(!(entered_amt>=min&&entered_amt<=max)){
                             Toast.makeText(OrderGoodie.this,"Please enter an amount in the given limits!",Toast.LENGTH_SHORT).show();
+                            cbAgree.setChecked(false);
                         }
                         else{
                             auth_identity(FUNDRAISER_TYPE);
@@ -238,6 +240,7 @@ public class OrderGoodie extends AppCompatActivity {
                     else
                     {
                         etQty.setError("You cannot leave this field empty");
+                        cbAgree.setChecked(false);
                     }
 
                 }
@@ -275,6 +278,7 @@ public class OrderGoodie extends AppCompatActivity {
                         else
                         {
                             Toast.makeText(OrderGoodie.this,"Enter quantity for at least one size!!",Toast.LENGTH_SHORT).show();
+                            cbAgree.setChecked(false);
                         }
 
                     }
@@ -289,6 +293,7 @@ public class OrderGoodie extends AppCompatActivity {
                         else
                         {
                             Toast.makeText(OrderGoodie.this,"Please enter the quantity", Toast.LENGTH_SHORT).show();
+                            cbAgree.setChecked(false);
                         }
 
                     }

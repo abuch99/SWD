@@ -160,7 +160,7 @@ public class User_Nav extends AppCompatActivity
                 actionBar.setTitle(R.string.docs_title);
                 actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
                 navigationView.setCheckedItem(R.id.docs);
-                fragment=new User_DocFragment();
+                fragment=User_DocFragment.newInstance(prefs.getString("uid",null));
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }
@@ -206,9 +206,6 @@ public class User_Nav extends AppCompatActivity
                     }
                 }).show();
                 break;
-
-            }
-            case R.id.settings: {
 
             }
         }
