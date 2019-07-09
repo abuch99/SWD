@@ -1,5 +1,8 @@
 package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,6 +23,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -29,6 +33,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
@@ -36,6 +41,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -65,6 +71,11 @@ public class User_MessFragment extends Fragment {
     public  int mess=1;
     String uid;
 
+    Dialog dialog;
+    DatePicker datePickerGrace;
+    MaterialButton btnGraceDateSubmit;
+
+
     SharedPreferences prefs;
 
     public User_MessFragment(String uid){
@@ -87,6 +98,11 @@ public class User_MessFragment extends Fragment {
         viewPagerMess=view.findViewById(R.id.viewPagerMess);
         adapter=new MessMenuAdapter(getChildFragmentManager());
 
+        dialog=new Dialog(getActivity());
+        dialog.setContentView(R.layout.grace_dialog);
+        dialog.setCanceledOnTouchOutside(false);
+        btnGraceDateSubmit=dialog.findViewById(R.id.btnGraceDateSubmit);
+        datePickerGrace=dialog.findViewById(R.id.graceDatePicker);
         return view;
     }
 
@@ -103,6 +119,10 @@ public class User_MessFragment extends Fragment {
 
         day_today=new SimpleDateFormat("EEEE", Locale.ENGLISH).format(today_date.getTime());
         day_tomorrow=new SimpleDateFormat("EEEE",Locale.ENGLISH).format(tomorrow_date.getTime());
+        datePickerGrace.setMinDate(tomorrow_date.getTime());
+        Calendar calendar_MaxDate=Calendar.getInstance();
+        calendar_MaxDate.add(Calendar.YEAR,1);
+        datePickerGrace.setMaxDate(calendar_MaxDate.getTime().getTime());
 
         Log.e("Days for Mess", day_today+"  and  "+day_tomorrow);
 
@@ -155,10 +175,31 @@ public class User_MessFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.grace:
             {
+                applyGrace();
                 break;
             }
         }
         return true;
+    }
+
+    public void applyGrace(){
+
+        dialog.show();
+
+        btnGraceDateSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String day = new DecimalFormat("00").format(datePickerGrace.getDayOfMonth());
+                String month = new DecimalFormat("00").format(datePickerGrace.getMonth() + 1);
+                String year = new DecimalFormat("0000").format(datePickerGrace.getYear());
+
+                dialog.hide();
+
+                Toast.makeText(getActivity()," Date selected : "+day+" "+month+" "+year,Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
     }
 
 

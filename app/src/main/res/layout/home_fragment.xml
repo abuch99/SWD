@@ -134,6 +134,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="20dp"
+        app:fabSize="auto"
         android:elevation="15dp"
         app:backgroundTint="@color/colorPrimary"
         android:src="@drawable/ic_chat" />

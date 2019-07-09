@@ -36,7 +36,7 @@
             app:tabTextColor="@color/whiteText"
             app:tabBackground="@color/colorPrimary"
             android:scrollbars="horizontal"
-            app:tabMode="scrollable">
+            app:tabMode="fixed">
 
         </com.google.android.material.tabs.TabLayout>
 
