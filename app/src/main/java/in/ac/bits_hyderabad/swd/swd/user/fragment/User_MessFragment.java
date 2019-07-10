@@ -1,10 +1,6 @@
 package in.ac.bits_hyderabad.swd.swd.user.fragment;
-
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -13,7 +9,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
@@ -36,14 +31,11 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -53,9 +45,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import in.ac.bits_hyderabad.swd.swd.R;
-import in.ac.bits_hyderabad.swd.swd.user.activity.User_Nav;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class User_MessFragment extends Fragment {
 
@@ -67,13 +56,12 @@ public class User_MessFragment extends Fragment {
     String day_today,day_tomorrow;
 
     Date today_date,tomorrow_date;
-    Context context;
-    public  int mess=1;
     String uid;
 
     Dialog dialog;
     DatePicker datePickerGrace;
     MaterialButton btnGraceDateSubmit;
+    ProgressDialog dialogProgress;
 
 
     SharedPreferences prefs;
@@ -103,6 +91,11 @@ public class User_MessFragment extends Fragment {
         dialog.setCanceledOnTouchOutside(false);
         btnGraceDateSubmit=dialog.findViewById(R.id.btnGraceDateSubmit);
         datePickerGrace=dialog.findViewById(R.id.graceDatePicker);
+
+        dialogProgress=new ProgressDialog(getActivity());
+        dialogProgress.setCancelable(false);
+        dialogProgress.setMessage("Applying for grace.. Please wait!");
+        dialogProgress.create();
         return view;
     }
 
@@ -128,7 +121,7 @@ public class User_MessFragment extends Fragment {
 
         adapter.addFragment(new MessMenu(day_today,uid),"TODAY");
         adapter.addFragment(new MessMenu(day_tomorrow,uid),"TOMORROW");
-
+        Log.e("uid",uid);
         viewPagerMess.setAdapter(adapter);
         tabLayoutMess.setupWithViewPager(viewPagerMess);
 
@@ -189,18 +182,85 @@ public class User_MessFragment extends Fragment {
         btnGraceDateSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String day = new DecimalFormat("00").format(datePickerGrace.getDayOfMonth());
                 String month = new DecimalFormat("00").format(datePickerGrace.getMonth() + 1);
                 String year = new DecimalFormat("0000").format(datePickerGrace.getYear());
 
-                dialog.hide();
+                dialog.dismiss();
 
-                Toast.makeText(getActivity()," Date selected : "+day+" "+month+" "+year,Toast.LENGTH_SHORT).show();
 
+                dialogProgress.show();
+
+                datePickerGrace.setMinDate(tomorrow_date.getTime());
+                Calendar calendar_MaxDate=Calendar.getInstance();
+                calendar_MaxDate.add(Calendar.YEAR,1);
+                datePickerGrace.setMaxDate(calendar_MaxDate.getTime().getTime());
+
+                String date_for_grace=day+"-"+month+"-"+year;
+                if(date_for_grace.charAt(0)>='0'&&date_for_grace.charAt(0)<='9') {
+                    sendRequestforGrace(uid, date_for_grace);
+                }
+                else {
+                    dialogProgress.cancel();
+                    Toast.makeText(getActivity(),"Something went wrong, kindly contact SWD",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
     }
+    public void sendRequestforGrace(final String uid, final String date_for_grace){
 
 
+        Log.e("id",uid);
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+
+        StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("GraceResponse: ", response);
+
+                dialogProgress.cancel();
+                try{
+                    JSONObject object=new JSONObject(response);
+                        Toast.makeText(getActivity(),object.getString("msg"),Toast.LENGTH_LONG).show();
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(),"Something went wrong, kindly contact SWD",Toast.LENGTH_LONG).show();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error", error.toString());
+                dialogProgress.cancel();
+                Toast.makeText(getActivity(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params = new HashMap<>();
+                params.put("tag", "mess_grace");
+                params.put("id",uid);
+                params.put("date",date_for_grace);
+                return params;
+
+            }
+        };
+
+
+        queue.add(request);
+
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }

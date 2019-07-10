@@ -124,7 +124,6 @@ public class User_Login extends AppCompatActivity {
                                 editor.putString("uid",my_id);
                                 editor.putString("password" ,password);
                                 editor.putString("id",object.getString("id"));
-
                                 editor.commit();
                                 checkLogin();
 
@@ -230,6 +229,7 @@ public class User_Login extends AppCompatActivity {
         */
         if(preferences.getInt("exists",0)==1)
         {
+            Log.e("shared prefs details","id :"+preferences.getString("id",null)+"  uid :"+preferences.getString("uid",null));
             Intent intent = new Intent(User_Login.this, User_Nav.class);
             if (getIntent().getStringExtra("default") != null) {
                 intent.putExtra("default", getIntent().getStringArrayExtra("default"));

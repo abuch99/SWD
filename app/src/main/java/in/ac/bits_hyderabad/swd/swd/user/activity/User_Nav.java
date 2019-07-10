@@ -76,13 +76,7 @@ public class User_Nav extends AppCompatActivity
 
         setHome();
 
-        navigationView.getHeaderView(0).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent =new Intent(User_Nav.this,Profile.class);
-                startActivity(intent);
-            }
-        });
+
     }
 
     @Override
@@ -164,6 +158,13 @@ public class User_Nav extends AppCompatActivity
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }
+            case R.id.MyProfile: {
+                Intent intent =new Intent(User_Nav.this,Profile.class);
+                if (drawer.isDrawerOpen(GravityCompat.START))
+                    drawer.closeDrawer(GravityCompat.START);
+                startActivity(intent);
+                break;
+            }
             case R.id.goodies: {
                 tag="goodies";
                 actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
@@ -239,6 +240,9 @@ public class User_Nav extends AppCompatActivity
     @Override
     protected void onResume() {
 
+        setHome();
+        navigationView.setCheckedItem(R.id.home);
+        /*
         switch (tag){
 
             case "home": {
@@ -262,7 +266,7 @@ public class User_Nav extends AppCompatActivity
                 navigationView.setCheckedItem(R.id.home);
             }
         }
-
+*/
         super.onResume();
     }
 }

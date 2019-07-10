@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.View;
@@ -55,7 +56,7 @@ public class Profile extends AppCompatActivity {
     ProgressDialog dialog;
     RequestQueue queue;
     LinearLayout llProfile;
-    Fragment profile_frag;
+    SwipeRefreshLayout srProfile;
 
 
     @Override
@@ -77,13 +78,16 @@ public class Profile extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
+
         prefs=getApplicationContext().getSharedPreferences("USER_LOGIN_DETAILS",MODE_PRIVATE);
         uid=prefs.getString("uid",null);
         password=prefs.getString("password",null);
         initialize_views();
-        //mUserTable=new UserTable(getApplicationContext());
-        reload();
 
+        llProfile.setVisibility(View.GONE);
+        //mUserTable=new UserTable(getApplicationContext());
+        srProfile.setRefreshing(true);
+        reload();
         queue= Volley.newRequestQueue(this);
 
         fabUpdate=findViewById(R.id.fabUpdate);
@@ -110,11 +114,18 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        srProfile.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                llProfile.setVisibility(View.GONE);
+                reload();
+            }
+        });
+
     }
 
     public void reload() {
 
-        dialog.show();
         RequestQueue queue = Volley.newRequestQueue(Profile.this);
 
         StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
@@ -137,21 +148,20 @@ public class Profile extends AppCompatActivity {
                             fabUpdate.setEnabled(false);
                         }
                         disable_EditText();
+                        llProfile.setVisibility(View.VISIBLE);
                         fabUpdate.setEnabled(true);
                     } else {
                         Toast.makeText(Profile.this, "Something went wrong!!", Toast.LENGTH_SHORT).show();
                         fabUpdate.setEnabled(false);
-                        dialog.hide();
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(Profile.this, "Something went wrong!!", Toast.LENGTH_SHORT).show();
                     fabUpdate.setEnabled(false);
-                    dialog.hide();
                 }
 
-
+                srProfile.setRefreshing(false);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -159,7 +169,7 @@ public class Profile extends AppCompatActivity {
                 Log.e("Error", error.toString());
                 Toast.makeText(Profile.this, "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
                 fabUpdate.setEnabled(false);
-                dialog.hide();
+                srProfile.setRefreshing(false);
             }
         }) {
             @Override
@@ -359,7 +369,7 @@ public class Profile extends AppCompatActivity {
     public void initialize_views() {
 
         llProfile=findViewById(R.id.llProfile);
-
+        srProfile=findViewById(R.id.srProfile);
         etName=findViewById(R.id.etName);
         etRoom=findViewById(R.id.etRoom);
         etPhn=findViewById(R.id.etPhn);

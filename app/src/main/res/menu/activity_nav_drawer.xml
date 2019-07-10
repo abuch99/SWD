@@ -7,10 +7,6 @@
             android:id="@+id/home"
             android:icon="@drawable/ic_home"
             android:title="@string/home" />
-        <item
-            android:id="@+id/connect"
-            android:icon="@drawable/ic_forum"
-            android:title="@string/connect" />
 
         <item
             android:id="@+id/goodies"
@@ -28,9 +24,22 @@
             android:title="@string/messReg" />
 
         <item
+            android:id="@+id/connect"
+            android:icon="@drawable/ic_forum"
+            android:title="@string/connect" />
+
+
+        <item
             android:id="@+id/BusTimings"
             android:title="@string/_212_bus_timings"
             android:icon="@drawable/ic_bus"/>
+
+        <item
+            android:id="@+id/MyProfile"
+            android:title="@string/title_activity_profile"
+            android:icon="@drawable/ic_person">
+
+        </item>
 
         <item
             android:id="@+id/docs"
