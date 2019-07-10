@@ -29,6 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -99,9 +100,10 @@ public class EC_ConnectFragment extends Fragment {
                             String uid=obj.getString("uid");
                             String heading=obj.getString("heading");
                             String subheading=obj.getString("subheading");
+                            String order=obj.getString("order");
 
-                            personEC.add(new Person(name,designation,phone,uid,heading,subheading));
-
+                            personEC.add(new Person(name,designation,phone,uid,heading,subheading,order));
+                            Collections.sort(personEC);
                         }
 
                     }

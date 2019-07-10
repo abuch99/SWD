@@ -11,7 +11,7 @@
         android:id="@+id/profile_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/bgnd_dark"
+        android:background="@color/colorPrimary"
         android:elevation="4dp"
         style="@style/AppTheme"
         app:title="@string/title_activity_profile"

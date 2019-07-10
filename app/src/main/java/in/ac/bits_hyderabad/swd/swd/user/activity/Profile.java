@@ -11,10 +11,13 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
@@ -51,6 +54,9 @@ public class Profile extends AppCompatActivity {
     Boolean successfull=false;
     ProgressDialog dialog;
     RequestQueue queue;
+    LinearLayout llProfile;
+    Fragment profile_frag;
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -128,16 +134,20 @@ public class Profile extends AppCompatActivity {
                             setData(object);
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            fabUpdate.setEnabled(false);
                         }
                         disable_EditText();
+                        fabUpdate.setEnabled(true);
                     } else {
                         Toast.makeText(Profile.this, "Something went wrong!!", Toast.LENGTH_SHORT).show();
+                        fabUpdate.setEnabled(false);
                         dialog.hide();
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(Profile.this, "Something went wrong!!", Toast.LENGTH_SHORT).show();
+                    fabUpdate.setEnabled(false);
                     dialog.hide();
                 }
 
@@ -148,6 +158,7 @@ public class Profile extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Log.e("Error", error.toString());
                 Toast.makeText(Profile.this, "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+                fabUpdate.setEnabled(false);
                 dialog.hide();
             }
         }) {
@@ -346,6 +357,9 @@ public class Profile extends AppCompatActivity {
         return map;
     }
     public void initialize_views() {
+
+        llProfile=findViewById(R.id.llProfile);
+
         etName=findViewById(R.id.etName);
         etRoom=findViewById(R.id.etRoom);
         etPhn=findViewById(R.id.etPhn);

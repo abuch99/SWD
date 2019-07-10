@@ -29,6 +29,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -99,8 +101,10 @@ public class SMC_ConnectFragment extends Fragment {
                             String uid=obj.getString("uid");
                             String heading=obj.getString("heading");
                             String subheading=obj.getString("subheading");
+                            String order=obj.getString("order");
 
-                            personSMC.add(new Person(name,designation,phone,uid,heading,subheading));
+                            personSMC.add(new Person(name,designation,phone,uid,heading,subheading,order));
+                            Collections.sort(personSMC);
 
                         }
 

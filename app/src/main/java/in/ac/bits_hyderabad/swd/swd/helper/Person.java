@@ -1,6 +1,6 @@
 package in.ac.bits_hyderabad.swd.swd.helper;
 
-public class Person {
+public class Person implements Comparable<Person> {
 
     public String name;
     public String designation;
@@ -8,8 +8,9 @@ public class Person {
     public String uid;
     public String heading;
     public String subheading;
+    public String order;
 
-    public Person (String name,String designation, String phone, String uid, String heading, String subheading)
+    public Person (String name,String designation, String phone, String uid, String heading, String subheading, String order)
     {
         this.name=name;
         this.designation=designation;
@@ -17,6 +18,8 @@ public class Person {
         this.uid=uid;
         this.heading=heading;
         this.subheading=subheading;
+        this.order=order;
+
     }
 
 
@@ -66,5 +69,18 @@ public class Person {
 
     public void setSubheading(String subheading) {
         this.subheading = subheading;
+    }
+
+    public String getOrder() {
+        return order;
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
+    }
+
+    @Override
+    public int compareTo(Person o) {
+        return Integer.compare(Integer.parseInt(this.order), Integer.parseInt(o.order));
     }
 }
