@@ -3,6 +3,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -39,7 +42,7 @@ public class User_Login extends AppCompatActivity {
 
     TextView mTextView;
     ProgressDialog dialog;
-
+    FloatingActionButton fabContactus;
     TextInputLayout layout;
     TextInputEditText my_id_get, password_get;
 
@@ -58,11 +61,10 @@ public class User_Login extends AppCompatActivity {
         dialog.setCanceledOnTouchOutside(false);
         dialog.setInverseBackgroundForced(false);
 
-
+        fabContactus=findViewById(R.id.fabContactUsfromLoginPage);
         my_id_get = findViewById(R.id.id_fill);
         password_get = findViewById(R.id.pwd_fill);
         layout=findViewById(R.id.pwd_textinputLayout);
-
         password_get.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -203,6 +205,15 @@ public class User_Login extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+
+        fabContactus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", "swdnucleus@hyderabad.bits-pilani.ac.in", null));
+                startActivity(Intent.createChooser(intent, "Choose an Email client :"));
+            }
+        });
 
     }
 
