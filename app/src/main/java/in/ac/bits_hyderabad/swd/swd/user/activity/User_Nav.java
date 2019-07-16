@@ -154,7 +154,7 @@ public class User_Nav extends AppCompatActivity
                 actionBar.setTitle(R.string.docs_title);
                 actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
                 navigationView.setCheckedItem(R.id.docs);
-                fragment=User_DocFragment.newInstance(prefs.getString("uid",null));
+                fragment=User_DocFragment.newInstance(prefs.getString("uid",null),prefs.getString("id",null));
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }
@@ -240,9 +240,7 @@ public class User_Nav extends AppCompatActivity
     @Override
     protected void onResume() {
 
-        setHome();
-        navigationView.setCheckedItem(R.id.home);
-        /*
+
         switch (tag){
 
             case "home": {
@@ -266,7 +264,6 @@ public class User_Nav extends AppCompatActivity
                 navigationView.setCheckedItem(R.id.home);
             }
         }
-*/
         super.onResume();
     }
 }

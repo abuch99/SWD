@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="5dp"
+        android:gravity="center_horizontal"
         android:layout_marginTop="25dp">
 
         <androidx.cardview.widget.CardView
@@ -45,7 +46,7 @@
 
         </androidx.cardview.widget.CardView>
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -61,7 +62,7 @@
                 android:layout_toRightOf="@id/ivimageOrder"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal">
@@ -88,7 +89,7 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/llprice"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
@@ -115,7 +116,7 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/llSize"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
@@ -158,14 +159,17 @@
         -->
         <RelativeLayout
             android:id="@+id/rlxs"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
             android:layout_marginBottom="5dp">
             <TextView
                 android:id="@+id/tvxs"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/xs"
+                android:gravity="end"
+                android:text="    XS"
                 style="@style/text_view_goodies"/>
             <EditText
                 android:id="@+id/etxsQty"
@@ -176,15 +180,20 @@
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/rls"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp">
+
             <TextView
                 android:id="@+id/tvs"
-                android:layout_width="150dp"
+                style="@style/text_view_goodies"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/s"
-                style="@style/text_view_goodies"/>
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="0dp"
+                android:gravity="end"
+                android:text="      S" />
             <EditText
                 android:id="@+id/etsQty"
                 android:layout_width="@dimen/width_editText"
@@ -194,14 +203,16 @@
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/rlm"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:layout_marginBottom="5dp">
             <TextView
                 android:id="@+id/tvm"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/m"
+                android:text="     M"
+                android:gravity="end"
                 style="@style/text_view_goodies"/>
             <EditText
                 android:id="@+id/etmQty"
@@ -212,14 +223,15 @@
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/rll"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:layout_marginBottom="5dp">
             <TextView
                 android:id="@+id/tvl"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/l"
+                android:text="      L"
                 style="@style/text_view_goodies"/>
             <EditText
                 android:id="@+id/etlQty"
@@ -230,14 +242,15 @@
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/rlxl"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp">
             <TextView
                 android:id="@+id/tvxl"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/xl"
+                android:text="    XL"
                 style="@style/text_view_goodies"/>
             <EditText
                 android:id="@+id/etxlQty"
@@ -248,14 +261,15 @@
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/rlxxl"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:layout_marginBottom="5dp">
             <TextView
                 android:id="@+id/tvxxl"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/xxl"
+                android:text="  XXL"
                 style="@style/text_view_goodies"/>
             <EditText
                 android:id="@+id/etxxlQty"
@@ -266,14 +280,15 @@
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/rlxxxl"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp">
             <TextView
                 android:id="@+id/tvxxxl"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/xxxl"
+                android:text="XXXL"
                 style="@style/text_view_goodies"/>
             <EditText
                 android:id="@+id/etxxxlQty"
@@ -284,12 +299,13 @@
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/rlminamt_fraiser"
-            android:layout_width="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/tvminamt_fraiser"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:padding="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="right"
@@ -309,12 +325,13 @@
 
         <RelativeLayout
             android:id="@+id/rlmaxamt_fraiser"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:layout_marginBottom="5dp">
             <TextView
                 android:id="@+id/tvmaxamt_fraiser"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:padding="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -336,12 +353,13 @@
 
         <RelativeLayout
             android:id="@+id/rlqty"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp">
             <TextView
                 android:id="@+id/tvqty"
-                android:layout_width="150dp"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="@string/qty"
                 style="@style/text_view_goodies"/>
@@ -355,12 +373,13 @@
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/rlcustom"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal"
             android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/tvCustomName"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/text_view_goodies"
                 android:layout_marginTop="10dp"
