@@ -1,13 +1,17 @@
 package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,6 +61,7 @@ public class User_DocFragment extends Fragment implements DocumentsAdapter.itemC
     String name_of_item_clicked;
     String type_of_item_clicked;
     ProgressDialog dialog;
+    int PERMISSION =1000;
 
     public static User_DocFragment newInstance(String uid, String id_no){
         User_DocFragment f = new User_DocFragment();
@@ -92,8 +97,6 @@ public class User_DocFragment extends Fragment implements DocumentsAdapter.itemC
         dialog.create();
 
 
-
-
         documents.add(new Document("Bonafide Certificate","bonafide"));
         documents.add(new Document("Good Character Certificate","good_char"));
         //documents.add(new Document("Medical Insurance Claim Form","claimform.pdf"));
@@ -115,58 +118,66 @@ public class User_DocFragment extends Fragment implements DocumentsAdapter.itemC
         name_of_item_clicked=documents.get(index).getName().toUpperCase();
         type_of_item_clicked=documents.get(index).getUrl();
 
-        dialog.show();
-        RequestQueue queue = Volley.newRequestQueue(getContext());
-        StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.DOCS_URL), new com.android.volley.Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.e("Response", response);
 
-                try{
-                    JSONObject object=new JSONObject(response);
+        boolean ext= ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED;
 
-                    if(!object.getString("error").equalsIgnoreCase("true")){
-                        String content=object.getString("content");
-                        PdfDocumentSample document=new PdfDocumentSample(id_no,name_of_item_clicked,
-                                content,getString(R.string.dean),getString(R.string.post),
-                                getString(R.string.doc_address),getString(R.string.doc_contact),getActivity());
-                        dialog.cancel();
-                        document.downloadFile();
-                    }
-                    else{
+        if(ext) {
+            dialog.show();
+            RequestQueue queue = Volley.newRequestQueue(getActivity());
+            StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.DOCS_URL), new com.android.volley.Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.e("Response", response);
+
+                    try {
+                        JSONObject object = new JSONObject(response);
+
+                        if (!object.getString("error").equalsIgnoreCase("true")) {
+                            String content = object.getString("content");
+                            PdfDocumentSample document = new PdfDocumentSample(id_no, name_of_item_clicked,
+                                    content, getString(R.string.dean), getString(R.string.post),
+                                    getString(R.string.doc_address), getString(R.string.doc_contact), getActivity());
+                            dialog.cancel();
+                            document.downloadFile();
+                        } else {
+                            Toast.makeText(getContext(), "Something went wrong! Please contact SWD", Toast.LENGTH_SHORT).show();
+                            dialog.cancel();
+                        }
+
+                    } catch (JSONException e) {
                         Toast.makeText(getContext(), "Something went wrong! Please contact SWD", Toast.LENGTH_SHORT).show();
                         dialog.cancel();
+                        e.printStackTrace();
                     }
 
-                } catch (JSONException e) {
-                    Toast.makeText(getContext(), "Something went wrong! Please contact SWD", Toast.LENGTH_SHORT).show();
-                    dialog.cancel();
-                    e.printStackTrace();
                 }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("Error", error.toString());
+                    Toast.makeText(getContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+                    dialog.cancel();
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
 
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Error", error.toString());
-                Toast.makeText(getContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
-                dialog.cancel();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("tag", "docs");
+                    params.put("uid", uid);
+                    params.put("doc_type", type_of_item_clicked);
+                    return params;
 
-                Map<String, String> params = new HashMap<>();
-                params.put("tag", "docs");
-                params.put("uid",uid);
-                params.put("doc_type",type_of_item_clicked);
-                return params;
-
-            }
-        };
+                }
+            };
 
 
-        queue.add(request);
+            queue.add(request);
+        }
+        else
+        {
+            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},PERMISSION);
+        }
 
     }
 
@@ -175,4 +186,5 @@ public class User_DocFragment extends Fragment implements DocumentsAdapter.itemC
     public void onResume() {
         super.onResume();
     }
+
 }

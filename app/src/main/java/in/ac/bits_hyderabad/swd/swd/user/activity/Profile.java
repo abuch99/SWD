@@ -118,6 +118,8 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 llProfile.setVisibility(View.GONE);
+                fabUpdate.setImageResource(R.drawable.ic_update_details);
+                updating=false;
                 reload();
             }
         });

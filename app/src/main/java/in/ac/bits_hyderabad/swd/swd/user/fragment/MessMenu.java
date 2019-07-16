@@ -41,6 +41,9 @@ import static android.content.Context.MODE_PRIVATE;
 public class MessMenu extends Fragment {
 
 
+    StringRequest request;
+    RequestQueue queue;
+
     private String day;
     int mess=0;
     private LinearLayout llMenu;
@@ -92,7 +95,7 @@ public class MessMenu extends Fragment {
 
     public void getMessMenu(final String day, final int messNo){
 
-        RequestQueue queue = Volley.newRequestQueue(getContext());
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
         StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -147,8 +150,8 @@ public class MessMenu extends Fragment {
     }
     public void getMessNo(final String uid)
     {
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-        StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
+        queue = Volley.newRequestQueue(getActivity());
+        request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -200,8 +203,19 @@ public class MessMenu extends Fragment {
             }
         };
 
-
+        request.setTag("MessMenu");
         queue.add(request);
     }
 
+
+
+    @Override
+    public void onStop() {
+        if(queue!=null) {
+            queue.cancelAll("MessMenu");
+            Log.e("messmenu", "onstop");
+        }
+        super.onStop();
+
+    }
 }

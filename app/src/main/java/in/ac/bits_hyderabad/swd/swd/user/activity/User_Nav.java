@@ -39,7 +39,7 @@ public class User_Nav extends AppCompatActivity
     ImageView header_img;
     TextView tvNav_header_Id_No,tvNav_header_name;
     SharedPreferences prefs;
-
+    int itemId=0;
     String tag;
 
     @Override
@@ -101,7 +101,11 @@ public class User_Nav extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        final int id = item.getItemId();
+        Log.e("id",id+"");
+        if(id!=R.id.logout&&id!=R.id.MyProfile&&id!=R.id.connect)
+            itemId=id;
+
         switch (id) {
             case R.id.home: {
                 actionBar.setBackgroundDrawable(getDrawable(R.drawable.bgnd_dark));//action bar
@@ -126,6 +130,7 @@ public class User_Nav extends AppCompatActivity
                 break;
             }
             case R.id.messReg: {
+
                 tag="messReg";
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
@@ -137,6 +142,7 @@ public class User_Nav extends AppCompatActivity
                 break;
             }
             case R.id.BusTimings: {
+
                 tag = "busTimings";
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
@@ -148,6 +154,7 @@ public class User_Nav extends AppCompatActivity
                 break;
             }
             case  R.id.docs: {
+
                 tag="docs";
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
@@ -166,6 +173,7 @@ public class User_Nav extends AppCompatActivity
                 break;
             }
             case R.id.goodies: {
+
                 tag="goodies";
                 actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
                 if (drawer.isDrawerOpen(GravityCompat.START))
@@ -199,13 +207,14 @@ public class User_Nav extends AppCompatActivity
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                navigationView.setCheckedItem(getSupportFragmentManager().findFragmentByTag(tag).getId());
+                                navigationView.setCheckedItem(itemId);
+                                Log.e("on logout clicked",itemId+"");
                             }
                         }).setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialog) {
                     }
-                }).show();
+                }).setCancelable(false).show();
                 break;
 
             }
@@ -215,6 +224,7 @@ public class User_Nav extends AppCompatActivity
 
 
     public void setHome(){
+        itemId=R.id.home;
         tag="home";
         actionBar.setTitle(R.string.toolbar_title);
         actionBar.setBackgroundDrawable(getDrawable(R.drawable.bgnd_dark));
@@ -244,23 +254,28 @@ public class User_Nav extends AppCompatActivity
         switch (tag){
 
             case "home": {
+                itemId=R.id.home;
                 navigationView.setCheckedItem(R.id.home);
                 break;
             }
             case "goodies": {
+                itemId=R.id.goodies;
                 navigationView.setCheckedItem(R.id.goodies);
                 break;
             }
             case "mess": {
+                itemId=R.id.mess;
                 navigationView.setCheckedItem(R.id.mess);
                 break;
             }
             case "docs": {
+                itemId=R.id.docs;
                 navigationView.setCheckedItem(R.id.docs);
                 break;
             }
             default:
             {
+                itemId=R.id.home;
                 navigationView.setCheckedItem(R.id.home);
             }
         }
