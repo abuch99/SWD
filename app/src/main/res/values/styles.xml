@@ -10,6 +10,8 @@
 
         <item name="colorControlNormal">@color/colorPrimary</item>
         <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="actionButtonStyle">@style/ActionButton</item>
         <!--<item name="colorControlHighlight">@color/colorAccent</item>-->
 
         <item name="homeAsUpIndicator">@drawable/back_btn</item>
@@ -162,6 +164,18 @@
         <item name="tabBackground">?attr/selectableItemBackground</item>
         <item name="tabTextAppearance">@style/TextAppearance.MaterialComponents.Headline1</item>
         <item name="tabSelectedTextColor">@android:color/white</item>
+    </style>
+
+    <style name="quick_link_card" parent="CardView">
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_marginBottom">35dp</item>
+        <item name="cardCornerRadius">15dp</item>
+        <item name="cardElevation">15dp</item>
+    </style>
+
+    <style name="ActionButton" parent="@style/Widget.AppCompat.ActionButton">
+        <item name="android:buttonTint">@color/colorPrimaryLight</item>
     </style>
 
 </resources>

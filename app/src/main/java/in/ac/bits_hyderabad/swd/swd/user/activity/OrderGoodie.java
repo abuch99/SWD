@@ -72,6 +72,8 @@ public class OrderGoodie extends AppCompatActivity {
         rlminamt_fraiser.setVisibility(View.GONE);
         rlmaxamt_fraiser.setVisibility(View.GONE);
 
+        btnOrder.setEnabled(true);
+
         final Intent intent=getIntent();
         final Goodies goodie=intent.getParcelableExtra("goodieClicked");
 
@@ -195,6 +197,7 @@ public class OrderGoodie extends AppCompatActivity {
 
                 if(isChecked)
                 {
+                    btnOrder.setEnabled(true);
                     InputMethodManager imm = (InputMethodManager) OrderGoodie.this.getSystemService(Activity.INPUT_METHOD_SERVICE);
                     View view = OrderGoodie.this.getCurrentFocus();
                     if (view == null) {
@@ -215,6 +218,7 @@ public class OrderGoodie extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                btnOrder.setEnabled(false);
                 // DATABASE TATTI HONE KE KARAD ITNA GANDA HUA HAI CODE
 
                 Log.e("OnClick","At least one size "+AT_LEAST_ONE_TSHIRT_SIZE_ORDERD);
@@ -227,6 +231,7 @@ public class OrderGoodie extends AppCompatActivity {
                         int max=Integer.parseInt(goodie.getMax_amount());
                         if(!(entered_amt>=min&&entered_amt<=max)){
                             Toast.makeText(OrderGoodie.this,"Please enter an amount in the given limits!",Toast.LENGTH_SHORT).show();
+                            cbAgree.setChecked(false);
                         }
                         else{
                             auth_identity(FUNDRAISER_TYPE);
@@ -235,6 +240,7 @@ public class OrderGoodie extends AppCompatActivity {
                     else
                     {
                         etQty.setError("You cannot leave this field empty");
+                        cbAgree.setChecked(false);
                     }
 
                 }
@@ -272,6 +278,7 @@ public class OrderGoodie extends AppCompatActivity {
                         else
                         {
                             Toast.makeText(OrderGoodie.this,"Enter quantity for at least one size!!",Toast.LENGTH_SHORT).show();
+                            cbAgree.setChecked(false);
                         }
 
                     }
@@ -286,6 +293,7 @@ public class OrderGoodie extends AppCompatActivity {
                         else
                         {
                             Toast.makeText(OrderGoodie.this,"Please enter the quantity", Toast.LENGTH_SHORT).show();
+                            cbAgree.setChecked(false);
                         }
 
                     }
@@ -355,6 +363,7 @@ public class OrderGoodie extends AppCompatActivity {
         sizes.add(etxlQty);
         sizes.add(etxxlQty);
         sizes.add(etxxxlQty);
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -393,5 +402,11 @@ public class OrderGoodie extends AppCompatActivity {
             startActivityForResult(i, REQUEST_CODE);
         } else
             Toast.makeText(OrderGoodie.this, "No any security setup done by user(pattern or password or pin or fingerprint", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onResume() {
+        btnOrder.setEnabled(true);
+        super.onResume();
     }
 }

@@ -85,12 +85,13 @@ public class Connect extends AppCompatActivity implements PersonAdapter.itemClic
     public void setupViewPager(ViewPager viewPager){
         ConnectAdapter adapter=new ConnectAdapter(getSupportFragmentManager());
 
-        adapter.addFragment(new SU_ConnectFragment(),"SUC");
+
         adapter.addFragment(new SWD_ConnectFragment(),"SWD");
-        adapter.addFragment(new SMC_ConnectFragment(),"SMC");
+        adapter.addFragment(new SU_ConnectFragment(),"SUC");
         adapter.addFragment(new CRC_ConnectFragment(),"CRC");
+        adapter.addFragment(new SMC_ConnectFragment(),"SMC");
         adapter.addFragment(new EC_ConnectFragment(),"EC");
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(adapter);
     }
 
@@ -102,6 +103,7 @@ public class Connect extends AppCompatActivity implements PersonAdapter.itemClic
 
     @Override
     public void onBackPressed() {
+        finish();
         super.onBackPressed();
     }
 

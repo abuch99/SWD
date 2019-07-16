@@ -30,6 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -97,7 +98,7 @@ public class SWD_ConnectFragment extends Fragment {
                     for(int i=0;i<jsonArray.length();i++)
                     {
                         JSONObject obj=jsonArray.getJSONObject(i);
-                        if(obj.getString("heading").equals(" Student Welfare Division Nucleus"))
+                        if(obj.getString("heading").contains("Student Welfare Division"))
                         {
                             String name=obj.getString("name");
                             String designation=obj.getString("designation");
@@ -105,8 +106,10 @@ public class SWD_ConnectFragment extends Fragment {
                             String uid=obj.getString("uid");
                             String heading=obj.getString("heading");
                             String subheading=obj.getString("subheading");
+                            String order=obj.getString("order");
 
-                            personSWD.add(new Person(name,designation,phone,uid,heading,subheading));
+                            personSWD.add(new Person(name,designation,phone,uid,heading,subheading,order));
+                            Collections.sort(personSWD);
 
                         }
 

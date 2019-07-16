@@ -11,10 +11,14 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
@@ -51,6 +55,9 @@ public class Profile extends AppCompatActivity {
     Boolean successfull=false;
     ProgressDialog dialog;
     RequestQueue queue;
+    LinearLayout llProfile;
+    SwipeRefreshLayout srProfile;
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -71,13 +78,16 @@ public class Profile extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
+
         prefs=getApplicationContext().getSharedPreferences("USER_LOGIN_DETAILS",MODE_PRIVATE);
         uid=prefs.getString("uid",null);
         password=prefs.getString("password",null);
         initialize_views();
-        //mUserTable=new UserTable(getApplicationContext());
-        reload();
 
+        llProfile.setVisibility(View.GONE);
+        //mUserTable=new UserTable(getApplicationContext());
+        srProfile.setRefreshing(true);
+        reload();
         queue= Volley.newRequestQueue(this);
 
         fabUpdate=findViewById(R.id.fabUpdate);
@@ -104,11 +114,18 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        srProfile.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                llProfile.setVisibility(View.GONE);
+                reload();
+            }
+        });
+
     }
 
     public void reload() {
 
-        dialog.show();
         RequestQueue queue = Volley.newRequestQueue(Profile.this);
 
         StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
@@ -128,27 +145,31 @@ public class Profile extends AppCompatActivity {
                             setData(object);
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            fabUpdate.setEnabled(false);
                         }
                         disable_EditText();
+                        llProfile.setVisibility(View.VISIBLE);
+                        fabUpdate.setEnabled(true);
                     } else {
                         Toast.makeText(Profile.this, "Something went wrong!!", Toast.LENGTH_SHORT).show();
-                        dialog.hide();
+                        fabUpdate.setEnabled(false);
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(Profile.this, "Something went wrong!!", Toast.LENGTH_SHORT).show();
-                    dialog.hide();
+                    fabUpdate.setEnabled(false);
                 }
 
-
+                srProfile.setRefreshing(false);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("Error", error.toString());
                 Toast.makeText(Profile.this, "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
-                dialog.hide();
+                fabUpdate.setEnabled(false);
+                srProfile.setRefreshing(false);
             }
         }) {
             @Override
@@ -236,6 +257,7 @@ public class Profile extends AppCompatActivity {
             etFocc.setTextColor(getColor(R.color.colorAccent));
             etFemail.setTextColor(getColor(R.color.colorAccent));
             etFphn.setTextColor(getColor(R.color.colorAccent));
+            etBank.setTextColor(getColor(R.color.colorAccent));
         }
         etRoom.setBackground(getDrawable(R.drawable.edit_text));
         etPhn.setBackground(getDrawable(R.drawable.edit_text));
@@ -345,6 +367,9 @@ public class Profile extends AppCompatActivity {
         return map;
     }
     public void initialize_views() {
+
+        llProfile=findViewById(R.id.llProfile);
+        srProfile=findViewById(R.id.srProfile);
         etName=findViewById(R.id.etName);
         etRoom=findViewById(R.id.etRoom);
         etPhn=findViewById(R.id.etPhn);
@@ -432,6 +457,7 @@ public class Profile extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        dialog.dismiss();
         finish();
         super.onBackPressed();
     }

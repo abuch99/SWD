@@ -72,9 +72,10 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
         */
 
         Picasso.get().load(ImageUrl)
-                .resize(600,600)
+                .resize(700,600)
                 .placeholder(R.drawable.ic_loading)
-                .centerInside().error(R.drawable.ic_error)
+                .centerInside()
+                .error(R.drawable.ic_error)
                 .into(viewHolder.ivGoodie);
 
         viewHolder.itemView.setTag(goodies.get(i));

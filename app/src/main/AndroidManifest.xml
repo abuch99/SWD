@@ -6,6 +6,8 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -14,10 +16,14 @@
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".user.activity.Connect"></activity>
-        <activity android:name=".user.activity.OrderGoodie" />
-        <activity android:name=".user.activity.ForgotPassword" />
-        <activity android:name=".user.activity.Splash_Activity">
+        <activity android:name=".user.activity.Connect"
+            android:configChanges="orientation|screenSize|keyboardHidden"></activity>
+        <activity android:name=".user.activity.OrderGoodie"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity android:name=".user.activity.ForgotPassword"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".user.activity.Splash_Activity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,14 +32,29 @@
         </activity>
         <activity
             android:name=".user.activity.Profile"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme" />
         <activity android:name=".user.activity.Settings" />
         <activity android:name=".user.activity.User_Login" />
         <activity
             android:name=".user.activity.User_Nav"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/title_activity_nav"
             android:theme="@style/AppTheme" />
+        
+        <provider
+            android:authorities="in.ac.bits_hyderabad.swd.swd.fileprovider"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data
+
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
+
     </application>
 
 </manifest>
