@@ -116,7 +116,7 @@ public class User_DocFragment extends Fragment implements DocumentsAdapter.itemC
         type_of_item_clicked=documents.get(index).getUrl();
 
         dialog.show();
-        RequestQueue queue = Volley.newRequestQueue(getContext());
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
         StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.DOCS_URL), new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

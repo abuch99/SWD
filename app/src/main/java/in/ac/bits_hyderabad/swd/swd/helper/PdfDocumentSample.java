@@ -1,10 +1,13 @@
 package in.ac.bits_hyderabad.swd.swd.helper;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -17,6 +20,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.itextpdf.io.image.ImageDataFactory;
@@ -58,9 +63,11 @@ public class PdfDocumentSample {
     private String contact;
     private Image image_header, image_footer;
     private Context context;
+    Activity activity;
 
     TextView tvTitle,tvProgress;
     ProgressBar pbProgress;
+    public int MY_PERMISSIONS_REQUEST_WRITE_EXT_STORAGE=1000;
 
     Dialog dialog;
 
@@ -83,22 +90,25 @@ public class PdfDocumentSample {
         this.address = address;
         this.contact = contact;
         this.context = context;
+        activity=(Activity)context;
     }
 
     public void downloadFile()
     {
-        dialog=new Dialog(context);
-        dialog.setContentView(R.layout.download_dialog);
-        tvTitle=dialog.findViewById(R.id.tvTitleDownload);
-        tvProgress=dialog.findViewById(R.id.tvProgress);
-        pbProgress=dialog.findViewById(R.id.pbProgress);
-        pbProgress.setMax(100);
-        dialog.create();
 
-        tvTitle.setText(title.toUpperCase());
 
-        dialog.show();
-        new DownloadDoc().execute();
+            dialog = new Dialog(context);
+            dialog.setContentView(R.layout.download_dialog);
+            tvTitle = dialog.findViewById(R.id.tvTitleDownload);
+            tvProgress = dialog.findViewById(R.id.tvProgress);
+            pbProgress = dialog.findViewById(R.id.pbProgress);
+            pbProgress.setMax(100);
+            dialog.create();
+
+            tvTitle.setText(title.toUpperCase());
+
+            dialog.show();
+            new DownloadDoc().execute();
     }
 
 
@@ -131,7 +141,10 @@ public class PdfDocumentSample {
                 File dir = new File(path);
                 Log.e("made dir"," ");
 
-
+                if(!dir.exists())
+                {
+                    dir.mkdirs();
+                }
                 File chk=new File(path+"/"+idNo+"-"+title+".pdf");
                 if(chk.exists()){
                     Log.e("file already exists","");
