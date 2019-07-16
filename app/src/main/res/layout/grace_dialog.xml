@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/whiteText"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MESS  GRACE"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:layout_marginTop="15dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please select the date"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"/>
+
+    <DatePicker
+        android:id="@+id/graceDatePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:datePickerMode="calendar"
+        android:foregroundGravity="center_horizontal"
+        android:headerBackground="@color/colorAccent">
+
+    </DatePicker>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnGraceDateSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SUBMIT"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:textColor="@color/whiteText"
+        android:layout_marginBottom="30dp"/>
+
+</LinearLayout>

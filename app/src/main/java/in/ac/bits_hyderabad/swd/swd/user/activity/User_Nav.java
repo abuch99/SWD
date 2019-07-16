@@ -9,7 +9,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import com.google.android.material.navigation.NavigationView;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBar;
@@ -20,11 +19,10 @@ import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.json.JSONObject;
+
 
 import in.ac.bits_hyderabad.swd.swd.user.fragment.*;
 
@@ -36,21 +34,13 @@ public class User_Nav extends AppCompatActivity
     public NavigationView navigationView;
     public Fragment fragment;
     FragmentManager manager;
-
-    //UserTable mUserTable;
     ActionBar actionBar;
     DrawerLayout drawer;
-
     ImageView header_img;
     TextView tvNav_header_Id_No,tvNav_header_name;
     SharedPreferences prefs;
 
-    Button btnMess;
-    String urlImageIcard;
-
     String tag;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +50,6 @@ public class User_Nav extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.toolbar_title);
         setSupportActionBar(toolbar);
-        //space for floating button if needed
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -70,87 +59,24 @@ public class User_Nav extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.home);
-
         tvNav_header_Id_No=navigationView.getHeaderView(0).findViewById(R.id.tvIdNavHeader);
         tvNav_header_name=navigationView.getHeaderView(0).findViewById(R.id.tvNameNavHeader);
         header_img=navigationView.getHeaderView(0).findViewById(R.id.header_img);
-        //mUserTable=new UserTable(getApplicationContext());
+        actionBar=getSupportActionBar();
+        manager = getSupportFragmentManager();
 
         prefs=getApplicationContext().getSharedPreferences("USER_LOGIN_DETAILS",MODE_PRIVATE);
 
         tvNav_header_name.setText(prefs.getString("name",null));
         tvNav_header_Id_No.setText(prefs.getString("id",null));
 
-        //Log.e("error",mUserTable.getUID().substring(5)+"    "+mUserTable.getUID().substring(1,5)+"    "+mUserTable.getUID()+"    "+header_img.toString());
-        /*String four_digits=mUserTable.getUID().substring(5);//0459
-        String year=mUserTable.getUID().substring(1,5);//2018
-        String degree=null;//f
-        switch (mUserTable.getUID().charAt(0)){
-            case 'f':
-               degree="fd";
-               break;
-            case 'h':
-                degree="hd";
-                break;
-            case 'p':
-                degree="phd";
-                break;
-        }
-        urlImageIcard="http://swd.bits-hyderabad.ac.in/components/navbar/id/2018/fd/0459H.jpg";//"http://swd.bits-hyderabad.ac.in/components/navbar/id/"+year+"/"+degree+"/"+four_digits+"H.jpg";
-        Picasso.get().load(urlImageIcard)
-                .resize(125,125)
-                .centerInside()
-                .onlyScaleDown()
-                .placeholder(R.drawable.ic_loading)
-                .error(R.drawable.ic_error)
-                .into(header_img);
 
-*/
-        JSONObject o=new JSONObject();
 
         Log.e("name and id and pwd" ,prefs.getString("name",null)+prefs.getString("id",null));
-        fragment=new User_HomeFragment();
-        manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.layout_frame, fragment,"home").commit();
-        actionBar=getSupportActionBar();
+
+        setHome();
 
 
-        /*btnMess.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                actionBar.setTitle(R.string.mess_title);
-                navigationView.setCheckedItem(R.id.mess);
-                fragment=new User_MessFragment();
-                manager.beginTransaction().replace(R.id.layout_frame,fragment,"mess").commit();
-
-            }
-        });
-        btnGoodies.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                actionBar.setTitle(R.string.goodies_title);
-                navigationView.setCheckedItem(R.id.goodies);
-                fragment=new User_GoodiesFragment();
-                manager.beginTransaction().replace(R.id.layout_frame,fragment,"goodies").commit();
-            }
-        });
-        btnContact.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                actionBar.setTitle(R.string.connect_title);
-                navigationView.setCheckedItem(R.id.connect);
-                fragment=new User_ConnectFragment();
-                manager.beginTransaction().replace(R.id.layout_frame,fragment,"connect").commit();
-            }
-        });*/
-
-        navigationView.getHeaderView(0).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent =new Intent(User_Nav.this,Profile.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -178,6 +104,7 @@ public class User_Nav extends AppCompatActivity
         int id = item.getItemId();
         switch (id) {
             case R.id.home: {
+                actionBar.setBackgroundDrawable(getDrawable(R.drawable.bgnd_dark));//action bar
                 tag="home";
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
@@ -187,22 +114,37 @@ public class User_Nav extends AppCompatActivity
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }
-            case R.id.connect: {
-                if (drawer.isDrawerOpen(GravityCompat.START))
-                    drawer.closeDrawer(GravityCompat.START);
-                Intent intent=new Intent(User_Nav.this, Connect.class);
-                startActivity(intent);
-                break;
-            }
-
             case R.id.mess: {
                 tag="mess";
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
                 actionBar.setTitle(R.string.mess_title);
+                actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
                 navigationView.setCheckedItem(R.id.mess);
-                fragment=new User_MessFragment();
+                fragment=new User_MessFragment(prefs.getString("uid",null));
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
+                break;
+            }
+            case R.id.messReg: {
+                tag="messReg";
+                if (drawer.isDrawerOpen(GravityCompat.START))
+                    drawer.closeDrawer(GravityCompat.START);
+                actionBar.setTitle(R.string.messReg_title);
+                actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
+                navigationView.setCheckedItem(R.id.messReg);
+                fragment=new UserMessRegFragment();
+                manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
+                break;
+            }
+            case R.id.BusTimings: {
+                tag = "busTimings";
+                if (drawer.isDrawerOpen(GravityCompat.START))
+                    drawer.closeDrawer(GravityCompat.START);
+                actionBar.setTitle(R.string.busTimings);
+                actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
+                navigationView.setCheckedItem(R.id.BusTimings);
+                fragment = new BusTimingsFragment();
+                manager.beginTransaction().replace(R.id.layout_frame, fragment, tag).commit();
                 break;
             }
             case  R.id.docs: {
@@ -210,19 +152,36 @@ public class User_Nav extends AppCompatActivity
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
                 actionBar.setTitle(R.string.docs_title);
+                actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
                 navigationView.setCheckedItem(R.id.docs);
-                fragment=new User_DocFragment();
+                fragment=User_DocFragment.newInstance(prefs.getString("uid",null),prefs.getString("id",null));
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
+                break;
+            }
+            case R.id.MyProfile: {
+                Intent intent =new Intent(User_Nav.this,Profile.class);
+                if (drawer.isDrawerOpen(GravityCompat.START))
+                    drawer.closeDrawer(GravityCompat.START);
+                startActivity(intent);
                 break;
             }
             case R.id.goodies: {
                 tag="goodies";
+                actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
                 actionBar.setTitle(R.string.goodies_title);
                 navigationView.setCheckedItem(R.id.goodies);
                 fragment=new User_GoodiesFragment();
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
+                break;
+            }
+            case R.id.connect: {
+                Log.e("frag during connect",fragment.getTag()+"   connect:"+R.id.connect+"   home:"+R.id.home );
+                if (drawer.isDrawerOpen(GravityCompat.START))
+                    drawer.closeDrawer(GravityCompat.START);
+                Intent intent=new Intent(User_Nav.this, Connect.class);
+                startActivity(intent);
                 break;
             }
             case R.id.logout: {
@@ -250,19 +209,18 @@ public class User_Nav extends AppCompatActivity
                 break;
 
             }
-            case R.id.settings: {
-
-            }
         }
         return true;
     }
 
 
     public void setHome(){
+        tag="home";
         actionBar.setTitle(R.string.toolbar_title);
+        actionBar.setBackgroundDrawable(getDrawable(R.drawable.bgnd_dark));
         navigationView.setCheckedItem(R.id.home);
         fragment=new User_HomeFragment();
-        manager.beginTransaction().replace(R.id.layout_frame,fragment,"home").commit();
+        manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
     }
     private void logout() {
         Log.e("prefs before logout",prefs.toString());
@@ -273,16 +231,39 @@ public class User_Nav extends AppCompatActivity
         startActivity(new Intent(this, User_Login.class));
         finish();
     }
-    public void replaceFragment (Fragment someFragment,String tag,String title){
-        actionBar.setTitle(title);
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.layout_frame, someFragment,tag);
-        transaction.addToBackStack(null);
-        transaction.commit();
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     @Override
     protected void onResume() {
+
+
+        switch (tag){
+
+            case "home": {
+                navigationView.setCheckedItem(R.id.home);
+                break;
+            }
+            case "goodies": {
+                navigationView.setCheckedItem(R.id.goodies);
+                break;
+            }
+            case "mess": {
+                navigationView.setCheckedItem(R.id.mess);
+                break;
+            }
+            case "docs": {
+                navigationView.setCheckedItem(R.id.docs);
+                break;
+            }
+            default:
+            {
+                navigationView.setCheckedItem(R.id.home);
+            }
+        }
         super.onResume();
     }
 }

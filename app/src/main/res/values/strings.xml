@@ -27,6 +27,7 @@
     <string name="complaint">Complaint</string>
     <string name="feed">Feed</string>
     <string name="mess">Mess</string>
+    <string name="messReg">Mess Registration</string>
     <string name="docs">Documents</string>
     <string name="uploads">Uploads</string>
     <string name="logout">Logout</string>
@@ -96,6 +97,8 @@
     <string name="notices_title">Notices</string>
     <string name="complaints_title">Complaint</string>
     <string name="mess_title">Mess</string>
+    <string name="messReg_title">Mess Registration</string>
+    <string name="busTimings">212 Bus Timings</string>
     <string name="docs_title">Documents</string>
     <string name="uploads_title">Uploads</string>
     <string name="goodies_title">Goodies</string>
@@ -130,18 +133,19 @@
     <string name="field_memail">Mother\'s Email :</string>
     <string name="field_moccupation">Mother\'s Occupation :</string>
     <string name="BASE_URL">http://swd.bits-hyderabad.ac.in/swd_app/index.php</string>
+    <string name="DOCS_URL">http://swd.bits-hyderabad.ac.in/swd_app/gen_appDocs.php</string>
     <string name="quantityofGoodies">Quantity</string>
 
     <!--Order goodies-->
-    <string name="xs">XS</string>
-    <string name="s">S</string>
-    <string name="m">M</string>
+    <string name="xs"  >XS</string>
+    <string name="s"   >S</string>
+    <string name="m"   >M</string>
     <string name="goodieImageUrl">swd.bits-hyderabad.ac.in/goodies/img/</string>
-    <string name="l">L</string>
-    <string name="xl">XL</string>
-    <string name="xxl">XXL</string>
+    <string name="l"   >L</string>
+    <string name="xl"  >XL</string>
+    <string name="xxl" >XXL</string>
     <string name="xxxl">XXXL</string>
-    <string name="qty">Quantity</string>
+    <string name="qty" >Quantity</string>
     <string name="null_hint"></string>
     <string name="custom_name">Custom Name</string>
     <string name="custom_name_hint">This will be printed on the item</string>
@@ -155,5 +159,26 @@
     <string name="TD_URL">https://td.bits-hyderabad.ac.in/</string>
     <string name="ERP_URL">https://erp.bits-pilani.ac.in/</string>
     <string name="OPAC_URL">http://libraryopac.bits-hyderabad.ac.in/</string>
+
+
+    <string name="busTimeBits_to_Sec">06:55 , 07:55 , 08:50, 09:20, 09:50, 11:00, 12:00, 13:00, 14:00, 15:05, 16:05, 17:20, 18:15, 19:15, 20:15</string>
+    <string name="busTimeSec_to_Bits">07:50, 08:20, 08:50, 09:50, 11:00, 12:00, 13:00, 14:10, 15:05, 16:05, 17:20, 18:15, 19:15, 20:15, 21:15</string>
+
+
+    <string name="doc_Bonafide">Bonafide Certificate</string>
+    <string name="doc_NOC">No Objection Certificate</string>
+    <string name="doc_GoodChar">Good Character Certificate</string>
+    <string name="doc_Medical">Medical Insurance Claim Form</string>
+    <string name="doc_Vacation">Vacation Letter</string>
+    <string name="_212_bus_timings">212 Bus Timings</string>
+
+
+    <string name="doc_address">Birla Institute of Technology &#38; Science, Pilani\n Hyderabad Campus,Jawahar Nagar, Kapra Mandal\n Medchal District - 500078, Telangana, India</string>
+    <string name="doc_contact">Tel: +91 40 6630 3820/821\nFax: +91 40 6630 3998\nEmail: swd-enquiry@hyderabad.bits-pilani.ac.in</string>
+    <string name="dean">Prof. Sandip S. Deshmukh</string>
+    <string name="post">Associate Dean</string>
+    <string name="download_msg">File will be downloaded to SWD Documents folder in your device</string>
+    <string name="download_prepMsg">Loading... Please wait</string>
+
 
 </resources>
