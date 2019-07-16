@@ -63,7 +63,7 @@ public class User_MessFragment extends Fragment {
     MaterialButton btnGraceDateSubmit;
     ProgressDialog dialogProgress;
 
-
+    RequestQueue queue;
     SharedPreferences prefs;
 
     public User_MessFragment(String uid){
@@ -213,7 +213,7 @@ public class User_MessFragment extends Fragment {
 
 
         Log.e("id",uid);
-        RequestQueue queue = Volley.newRequestQueue(getContext());
+        queue = Volley.newRequestQueue(getContext());
 
         StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
             @Override
@@ -253,14 +253,28 @@ public class User_MessFragment extends Fragment {
             }
         };
 
-
+        request.setTag("MessGrace");
         queue.add(request);
 
 
     }
 
     @Override
+    public void onPause() {
+        Log.e("mess frag","onPause");
+        super.onPause();
+    }
+
+    @Override
     public void onDestroy() {
+        Log.e("mess frag","onDestroy");
         super.onDestroy();
+    }
+
+    @Override
+    public void onStop() {
+        Log.e("mess frag","onstop");
+        super.onStop();
+
     }
 }

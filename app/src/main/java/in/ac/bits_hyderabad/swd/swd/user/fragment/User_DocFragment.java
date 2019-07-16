@@ -97,8 +97,6 @@ public class User_DocFragment extends Fragment implements DocumentsAdapter.itemC
         dialog.create();
 
 
-
-
         documents.add(new Document("Bonafide Certificate","bonafide"));
         documents.add(new Document("Good Character Certificate","good_char"));
         //documents.add(new Document("Medical Insurance Claim Form","claimform.pdf"));
