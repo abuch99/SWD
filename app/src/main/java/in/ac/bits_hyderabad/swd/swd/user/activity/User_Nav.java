@@ -65,6 +65,16 @@ public class User_Nav extends AppCompatActivity
         actionBar=getSupportActionBar();
         manager = getSupportFragmentManager();
 
+        tvNav_header_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(User_Nav.this,Profile.class);
+                if (drawer.isDrawerOpen(GravityCompat.START))
+                    drawer.closeDrawer(GravityCompat.START);
+                startActivity(intent);
+            }
+        });
+
         prefs=getApplicationContext().getSharedPreferences("USER_LOGIN_DETAILS",MODE_PRIVATE);
 
         tvNav_header_name.setText(prefs.getString("name",null));
