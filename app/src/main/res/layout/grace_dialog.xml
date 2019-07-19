@@ -1,43 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="@color/whiteText"
     android:gravity="center_horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="MESS  GRACE"
-        android:textStyle="bold"
-        android:textSize="24sp"
-        android:layout_marginTop="15dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Please select the date"
-        android:textSize="18sp"
-        android:layout_marginTop="10dp"/>
+        android:backgroundTint="@color/whiteText"
+        android:gravity="center_horizontal">
 
-    <DatePicker
-        android:id="@+id/graceDatePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:datePickerMode="calendar"
-        android:foregroundGravity="center_horizontal"
-        android:headerBackground="@color/colorAccent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MESS  GRACE"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_marginTop="15dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please select the date"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"/>
 
-    </DatePicker>
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnGraceDateSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SUBMIT"
-        android:textStyle="bold"
-        android:padding="10dp"
-        android:textSize="18sp"
-        android:textColor="@color/whiteText"
-        android:layout_marginBottom="30dp"/>
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/graceDatePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:mcv_selectionMode="single"
+            app:mcv_allowClickDaysOutsideCurrentMonth="false"
+            app:mcv_showOtherDates="decorated_disabled"
+            android:foregroundGravity="center_horizontal">
 
-</LinearLayout>
+        </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:text="25"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorAccent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circular_bg"
+                    android:gravity="center"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Previously applied graces"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:text="25"
+                    android:textSize="12sp"
+                    android:textColor="@color/whiteText"
+                    android:layout_gravity="center"
+                    android:background="@drawable/selected_bg"
+                    android:gravity="center"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Currently selected date"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGraceDateSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SUBMIT"
+            android:layout_marginTop="25dp"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:textSize="18sp"
+            android:textColor="@color/whiteText"
+            android:layout_marginBottom="30dp"/>
+
+
+    </LinearLayout>
+
+
+</ScrollView>
