@@ -10,6 +10,6 @@ The SWD Mobile Application serves to provide ease of access for students to use 
 
 ## Contributors
 
-- Arnav Buch
-- Prasoon Baghel
-- Shreyas Kulkarni
+- [Arnav Buch](https://github.com/abuch99)
+- [Prasoon Baghel](https://github.com/prasoon0459)
+- [Shreyas Kulkarni](https://github.com/https://github.com/Kuyas)
