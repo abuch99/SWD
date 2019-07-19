@@ -9,6 +9,9 @@ import androidx.core.view.MotionEventCompat;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -84,6 +87,17 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
         viewHolder.tvGoodiePrice.setText(goodies.get(i).getPrice());
         viewHolder.tvGoodieHosterName.setText(goodies.get(i).getHost_name());
         viewHolder.tvGoodieHosterMobile.setText(goodies.get(i).getMobile());
+
+        viewHolder.tvGoodieHosterMobile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse("tel:"+goodies.get(i).getMobile()));
+                Log.e("number" , Uri.parse("tel:"+goodies.get(i).getMobile()).toString());
+                context.startActivity(callIntent);
+
+            }
+        });
 
 
             viewHolder.ivGoodie.setOnClickListener(new View.OnClickListener() {
