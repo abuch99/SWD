@@ -36,7 +36,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -81,7 +80,7 @@ public class User_MessFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         // Defines the xml file for the fragment
-        View view = inflater.inflate(R.layout.mess_fragment, parent, false);
+        View view = inflater.inflate(R.layout.fragment_mess, parent, false);
 
         currentGraces=new ArrayList<>();
         tabLayoutMess=view.findViewById(R.id.tabLayoutMess);

@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import in.ac.bits_hyderabad.swd.swd.R;
-import in.ac.bits_hyderabad.swd.swd.user.activity.User_Nav;
 
 public class User_HomeFragment extends Fragment  {
 
@@ -37,7 +36,7 @@ public class User_HomeFragment extends Fragment  {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         // Defines the xml file for the fragment
-        view = inflater.inflate(R.layout.home_fragment, parent, false);
+        view = inflater.inflate(R.layout.fragment_home, parent, false);
 
         cvTD=view.findViewById(R.id.cvTD);
         cvERP=view.findViewById(R.id.cvERP);
