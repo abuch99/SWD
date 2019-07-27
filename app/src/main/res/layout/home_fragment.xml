@@ -136,7 +136,7 @@
         android:layout_margin="20dp"
         android:elevation="15dp"
         android:src="@drawable/ic_mail"
-        app:backgroundTint="#eeeeee"
+        app:backgroundTint="@color/whiteText"
         app:fabSize="normal"
         app:maxImageSize="35dp"
         android:scaleType="center" />
