@@ -190,7 +190,7 @@ public class User_Nav extends AppCompatActivity
                     drawer.closeDrawer(GravityCompat.START);
                 actionBar.setTitle(R.string.goodies_title);
                 navigationView.setCheckedItem(R.id.goodies);
-                fragment=new User_GoodiesFragment();
+                fragment=User_GoodiesFragment.newInstance(prefs.getString("uid",null),prefs.getString("id",null));
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }

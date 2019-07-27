@@ -411,6 +411,50 @@
             android:checked="false"
             android:text="@string/cbAgree_text" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llSummary"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:text="ORDER SUMMARY"/>
+
+        <LinearLayout
+            android:id="@+id/llTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvTotalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Cost:"
+            android:textStyle="normal"
+            android:textSize="15sp"
+            android:padding="5dp"/>
+
+        <TextView
+            android:id="@+id/tvTotalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tvGoodieOrderPrice"
+            android:layout_marginLeft="10dp"
+            android:padding="5dp"
+            android:textSize="15sp"
+            android:text="225"/>
+        </LinearLayout>
+
+    </LinearLayout>
     <Button
         android:id="@+id/btnOrder"
         android:layout_width="wrap_content"
