@@ -149,7 +149,7 @@ public class OrderGoodie extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Dialog dialog = new Dialog(OrderGoodie.this, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
-                    dialog.setContentView(R.layout.my_dialog);
+                    dialog.setContentView(R.layout.dialog_my);
                     dialog.setCanceledOnTouchOutside(true);
 
                     ZoomageView image = dialog.findViewById(R.id.ivFullGoodieImage);
@@ -175,7 +175,7 @@ public class OrderGoodie extends AppCompatActivity {
             public void onClick(View v) {
                 ImageView image;
                 Dialog myDialog = new Dialog(OrderGoodie.this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
-                myDialog.setContentView(R.layout.my_dialog);
+                myDialog.setContentView(R.layout.dialog_my);
                 myDialog.getWindow().setBackgroundDrawableResource(R.color.semiTransparentColor99black);
                 image = myDialog.findViewById(R.id.ivFullGoodieImage);
 

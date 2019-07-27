@@ -66,7 +66,7 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         // Defines the xml file for the fragment
-        View view = inflater.inflate(R.layout.goodies_fragment, parent, false);
+        View view = inflater.inflate(R.layout.fragment_goodies, parent, false);
 
         return view;
     }

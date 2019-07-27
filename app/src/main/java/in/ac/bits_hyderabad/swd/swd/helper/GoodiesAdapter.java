@@ -20,68 +20,62 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.jsibbold.zoomage.ZoomageView;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import in.ac.bits_hyderabad.swd.swd.R;
-import in.ac.bits_hyderabad.swd.swd.user.activity.OrderGoodie;
 
 public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHolder> {
 
     private ArrayList<Goodies> goodies;
-    private String DEBUG_TAG = "touch event";
+    private  String DEBUG_TAG="touch event";
     itemClicked activity;
     Context context;
     ZoomageView image;
-    String previous;
-    boolean error_loading = false;
+    boolean error_loading=false;
 
     GestureDetector gestureDetector;
 
-    public interface itemClicked {
+    public interface itemClicked{
         void onItemClicked(int index);
     }
 
-    public GoodiesAdapter(Context context, Fragment fragment, ArrayList<Goodies> goodies) {
-        this.context = context;
-        this.goodies = goodies;
-        activity = (itemClicked) fragment;
+    public GoodiesAdapter(Context context,Fragment fragment, ArrayList<Goodies> goodies)
+    {
+        this.context=context;
+        this.goodies=goodies;
+        activity=(itemClicked)fragment;
     }
 
     @NonNull
     @Override
     public GoodiesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.goodies_card, viewGroup, false);
+        View v= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_goodies,viewGroup,false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final GoodiesAdapter.ViewHolder viewHolder, final int i) {
 
-        final String ImageUrl = "http://swd.bits-hyderabad.ac.in/goodies/img/" + goodies.get(i).getImage();//"All.jpg"  or   goodies.get(i).getImage()
+        final String ImageUrl= "http://swd.bits-hyderabad.ac.in/goodies/img/"+goodies.get(i).getImage();//"All.jpg"  or   goodies.get(i).getImage()
 
 
-        final Context context = viewHolder.ivGoodie.getContext();
-        Log.e("Image url", ImageUrl);
+        final Context context =viewHolder.ivGoodie.getContext();
+        Log.e("Image url",ImageUrl);
+
+        /*Picasso.get().load(ImageUrl)
+                .resize(700,700)
+                .placeholder(R.drawable.ic_loading)
+                .centerInside().error(R.drawable.ic_error)
+                .into(viewHolder.ivGoodie);
+        */
+
         Picasso.get().load(ImageUrl)
-                .resize(700, 600)
+                .resize(700,600)
                 .placeholder(R.drawable.ic_loading)
                 .centerInside()
                 .error(R.drawable.ic_error)
@@ -98,64 +92,70 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                callIntent.setData(Uri.parse("tel:" + goodies.get(i).getMobile()));
-                Log.e("number", Uri.parse("tel:" + goodies.get(i).getMobile()).toString());
+                callIntent.setData(Uri.parse("tel:"+goodies.get(i).getMobile()));
+                Log.e("number" , Uri.parse("tel:"+goodies.get(i).getMobile()).toString());
                 context.startActivity(callIntent);
 
             }
         });
 
 
-        viewHolder.ivGoodie.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Dialog myDialog = new Dialog(context, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
-                myDialog.setContentView(R.layout.my_dialog);
-                myDialog.getWindow().setBackgroundDrawableResource(R.color.semiTransparentColor99black);
-                image = myDialog.findViewById(R.id.ivFullGoodieImage);
+            viewHolder.ivGoodie.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
 
-                Picasso.get().load(ImageUrl)
-                        .resize(1500, 1500)
-                        .centerInside()
-                        .placeholder(R.drawable.ic_loading)
-                        .error(R.drawable.ic_error)
-                        .into(image);
-                myDialog.show();
-            }
-        });
-    }
+                        Dialog myDialog=new Dialog(context,android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+                        myDialog.setContentView(R.layout.dialog_my);
+                        myDialog.getWindow().setBackgroundDrawableResource(R.color.semiTransparentColor99black);
+                        image=myDialog.findViewById(R.id.ivFullGoodieImage);
+
+
+                        Picasso.get().load(ImageUrl)
+                                .resize(1500,1500)
+                                .centerInside()
+                                .placeholder(R.drawable.ic_loading)
+                                .error(R.drawable.ic_error)
+                                .into(image);
+                        myDialog.show();
+
+
+                }
+            });
+
+        };
 
     @Override
     public int getItemCount() {
         return goodies.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder{
 
         ImageView ivGoodie;
-        TextView tvGoodieName, tvGoodieHost, tvGoodiePrice, tvGoodieHosterName, tvGoodieHosterMobile;
+        TextView tvGoodieName,tvGoodieHost,tvGoodiePrice,tvGoodieHosterName,tvGoodieHosterMobile;
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
 
-            ivGoodie = itemView.findViewById(R.id.ivGoodie);
-            tvGoodieName = itemView.findViewById(R.id.tvGoodieName);
-            tvGoodieHost = itemView.findViewById(R.id.tvGoodieHost);
-            tvGoodiePrice = itemView.findViewById(R.id.tvGoodiePrice);
-            tvGoodieHosterName = itemView.findViewById(R.id.tvGoodieHosterName);
-            tvGoodieHosterMobile = itemView.findViewById(R.id.tvGoodieHosterMobile);
+            ivGoodie=itemView.findViewById(R.id.ivGoodie);
+            tvGoodieName=itemView.findViewById(R.id.tvGoodieName);
+            tvGoodieHost=itemView.findViewById(R.id.tvGoodieHost);
+            tvGoodiePrice=itemView.findViewById(R.id.tvGoodiePrice);
+            tvGoodieHosterName=itemView.findViewById(R.id.tvGoodieHosterName);
+            tvGoodieHosterMobile=itemView.findViewById(R.id.tvGoodieHosterMobile);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     activity.onItemClicked(goodies.indexOf(v.getTag()));
+
                 }
             });
 
         }
 
     }
+
 }

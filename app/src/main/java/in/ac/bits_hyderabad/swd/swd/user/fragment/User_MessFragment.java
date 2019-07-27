@@ -36,7 +36,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -81,7 +80,7 @@ public class User_MessFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         // Defines the xml file for the fragment
-        View view = inflater.inflate(R.layout.mess_fragment, parent, false);
+        View view = inflater.inflate(R.layout.fragment_mess, parent, false);
 
         currentGraces=new ArrayList<>();
         tabLayoutMess=view.findViewById(R.id.tabLayoutMess);
@@ -89,7 +88,7 @@ public class User_MessFragment extends Fragment {
         adapter=new MessMenuAdapter(getChildFragmentManager());
 
         dialog=new Dialog(getActivity());
-        dialog.setContentView(R.layout.grace_dialog);
+        dialog.setContentView(R.layout.dialog_grace);
         dialog.setCanceledOnTouchOutside(false);
         btnGraceDateSubmit=dialog.findViewById(R.id.btnGraceDateSubmit);
         graceDatePicker=dialog.findViewById(R.id.graceDatePicker);
