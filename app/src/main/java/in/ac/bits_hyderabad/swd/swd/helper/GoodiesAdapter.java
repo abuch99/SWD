@@ -102,7 +102,7 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
 
 
                         Dialog myDialog=new Dialog(context,android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
-                        myDialog.setContentView(R.layout.my_dialog);
+                    myDialog.setContentView(R.layout.dialog_my);
                         myDialog.getWindow().setBackgroundDrawableResource(R.color.semiTransparentColor99black);
                         image=myDialog.findViewById(R.id.ivFullGoodieImage);
 

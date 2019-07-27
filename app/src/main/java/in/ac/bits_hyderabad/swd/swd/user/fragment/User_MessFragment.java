@@ -88,7 +88,7 @@ public class User_MessFragment extends Fragment {
         adapter=new MessMenuAdapter(getChildFragmentManager());
 
         dialog=new Dialog(getActivity());
-        dialog.setContentView(R.layout.grace_dialog);
+        dialog.setContentView(R.layout.dialog_grace);
         dialog.setCanceledOnTouchOutside(false);
         btnGraceDateSubmit=dialog.findViewById(R.id.btnGraceDateSubmit);
         graceDatePicker=dialog.findViewById(R.id.graceDatePicker);
