@@ -9,13 +9,13 @@
    <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:layout_marginTop="75dp"
+       android:layout_marginTop="40dp"
        android:layout_gravity="center_horizontal"
        android:orientation="vertical">
 
        <ImageView
-           android:layout_width="175dp"
-           android:layout_height="175dp"
+           android:layout_width="200dp"
+           android:layout_height="200dp"
            android:src="@drawable/logo"
            android:layout_gravity="center"
            android:layout_marginTop="25dp"
@@ -130,14 +130,16 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabContactUs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:layout_gravity="end|bottom"
         android:layout_margin="20dp"
-        app:fabSize="auto"
         android:elevation="15dp"
-        app:backgroundTint="@color/colorPrimary"
-        android:src="@drawable/ic_chat" />
+        android:src="@drawable/ic_mail"
+        app:backgroundTint="#eeeeee"
+        app:fabSize="normal"
+        app:maxImageSize="35dp"
+        android:scaleType="center" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
