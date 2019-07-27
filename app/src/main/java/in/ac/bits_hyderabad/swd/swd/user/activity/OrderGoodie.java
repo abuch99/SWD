@@ -398,7 +398,7 @@ public class OrderGoodie extends AppCompatActivity {
         KeyguardManager km = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
 
         if (km.isKeyguardSecure()) {
-            Intent i = km.createConfirmDeviceCredentialIntent("Authentication required", "password");
+            Intent i = km.createConfirmDeviceCredentialIntent("Authentication required", "");
             startActivityForResult(i, REQUEST_CODE);
         } else
             Toast.makeText(OrderGoodie.this, "No any security setup done by user(pattern or password or pin or fingerprint", Toast.LENGTH_SHORT).show();
