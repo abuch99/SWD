@@ -76,11 +76,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1">
 
                 <TextView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:text="25"
                     android:textSize="12sp"
                     android:textColor="@color/whiteText"
