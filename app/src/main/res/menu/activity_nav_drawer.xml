@@ -9,6 +9,13 @@
             android:title="@string/home" />
 
         <item
+            android:id="@+id/MyProfile"
+            android:title="@string/title_activity_profile"
+            android:icon="@drawable/ic_person">
+
+        </item>
+
+        <item
             android:id="@+id/goodies"
             android:icon="@drawable/ic_goodie"
             android:title="@string/goodies" />
@@ -33,13 +40,6 @@
             android:id="@+id/BusTimings"
             android:title="@string/_212_bus_timings"
             android:icon="@drawable/ic_bus"/>
-
-        <item
-            android:id="@+id/MyProfile"
-            android:title="@string/title_activity_profile"
-            android:icon="@drawable/ic_person">
-
-        </item>
 
         <item
             android:id="@+id/docs"
