@@ -10,8 +10,8 @@
 
         <item
             android:id="@+id/MyProfile"
-            android:title="@string/title_activity_profile"
-            android:icon="@drawable/ic_person">
+            android:icon="@drawable/ic_person"
+            android:title="@string/title_activity_profile">
 
         </item>
 
@@ -38,8 +38,8 @@
 
         <item
             android:id="@+id/BusTimings"
-            android:title="@string/_212_bus_timings"
-            android:icon="@drawable/ic_bus"/>
+            android:icon="@drawable/ic_bus"
+            android:title="@string/_212_bus_timings" />
 
         <item
             android:id="@+id/docs"
@@ -49,7 +49,7 @@
         <item
             android:id="@+id/logout"
             android:icon="@drawable/ic_logout"
-            android:title="@string/logout"/>
+            android:title="@string/logout" />
 
 
     </group>
