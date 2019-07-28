@@ -383,8 +383,8 @@ public class OrderGoodie extends AppCompatActivity {
         int xxl=convertToInt(etxxlQty.getText().toString());
         int xxxl=convertToInt(etxsQty.getText().toString());
 
-        int qut=convertToInt(etlQty.getText().toString());
-        int net_qut=xs+s+m+l+xl+xxl+xxxl;
+        int qut=convertToInt(etQty.getText().toString());
+        int net_qut=xs+s+m+l+xl+xxl+xxxl+qut;
         int net_price=net_qut*Integer.parseInt(goodie.getPrice().substring(2));
 
         //g_id,u_id,full_id,u_name,custom_name,xs,s,m,l,xl,xxl,xxxl,qut,acceptance,net_qut,net_price
@@ -457,7 +457,7 @@ public class OrderGoodie extends AppCompatActivity {
                 dialog.cancel();
                 try {
                     JSONObject res=new JSONObject(response);
-                    if(res.getString("error").equalsIgnoreCase("true")) {
+                    if(res.getString("error").equalsIgnoreCase("false")) {
                         String msg = res.getString("msg");
                         Toast.makeText(OrderGoodie.this, msg, Toast.LENGTH_SHORT).show();
                     }
