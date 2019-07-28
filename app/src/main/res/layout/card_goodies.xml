@@ -63,18 +63,18 @@
                         android:textColor="@color/black"
                         android:textAllCaps="true"
                         android:textStyle="bold"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:layout_marginTop="5dp"
                         android:layout_marginLeft="5dp"/>
                     <TextView
                         android:id="@+id/tvGoodiePrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="15sp"
                         android:textStyle="bold"
                         android:textColor="@color/blueText"
                         android:text="₹ 220 "
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginLeft="5dp"/>
 
                 </LinearLayout>
@@ -89,16 +89,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="CRUx BPHC"
+                        android:layout_marginTop="5dp"
                         android:textStyle="bold"
-                        android:textSize="18sp"
+                        android:gravity="end"
+                        android:textSize="15sp"
                         android:layout_gravity="end"
-                        android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"/>
                     <TextView
                         android:id="@+id/tvGoodieHosterName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
+                        android:textSize="15sp"
+                        android:gravity="end"
                         android:layout_gravity="end"
                         android:layout_marginTop="5dp"
                         android:text="PRASOON BAGHEL"
@@ -109,7 +111,7 @@
                         android:layout_height="wrap_content"
                         android:text="9133260431"
                         android:textColor="@color/calling_green_color"
-                        android:textSize="18sp"
+                        android:textSize="15sp"
                         android:layout_gravity="end"
                         android:layout_marginEnd="10dp"/>
 
