@@ -104,7 +104,8 @@ public class Connect extends AppCompatActivity implements PersonAdapter.itemClic
     @Override
     public void onBackPressed() {
         finish();
-        super.onBackPressed();
+        Intent intent = new Intent(Connect.this, User_Nav.class);
+        startActivity(intent);
     }
 
     @Override
@@ -115,7 +116,6 @@ public class Connect extends AppCompatActivity implements PersonAdapter.itemClic
                     callIntent.setData(Uri.parse("tel:"+data));//change the number
                     Log.e("number" , Uri.parse("tel:"+data).toString());
                     startActivity(callIntent);
-
                 break;
 
             case 1:
