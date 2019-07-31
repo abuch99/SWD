@@ -153,6 +153,9 @@
     <string name="minamt_fraiser">Minimum :</string>
     <string name="maxamt_fraiser">Maximum :</string>
     <string name="cbAgree_text">I agree to pay the above mentioned amount from my Other Advances Account</string>
+    <string name="order_button">Order</string>
+    <string name="order_cost">Total Cost:</string>
+    <string name="order_summary">ORDER SUMMARY</string>
     <string name="library_opac">LIBRARY\nOPAC</string>
     <string name="timetable_n_division">TIMETABLE  DIVISION</string>
 
