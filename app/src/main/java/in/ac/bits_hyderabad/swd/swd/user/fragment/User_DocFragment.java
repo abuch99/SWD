@@ -1,11 +1,8 @@
 package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,8 +17,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,13 +28,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,7 +39,6 @@ import in.ac.bits_hyderabad.swd.swd.R;
 import in.ac.bits_hyderabad.swd.swd.helper.Document;
 import in.ac.bits_hyderabad.swd.swd.helper.DocumentsAdapter;
 import in.ac.bits_hyderabad.swd.swd.helper.PdfDocumentSample;
-import in.ac.bits_hyderabad.swd.swd.helper.Person;
 
 public class User_DocFragment extends Fragment implements DocumentsAdapter.itemClicked {
 
@@ -80,7 +71,7 @@ public class User_DocFragment extends Fragment implements DocumentsAdapter.itemC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         // Defines the xml file for the fragment
-        View view = inflater.inflate(R.layout.doc_fragment, parent, false);
+        View view = inflater.inflate(R.layout.fragment_doc, parent, false);
         return view;
     }
 

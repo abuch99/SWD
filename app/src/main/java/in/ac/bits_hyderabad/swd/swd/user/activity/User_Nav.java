@@ -65,6 +65,16 @@ public class User_Nav extends AppCompatActivity
         actionBar=getSupportActionBar();
         manager = getSupportFragmentManager();
 
+        tvNav_header_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(User_Nav.this,Profile.class);
+                if (drawer.isDrawerOpen(GravityCompat.START))
+                    drawer.closeDrawer(GravityCompat.START);
+                startActivity(intent);
+            }
+        });
+
         prefs=getApplicationContext().getSharedPreferences("USER_LOGIN_DETAILS",MODE_PRIVATE);
 
         tvNav_header_name.setText(prefs.getString("name",null));
@@ -180,7 +190,7 @@ public class User_Nav extends AppCompatActivity
                     drawer.closeDrawer(GravityCompat.START);
                 actionBar.setTitle(R.string.goodies_title);
                 navigationView.setCheckedItem(R.id.goodies);
-                fragment=new User_GoodiesFragment();
+                fragment=User_GoodiesFragment.newInstance(prefs.getString("uid",null),prefs.getString("id",null));
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }

@@ -62,8 +62,10 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="d3d3d3" />
-                                      <entry key="foregroundImage" value="C:\Users\PRASOON BAGHEL\Desktop\logo.png" />
+                                      <entry key="backgroundLayerName" value="ic_launcher_background_test" />
+                                      <entry key="foregroundImage" value="C:\SWD\app\src\main\res\drawable\logo.png" />
+                                      <entry key="foregroundLayerName" value="ic_launcher_foreground_test" />
+                                      <entry key="outputName" value="ic_launcher_test" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -85,6 +87,25 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                      <entry key="image">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="color" value="000000" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="iconShape" value="NONE" />
+                                      <entry key="imageAsset" value="C:\SWD\app\src\main\res\drawable\logo.png" />
+                                      <entry key="outputName" value="ic_launcher_test" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -111,6 +132,11 @@
                                 </PersistentState>
                               </value>
                             </entry>
+                          </map>
+                        </option>
+                        <option name="values">
+                          <map>
+                            <entry key="outputIconType" value="LAUNCHER_LEGACY" />
                           </map>
                         </option>
                       </PersistentState>

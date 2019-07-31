@@ -2,6 +2,7 @@ package in.ac.bits_hyderabad.swd.swd.user.activity;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 
@@ -461,7 +462,9 @@ public class Profile extends AppCompatActivity {
     public void onBackPressed() {
         dialog.dismiss();
         finish();
-        super.onBackPressed();
+        Intent intent = new Intent(Profile.this, User_Nav.class);
+        startActivity(intent);
+
     }
 
     public JSONObject getupdatedJSONObject(JSONObject object) {

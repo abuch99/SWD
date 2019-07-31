@@ -1,27 +1,17 @@
 package in.ac.bits_hyderabad.swd.swd.helper;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.itextpdf.io.image.ImageDataFactory;
@@ -47,7 +37,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import in.ac.bits_hyderabad.swd.swd.BuildConfig;
 import in.ac.bits_hyderabad.swd.swd.R;
 
 public class PdfDocumentSample {
@@ -98,7 +87,7 @@ public class PdfDocumentSample {
 
 
             dialog = new Dialog(context);
-            dialog.setContentView(R.layout.download_dialog);
+        dialog.setContentView(R.layout.dialog_download);
             tvTitle = dialog.findViewById(R.id.tvTitleDownload);
             tvProgress = dialog.findViewById(R.id.tvProgress);
             pbProgress = dialog.findViewById(R.id.pbProgress);

@@ -1,8 +1,6 @@
 package in.ac.bits_hyderabad.swd.swd.helper;
 
 import android.content.Context;
-import android.text.Layout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +33,7 @@ public class DocumentsAdapter extends RecyclerView.Adapter <DocumentsAdapter.Vie
     @NonNull
     @Override
     public DocumentsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.doc_card,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_doc, parent, false);
         return new ViewHolder(view);
     }
 

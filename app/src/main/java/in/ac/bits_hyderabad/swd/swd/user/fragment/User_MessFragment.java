@@ -1,16 +1,15 @@
 package in.ac.bits_hyderabad.swd.swd.user.fragment;
+
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,9 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -30,41 +27,44 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
-
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.DayViewDecorator;
+import com.prolificinteractive.materialcalendarview.DayViewFacade;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
 import in.ac.bits_hyderabad.swd.swd.R;
+import in.ac.bits_hyderabad.swd.swd.helper.customSpan;
 
 public class User_MessFragment extends Fragment {
 
 
-    TabLayout tabLayoutMess;
-    ViewPager viewPagerMess;
-    MessMenuAdapter adapter;
+    private TabLayout tabLayoutMess;
+    private ViewPager viewPagerMess;
+    private MessMenuAdapter adapter;
+    private String uid;
+    private Dialog dialog;
+    private MaterialButton btnGraceDateSubmit;
+    private ProgressDialog dialogProgress;
+    private MaterialCalendarView graceDatePicker;
+    private ArrayList<CalendarDay> currentGraces;
+
 
     String day_today,day_tomorrow;
 
     Date today_date,tomorrow_date;
-    String uid;
-
-    Dialog dialog;
-    DatePicker datePickerGrace;
-    MaterialButton btnGraceDateSubmit;
-    ProgressDialog dialogProgress;
-
-    RequestQueue queue;
-    SharedPreferences prefs;
 
     public User_MessFragment(String uid){
         this.uid=uid;
@@ -80,21 +80,21 @@ public class User_MessFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         // Defines the xml file for the fragment
-        View view = inflater.inflate(R.layout.mess_fragment, parent, false);
+        View view = inflater.inflate(R.layout.fragment_mess, parent, false);
 
+        currentGraces=new ArrayList<>();
         tabLayoutMess=view.findViewById(R.id.tabLayoutMess);
         viewPagerMess=view.findViewById(R.id.viewPagerMess);
         adapter=new MessMenuAdapter(getChildFragmentManager());
 
         dialog=new Dialog(getActivity());
-        dialog.setContentView(R.layout.grace_dialog);
+        dialog.setContentView(R.layout.dialog_grace);
         dialog.setCanceledOnTouchOutside(false);
         btnGraceDateSubmit=dialog.findViewById(R.id.btnGraceDateSubmit);
-        datePickerGrace=dialog.findViewById(R.id.graceDatePicker);
-
+        graceDatePicker=dialog.findViewById(R.id.graceDatePicker);
         dialogProgress=new ProgressDialog(getActivity());
         dialogProgress.setCancelable(false);
-        dialogProgress.setMessage("Applying for grace.. Please wait!");
+        dialogProgress.setMessage("Loading... Please wait!");
         dialogProgress.create();
         return view;
     }
@@ -111,12 +111,28 @@ public class User_MessFragment extends Fragment {
         tomorrow_date=calendar_tom.getTime();
 
         day_today=new SimpleDateFormat("EEEE", Locale.ENGLISH).format(today_date.getTime());
-        day_tomorrow=new SimpleDateFormat("EEEE",Locale.ENGLISH).format(tomorrow_date.getTime());
-        datePickerGrace.setMinDate(tomorrow_date.getTime());
+        day_tomorrow=new SimpleDateFormat("EEEE", Locale.ENGLISH).format(tomorrow_date.getTime());
         Calendar calendar_MaxDate=Calendar.getInstance();
         calendar_MaxDate.add(Calendar.YEAR,1);
-        datePickerGrace.setMaxDate(calendar_MaxDate.getTime().getTime());
 
+
+        CalendarDay calendarDayToday=CalendarDay.today();
+        Log.e("month",calendarDayToday.getMonth()+"");
+        if(calendarDayToday.getMonth()>7){
+            graceDatePicker.state().edit().setMinimumDate(CalendarDay.from(calendarDayToday.getYear(),8,1));
+            graceDatePicker.state().edit().setMinimumDate(CalendarDay.from(calendarDayToday.getYear()+1,1,10));
+            Log.e("month>7","");
+        }
+        else {
+            Log.e("month<7","");
+            graceDatePicker.state().edit().setMinimumDate(CalendarDay.from(calendarDayToday.getYear(),1,1))
+            .setMaximumDate(CalendarDay.from(calendarDayToday.getYear(),8,10)).commit();
+        }
+
+
+
+
+        Log.e("Days for Mess", day_today+"  and  "+day_tomorrow);
         Log.e("Days for Mess", day_today+"  and  "+day_tomorrow);
 
         adapter.addFragment(new MessMenu(day_today,uid),"TODAY");
@@ -124,6 +140,8 @@ public class User_MessFragment extends Fragment {
         Log.e("uid",uid);
         viewPagerMess.setAdapter(adapter);
         tabLayoutMess.setupWithViewPager(viewPagerMess);
+
+
 
     }
 
@@ -168,69 +186,59 @@ public class User_MessFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.grace:
             {
-                applyGrace();
+                requestPreviousGrace();
                 break;
             }
         }
         return true;
     }
 
-    public void applyGrace(){
+    public void requestPreviousGrace(){
 
-        dialog.show();
+        dialogProgress.show();
+        sendRequestforGrace(uid,null);
 
-        btnGraceDateSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String day = new DecimalFormat("00").format(datePickerGrace.getDayOfMonth());
-                String month = new DecimalFormat("00").format(datePickerGrace.getMonth() + 1);
-                String year = new DecimalFormat("0000").format(datePickerGrace.getYear());
-
-                dialog.dismiss();
+        /*dialog.show();
 
 
-                dialogProgress.show();
-
-                datePickerGrace.setMinDate(tomorrow_date.getTime());
-                Calendar calendar_MaxDate=Calendar.getInstance();
-                calendar_MaxDate.add(Calendar.YEAR,1);
-                datePickerGrace.setMaxDate(calendar_MaxDate.getTime().getTime());
-
-                String date_for_grace=day+"-"+month+"-"+year;
-                if(date_for_grace.charAt(0)>='0'&&date_for_grace.charAt(0)<='9') {
-                    sendRequestforGrace(uid, date_for_grace);
-                }
-                else {
-                    dialogProgress.cancel();
-                    Toast.makeText(getActivity(),"Something went wrong, kindly contact SWD",Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
+        */
     }
     public void sendRequestforGrace(final String uid, final String date_for_grace){
 
 
         Log.e("id",uid);
-        queue = Volley.newRequestQueue(getContext());
+        RequestQueue queue = Volley.newRequestQueue(getContext());
 
         StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.e("GraceResponse: ", response);
 
-                dialogProgress.cancel();
-                try{
-                    JSONObject object=new JSONObject(response);
-                        Toast.makeText(getActivity(),object.getString("msg"),Toast.LENGTH_LONG).show();
+                if(date_for_grace!=null) {
+                    try {
+                        dialogProgress.cancel();
+                        JSONObject object = new JSONObject(response);
+                        Toast.makeText(getActivity(), object.getString("msg"), Toast.LENGTH_LONG).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getActivity(), "Something went wrong, kindly contact SWD", Toast.LENGTH_LONG).show();
+                    }
                 }
-                catch (JSONException e)
-                {
-                    e.printStackTrace();
-                    Toast.makeText(getActivity(),"Something went wrong, kindly contact SWD",Toast.LENGTH_LONG).show();
+                else{
+                    try {
+                        JSONObject object = new JSONObject(response);
+                        JSONArray array=object.getJSONArray("current");
+                        for(int i=0; i<array.length();i++){
+                            String string=array.getJSONObject(i).getString("date");
+                            CalendarDay date=CalendarDay.from(Integer.parseInt(string.substring(0,4)),Integer.parseInt(string.substring(5,7)),Integer.parseInt(string.substring(8,10)));
+                            currentGraces.add(date);
+                        }
+                        applyGrace(currentGraces);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getActivity(), "Something went wrong, kindly contact SWD", Toast.LENGTH_LONG).show();
+                    }
                 }
-
 
             }
         }, new Response.ErrorListener() {
@@ -247,6 +255,7 @@ public class User_MessFragment extends Fragment {
                 Map<String, String> params = new HashMap<>();
                 params.put("tag", "mess_grace");
                 params.put("id",uid);
+                if(date_for_grace!=null)
                 params.put("date",date_for_grace);
                 return params;
 
@@ -257,6 +266,65 @@ public class User_MessFragment extends Fragment {
         queue.add(request);
 
 
+    }
+
+    public void applyGrace(ArrayList<CalendarDay> previousGrace){
+
+        Log.e("previous graces",previousGrace.toString());
+        graceDatePicker.addDecorator(new EventDecorator(Color.rgb(200,200,200),previousGrace));
+
+        dialogProgress.cancel();
+        dialog.show();
+
+        btnGraceDateSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                CalendarDay date_selected=graceDatePicker.getSelectedDate();
+
+                String year = new DecimalFormat("0000").format(date_selected.getYear());
+                String month =  new DecimalFormat("00").format(date_selected.getMonth());
+                String day =  new DecimalFormat("00").format(date_selected.getDay());
+
+                dialog.dismiss();
+                dialogProgress.show();
+
+                String date_for_grace=day+"-"+month+"-"+year;
+
+                Log.e("date slected",date_for_grace);
+
+                if(date_for_grace.charAt(0)>='0'&&date_for_grace.charAt(0)<='9') {
+                    sendRequestforGrace(uid, date_for_grace);
+                }
+                else {
+                    dialogProgress.cancel();
+                    Toast.makeText(getActivity(),"Something went wrong, kindly contact SWD",Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+
+    }
+    public class EventDecorator implements DayViewDecorator {
+
+        private final int color;
+        private final HashSet<CalendarDay> dates;
+
+        public EventDecorator(int color, Collection<CalendarDay> dates) {
+            this.color = color;
+            this.dates = new HashSet<>(dates);
+        }
+
+        @Override
+        public boolean shouldDecorate(CalendarDay day) {
+            return dates.contains(day);
+        }
+
+        @Override
+        public void decorate(DayViewFacade view) {
+            view.addSpan(new customSpan(25,color));
+            view.setDaysDisabled(true);
+        }
     }
 
     @Override

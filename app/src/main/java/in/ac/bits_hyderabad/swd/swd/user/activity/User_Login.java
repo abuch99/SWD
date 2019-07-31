@@ -42,7 +42,7 @@ public class User_Login extends AppCompatActivity {
 
     TextView mTextView;
     ProgressDialog dialog;
-    FloatingActionButton fabContactus;
+    TextView fabContactus;
     TextInputLayout layout;
     TextInputEditText my_id_get, password_get;
 

@@ -46,6 +46,17 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
     ProgressDialog dialog;
     ArrayList<Goodies> goodies;
     SwipeRefreshLayout swipeRefresh;
+    boolean LIMITED_GOODIE=false;
+    String previous;
+
+    public static User_GoodiesFragment newInstance(String uid, String id_no){
+        User_GoodiesFragment f = new User_GoodiesFragment();
+        Bundle args=new Bundle();
+        args.putString("uid",uid);
+        args.putString("id_no",id_no);
+        f.setArguments(args);
+        return f;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,7 +66,7 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         // Defines the xml file for the fragment
-        View view = inflater.inflate(R.layout.goodies_fragment, parent, false);
+        View view = inflater.inflate(R.layout.fragment_goodies, parent, false);
 
         return view;
     }
@@ -93,14 +104,11 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
 
     @Override
     public void onItemClicked(int index) {
-        Intent intent=new Intent(getActivity(),OrderGoodie.class);
-        intent.putExtra("goodieClicked",goodies.get(index));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            startActivity(intent, ActivityOptions.makeCustomAnimation(getContext(),R.xml.slide_in_right,R.xml.slide_in_right).toBundle());
-        }
-        else{
-            startActivity(intent);
-        }
+
+        dialog.show();
+        String u_id=this.getArguments().getString("uid");
+        getPreviousData(u_id,goodies.get(index).getId(),index);
+
     }
     public  void loadGoodies()
     {
@@ -169,6 +177,80 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
                 Map<String, String> params = new HashMap<>();
                 params.put("tag", "goodie");
                 return params;
+
+            }
+        };
+
+
+        queue.add(request);
+
+    }
+
+    private void getPreviousData(String u_id, String g_id, int index) {
+
+
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+
+        StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("LoginResponse: ", response);
+
+                try {
+
+                    JSONObject obj = new JSONObject(response);
+                    int itemsLeft = LIMITED_GOODIE ? Integer.parseInt(obj.getString("items_left")) : 99999999;
+                    String type = obj.getString("type");
+                    Log.e("type",type);
+                    JSONObject previousdetails = new JSONObject();
+                    if (type.equals("first_time")) {
+
+                        previousdetails.put("first_time",true);
+
+                    } else {
+                        previousdetails = obj.getJSONObject("previous_details");
+                        Log.e("previous", previousdetails.toString());
+                        previousdetails.put("first_time",false);
+                    }
+
+                    previous=previousdetails.toString();
+                    Intent intent=new Intent(getActivity(),OrderGoodie.class);
+                    intent.putExtra("goodieClicked",goodies.get(index));
+                    intent.putExtra("previous",previous);
+                    intent.putExtra("items_left",itemsLeft);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        startActivity(intent, ActivityOptions.makeCustomAnimation(getContext(),R.xml.slide_in_right,R.xml.slide_in_right).toBundle());
+                        dialog.cancel();
+                    }
+                    else{
+                        startActivity(intent);
+                        dialog.cancel();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+                    dialog.cancel();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error", error.toString());
+                Toast.makeText(getContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+                dialog.cancel();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> map = new HashMap<>();
+
+                map.put("tag", "goodie_selected");
+                map.put("id", u_id);
+                map.put("g_id", g_id);
+                return map;
 
             }
         };

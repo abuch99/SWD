@@ -4,15 +4,14 @@ import android.app.Dialog;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
-import androidx.core.view.GestureDetectorCompat;
-import androidx.core.view.MotionEventCompat;
 import androidx.fragment.app.Fragment;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -51,7 +50,7 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
     @Override
     public GoodiesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        View v= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.goodies_card,viewGroup,false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_goodies, viewGroup, false);
         return new ViewHolder(v);
     }
 
@@ -85,6 +84,17 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
         viewHolder.tvGoodieHosterName.setText(goodies.get(i).getHost_name());
         viewHolder.tvGoodieHosterMobile.setText(goodies.get(i).getMobile());
 
+        viewHolder.tvGoodieHosterMobile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse("tel:"+goodies.get(i).getMobile()));
+                Log.e("number" , Uri.parse("tel:"+goodies.get(i).getMobile()).toString());
+                context.startActivity(callIntent);
+
+            }
+        });
+
 
             viewHolder.ivGoodie.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -92,7 +102,7 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
 
 
                         Dialog myDialog=new Dialog(context,android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
-                        myDialog.setContentView(R.layout.my_dialog);
+                        myDialog.setContentView(R.layout.dialog_my);
                         myDialog.getWindow().setBackgroundDrawableResource(R.color.semiTransparentColor99black);
                         image=myDialog.findViewById(R.id.ivFullGoodieImage);
 

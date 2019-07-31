@@ -1,9 +1,6 @@
 package in.ac.bits_hyderabad.swd.swd.helper;
 
-import android.content.ClipData;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +34,7 @@ public class PersonAdapter  extends RecyclerView.Adapter<PersonAdapter.ViewHolde
     @NonNull
     @Override
     public PersonAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.contact_card,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_contact, parent, false);
         return new PersonAdapter.ViewHolder(v);
     }
 
