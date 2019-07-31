@@ -47,18 +47,19 @@ public class User_DocFragment extends Fragment implements DocumentsAdapter.itemC
     ArrayList<Document> documents=new ArrayList<>();
     RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
-    String uid, id_no;
+    String uid, id_no, password;
     TextView tvDialogmsg, tvDialogTitle;
     String name_of_item_clicked;
     String type_of_item_clicked;
     ProgressDialog dialog;
     int PERMISSION =1000;
 
-    public static User_DocFragment newInstance(String uid, String id_no){
+    public static User_DocFragment newInstance(String uid, String id_no, String password){
         User_DocFragment f = new User_DocFragment();
         Bundle args=new Bundle();
         args.putString("uid",uid);
         args.putString("id_no",id_no);
+        args.putString("password",password);
         f.setArguments(args);
         return f;
     }

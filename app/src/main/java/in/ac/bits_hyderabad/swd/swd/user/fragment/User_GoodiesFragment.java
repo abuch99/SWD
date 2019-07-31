@@ -49,11 +49,12 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
     boolean LIMITED_GOODIE=false;
     String previous;
 
-    public static User_GoodiesFragment newInstance(String uid, String id_no){
+    public static User_GoodiesFragment newInstance(String uid, String id_no, String password){
         User_GoodiesFragment f = new User_GoodiesFragment();
         Bundle args=new Bundle();
         args.putString("uid",uid);
         args.putString("id_no",id_no);
+        args.putString("password",password);
         f.setArguments(args);
         return f;
     }
@@ -107,11 +108,15 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
 
         dialog.show();
         String u_id=this.getArguments().getString("uid");
-        getPreviousData(u_id,goodies.get(index).getId(),index);
+        final String pwd=this.getArguments().getString("password");
+        getPreviousData(u_id,goodies.get(index).getId(),pwd,index);
 
     }
     public  void loadGoodies()
     {
+        String u_id=this.getArguments().getString("uid");
+        String password=this.getArguments().getString("password");
+
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
         StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
@@ -176,6 +181,8 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
 
                 Map<String, String> params = new HashMap<>();
                 params.put("tag", "goodie");
+                params.put("id",u_id);
+                params.put("pwd",password);
                 return params;
 
             }
@@ -186,8 +193,7 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
 
     }
 
-    private void getPreviousData(String u_id, String g_id, int index) {
-
+    private void getPreviousData(String u_id, String g_id, String password, int index) {
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
@@ -249,6 +255,7 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
 
                 map.put("tag", "goodie_selected");
                 map.put("id", u_id);
+                map.put("pwd",password);
                 map.put("g_id", g_id);
                 return map;
 

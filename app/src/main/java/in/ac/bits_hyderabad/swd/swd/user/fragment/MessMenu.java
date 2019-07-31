@@ -47,12 +47,13 @@ public class MessMenu extends Fragment {
     private String day;
     int mess=0;
     private LinearLayout llMenu;
-    private String uid;
+    private String uid, password;
     private SwipeRefreshLayout swipeRefresh;
 
-    public MessMenu(String day, String uid) {
+    public MessMenu(String day, String uid, String password) {
         this.day=day;
         this.uid=uid;
+        this.password=password;
     }
 
     private TextView tvDay, tvBreakfast, tvLunch, tvSnacks, tvDinner;
@@ -140,6 +141,8 @@ public class MessMenu extends Fragment {
 
                 Map<String, String> params = new HashMap<>();
                 params.put("tag", "mess_menu");
+                params.put("id",uid);
+                params.put("pwd",password);
                 return params;
 
             }
@@ -158,6 +161,7 @@ public class MessMenu extends Fragment {
                 try{
                     JSONObject object=new JSONObject(response);
                     if(object.get("error").toString().equals("false")) {
+                        Log.e("messReq",response);
                         JSONObject newObject = (JSONObject) object.get("data");
                         String mess_no_string = newObject.get("mess").toString();
                         mess= Integer.parseInt(mess_no_string);
@@ -198,6 +202,7 @@ public class MessMenu extends Fragment {
                 Map<String, String> params = new HashMap<>();
                 params.put("tag", "mess_req");
                 params.put("id",uid);
+                params.put("pwd",password);
                 return params;
 
             }

@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 import in.ac.bits_hyderabad.swd.swd.R;
 import in.ac.bits_hyderabad.swd.swd.databaseconnection.APIService;
+import in.ac.bits_hyderabad.swd.swd.helper.HashString;
 
 public class User_Login extends AppCompatActivity {
 
@@ -37,14 +38,11 @@ public class User_Login extends AppCompatActivity {
     SharedPreferences.Editor editor;
     Button mbutton;
     TextView tvloginFgtPass;
-
-    private APIService loginUsingApi;
-
-    TextView mTextView;
     ProgressDialog dialog;
     TextView fabContactus;
     TextInputLayout layout;
     TextInputEditText my_id_get, password_get;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +88,7 @@ public class User_Login extends AppCompatActivity {
                 dialog.show();
                 final String my_id = my_id_get.getText().toString().trim();
                 final String password = password_get.getText().toString();
+                final String hashedPass=HashString.getSHA(password);
                 boolean success = true;
                 if (my_id.isEmpty()) {
                     my_id_get.setError("Cannot be empty");
@@ -112,11 +111,6 @@ public class User_Login extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.e("LoginResponse: ", response);
-                        //if correct credentials
-                        //response {"tag":"login","error":false,"uid":"abcd","name":"Monil Shah","id":"abcd","branch":"A3PS","room":"G 270","gender":"M","phone":"9553305670","email":"abcd@gmail.com","dob":"1996-07-19","father":"Atul Shah","mother":"Sejal Shah","fmail":"atulshah1965@reddifmail.com","fphone":"9825543307","foccup":"Businessman","mmail":null,"moccup":"Homemaker","hphone":"02613015838","homeadd":"702 Manibhadra Enclave,B\/h Sargam Shopping Center,Parle Point .","city":"Surat","state":"Gujarat","localadd":null,"guardian":null,"gphone":null,"nation":"India","blood":"AB+","bank":"State Bank Of Hyderabad","acno":"62352253278","ifsc":"ifsc1234","pimage":null,"time":"2016-02-03 14:07:21"}
-
-                        //if wrong credentials
-                        //{"tag":"login","error":true,"error_msg":"Error occured in Logging In"}
 
                         try {
                             JSONObject object = new JSONObject(response);
@@ -124,17 +118,13 @@ public class User_Login extends AppCompatActivity {
                                 editor.putInt("exists",1);
                                 editor.putString("name",object.getString("name"));
                                 editor.putString("uid",my_id);
-                                editor.putString("password" ,password);
+                                editor.putString("password" ,hashedPass);
                                 editor.putString("id",object.getString("id"));
+
                                 editor.commit();
+
                                 checkLogin();
 
-                                /*
-                                userTable.deleteAll();
-                                object.put("password", password);
-                                userTable.createEntry(object);
-                                checkLogin();
-                                */
 
                             } else {
                                 Toast.makeText(User_Login.this, "Wrong ID or Password", Toast.LENGTH_SHORT).show();
@@ -163,7 +153,7 @@ public class User_Login extends AppCompatActivity {
                         Map<String, String> params = new HashMap<>();
                         params.put("tag", "login");
                         params.put("id", my_id);
-                        params.put("pwd", password);
+                        params.put("pwd", hashedPass);
 
                         return params;
 
@@ -176,29 +166,7 @@ public class User_Login extends AppCompatActivity {
 
             }
         });
-
-                /*loginUsingApi = APIUtils.getAPIService();
-                if (true) {
-                    loginUsingApi.loginUser("login",my_id,password).enqueue(new Callback<ResponseBody>() {
-                        @Override
-                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                            Log.e("LoginResponse",response.body().toString());
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                            Log.e("LoginFailure",t.getMessage());
-                        }
-                    });
-
-                }else{
-                    Toast.makeText(User_Login.this, "WRONG", Toast.LENGTH_LONG).show();
-                }*/
-//                startActivity(intent);
-            tvloginFgtPass.setOnClickListener(new View.OnClickListener() {
+        tvloginFgtPass.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent= new Intent(User_Login.this, ForgotPassword.class);

@@ -104,8 +104,6 @@ public class Connect extends AppCompatActivity implements PersonAdapter.itemClic
     @Override
     public void onBackPressed() {
         finish();
-        Intent intent = new Intent(Connect.this, User_Nav.class);
-        startActivity(intent);
     }
 
     @Override

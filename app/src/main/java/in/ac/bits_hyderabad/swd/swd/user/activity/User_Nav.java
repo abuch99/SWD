@@ -80,10 +80,6 @@ public class User_Nav extends AppCompatActivity
         tvNav_header_name.setText(prefs.getString("name",null));
         tvNav_header_Id_No.setText(prefs.getString("id",null));
 
-
-
-        Log.e("name and id and pwd" ,prefs.getString("name",null)+prefs.getString("id",null));
-
         setHome();
 
 
@@ -112,7 +108,6 @@ public class User_Nav extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         final int id = item.getItemId();
-        Log.e("id",id+"");
         if(id!=R.id.logout&&id!=R.id.MyProfile&&id!=R.id.connect)
             itemId=id;
 
@@ -135,11 +130,11 @@ public class User_Nav extends AppCompatActivity
                 actionBar.setTitle(R.string.mess_title);
                 actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
                 navigationView.setCheckedItem(R.id.mess);
-                fragment=new User_MessFragment(prefs.getString("uid",null));
+                fragment=new User_MessFragment(prefs.getString("uid",null),prefs.getString("password",null));
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }
-            case R.id.messReg: {
+            /* case R.id.messReg: {
 
                 tag="messReg";
                 if (drawer.isDrawerOpen(GravityCompat.START))
@@ -151,6 +146,7 @@ public class User_Nav extends AppCompatActivity
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }
+            */
             case R.id.BusTimings: {
 
                 tag = "busTimings";
@@ -171,7 +167,7 @@ public class User_Nav extends AppCompatActivity
                 actionBar.setTitle(R.string.docs_title);
                 actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
                 navigationView.setCheckedItem(R.id.docs);
-                fragment=User_DocFragment.newInstance(prefs.getString("uid",null),prefs.getString("id",null));
+                fragment=User_DocFragment.newInstance(prefs.getString("uid",null),prefs.getString("id",null),prefs.getString("password",null));
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }
@@ -190,7 +186,7 @@ public class User_Nav extends AppCompatActivity
                     drawer.closeDrawer(GravityCompat.START);
                 actionBar.setTitle(R.string.goodies_title);
                 navigationView.setCheckedItem(R.id.goodies);
-                fragment=User_GoodiesFragment.newInstance(prefs.getString("uid",null),prefs.getString("id",null));
+                fragment=User_GoodiesFragment.newInstance(prefs.getString("uid",null),prefs.getString("id",null),prefs.getString("password",null));
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }

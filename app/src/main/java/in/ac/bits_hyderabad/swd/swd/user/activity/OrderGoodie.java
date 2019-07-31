@@ -447,6 +447,11 @@ public class OrderGoodie extends AppCompatActivity {
 
     private void sendRequest(JSONObject obj){
         Log.e("obj",obj.toString());
+
+        String u_id=prefs.getString("uid","");
+        String pwd= prefs.getString("password","");
+
+
         RequestQueue queue = Volley.newRequestQueue(OrderGoodie.this);
 
         StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
@@ -487,6 +492,8 @@ public class OrderGoodie extends AppCompatActivity {
                     map=JSONtoMap(obj);
 
                     map.put("tag","place_order");
+                    map.put("id",u_id);
+                    map.put("pwd",pwd);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

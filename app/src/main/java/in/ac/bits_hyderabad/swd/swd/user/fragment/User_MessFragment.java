@@ -54,7 +54,7 @@ public class User_MessFragment extends Fragment {
     private TabLayout tabLayoutMess;
     private ViewPager viewPagerMess;
     private MessMenuAdapter adapter;
-    private String uid;
+    private String uid,password;
     private Dialog dialog;
     private MaterialButton btnGraceDateSubmit;
     private ProgressDialog dialogProgress;
@@ -66,8 +66,9 @@ public class User_MessFragment extends Fragment {
 
     Date today_date,tomorrow_date;
 
-    public User_MessFragment(String uid){
+    public User_MessFragment(String uid, String password){
         this.uid=uid;
+        this.password=password;
     }
 
     @Override
@@ -135,8 +136,8 @@ public class User_MessFragment extends Fragment {
         Log.e("Days for Mess", day_today+"  and  "+day_tomorrow);
         Log.e("Days for Mess", day_today+"  and  "+day_tomorrow);
 
-        adapter.addFragment(new MessMenu(day_today,uid),"TODAY");
-        adapter.addFragment(new MessMenu(day_tomorrow,uid),"TOMORROW");
+        adapter.addFragment(new MessMenu(day_today,uid,password),"TODAY");
+        adapter.addFragment(new MessMenu(day_tomorrow,uid,password),"TOMORROW");
         Log.e("uid",uid);
         viewPagerMess.setAdapter(adapter);
         tabLayoutMess.setupWithViewPager(viewPagerMess);
@@ -220,12 +221,14 @@ public class User_MessFragment extends Fragment {
                         JSONObject object = new JSONObject(response);
                         Toast.makeText(getActivity(), object.getString("msg"), Toast.LENGTH_LONG).show();
                     } catch (JSONException e) {
+                        dialogProgress.cancel();
                         e.printStackTrace();
                         Toast.makeText(getActivity(), "Something went wrong, kindly contact SWD", Toast.LENGTH_LONG).show();
                     }
                 }
                 else{
                     try {
+                        dialogProgress.cancel();
                         JSONObject object = new JSONObject(response);
                         JSONArray array=object.getJSONArray("current");
                         for(int i=0; i<array.length();i++){
@@ -235,6 +238,7 @@ public class User_MessFragment extends Fragment {
                         }
                         applyGrace(currentGraces);
                     } catch (JSONException e) {
+                        dialogProgress.cancel();
                         e.printStackTrace();
                         Toast.makeText(getActivity(), "Something went wrong, kindly contact SWD", Toast.LENGTH_LONG).show();
                     }
@@ -255,6 +259,7 @@ public class User_MessFragment extends Fragment {
                 Map<String, String> params = new HashMap<>();
                 params.put("tag", "mess_grace");
                 params.put("id",uid);
+                params.put("pwd",password);
                 if(date_for_grace!=null)
                 params.put("date",date_for_grace);
                 return params;

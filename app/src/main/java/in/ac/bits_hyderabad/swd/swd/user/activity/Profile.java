@@ -440,6 +440,8 @@ public class Profile extends AppCompatActivity {
                 try {
                     Map<String, String> params = JSONtoMap(object);
                     params.put("tag", "update_details");
+                    params.put("id",uid);
+                    params.put("pwd",password);
 //                    Log.e("save sent",params.toString());
                     return params;
                 } catch (JSONException e) {
@@ -462,8 +464,6 @@ public class Profile extends AppCompatActivity {
     public void onBackPressed() {
         dialog.dismiss();
         finish();
-        Intent intent = new Intent(Profile.this, User_Nav.class);
-        startActivity(intent);
 
     }
 
