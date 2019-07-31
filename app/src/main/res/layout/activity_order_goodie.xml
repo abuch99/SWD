@@ -426,7 +426,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:layout_gravity="center_horizontal"
-            android:text="ORDER SUMMARY"/>
+            android:text="@string/order_summary" />
 
         <LinearLayout
             android:id="@+id/llTotal"
@@ -438,7 +438,7 @@
             android:id="@+id/tvTotalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Total Cost:"
+            android:text="@string/order_cost"
             android:textStyle="normal"
             android:textSize="15sp"
             android:padding="5dp"/>
@@ -459,12 +459,13 @@
         android:id="@+id/btnOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Order"
+        android:text="@string/order_button"
         android:background="@drawable/buttons_submit"
         android:textColor="@color/whiteText"
         android:textStyle="bold"
         android:textSize="20sp"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp" />
 
 </LinearLayout>
 </ScrollView>
