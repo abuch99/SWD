@@ -19,6 +19,7 @@
 
         <ImageView
             android:id="@+id/logo"
+            android:layout_marginTop="54dp"
             style="@style/logo"
             android:src="@drawable/logo" />
 
