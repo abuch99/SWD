@@ -81,14 +81,15 @@ public class ForgotPassword extends AppCompatActivity {
                 etUsernameForgotPassword.setText(null);
                 dialog.hide();
 
-                if(response.contains("Please check if you have entered you email ID in the appropriate format!"))
+                /*if(response.contains("Please check if you have entered you email ID in the appropriate format!"))
                 {
                     Toast.makeText(ForgotPassword.this,"Please check if you have entered your email ID in the appropriate format!", Toast.LENGTH_LONG).show();
                 }
                 else if(response.contains("Password Reset Link Sent to your BITS Mail!"))
                 {
                     Toast.makeText(ForgotPassword.this,"Password Reset Link Sent to your BITS Mail!", Toast.LENGTH_LONG).show();
-                }
+                }*/
+                //Toast.makeText(ForgotPassword.this,"Please check if you have entered your email ID in the appropriate format!", Toast.LENGTH_LONG).show();
 
             }
         }, new Response.ErrorListener() {
@@ -96,7 +97,7 @@ public class ForgotPassword extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Log.e("Error", error.toString());
                 dialog.hide();
-                Toast.makeText(ForgotPassword.this, "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ForgotPassword.this, "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
