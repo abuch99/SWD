@@ -17,7 +17,7 @@ public class HashString {
 
             String hashtext = no.toString(16);
 
-            while (hashtext.length() < 32) {
+            while (hashtext.length() < 64) {
                 hashtext = "0" + hashtext;
             }
 

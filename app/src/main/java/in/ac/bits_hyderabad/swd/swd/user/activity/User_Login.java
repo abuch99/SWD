@@ -113,6 +113,7 @@ public class User_Login extends AppCompatActivity {
                         Log.e("LoginResponse: ", response);
 
                         try {
+                            Log.e("hash",hashedPass);
                             JSONObject object = new JSONObject(response);
                             if (!object.getBoolean("error")) {
                                 editor.putInt("exists",1);
