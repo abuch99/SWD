@@ -128,7 +128,6 @@ public class PdfDocumentSample {
                 publishProgress(0);
 
                 File dir = new File(path);
-                Log.e("made dir"," ");
 
                 if(!dir.exists())
                 {
@@ -136,7 +135,6 @@ public class PdfDocumentSample {
                 }
                 File chk=new File(path+"/"+idNo+"-"+title+".pdf");
                 if(chk.exists()){
-                    Log.e("file already exists","");
                     chk.delete();
                 }
 
@@ -223,7 +221,6 @@ public class PdfDocumentSample {
                 document.close();
                 fOut.close();
 
-                Log.e("doc closed","");
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();

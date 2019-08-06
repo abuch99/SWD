@@ -77,7 +77,6 @@ public class ForgotPassword extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.RESET_URL), new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("LoginResponse: ", response);
                 etUsernameForgotPassword.setText(null);
                 dialog.hide();
 
@@ -95,7 +94,6 @@ public class ForgotPassword extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Error", error.toString());
                 dialog.hide();
                 //Toast.makeText(ForgotPassword.this, "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
             }

@@ -88,18 +88,14 @@ public class User_Nav extends AppCompatActivity
     @Override
     public void onBackPressed() {
 
-        Log.e("onbackpressed", "method executed");
 
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-            Log.e("onbackpressed","drawer closed");
         } else if(!fragment.getTag().equals("home")) {
             setHome();
-            Log.e("onbackpressed","home set");
         }else{
             actionBar.setTitle(R.string.toolbar_title);
             super.onBackPressed();
-            Log.e("onbackpressed","super");
         }
     }
 
@@ -191,7 +187,7 @@ public class User_Nav extends AppCompatActivity
                 break;
             }
             case R.id.connect: {
-                Log.e("frag during connect",fragment.getTag()+"   connect:"+R.id.connect+"   home:"+R.id.home );
+
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
                 Intent intent=new Intent(User_Nav.this, Connect.class);
@@ -214,7 +210,7 @@ public class User_Nav extends AppCompatActivity
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 navigationView.setCheckedItem(itemId);
-                                Log.e("on logout clicked",itemId+"");
+
                             }
                         }).setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
@@ -239,11 +235,10 @@ public class User_Nav extends AppCompatActivity
         manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
     }
     private void logout() {
-        Log.e("prefs before logout",prefs.toString());
+
         SharedPreferences.Editor editor=prefs.edit();
         editor.clear();
         editor.commit();
-        Log.e("prefs after logout",prefs.toString());
         startActivity(new Intent(this, User_Login.class));
         finish();
     }

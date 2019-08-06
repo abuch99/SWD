@@ -61,7 +61,6 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
 
 
         final Context context =viewHolder.ivGoodie.getContext();
-        Log.e("Image url",ImageUrl);
 
         /*Picasso.get().load(ImageUrl)
                 .resize(700,700)
@@ -89,7 +88,6 @@ public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHold
             public void onClick(View v) {
                 Intent callIntent = new Intent(Intent.ACTION_DIAL);
                 callIntent.setData(Uri.parse("tel:"+goodies.get(i).getMobile()));
-                Log.e("number" , Uri.parse("tel:"+goodies.get(i).getMobile()).toString());
                 context.startActivity(callIntent);
 
             }

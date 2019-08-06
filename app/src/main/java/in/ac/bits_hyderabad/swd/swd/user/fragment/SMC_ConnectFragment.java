@@ -89,7 +89,6 @@ public class SMC_ConnectFragment extends Fragment {
                 try {
                     JSONObject object=new JSONObject(response);
                     JSONArray jsonArray=object.getJSONArray("data");
-                    Log.e("Contact obj: ",jsonArray.get(0).toString());
                     for(int i=0;i<jsonArray.length();i++)
                     {
                         JSONObject obj=jsonArray.getJSONObject(i);
@@ -116,7 +115,6 @@ public class SMC_ConnectFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
-                    Log.e("exc: ",e.toString());
 
                     swipeRefresh.setRefreshing(false);
                 }
@@ -126,7 +124,7 @@ public class SMC_ConnectFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Error", error.toString());
+
                 Toast.makeText(getContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
 
                 swipeRefresh.setRefreshing(false);

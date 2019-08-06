@@ -110,10 +110,8 @@ public class User_Login extends AppCompatActivity {
                 StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.e("LoginResponse: ", response);
 
                         try {
-                            Log.e("hash",hashedPass);
                             JSONObject object = new JSONObject(response);
                             if (!object.getBoolean("error")) {
                                 editor.putInt("exists",1);
@@ -143,7 +141,6 @@ public class User_Login extends AppCompatActivity {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("Error", error.toString());
                         Toast.makeText(User_Login.this, "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
                         dialog.hide();
                     }
@@ -209,7 +206,8 @@ public class User_Login extends AppCompatActivity {
         */
         if(preferences.getInt("exists",0)==1)
         {
-            Log.e("shared prefs details","id :"+preferences.getString("id",null)+"  uid :"+preferences.getString("uid",null));
+
+
             Intent intent = new Intent(User_Login.this, User_Nav.class);
             if (getIntent().getStringExtra("default") != null) {
                 intent.putExtra("default", getIntent().getStringArrayExtra("default"));

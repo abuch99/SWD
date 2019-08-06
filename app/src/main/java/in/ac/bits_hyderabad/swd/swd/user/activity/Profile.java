@@ -134,7 +134,6 @@ public class Profile extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("LoginResponse: ", response);
                 //if correct credentials
                 //response {"tag":"login","error":false,"uid":"abcd","name":"Monil Shah","id":"abcd","branch":"A3PS","room":"G 270","gender":"M","phone":"9553305670","email":"abcd@gmail.com","dob":"1996-07-19","father":"Atul Shah","mother":"Sejal Shah","fmail":"atulshah1965@reddifmail.com","fphone":"9825543307","foccup":"Businessman","mmail":null,"moccup":"Homemaker","hphone":"02613015838","homeadd":"702 Manibhadra Enclave,B\/h Sargam Shopping Center,Parle Point .","city":"Surat","state":"Gujarat","localadd":null,"guardian":null,"gphone":null,"nation":"India","blood":"AB+","bank":"State Bank Of Hyderabad","acno":"62352253278","ifsc":"ifsc1234","pimage":null,"time":"2016-02-03 14:07:21"}
                 //if wrong credentials
@@ -169,7 +168,6 @@ public class Profile extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Error", error.toString());
                 Toast.makeText(Profile.this, "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
                 fabUpdate.setEnabled(false);
                 srProfile.setRefreshing(false);
@@ -403,7 +401,6 @@ public class Profile extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("Updateresponse",response);
                 dialog.hide();
                 dialog.dismiss();
                 try{
@@ -489,7 +486,6 @@ public class Profile extends AppCompatActivity {
         {
             e.printStackTrace();
         }
-        Log.e("objectafterupdate",object.toString());
         return object;
 
     }

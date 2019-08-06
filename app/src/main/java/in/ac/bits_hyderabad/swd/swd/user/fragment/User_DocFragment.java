@@ -119,7 +119,6 @@ public class User_DocFragment extends Fragment implements DocumentsAdapter.itemC
             StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.DOCS_URL), new com.android.volley.Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    Log.e("Response", response);
 
                     try {
                         JSONObject object = new JSONObject(response);
@@ -146,7 +145,6 @@ public class User_DocFragment extends Fragment implements DocumentsAdapter.itemC
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("Error", error.toString());
                     Toast.makeText(getContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
                     dialog.cancel();
                 }

@@ -113,7 +113,6 @@ public class OrderGoodie extends AppCompatActivity {
             previous = new JSONObject(intent.getStringExtra("previous"));
             leftItems = intent.getIntExtra("items_left", 99999999);
             firstTime = previous.getBoolean("first_time");
-            Log.e("firstTimeinit",firstTime.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -126,7 +125,6 @@ public class OrderGoodie extends AppCompatActivity {
         sizes_available.add(goodie.getXxl());
         sizes_available.add(goodie.getXxxl());
 
-        Log.e("GoodieRecieved", goodie.getName());
 
         tvGoodieOrderName.setText(goodie.getName());
         tvHost.setText(goodie.getHost());
@@ -135,7 +133,6 @@ public class OrderGoodie extends AppCompatActivity {
 
         fundraiser = false;
 
-        Log.e("image url", "swd.bits-hyderabad.ac.in/goodies/img/" + goodie.getImage());
 
         Picasso.get().load("http://swd.bits-hyderabad.ac.in/goodies/img/" + goodie.getImage())
                 .resize(125, 125)
@@ -244,9 +241,7 @@ public class OrderGoodie extends AppCompatActivity {
                             int max = Integer.parseInt(goodie.getMax_amount());
                             if (!(entered_amt >= min && entered_amt <= max)) {
                                 Toast.makeText(OrderGoodie.this, "Please enter an amount in the given limits!", Toast.LENGTH_SHORT).show();
-                                Log.e("hide2","");
                                 cbAgree.setChecked(false);
-                                Log.e("hide3","");
                             } else {
                                 chkPassed(FUNDRAISER_TYPE,entered_amt);
                                 //auth_identity(FUNDRAISER_TYPE);
@@ -267,10 +262,8 @@ public class OrderGoodie extends AppCompatActivity {
                             }
                         }
 
-                        Log.e("OnClick", "came in else");
                         // goodie is a t shirt type (needs a size)
                         if (goodie.getQut().equals("0") && tshirt) {
-                            Log.e("OnClick", "tshirt");
                             totalqty=0;
                             for (int i = 0; i < sizes.size(); i++) {
                                 if (!sizes.get(i).getText().toString().trim().isEmpty()) {
@@ -278,7 +271,6 @@ public class OrderGoodie extends AppCompatActivity {
                                     totalqty += Integer.parseInt(sizes.get(i).getText().toString().trim());
                                 }
                             }
-                            Log.e("After for loop", "At least one size " + AT_LEAST_ONE_TSHIRT_SIZE_ORDERD);
 
                             if (AT_LEAST_ONE_TSHIRT_SIZE_ORDERD) {
                                 //AT_LEAST_ONE_TSHIRT_SIZE_ORDERD = false;
@@ -294,7 +286,6 @@ public class OrderGoodie extends AppCompatActivity {
                         }
                         //goodie is id card , lunch, workshop type(does not need size) REALLY FUCK DB (-_-)
                         else if (goodie.getQut().equals("1")) {
-                            Log.e("OnClick", "Workshop");
                             if (!etQty.getText().toString().trim().isEmpty()) {
                                 totalqty = Integer.parseInt(etQty.getText().toString().trim());
                                 int amount=totalqty*Integer.parseInt(goodie.getPrice().substring(2));
@@ -331,7 +322,6 @@ public class OrderGoodie extends AppCompatActivity {
             }
         });
         if (!firstTime){
-            Log.e("firstTime1",firstTime.toString());
             try {
                 setEditTexts_previous(previous);
             } catch (JSONException e) {
@@ -407,7 +397,6 @@ public class OrderGoodie extends AppCompatActivity {
             obj.put("net _qut",String.valueOf(net_qut));
             obj.put("net_price",String.valueOf(net_price));
             if(firstTime) {
-                Log.e("firstTime2", firstTime.toString());
                 obj.put("type", "0");
             }
             else
@@ -446,7 +435,6 @@ public class OrderGoodie extends AppCompatActivity {
     }
 
     private void sendRequest(JSONObject obj){
-        Log.e("obj",obj.toString());
 
         String u_id=prefs.getString("uid","");
         String pwd= prefs.getString("password","");
@@ -457,7 +445,6 @@ public class OrderGoodie extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("LoginResponse: ", response);
 
                 dialog.cancel();
                 try {
@@ -480,7 +467,6 @@ public class OrderGoodie extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 dialog.cancel();
-                Log.e("Error", error.toString());
                 Toast.makeText(OrderGoodie.this, "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
             }
         }) {

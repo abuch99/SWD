@@ -80,9 +80,8 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
         dialog=new ProgressDialog(getContext());
         dialog.setMessage("Loading...");
         dialog.setCanceledOnTouchOutside(false);
-        goodies=new ArrayList<Goodies>();
+        goodies=new ArrayList<>();
         loadGoodies();//define your goodies array list here
-        Log.e("goodie array list",goodies.toString());
         rvGoodiesList=view.findViewById(R.id.rvGoodiesList);
         rvGoodiesList.bringToFront();
         rvGoodiesList.setHasFixedSize(false);
@@ -122,11 +121,9 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
         StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("GoodieResponse: ", response);
 
                 try {
                     JSONArray jsonArray=new JSONArray(response);
-                    Log.e("Goodieobj: ",jsonArray.get(0).toString());
                     for(int i=0;i<jsonArray.length();i++)
                     {
                         JSONObject obj=jsonArray.getJSONObject(i);
@@ -154,7 +151,6 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
 
                         /*{"g_id":"1000","name":"Duplicate ID Card","hosted_by":"Student Welfare Division","img":"bits_logo.png", "link":"","active":"1","xs":"0","s":"0","m":"0","l":"0","xl":"0","xxl":"0","xxxl":"0","qut":"0","min_amount":"0","max_amount":"0","max_quantity":"0","price":"75","closing_datetime":"2019-05-14 00:00:00","delivery_date":"0000-00-00","custom":"0","acceptance":"0","hoster_name":"Student Welfare Division","hoster_mob_num":"","view_uid":"prasanth","uploaded_on":"2019-04-14 15:08:37"} */
                         goodies.add(new Goodies(id,name,host,image,price,size_chart,xs,s,m,l,xl,xxl,xxxl,qut,min_amount,max_amount,max_quantity,custom,view_uid,host_name,mobile));
-                        Log.e("added", obj.toString());
                     }
                     mAdaptor.notifyDataSetChanged();
                     swipeRefresh.setRefreshing(false);
@@ -162,7 +158,6 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
-                    Log.e("exc: ",e.toString());
                     swipeRefresh.setRefreshing(false);
                 }
 
@@ -171,7 +166,6 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Error", error.toString());
                 Toast.makeText(getActivity(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
                 swipeRefresh.setRefreshing(false);
             }
@@ -200,14 +194,12 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
         StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("LoginResponse: ", response);
 
                 try {
 
                     JSONObject obj = new JSONObject(response);
                     int itemsLeft = LIMITED_GOODIE ? Integer.parseInt(obj.getString("items_left")) : 99999999;
                     String type = obj.getString("type");
-                    Log.e("type",type);
                     JSONObject previousdetails = new JSONObject();
                     if (type.equals("first_time")) {
 
@@ -215,7 +207,6 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
 
                     } else {
                         previousdetails = obj.getJSONObject("previous_details");
-                        Log.e("previous", previousdetails.toString());
                         previousdetails.put("first_time",false);
                     }
 
@@ -243,7 +234,6 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Error", error.toString());
                 Toast.makeText(getContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
                 dialog.cancel();
             }

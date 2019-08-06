@@ -112,7 +112,6 @@ public class Connect extends AppCompatActivity implements PersonAdapter.itemClic
             case 0:
                     Intent callIntent = new Intent(Intent.ACTION_DIAL);
                     callIntent.setData(Uri.parse("tel:"+data));//change the number
-                    Log.e("number" , Uri.parse("tel:"+data).toString());
                     startActivity(callIntent);
                 break;
 

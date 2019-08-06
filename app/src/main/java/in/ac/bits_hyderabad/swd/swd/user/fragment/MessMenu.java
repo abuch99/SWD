@@ -131,7 +131,6 @@ public class MessMenu extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Error", error.toString());
                 Toast.makeText(getContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
                 swipeRefresh.setRefreshing(false);
             }
@@ -153,7 +152,7 @@ public class MessMenu extends Fragment {
     }
     public void getMessNo(final String uid)
     {
-        queue = Volley.newRequestQueue(getActivity());
+        queue = Volley.newRequestQueue(getContext());
         request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -161,7 +160,6 @@ public class MessMenu extends Fragment {
                 try{
                     JSONObject object=new JSONObject(response);
                     if(object.get("error").toString().equals("false")) {
-                        Log.e("messReq",response);
                         JSONObject newObject = (JSONObject) object.get("data");
                         String mess_no_string = newObject.get("mess").toString();
                         mess= Integer.parseInt(mess_no_string);
@@ -180,7 +178,7 @@ public class MessMenu extends Fragment {
                         Toast.makeText(getActivity(),"Sorry! something went wrong. We will be back soon!!",Toast.LENGTH_SHORT).show();
                     }
                 }
-                catch (JSONException e)
+                catch (Exception e)
                 {
                     swipeRefresh.setRefreshing(false);
                     Toast.makeText(getActivity(),"Sorry! something went wrong. We will be back soon",Toast.LENGTH_SHORT).show();
@@ -191,7 +189,6 @@ public class MessMenu extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Error", error.toString());
                 swipeRefresh.setRefreshing(false);
                 Toast.makeText(getContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
             }
@@ -218,7 +215,6 @@ public class MessMenu extends Fragment {
     public void onStop() {
         if(queue!=null) {
             queue.cancelAll("MessMenu");
-            Log.e("messmenu", "onstop");
         }
         super.onStop();
 

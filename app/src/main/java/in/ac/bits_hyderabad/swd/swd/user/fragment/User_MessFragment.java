@@ -118,27 +118,19 @@ public class User_MessFragment extends Fragment {
 
 
         CalendarDay calendarDayToday=CalendarDay.today();
-        Log.e("month",calendarDayToday.getMonth()+"");
         if(calendarDayToday.getMonth()>7){
             graceDatePicker.state().edit().setMinimumDate(CalendarDay.from(calendarDayToday.getYear(),8,1));
-            graceDatePicker.state().edit().setMinimumDate(CalendarDay.from(calendarDayToday.getYear()+1,1,10));
-            Log.e("month>7","");
+            graceDatePicker.state().edit().setMaximumDate(CalendarDay.from(calendarDayToday.getYear()+1,1,10));
         }
         else {
-            Log.e("month<7","");
             graceDatePicker.state().edit().setMinimumDate(CalendarDay.from(calendarDayToday.getYear(),1,1))
             .setMaximumDate(CalendarDay.from(calendarDayToday.getYear(),8,10)).commit();
         }
 
 
 
-
-        Log.e("Days for Mess", day_today+"  and  "+day_tomorrow);
-        Log.e("Days for Mess", day_today+"  and  "+day_tomorrow);
-
         adapter.addFragment(new MessMenu(day_today,uid,password),"TODAY");
         adapter.addFragment(new MessMenu(day_tomorrow,uid,password),"TOMORROW");
-        Log.e("uid",uid);
         viewPagerMess.setAdapter(adapter);
         tabLayoutMess.setupWithViewPager(viewPagerMess);
 
@@ -207,13 +199,11 @@ public class User_MessFragment extends Fragment {
     public void sendRequestforGrace(final String uid, final String date_for_grace){
 
 
-        Log.e("id",uid);
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
         StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("GraceResponse: ", response);
 
                 if(date_for_grace!=null) {
                     try {
@@ -248,7 +238,6 @@ public class User_MessFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Error", error.toString());
                 dialogProgress.cancel();
                 Toast.makeText(getActivity(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
             }
@@ -275,7 +264,6 @@ public class User_MessFragment extends Fragment {
 
     public void applyGrace(ArrayList<CalendarDay> previousGrace){
 
-        Log.e("previous graces",previousGrace.toString());
         graceDatePicker.addDecorator(new EventDecorator(Color.rgb(200,200,200),previousGrace));
 
         dialogProgress.cancel();
@@ -296,7 +284,6 @@ public class User_MessFragment extends Fragment {
 
                 String date_for_grace=day+"-"+month+"-"+year;
 
-                Log.e("date slected",date_for_grace);
 
                 if(date_for_grace.charAt(0)>='0'&&date_for_grace.charAt(0)<='9') {
                     sendRequestforGrace(uid, date_for_grace);
@@ -334,19 +321,16 @@ public class User_MessFragment extends Fragment {
 
     @Override
     public void onPause() {
-        Log.e("mess frag","onPause");
         super.onPause();
     }
 
     @Override
     public void onDestroy() {
-        Log.e("mess frag","onDestroy");
         super.onDestroy();
     }
 
     @Override
     public void onStop() {
-        Log.e("mess frag","onstop");
         super.onStop();
 
     }
