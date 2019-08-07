@@ -162,14 +162,21 @@ public class MessMenu extends Fragment {
                     if(object.get("error").toString().equals("false")) {
                         JSONObject newObject = (JSONObject) object.get("data");
                         String mess_no_string = newObject.get("mess").toString();
-                        mess= Integer.parseInt(mess_no_string);
+                        if(!mess_no_string.equalsIgnoreCase("null")) {
+                            mess = Integer.parseInt(mess_no_string);
 
-                        if(!(mess!=1&&mess!=2))
-                            getMessMenu(day,mess);
+                            if (!(mess != 1 && mess != 2))
+                                getMessMenu(day, mess);
+                            else
+                            {
+                                swipeRefresh.setRefreshing(false);
+                                Toast.makeText(getContext(), "You may not be registered to either of the Mess", Toast.LENGTH_SHORT).show();
+                            }
+                        }
                         else
                         {
                             swipeRefresh.setRefreshing(false);
-                            Toast.makeText(getContext(),"You may not be registered to either of the Mess",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "You may not be registered to either of the Mess", Toast.LENGTH_SHORT).show();
                         }
 
                     }
