@@ -35,7 +35,6 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme" />
-        <activity android:name=".user.activity.Settings" />
         <activity android:name=".user.activity.User_Login" />
         <activity
             android:name=".user.activity.User_Nav"
