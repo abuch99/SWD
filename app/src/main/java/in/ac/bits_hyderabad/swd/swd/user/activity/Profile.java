@@ -135,7 +135,7 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 //if correct credentials
-                //response {"tag":"login","error":false,"uid":"abcd","name":"Monil Shah","id":"abcd","branch":"A3PS","room":"G 270","gender":"M","phone":"9553305670","email":"abcd@gmail.com","dob":"1996-07-19","father":"Atul Shah","mother":"Sejal Shah","fmail":"atulshah1965@reddifmail.com","fphone":"9825543307","foccup":"Businessman","mmail":null,"moccup":"Homemaker","hphone":"02613015838","homeadd":"702 Manibhadra Enclave,B\/h Sargam Shopping Center,Parle Point .","city":"Surat","state":"Gujarat","localadd":null,"guardian":null,"gphone":null,"nation":"India","blood":"AB+","bank":"State Bank Of Hyderabad","acno":"62352253278","ifsc":"ifsc1234","pimage":null,"time":"2016-02-03 14:07:21"}
+                //response {"tag":"login","error":false,"uid":"abcd","name":"Monil Shah","id_no":"abcd","branch":"A3PS","room":"G 270","gender":"M","phone":"9553305670","email":"abcd@gmail.com","dob":"1996-07-19","father":"Atul Shah","mother":"Sejal Shah","fmail":"atulshah1965@reddifmail.com","fphone":"9825543307","foccup":"Businessman","mmail":null,"moccup":"Homemaker","hphone":"02613015838","homeadd":"702 Manibhadra Enclave,B\/h Sargam Shopping Center,Parle Point .","city":"Surat","state":"Gujarat","localadd":null,"guardian":null,"gphone":null,"nation":"India","blood":"AB+","bank":"State Bank Of Hyderabad","acno":"62352253278","ifsc":"ifsc1234","pimage":null,"time":"2016-02-03 14:07:21"}
                 //if wrong credentials
                 //{"tag":"login","error":true,"error_msg":"Error occured in Logging In"}
 
@@ -195,7 +195,7 @@ public class Profile extends AppCompatActivity {
         etName.setText(object.getString("name"));
         etRoom.setText(object.getString("room"));
         etPhn.setText(object.getString("phone"));
-        etId.setText(object.getString("id"));
+        etId.setText(object.getString("id_no"));
         etGender.setText(object.getString("gender"));
         etDOB.setText(object.getString("dob"));
         etEmail.setText(object.getString("email"));
@@ -397,6 +397,7 @@ public class Profile extends AppCompatActivity {
     }
 
     public void updatetoServer(final JSONObject object)throws JSONException {
+        Log.i("object sent to server", object.toString());
         dialog.show();
         StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new Response.Listener<String>() {
             @Override

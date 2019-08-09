@@ -39,6 +39,13 @@ public class UserMessRegFragment extends Fragment {
         llmessRegClosed=view.findViewById(R.id.llmessRegClosed);
         llmessRegOpen=view.findViewById(R.id.llmessRegOpen);
 
-        llmessRegClosed.setVisibility(View.GONE);
+        llmessRegOpen.setVisibility(View.GONE);
+
+        checkRegStatus();
+
+    }
+
+    public void checkRegStatus(){
+
     }
 }

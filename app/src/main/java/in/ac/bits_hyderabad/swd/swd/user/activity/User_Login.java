@@ -118,7 +118,7 @@ public class User_Login extends AppCompatActivity {
                                 editor.putString("name",object.getString("name"));
                                 editor.putString("uid",my_id);
                                 editor.putString("password" ,hashedPass);
-                                editor.putString("id",object.getString("id"));
+                                editor.putString("id",object.getString("id_no"));
 
                                 editor.commit();
 

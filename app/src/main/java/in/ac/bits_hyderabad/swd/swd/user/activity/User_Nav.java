@@ -130,7 +130,7 @@ public class User_Nav extends AppCompatActivity
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }
-            /* case R.id.messReg: {
+            /*case R.id.messReg: {
 
                 tag="messReg";
                 if (drawer.isDrawerOpen(GravityCompat.START))
@@ -141,8 +141,7 @@ public class User_Nav extends AppCompatActivity
                 fragment=new UserMessRegFragment();
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
-            }
-            */
+            }*/
             case R.id.BusTimings: {
 
                 tag = "busTimings";
