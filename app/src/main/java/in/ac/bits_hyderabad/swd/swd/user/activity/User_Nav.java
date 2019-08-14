@@ -130,7 +130,7 @@ public class User_Nav extends AppCompatActivity
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }
-            /* case R.id.messReg: {
+            case R.id.messReg: {
 
                 tag="messReg";
                 if (drawer.isDrawerOpen(GravityCompat.START))
@@ -138,11 +138,10 @@ public class User_Nav extends AppCompatActivity
                 actionBar.setTitle(R.string.messReg_title);
                 actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
                 navigationView.setCheckedItem(R.id.messReg);
-                fragment=new UserMessRegFragment();
+                fragment=UserMessRegFragment.newInstance(prefs.getString("uid", null),prefs.getString("password",null));
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }
-            */
             case R.id.BusTimings: {
 
                 tag = "busTimings";

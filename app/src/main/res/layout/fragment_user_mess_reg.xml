@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipeRefreshMessReg"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,7 +9,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:gravity="center_vertical">
 
         <LinearLayout
             android:id="@+id/llmessRegClosed"
@@ -22,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:text="You are currently registered to Mess 1 "
                 android:textSize="18sp"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:layout_margin="10dp"
                 android:gravity="center" />
@@ -83,7 +86,7 @@
                         android:orientation="horizontal">
 
                         <RadioGroup
-                            android:id="@+id/rgMessChice"
+                            android:id="@+id/rgMessChoice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
@@ -109,6 +112,7 @@
                             android:layout_height="match_parent"
                             android:orientation="vertical">
                             <TextView
+                                android:id="@+id/tvMess1Left"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:gravity="center_vertical"
@@ -117,6 +121,7 @@
                                 android:text="258 Left"/>
 
                             <TextView
+                                android:id="@+id/tvMess2Left"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:gravity="center_vertical"
@@ -129,6 +134,7 @@
                     </LinearLayout>
 
                     <Button
+                        android:id="@+id/btnRegister"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="REGISTER"

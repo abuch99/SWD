@@ -195,7 +195,7 @@ public class Profile extends AppCompatActivity {
         etName.setText(object.getString("name"));
         etRoom.setText(object.getString("room"));
         etPhn.setText(object.getString("phone"));
-        etId.setText(object.getString("id"));
+        etId.setText(object.getString("id_no"));
         etGender.setText(object.getString("gender"));
         etDOB.setText(object.getString("dob"));
         etEmail.setText(object.getString("email"));

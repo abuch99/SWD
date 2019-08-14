@@ -25,10 +25,10 @@
             android:icon="@drawable/ic_restaurant"
             android:title="@string/mess" />
 
-        <!--<item
+        <item
             android:id="@+id/messReg"
             android:icon="@drawable/ic_reg"
-            android:title="@string/messReg" />-->
+            android:title="@string/messReg" />
 
         <item
             android:id="@+id/connect"
