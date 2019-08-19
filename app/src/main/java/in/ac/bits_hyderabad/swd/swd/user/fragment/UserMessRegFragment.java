@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.JsonReader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -138,9 +139,19 @@ public class UserMessRegFragment extends Fragment {
             @Override
             public void onResponse(String response) {
 
-                regOpenFlag=true;
-                showMessRegLayout();
-                swipeRefresh.setRefreshing(false);
+                try {
+                    JSONObject object=new JSONObject(response);
+                    if(object.getString("pass").equals("0")){
+                        String mess1Left=object.getString("Mess1left");
+                        String mess2Left=object.getString("Mess2left");
+                        regOpenFlag=true;
+                        showMessRegLayout(mess1Left,mess2Left);
+                        swipeRefresh.setRefreshing(false);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -171,10 +182,13 @@ public class UserMessRegFragment extends Fragment {
         queue.add(request);
     }
 
-    public void showMessRegLayout(){
+    public void showMessRegLayout(String mess1left, String  mess2left){
 
         llmessRegOpen.setVisibility(View.VISIBLE);
         llmessRegClosed.setVisibility(View.GONE);
+
+        tvMess1Left.setText(mess1left);
+        tvMess2Left.setText(mess2left);
 
     }
     public void sendRequest(String uid, String password, String mess_no){
@@ -222,10 +236,13 @@ public class UserMessRegFragment extends Fragment {
                 if(errorCode==502){
                     regOpenFlag=false;
                     Toast.makeText(getContext(), "Mess reg is closed right now!", Toast.LENGTH_SHORT).show();
+                    llmessRegOpen.setVisibility(View.GONE);
                     dialog.cancel();
                 }
                 else {
                     Toast.makeText(getContext(), "Please check your Internet Connection!", Toast.LENGTH_SHORT).show();
+                    llmessRegClosed.setVisibility(View.GONE);
+                    llmessRegOpen.setVisibility(View.GONE);
                     dialog.cancel();
                 }
             }
