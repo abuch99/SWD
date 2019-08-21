@@ -371,7 +371,7 @@ public class OrderGoodie extends AppCompatActivity {
         int l=convertToInt(etlQty.getText().toString());
         int xl=convertToInt(etxlQty.getText().toString());
         int xxl=convertToInt(etxxlQty.getText().toString());
-        int xxxl=convertToInt(etxsQty.getText().toString());
+        int xxxl=convertToInt(etxxlQty.getText().toString());
 
         int qut=convertToInt(etQty.getText().toString());
         int net_qut=xs+s+m+l+xl+xxl+xxxl+qut;
@@ -394,7 +394,7 @@ public class OrderGoodie extends AppCompatActivity {
             obj.put("xxxl",String.valueOf(xxxl));
             obj.put("custom_name",custom_name);
             obj.put("qut",String.valueOf(qut));
-            obj.put("net _qut",String.valueOf(net_qut));
+            obj.put("net_qut",String.valueOf(net_qut));
             obj.put("net_price",String.valueOf(net_price));
             if(firstTime) {
                 obj.put("type", "0");
