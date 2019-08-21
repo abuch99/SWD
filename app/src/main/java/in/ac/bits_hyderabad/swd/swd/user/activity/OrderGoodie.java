@@ -371,7 +371,7 @@ public class OrderGoodie extends AppCompatActivity {
         int l=convertToInt(etlQty.getText().toString());
         int xl=convertToInt(etxlQty.getText().toString());
         int xxl=convertToInt(etxxlQty.getText().toString());
-        int xxxl=convertToInt(etxxlQty.getText().toString());
+        int xxxl=convertToInt(etxxxlQty.getText().toString());
 
         int qut=convertToInt(etQty.getText().toString());
         int net_qut=xs+s+m+l+xl+xxl+xxxl+qut;
@@ -451,6 +451,8 @@ public class OrderGoodie extends AppCompatActivity {
                     JSONObject res=new JSONObject(response);
                     if(res.getString("error").equalsIgnoreCase("false")) {
                         String msg = res.getString("msg");
+                        firstTime=false;
+                        btnOrder.setText("UPDATE");
                         Toast.makeText(OrderGoodie.this, msg, Toast.LENGTH_SHORT).show();
                     }
                     else
