@@ -106,8 +106,7 @@ public class User_Nav extends AppCompatActivity
         setHome();
 
         Log.e("fromOncreate","");
-        CheckUpdates task=new CheckUpdates();
-        task.execute();
+
 
 
     }
@@ -309,8 +308,8 @@ public class User_Nav extends AppCompatActivity
                 navigationView.setCheckedItem(R.id.home);
             }
         }
-        /*CheckUpdates task=new CheckUpdates();
-        task.execute();*/
+        CheckUpdates task=new CheckUpdates();
+        task.execute();
         super.onResume();
     }
 
@@ -323,7 +322,6 @@ public class User_Nav extends AppCompatActivity
             StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-
                     try {
                         JSONObject obj = new JSONObject(response);
                         int latest_version = obj.getInt("version");
@@ -365,7 +363,6 @@ public class User_Nav extends AppCompatActivity
     }
     public void showDialog(){
 
-        Log.e("coming in show dialog","");
         AlertDialog.Builder dialogBuilder;
 
         dialogBuilder=new AlertDialog.Builder(User_Nav.this, R.style.AppCompatAlertDialogStyle);

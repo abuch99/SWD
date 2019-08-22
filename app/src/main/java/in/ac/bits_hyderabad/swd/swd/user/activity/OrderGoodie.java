@@ -13,9 +13,13 @@ import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.ContactsContract;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -36,6 +40,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.andreilisun.swipedismissdialog.SwipeDismissDialog;
 import com.google.gson.JsonObject;
+import com.itextpdf.text.pdf.parser.Line;
 import com.jsibbold.zoomage.ZoomageView;
 import com.squareup.picasso.Picasso;
 
@@ -44,9 +49,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 
 import in.ac.bits_hyderabad.swd.swd.R;
@@ -59,6 +67,10 @@ public class OrderGoodie extends AppCompatActivity {
     private final int WORKSHOP_TYPE=3;
     private final int IDCARD_TYPE=4;
     private final int FINGERPRINT_REQUEST=101;
+
+    int goodie_type;
+    Dialog dialogSummary;
+
     SharedPreferences prefs;
     final String url="http://swd.bits-hyderabad.ac.in/swd_app/index.php";
     ArrayList <EditText> sizes=new ArrayList<>();
@@ -69,7 +81,7 @@ public class OrderGoodie extends AppCompatActivity {
     Goodies goodie;
     Boolean firstTime=true;
     JSONObject previous;
-
+    Button btnok;
     Boolean fundraiser;
     Toolbar toolbar;
     TextView tvHost,tvPrice,tvSizeChart,tvGoodieOrderName,tvminamt,tvmaxamt,tvQty, tvTotalPrice;
@@ -106,6 +118,16 @@ public class OrderGoodie extends AppCompatActivity {
         dialog=new ProgressDialog(this);
         dialog.setMessage("Loading...");
         dialog.setCanceledOnTouchOutside(false);
+
+
+
+        dialogSummary=new Dialog(OrderGoodie.this);
+        dialogSummary.setContentView(R.layout.dialog_summary);
+        dialogSummary.setCanceledOnTouchOutside(false);
+        dialogSummary.setCancelable(false);
+        dialogSummary.create();
+
+        btnok=dialogSummary.findViewById(R.id.btnok);
 
         final Intent intent = getIntent();
         goodie = intent.getParcelableExtra("goodieClicked");
@@ -235,6 +257,7 @@ public class OrderGoodie extends AppCompatActivity {
                 if (isChecked) {
 
                     if (fundraiser) {
+                        goodie_type=FUNDRAISER_TYPE;
                         if (!etQty.getText().toString().isEmpty()) {
                             int entered_amt = Integer.parseInt(etQty.getText().toString());
                             int min = Integer.parseInt(goodie.getMin_amount());
@@ -264,6 +287,7 @@ public class OrderGoodie extends AppCompatActivity {
 
                         // goodie is a t shirt type (needs a size)
                         if (goodie.getQut().equals("0") && tshirt) {
+                            goodie_type=TSHIRT_TYPE;
                             totalqty=0;
                             for (int i = 0; i < sizes.size(); i++) {
                                 if (!sizes.get(i).getText().toString().trim().isEmpty()) {
@@ -286,6 +310,7 @@ public class OrderGoodie extends AppCompatActivity {
                         }
                         //goodie is id card , lunch, workshop type(does not need size) REALLY FUCK DB (-_-)
                         else if (goodie.getQut().equals("1")) {
+                            goodie_type= WORKSHOP_TYPE;
                             if (!etQty.getText().toString().trim().isEmpty()) {
                                 totalqty = Integer.parseInt(etQty.getText().toString().trim());
                                 int amount=totalqty*Integer.parseInt(goodie.getPrice().substring(2));
@@ -298,7 +323,7 @@ public class OrderGoodie extends AppCompatActivity {
                             }
 
                         } else {
-
+                            goodie_type=IDCARD_TYPE;
                            chkPassed(IDCARD_TYPE,Integer.parseInt(goodie.getPrice().substring(2)));
                             //auth_identity(IDCARD_TYPE);
                         }
@@ -374,6 +399,9 @@ public class OrderGoodie extends AppCompatActivity {
         int xxxl=convertToInt(etxxxlQty.getText().toString());
 
         int qut=convertToInt(etQty.getText().toString());
+        if(g_id.equals("1000")){
+            qut=1;
+        }
         int net_qut=xs+s+m+l+xl+xxl+xxxl+qut;
         int net_price=net_qut*Integer.parseInt(goodie.getPrice().substring(2));
 
@@ -446,6 +474,7 @@ public class OrderGoodie extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
 
+                Log.e("res",response);
                 dialog.cancel();
                 try {
                     JSONObject res=new JSONObject(response);
@@ -454,6 +483,7 @@ public class OrderGoodie extends AppCompatActivity {
                         firstTime=false;
                         btnOrder.setText("UPDATE");
                         Toast.makeText(OrderGoodie.this, msg, Toast.LENGTH_SHORT).show();
+                        showOrderSummary(obj,goodie);
                     }
                     else
                     {
@@ -461,7 +491,7 @@ public class OrderGoodie extends AppCompatActivity {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(OrderGoodie.this, "Something went wrong! Please contact SWD", Toast.LENGTH_LONG).show();
+                    Toast.makeText(OrderGoodie.this, "Something went wrong! Please contact SWD1", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -596,5 +626,128 @@ public class OrderGoodie extends AppCompatActivity {
 
     }
 
+    public void showOrderSummary(JSONObject object,Goodies goodie) throws JSONException {
+
+        Log.e("obj",object.toString());
+
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        int width = metrics.widthPixels;
+        int height = metrics.heightPixels;
+        dialogSummary.show();
+        dialogSummary.getWindow().setLayout((6 * width)/7, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        btnok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("okpressed","");
+                OrderGoodie.this.finishAfterTransition();
+            }
+        });
+
+        ImageView ivSummaryGoodie=dialogSummary.findViewById(R.id.ivSummaryGoodieImage);
+        String ImageUrl = "http://swd.bits-hyderabad.ac.in/goodies/img/" + goodie.getImage();
+
+        Picasso.get().load(ImageUrl)
+                .resize(400,300)
+                .placeholder(R.drawable.ic_loading)
+                .centerInside()
+                .error(R.drawable.ic_error)
+                .into(ivSummaryGoodie);
+
+        TextView tvsummary_name=dialogSummary.findViewById(R.id.tvsummary_name);
+        TextView tvsummary_time=dialogSummary.findViewById(R.id.tvsummary_ordertime);
+        TextView tvsummary_xs=dialogSummary.findViewById(R.id.tvsummary_xs);
+        TextView tvsummary_s=dialogSummary.findViewById(R.id.tvsummary_s);
+        TextView tvsummary_m=dialogSummary.findViewById(R.id.tvsummary_m);
+        TextView tvsummary_l=dialogSummary.findViewById(R.id.tvsummary_l);
+        TextView tvsummary_xl=dialogSummary.findViewById(R.id.tvsummary_xl);
+        TextView tvsummary_xxl=dialogSummary.findViewById(R.id.tvsummary_xxl);
+        TextView tvsummary_xxxl=dialogSummary.findViewById(R.id.tvsummary_xxxl);
+        TextView tvsummary_price=dialogSummary.findViewById(R.id.tvsummary_price);
+        TextView tvsummary_qty=dialogSummary.findViewById(R.id.tvsummary_qty);
+        TextView tvsummary_netQty=dialogSummary.findViewById(R.id.tvsummary_netQty);
+        TextView tvsummary_netPrice=dialogSummary.findViewById(R.id.tvsummary_netPrice);
+
+
+        LinearLayout llsummary_price=dialogSummary.findViewById(R.id.llsummary_price);
+        LinearLayout llsummary_xs=dialogSummary.findViewById(R.id.llsummary_xs);
+        LinearLayout llsummary_s=dialogSummary.findViewById(R.id.llsummary_s);
+        LinearLayout llsummary_m=dialogSummary.findViewById(R.id.llsummary_m);
+        LinearLayout llsummary_l=dialogSummary.findViewById(R.id.llsummary_l);
+        LinearLayout llsummary_xl=dialogSummary.findViewById(R.id.llsummary_xl);
+        LinearLayout llsummary_xxl=dialogSummary.findViewById(R.id.llsummary_xxl);
+        LinearLayout llsummary_xxxl=dialogSummary.findViewById(R.id.llsummary_xxxl);
+        LinearLayout llsummary_qty=dialogSummary.findViewById(R.id.llsummary_qty);
+        LinearLayout llsummary_netQty=dialogSummary.findViewById(R.id.llsummary_netQty);
+        LinearLayout llsummary_netPrice=dialogSummary.findViewById(R.id.llsummary_netPrice);
+
+
+        ArrayList<LinearLayout>layouts=new ArrayList<>();
+        layouts.add(llsummary_price);
+        layouts.add(llsummary_xs);
+        layouts.add(llsummary_s);
+        layouts.add(llsummary_m);
+        layouts.add(llsummary_l);
+        layouts.add(llsummary_xl);
+        layouts.add(llsummary_xxl);
+        layouts.add(llsummary_xxxl);
+        layouts.add(llsummary_qty);
+        layouts.add(llsummary_netQty);
+
+        for(LinearLayout ll:layouts){
+            ll.setVisibility(View.GONE);
+        }
+
+        tvsummary_name.setText(goodie.getName());
+        tvsummary_time.setText(new SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.ENGLISH).format(Calendar.getInstance().getTime()));
+        String netPrice="₹ "+object.getString("net_price");
+
+        tvsummary_netPrice.setText(netPrice);
+
+        if(!object.getString("xs").equals("0")) {
+            llsummary_xs.setVisibility(View.VISIBLE);
+            tvsummary_xs.setText(object.getString("xs"));
+        }
+        if(convertToInt(object.getString("s"))!=0) {
+            llsummary_s.setVisibility(View.VISIBLE);
+            tvsummary_s.setText(object.getString("s"));
+        }
+        if(convertToInt(object.getString("m"))!=0) {
+            llsummary_m.setVisibility(View.VISIBLE);
+            tvsummary_m.setText(object.getString("m"));
+        }
+        if(convertToInt(object.getString("l"))!=0) {
+            llsummary_l.setVisibility(View.VISIBLE);
+            tvsummary_l.setText(object.getString("l"));
+        }
+        if(convertToInt(object.getString("xl"))!=0) {
+            llsummary_xl.setVisibility(View.VISIBLE);
+            tvsummary_xl.setText(object.getString("xl"));
+        }
+        if(convertToInt(object.getString("xxl"))!=0) {
+            llsummary_xxl.setVisibility(View.VISIBLE);
+            tvsummary_xxl.setText(object.getString("xxl"));
+        }
+        if(convertToInt(object.getString("xxxl"))!=0) {
+            llsummary_xxxl.setVisibility(View.VISIBLE);
+            tvsummary_xxxl.setText(object.getString("xxxl"));
+        }
+        if(convertToInt(object.getString("qut"))!=0&&goodie_type!=FUNDRAISER_TYPE) {
+            llsummary_qty.setVisibility(View.VISIBLE);
+            tvsummary_qty.setText(object.getString("qut"));
+        }
+        if(convertToInt(object.getString("net_qut"))!=0&&goodie_type!=IDCARD_TYPE&&goodie_type!=WORKSHOP_TYPE) {
+            llsummary_netQty.setVisibility(View.VISIBLE);
+            tvsummary_netQty.setText(object.getString("net_qut"));}
+
+        if(goodie_type!=FUNDRAISER_TYPE){
+            llsummary_price.setVisibility(View.VISIBLE);
+            String price=goodie.getPrice();
+            tvsummary_price.setText(price);
+        }
+
+
+
+    }
 
 }
