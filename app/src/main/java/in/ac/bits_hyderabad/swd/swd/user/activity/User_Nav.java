@@ -1,14 +1,27 @@
 package in.ac.bits_hyderabad.swd.swd.user.activity;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.JsonObject;
+
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBar;
@@ -19,11 +32,19 @@ import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import in.ac.bits_hyderabad.swd.swd.BuildConfig;
 import in.ac.bits_hyderabad.swd.swd.user.fragment.*;
 
 import in.ac.bits_hyderabad.swd.swd.R;
@@ -65,6 +86,8 @@ public class User_Nav extends AppCompatActivity
         actionBar=getSupportActionBar();
         manager = getSupportFragmentManager();
 
+
+
         tvNav_header_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +104,10 @@ public class User_Nav extends AppCompatActivity
         tvNav_header_Id_No.setText(prefs.getString("id",null));
 
         setHome();
+
+        Log.e("fromOncreate","");
+        CheckUpdates task=new CheckUpdates();
+        task.execute();
 
 
     }
@@ -232,6 +259,9 @@ public class User_Nav extends AppCompatActivity
         navigationView.setCheckedItem(R.id.home);
         fragment=new User_HomeFragment();
         manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
+
+
+
     }
     private void logout() {
 
@@ -279,6 +309,92 @@ public class User_Nav extends AppCompatActivity
                 navigationView.setCheckedItem(R.id.home);
             }
         }
+        /*CheckUpdates task=new CheckUpdates();
+        task.execute();*/
         super.onResume();
     }
+
+    public class CheckUpdates extends AsyncTask<Void, Void, Void> {
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            RequestQueue queue = Volley.newRequestQueue(User_Nav.this);
+            StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                    try {
+                        JSONObject obj = new JSONObject(response);
+                        int latest_version = obj.getInt("version");
+                        int current_version = BuildConfig.VERSION_CODE;
+
+                        if (latest_version > current_version) {
+                            showDialog();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(User_Nav.this, "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+
+                    Map<String, String> params = new HashMap<>();
+                    params.put("tag", "check_updates");
+                    return params;
+
+                }
+            };
+            queue.add(request);
+            return null;
+        }
+    }
+    public void closeApp(){
+        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+        homeIntent.addCategory( Intent.CATEGORY_HOME );
+        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(homeIntent);
+    }
+    public void showDialog(){
+
+        Log.e("coming in show dialog","");
+        AlertDialog.Builder dialogBuilder;
+
+        dialogBuilder=new AlertDialog.Builder(User_Nav.this, R.style.AppCompatAlertDialogStyle);
+        dialogBuilder.setTitle("New Update Available!!");
+            dialogBuilder.setMessage("A new Version of the app is available.");
+            dialogBuilder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    final String appPackageName = "in.ac.bits_hyderabad.swd.swd"; // getPackageName() from Context or Activity object
+                    try {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                    } catch (android.content.ActivityNotFoundException anfe) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                    }
+                }
+            })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            closeApp();
+                        }
+                    }).setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                }
+            });
+            AlertDialog alertDialog = dialogBuilder.create();
+            alertDialog.setCancelable(false);
+            alertDialog.setCanceledOnTouchOutside(false);
+            alertDialog.show();
+        }
 }
