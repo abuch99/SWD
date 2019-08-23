@@ -33,14 +33,6 @@
                 android:textSize="18sp"
                 android:layout_marginBottom="15dp"
                 android:gravity="center_horizontal"/>
-            <TextView
-                android:id="@+id/tvsummary_ordertime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimaryLight"
-                android:paddingStart="15dp"
-                android:textSize="12dp"
-                android:text="22 Dec 1970, 12:33 PM"/>
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -71,6 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="15dp"
                 android:layout_marginBottom="20dp"
                 android:orientation="horizontal">
 
@@ -95,6 +88,7 @@
             <LinearLayout
                 android:id="@+id/llsummary_xs"
                 android:layout_width="match_parent"
+                android:layout_marginEnd="15dp"
                 android:layout_marginStart="15dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -121,6 +115,7 @@
                 android:id="@+id/llsummary_s"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
                 android:layout_marginStart="15dp"
                 android:orientation="horizontal">
 
@@ -147,6 +142,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -171,6 +167,7 @@
                 android:id="@+id/llsummary_l"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
                 android:layout_marginStart="15dp"
                 android:orientation="horizontal">
 
@@ -196,6 +193,7 @@
                 android:id="@+id/llsummary_xl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
                 android:layout_marginStart="15dp"
                 android:orientation="horizontal">
 
@@ -220,6 +218,7 @@
             <LinearLayout
                 android:id="@+id/llsummary_xxl"
                 android:layout_width="match_parent"
+                android:layout_marginEnd="15dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:orientation="horizontal">
@@ -245,6 +244,7 @@
             <LinearLayout
                 android:id="@+id/llsummary_xxxl"
                 android:layout_width="match_parent"
+                android:layout_marginEnd="15dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:orientation="horizontal">
@@ -272,6 +272,7 @@
                 android:layout_width="match_parent"
                 android:layout_marginStart="15dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
@@ -298,6 +299,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
+                android:layout_marginEnd="15sp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -317,10 +319,14 @@
                     android:layout_weight="1"/>
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/llsummary_netPrice"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
@@ -329,19 +335,18 @@
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:paddingEnd="5dp"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
                     android:text="Net Price :"
-                    android:layout_weight="1"/>
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/tvsummary_netPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingStart="5dp"
-                    android:textStyle="bold"
-                    android:textSize="15sp"
                     android:text="540"
-                    android:layout_weight="1"/>
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -360,6 +365,15 @@
                 android:textSize="18sp"
                 android:textColor="@color/whiteText"
                 android:layout_marginBottom="30dp"/>
+
+
+            <TextView
+                android:id="@+id/tvsummary_ordertime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="22 Dec 1970, 12:33 PM"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="12dp" />
 
         </LinearLayout>
 
