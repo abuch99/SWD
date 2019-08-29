@@ -51,7 +51,7 @@ public class UserMessRegFragment extends Fragment {
     String uid, password;
     RadioGroup radioGroup;
     ProgressDialog dialog;
-    TextView tvMess1Left,tvMess2Left;
+    TextView tvMess1Left,tvMess2Left, tvResult;
 
     public UserMessRegFragment() {
         // Required empty public constructor
@@ -91,6 +91,8 @@ public class UserMessRegFragment extends Fragment {
 
         tvMess1Left=view.findViewById(R.id.tvMess1Left);
         tvMess2Left=view.findViewById(R.id.tvMess2Left);
+        tvResult=view.findViewById(R.id.tvResult);
+        tvResult.setVisibility(View.GONE);
 
         uid=this.getArguments().getString("uid");
         password=this.getArguments().getString("password");
@@ -138,15 +140,14 @@ public class UserMessRegFragment extends Fragment {
         StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.MessURL), new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
+                Log.e("res",response);
                 try {
                     JSONObject object=new JSONObject(response);
-                    if(object.getString("pass").equals("0")){
+                    if(object.getString("Pass").equals("0")){
                         String mess1Left=object.getString("Mess1left");
                         String mess2Left=object.getString("Mess2left");
                         regOpenFlag=true;
                         showMessRegLayout(mess1Left,mess2Left);
-                        swipeRefresh.setRefreshing(false);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -160,6 +161,7 @@ public class UserMessRegFragment extends Fragment {
                 int errorCode=error.networkResponse.statusCode;
                 if(errorCode==502){
                     regOpenFlag=false;
+                    llmessRegOpen.setVisibility(View.GONE);
                     llmessRegClosed.setVisibility(View.VISIBLE);
                     Toast.makeText(getContext(), "Mess reg is closed right now!", Toast.LENGTH_SHORT).show();
                     swipeRefresh.setRefreshing(false);
@@ -174,6 +176,7 @@ public class UserMessRegFragment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
 
                 Map<String, String> params = new HashMap<>();
+                params.put("isapp","1");
                 return params;
 
             }
@@ -184,11 +187,34 @@ public class UserMessRegFragment extends Fragment {
 
     public void showMessRegLayout(String mess1left, String  mess2left){
 
+        swipeRefresh.setRefreshing(false);
+
         llmessRegOpen.setVisibility(View.VISIBLE);
         llmessRegClosed.setVisibility(View.GONE);
 
+        boolean filled=Integer.parseInt(mess1left)==0||Integer.parseInt(mess2left)==0;
+        int filled_mess=0;
+        if(filled){
+            if(Integer.parseInt(mess1left)==0)
+                filled_mess=1;
+            else
+                filled_mess=2;
+
+            String result="Mess "+filled_mess+" is already filled up.";
+            tvResult.setText(result);
+            tvResult.setVisibility(View.VISIBLE);
+
+            btnRegister.setEnabled(false);
+
+        }
+        else{
+            tvResult.setVisibility(View.GONE);
+            btnRegister.setEnabled(true);
+        }
+
         tvMess1Left.setText(mess1left);
         tvMess2Left.setText(mess2left);
+
 
     }
     public void sendRequest(String uid, String password, String mess_no){
@@ -209,7 +235,15 @@ public class UserMessRegFragment extends Fragment {
                     String pass=jsonObject.getString("Pass");
 
                     tvMess1Left.setText(mess1_left);
+                    String result="Succesfully registered to Mess "+mess;
+                    tvResult.setText(result);
                     tvMess2Left.setText(mess2_left);
+
+                    if(Integer.parseInt(mess1_left)==0||Integer.parseInt(mess2_left)==0){
+                        btnRegister.setEnabled(false);
+                    }
+
+                    tvResult.setVisibility(View.VISIBLE);
 
                     if(pass.equals("0")){
                         Toast.makeText(getActivity(),"Succesfully registered to Mess "+mess,Toast.LENGTH_LONG).show();
