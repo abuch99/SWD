@@ -183,6 +183,8 @@
     <string name="post">Associate Dean</string>
     <string name="download_msg">File will be downloaded to SWD Documents folder in your device</string>
     <string name="download_prepMsg">Loading... Please wait</string>
+    <string name="MessURL">http://swd.bits-hyderabad.ac.in/mess/</string>
+    <string name="MessRegURL">http://swd.bits-hyderabad.ac.in/messreg</string>
 
 
 </resources>

@@ -41,6 +41,7 @@ public class User_Login extends AppCompatActivity {
     ProgressDialog dialog;
     TextView fabContactus;
     TextInputLayout layout;
+    boolean passwordChangedFlag=false;
     TextInputEditText my_id_get, password_get;
 
 
@@ -51,7 +52,7 @@ public class User_Login extends AppCompatActivity {
         preferences=getApplicationContext().getSharedPreferences("USER_LOGIN_DETAILS",MODE_PRIVATE);
         editor=preferences.edit();
         setContentView(R.layout.activity_login);
-        checkLogin();
+        //checkLogin();
 
         dialog = new ProgressDialog(this);
         dialog.setMessage("Logging In");
@@ -106,7 +107,6 @@ public class User_Login extends AppCompatActivity {
                     return;
                 }
                 RequestQueue queue = Volley.newRequestQueue(User_Login.this);
-
                 StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -114,6 +114,8 @@ public class User_Login extends AppCompatActivity {
                         try {
                             JSONObject object = new JSONObject(response);
                             if (!object.getBoolean("error")) {
+                                Log.e("error", "false");
+                                Log.e("error",response);
                                 editor.putInt("exists",1);
                                 editor.putString("name",object.getString("name"));
                                 editor.putString("uid",my_id);
@@ -122,15 +124,18 @@ public class User_Login extends AppCompatActivity {
 
                                 editor.commit();
 
+                                Log.e("prefs",preferences.getInt("exists",1)+"   "+preferences.getString("name",null) +"     "+preferences.getString("uid","uid nai hai")+"   "+preferences.getString("password", "password nai hai")+"    "+preferences.getString("id","id nai hai"));
                                 checkLogin();
 
 
                             } else {
+                                Log.e("error ","true");
                                 Toast.makeText(User_Login.this, "Wrong ID or Password", Toast.LENGTH_SHORT).show();
                                 dialog.hide();
                             }
 
                         } catch (JSONException e) {
+                            Log.e("jsonexception",e.toString());
                             e.printStackTrace();
                             Toast.makeText(User_Login.this, "Wrong Id or Password!!", Toast.LENGTH_SHORT).show();
                             dialog.hide();
@@ -192,22 +197,10 @@ public class User_Login extends AppCompatActivity {
 
 
     public void checkLogin() {
-        /*if (userTable.hasData()) {
-            Intent intent = new Intent(User_Login.this, User_Nav.class);
-            if (getIntent().getStringExtra("default") != null) {
-                intent.putExtra("default", getIntent().getStringArrayExtra("default"));
-                if (getIntent().getLongExtra("uploadedTime", -1) != -1) {
-                    intent.putExtra("uploadedTime", getIntent().getLongExtra("uploadedTime", -1));
-                }
-            }
-            startActivity(intent);
-            finish();
-        }
-        */
+
         if(preferences.getInt("exists",0)==1)
         {
 
-
             Intent intent = new Intent(User_Login.this, User_Nav.class);
             if (getIntent().getStringExtra("default") != null) {
                 intent.putExtra("default", getIntent().getStringArrayExtra("default"));
@@ -217,8 +210,8 @@ public class User_Login extends AppCompatActivity {
             }
             startActivity(intent);
             finish();
-
         }
     }
+
 }
 

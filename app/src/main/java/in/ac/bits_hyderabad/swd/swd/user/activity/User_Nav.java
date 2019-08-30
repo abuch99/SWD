@@ -86,8 +86,6 @@ public class User_Nav extends AppCompatActivity
         actionBar=getSupportActionBar();
         manager = getSupportFragmentManager();
 
-
-
         tvNav_header_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,9 +102,6 @@ public class User_Nav extends AppCompatActivity
         tvNav_header_Id_No.setText(prefs.getString("id",null));
 
         setHome();
-
-        Log.e("fromOncreate","");
-
 
 
     }
@@ -156,7 +151,7 @@ public class User_Nav extends AppCompatActivity
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }
-            /*case R.id.messReg: {
+            case R.id.messReg: {
 
                 tag="messReg";
                 if (drawer.isDrawerOpen(GravityCompat.START))
@@ -164,10 +159,10 @@ public class User_Nav extends AppCompatActivity
                 actionBar.setTitle(R.string.messReg_title);
                 actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
                 navigationView.setCheckedItem(R.id.messReg);
-                fragment=new UserMessRegFragment();
+                fragment=UserMessRegFragment.newInstance(prefs.getString("uid", null),prefs.getString("password",null));
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
-            }*/
+            }
             case R.id.BusTimings: {
 
                 tag = "busTimings";
@@ -258,9 +253,6 @@ public class User_Nav extends AppCompatActivity
         navigationView.setCheckedItem(R.id.home);
         fragment=new User_HomeFragment();
         manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
-
-
-
     }
     private void logout() {
 
