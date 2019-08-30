@@ -6,8 +6,8 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -17,8 +17,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".user.activity.Connect"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|keyboardHidden"></activity>
         <activity android:name=".user.activity.OrderGoodie"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|keyboardHidden"/>
         <activity android:name=".user.activity.ForgotPassword"
             android:screenOrientation="portrait"/>
@@ -32,12 +34,15 @@
         </activity>
         <activity
             android:name=".user.activity.Profile"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme" />
-        <activity android:name=".user.activity.User_Login" />
+        <activity android:name=".user.activity.User_Login"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".user.activity.User_Nav"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/title_activity_nav"
             android:theme="@style/AppTheme" />
