@@ -174,7 +174,7 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
             protected Map<String, String> getParams() throws AuthFailureError {
 
                 Map<String, String> params = new HashMap<>();
-                params.put("tag", "goodie");
+                params.put("tag", "goodies");
                 params.put("id",u_id);
                 params.put("pwd",password);
                 return params;
