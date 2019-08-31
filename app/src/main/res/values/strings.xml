@@ -185,6 +185,15 @@
     <string name="download_prepMsg">Loading... Please wait</string>
     <string name="MessURL">http://swd.bits-hyderabad.ac.in/mess/</string>
     <string name="MessRegURL">http://swd.bits-hyderabad.ac.in/messreg</string>
+    <string name="field_aadhar">Aadhar :</string>
+    <string name="field_pan">PAN Card :</string>
+    <string name="field_category">Category :</string>
+    <string name="field_fcomp">Father\'s Company :</string>
+    <string name="field_fdesg">Father\'s Designation :</string>
+    <string name="field_mcomp">Mother\'s Company :</string>
+    <string name="field_mdesg">Mother\'s Designation :</string>
+    <string name="field_med_history">Medical History :</string>
+    <string name="field_current_med">Current Medication :</string>
 
 
 </resources>

@@ -44,7 +44,7 @@ public class Profile extends AppCompatActivity {
 
 
     //UserTable mUserTable;
-    EditText etName,etRoom,etPhn,etId,etDOB,etGender,etNat,etEmail,etBlood,etAddress,etCity,etState
+    EditText etName,etRoom,etPhn,etId,etDOB,etGender,etNat,etEmail,etBlood,etAddress,etCity,etState,etAadhaar,etPan,etfcomp,etfdesg,etmcomp,etmdesg,etmed_history,etcurrent_med,etCategory
             ,etFname,etFphn,etFemail,etFocc,etMname,etMphn,etMemail,etMocc,etBank,etAccNo,etIfsc;
     ActionBar actionBar;
     FloatingActionButton fabUpdate;
@@ -134,10 +134,6 @@ public class Profile extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //if correct credentials
-                //response {"tag":"login","error":false,"uid":"abcd","name":"Monil Shah","id_no":"abcd","branch":"A3PS","room":"G 270","gender":"M","phone":"9553305670","email":"abcd@gmail.com","dob":"1996-07-19","father":"Atul Shah","mother":"Sejal Shah","fmail":"atulshah1965@reddifmail.com","fphone":"9825543307","foccup":"Businessman","mmail":null,"moccup":"Homemaker","hphone":"02613015838","homeadd":"702 Manibhadra Enclave,B\/h Sargam Shopping Center,Parle Point .","city":"Surat","state":"Gujarat","localadd":null,"guardian":null,"gphone":null,"nation":"India","blood":"AB+","bank":"State Bank Of Hyderabad","acno":"62352253278","ifsc":"ifsc1234","pimage":null,"time":"2016-02-03 14:07:21"}
-                //if wrong credentials
-                //{"tag":"login","error":true,"error_msg":"Error occured in Logging In"}
 
                 try {
 
@@ -198,6 +194,9 @@ public class Profile extends AppCompatActivity {
         etId.setText(object.getString("id_no"));
         etGender.setText(object.getString("gender"));
         etDOB.setText(object.getString("dob"));
+        etAadhaar.setText(object.getString("aadhaar"));
+        etPan.setText(object.getString("pan_card"));
+        etCategory.setText(object.getString("category"));
         etEmail.setText(object.getString("email"));
         etBlood.setText(object.getString("blood"));
         etAddress.setText(object.getString("homeadd"));
@@ -208,10 +207,16 @@ public class Profile extends AppCompatActivity {
         etFphn.setText(object.getString("fphone"));
         etFemail.setText(object.getString("fmail"));
         etFocc.setText(object.getString("foccup"));
+        etfcomp.setText(object.getString("fcomp"));
+        etfdesg.setText(object.getString("fdesg"));
         etMname.setText(object.getString("mother"));
         etMemail.setText(object.getString("mmail"));
         etMphn.setText(object.getString("hphone"));
         etMocc.setText(object.getString("moccup"));
+        etmcomp.setText(object.getString("mcomp"));
+        etmdesg.setText(object.getString("mdesg"));
+        etmed_history.setText(object.getString("med_history"));
+        etcurrent_med.setText(object.getString("current_med"));
         etBank.setText(object.getString("bank"));
         etAccNo.setText(object.getString("acno"));
         etIfsc.setText(object.getString("ifsc"));
@@ -223,6 +228,9 @@ public class Profile extends AppCompatActivity {
         etRoom.setEnabled(false);
         etPhn.setEnabled(false);
         etId.setEnabled(false);
+        etAadhaar.setEnabled(false);
+        etPan.setEnabled(false);
+        etCategory.setEnabled(false);
         etGender.setEnabled(false);
         etDOB.setEnabled(false);
         etNat.setEnabled(false);
@@ -242,6 +250,14 @@ public class Profile extends AppCompatActivity {
         etFname.setEnabled(false);
         etFphn.setEnabled(false);
         etBank.setEnabled(false);
+        etfcomp.setEnabled(false);
+        etfdesg.setEnabled(false);
+        etmcomp.setEnabled(false);
+        etmdesg.setEnabled(false);
+        etmed_history.setEnabled(false);
+        etcurrent_med.setEnabled(false);
+
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             etRoom.setTextColor(getColor(R.color.colorAccent));
@@ -259,6 +275,17 @@ public class Profile extends AppCompatActivity {
             etFemail.setTextColor(getColor(R.color.colorAccent));
             etFphn.setTextColor(getColor(R.color.colorAccent));
             etBank.setTextColor(getColor(R.color.colorAccent));
+            etAadhaar.setTextColor(getColor(R.color.colorAccent));
+            etPan.setTextColor(getColor(R.color.colorAccent));
+            etCategory.setTextColor(getColor(R.color.colorAccent));
+            etfcomp.setTextColor(getColor(R.color.colorAccent));
+            etfdesg.setTextColor(getColor(R.color.colorAccent));
+            etmcomp.setTextColor(getColor(R.color.colorAccent));
+            etmdesg.setTextColor(getColor(R.color.colorAccent));
+            etmed_history.setTextColor(getColor(R.color.colorAccent));
+            etcurrent_med.setTextColor(getColor(R.color.colorAccent));
+
+
         }
         etRoom.setBackground(getDrawable(R.drawable.edit_text));
         etPhn.setBackground(getDrawable(R.drawable.edit_text));
@@ -275,6 +302,15 @@ public class Profile extends AppCompatActivity {
         etFemail.setBackground((getDrawable(R.drawable.edit_text)));
         etFphn.setBackground(getDrawable(R.drawable.edit_text));
         etBank.setBackground(getDrawable(R.drawable.edit_text));
+        etAadhaar.setBackground(getDrawable(R.drawable.edit_text));
+        etPan.setBackground(getDrawable(R.drawable.edit_text));
+        etCategory.setBackground(getDrawable(R.drawable.edit_text));
+        etfcomp.setBackground(getDrawable(R.drawable.edit_text));
+        etfdesg.setBackground(getDrawable(R.drawable.edit_text));
+        etmcomp.setBackground(getDrawable(R.drawable.edit_text));
+        etmdesg.setBackground(getDrawable(R.drawable.edit_text));
+        etmed_history.setBackground(getDrawable(R.drawable.edit_text));
+        etcurrent_med.setBackground(getDrawable(R.drawable.edit_text));
 
 
     }
@@ -295,6 +331,16 @@ public class Profile extends AppCompatActivity {
         etFemail.setEnabled(true);
         etFphn.setEnabled(true);
         etBank.setEnabled(true);
+        etAadhaar.setEnabled(true);
+        etPan.setEnabled(true);
+        etfcomp.setEnabled(true);
+        etfdesg.setEnabled(true);
+        etmcomp.setEnabled(true);
+        etmdesg.setEnabled(true);
+        etmed_history.setEnabled(true);
+        etcurrent_med.setEnabled(true);
+
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             etRoom.setTextColor(getColor(R.color.black));
@@ -312,6 +358,15 @@ public class Profile extends AppCompatActivity {
             etFemail.setTextColor(getColor(R.color.black));
             etFphn.setTextColor(getColor(R.color.black));
             etBank.setTextColor(getColor(R.color.black));
+            etAadhaar.setTextColor(getColor(R.color.black));
+            etPan.setTextColor(getColor(R.color.black));
+            etfcomp.setTextColor(getColor(R.color.black));
+            etfdesg.setTextColor(getColor(R.color.black));
+            etmcomp.setTextColor(getColor(R.color.black));
+            etmdesg.setTextColor(getColor(R.color.black));
+            etmed_history.setTextColor(getColor(R.color.black));
+            etcurrent_med.setTextColor(getColor(R.color.black));
+
         }
 
 
@@ -330,6 +385,15 @@ public class Profile extends AppCompatActivity {
         etFemail.setBackground((getDrawable(R.drawable.edit_text_selected)));
         etFphn.setBackground(getDrawable(R.drawable.edit_text_selected));
         etBank.setBackground(getDrawable(R.drawable.edit_text_selected));
+        etAadhaar.setBackground(getDrawable(R.drawable.edit_text_selected));
+        etPan.setBackground(getDrawable(R.drawable.edit_text_selected));
+        etfcomp.setBackground(getDrawable(R.drawable.edit_text_selected));
+        etfdesg.setBackground(getDrawable(R.drawable.edit_text_selected));
+        etmcomp.setBackground(getDrawable(R.drawable.edit_text_selected));
+        etmdesg.setBackground(getDrawable(R.drawable.edit_text_selected));
+        etcurrent_med.setBackground(getDrawable(R.drawable.edit_text_selected));
+        etmed_history.setBackground(getDrawable(R.drawable.edit_text_selected));
+
 
         etRoom.setFocusable(true);
         etPhn.setFocusable(true);
@@ -346,7 +410,14 @@ public class Profile extends AppCompatActivity {
         etFemail.setFocusable(true);
         etFphn.setFocusable(true);
         etBank.setFocusable(true);
-
+        etAadhaar.setFocusable(true);
+        etPan.setFocusable(true);
+        etfcomp.setFocusable(true);
+        etfdesg.setFocusable(true);
+        etmcomp.setFocusable(true);
+        etmdesg.setFocusable(true);
+        etcurrent_med.setFocusable(true);
+        etmed_history.setFocusable(true);
 
         etRoom.requestFocus();
         InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
@@ -369,12 +440,18 @@ public class Profile extends AppCompatActivity {
     }
     public void initialize_views() {
 
+//      "branch":"","aadhar":null,"pan_card":"EPBPB8351D","category":"General","fcomp":"Indian Army","fdesg":"Ex Havaldar","mcomp":"NIL","mdesg":"NIL",
+//      "localadd":"NIL","guardian":"NIL","gphone":"NIL","med_history":"NIL","current_med":"NIL",
+
         llProfile=findViewById(R.id.llProfile);
         srProfile=findViewById(R.id.srProfile);
         etName=findViewById(R.id.etName);
         etRoom=findViewById(R.id.etRoom);
         etPhn=findViewById(R.id.etPhn);
         etId=findViewById(R.id.etId);
+        etAadhaar=findViewById(R.id.etAadhaar);
+        etPan=findViewById(R.id.etPan);
+        etCategory=findViewById(R.id.etCategory);
         etDOB=findViewById(R.id.etDOB);
         etGender=findViewById(R.id.etGender);
         etNat=findViewById(R.id.etNat);
@@ -387,10 +464,16 @@ public class Profile extends AppCompatActivity {
         etFemail=findViewById(R.id.etFemail);
         etFphn=findViewById(R.id.etFphn);
         etFocc=findViewById(R.id.etFocc);
+        etfcomp=findViewById(R.id.etfcomp);
+        etfdesg=findViewById(R.id.etfdesg);
         etMname=findViewById(R.id.etMname);
         etMemail=findViewById(R.id.etMemail);
         etMphn=findViewById(R.id.etMphn);
         etMocc=findViewById(R.id.etMocc);
+        etmcomp=findViewById(R.id.etmcomp);
+        etmdesg=findViewById(R.id.etmdesg);
+        etmed_history=findViewById(R.id.etmed_history);
+        etcurrent_med=findViewById(R.id.etcurrent_med);
         etBank=findViewById(R.id.etBank);
         etAccNo=findViewById(R.id.etAccNo);
         etIfsc=findViewById(R.id.etIfsc);
@@ -482,6 +565,16 @@ public class Profile extends AppCompatActivity {
             object.put("mmail",etMemail.getText().toString().trim());
             object.put("moccup",etMocc.getText().toString().trim());
             object.put("hphone",etMphn.getText().toString().trim());
+            object.put("hphone",etMphn.getText().toString().trim());
+            object.put("aadhaar",etAadhaar.getText().toString().trim());
+            object.put("pan_card",etPan.getText().toString().trim());
+            object.put("fcomp",etfcomp.getText().toString().trim());
+            object.put("fdesg",etfdesg.getText().toString().trim());
+            object.put("mcomp",etmcomp.getText().toString().trim());
+            object.put("mdesg",etmdesg.getText().toString().trim());
+            object.put("med_history",etmed_history.getText().toString().trim());
+            object.put("current_med",etcurrent_med.getText().toString().trim());
+
         }
         catch (JSONException e)
         {

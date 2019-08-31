@@ -197,7 +197,74 @@
                     android:paddingLeft="10dp"
                     android:textSize="16sp"
                     android:paddingTop="5dp"
+                    android:textColor="@color/black"
+                    android:text="@string/field_aadhar"/>
+                <EditText
+                    android:id="@+id/etAadhaar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:background="@drawable/edit_text"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/colorPrimaryLight"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:textSize="16sp"
+                    android:paddingTop="5dp"
+
+                    android:textColor="@color/black"
+                    android:text="@string/field_pan"/>
+                <EditText
+                    android:id="@+id/etPan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:background="@drawable/edit_text"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/colorPrimaryLight"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:textSize="16sp"
+                    android:paddingTop="5dp"
+
+                    android:textColor="@color/black"
+                    android:text="@string/field_category"/>
+                <EditText
+                    android:id="@+id/etCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:background="@drawable/edit_text"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/colorPrimaryLight"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:textSize="16sp"
+                    android:paddingTop="5dp"
                     android:textColor="@color/black"
                     android:text="@string/field_gender"/>
                 <EditText
@@ -467,6 +534,51 @@
                     android:layout_marginTop="10dp"
                     android:paddingLeft="10dp"
                     android:textSize="16sp"
+                    android:paddingTop="5dp"
+
+                    android:textColor="@color/black"
+                    android:text="@string/field_fcomp"/>
+                <EditText
+                    android:id="@+id/etfcomp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:background="@drawable/edit_text"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/colorPrimaryLight"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:textSize="16sp"
+                    android:paddingTop="5dp"
+
+                    android:textColor="@color/black"
+                    android:text="@string/field_fdesg"/>
+                <EditText
+                    android:id="@+id/etfdesg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:background="@drawable/edit_text"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/colorPrimaryLight"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:textSize="16sp"
                     android:textColor="@color/black"
                     android:paddingTop="5dp"
                     android:text="@string/field_mname"/>
@@ -548,6 +660,126 @@
                     android:layout_marginRight="10dp"
                     android:gravity="center_vertical"
                     android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:textSize="16sp"
+                    android:paddingTop="5dp"
+
+                    android:textColor="@color/black"
+                    android:text="@string/field_mcomp"/>
+                <EditText
+                    android:id="@+id/etmcomp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:background="@drawable/edit_text"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/colorPrimaryLight"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:textSize="16sp"
+                    android:paddingTop="5dp"
+
+                    android:textColor="@color/black"
+                    android:text="@string/field_mdesg"/>
+                <EditText
+                    android:id="@+id/etmdesg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:background="@drawable/edit_text"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/colorPrimaryLight"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp" />
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:cardBackgroundColor="@color/card_background"
+                    app:cardElevation="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_medical"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="MEDICAL DETAILS"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"/>
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:textSize="16sp"
+                    android:paddingTop="5dp"
+
+                    android:textColor="@color/black"
+                    android:text="@string/field_med_history"/>
+                <EditText
+                    android:id="@+id/etmed_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:background="@drawable/edit_text"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/colorPrimaryLight"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:textSize="16sp"
+                    android:paddingTop="5dp"
+
+                    android:textColor="@color/black"
+                    android:text="@string/field_current_med"/>
+                <EditText
+                    android:id="@+id/etcurrent_med"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:background="@drawable/edit_text"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/colorPrimaryLight"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp" />
+
+
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
