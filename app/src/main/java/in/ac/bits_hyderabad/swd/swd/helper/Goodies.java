@@ -3,6 +3,8 @@ package in.ac.bits_hyderabad.swd.swd.helper;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 public class Goodies implements Parcelable {
 
     public String id;

@@ -152,6 +152,7 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
                         /*{"g_id":"1000","name":"Duplicate ID Card","hosted_by":"Student Welfare Division","img":"bits_logo.png", "link":"","active":"1","xs":"0","s":"0","m":"0","l":"0","xl":"0","xxl":"0","xxxl":"0","qut":"0","min_amount":"0","max_amount":"0","max_quantity":"0","price":"75","closing_datetime":"2019-05-14 00:00:00","delivery_date":"0000-00-00","custom":"0","acceptance":"0","hoster_name":"Student Welfare Division","hoster_mob_num":"","view_uid":"prasanth","uploaded_on":"2019-04-14 15:08:37"} */
                         goodies.add(new Goodies(id,name,host,image,price,size_chart,xs,s,m,l,xl,xxl,xxxl,qut,min_amount,max_amount,max_quantity,custom,view_uid,host_name,mobile));
                     }
+                    goodies=sort(goodies);
                     mAdaptor.notifyDataSetChanged();
                     swipeRefresh.setRefreshing(false);
 
@@ -257,4 +258,22 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
 
     }
 
+
+    public ArrayList<Goodies> sort(ArrayList<Goodies> goodies){
+
+
+        for (int i=0;i<goodies.size();i++) {
+
+            Goodies min=goodies.get(i);
+            for(int j=i+1;j<goodies.size();j++){
+                if(Integer.parseInt(goodies.get(j).id)<Integer.parseInt(min.id)){
+                    min=goodies.get(j);
+                }
+            }
+            goodies.remove(min);
+            goodies.add(0,min);
+        }
+
+        return goodies;
+    }
 }
