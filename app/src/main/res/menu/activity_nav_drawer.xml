@@ -21,6 +21,13 @@
             android:title="@string/goodies" />
 
         <item
+            android:id="@+id/Deduction"
+            android:icon="@drawable/ic_ded"
+            android:title="Deductions">
+
+        </item>
+
+        <item
             android:id="@+id/mess"
             android:icon="@drawable/ic_restaurant"
             android:title="@string/mess" />
@@ -50,6 +57,7 @@
             android:id="@+id/logout"
             android:icon="@drawable/ic_logout"
             android:title="@string/logout" />
+
 
 
     </group>

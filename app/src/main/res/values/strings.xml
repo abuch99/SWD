@@ -138,15 +138,15 @@
     <string name="quantityofGoodies">Quantity</string>
 
     <!--Order goodies-->
-    <string name="xs"  >XS</string>
-    <string name="s"   >S</string>
-    <string name="m"   >M</string>
+    <string name="xs">XS</string>
+    <string name="s">S</string>
+    <string name="m">M</string>
     <string name="goodieImageUrl">swd.bits-hyderabad.ac.in/goodies/img/</string>
-    <string name="l"   >L</string>
-    <string name="xl"  >XL</string>
-    <string name="xxl" >XXL</string>
+    <string name="l">L</string>
+    <string name="xl">XL</string>
+    <string name="xxl">XXL</string>
     <string name="xxxl">XXXL</string>
-    <string name="qty" >Quantity</string>
+    <string name="qty">Quantity</string>
     <string name="null_hint"></string>
     <string name="custom_name">Custom Name</string>
     <string name="custom_name_hint">This will be printed on the item</string>
@@ -194,6 +194,7 @@
     <string name="field_mdesg">Mother\'s Designation :</string>
     <string name="field_med_history">Medical History :</string>
     <string name="field_current_med">Current Medication :</string>
+    <string name="DeductionsTitle">Deductions</string>
 
 
 </resources>

@@ -114,18 +114,23 @@ public class User_Login extends AppCompatActivity {
                         try {
                             JSONObject object = new JSONObject(response);
                             if (!object.getBoolean("error")) {
-                                Log.e("error", "false");
-                                Log.e("error",response);
-                                editor.putInt("exists",1);
-                                editor.putString("name",object.getString("name"));
-                                editor.putString("uid",my_id);
-                                editor.putString("password" ,hashedPass);
-                                editor.putString("id",object.getString("id_no"));
+                                if(object.getBoolean("profile_completed")) {
+                                    Log.e("error", "false");
+                                    Log.e("error", response);
+                                    editor.putInt("exists", 1);
+                                    editor.putString("name", object.getString("name"));
+                                    editor.putString("uid", my_id);
+                                    editor.putString("password", hashedPass);
+                                    editor.putString("id", object.getString("id_no"));
 
-                                editor.commit();
+                                    editor.commit();
 
-                                Log.e("prefs",preferences.getInt("exists",1)+"   "+preferences.getString("name",null) +"     "+preferences.getString("uid","uid nai hai")+"   "+preferences.getString("password", "password nai hai")+"    "+preferences.getString("id","id nai hai"));
-                                checkLogin();
+                                    Log.e("prefs", preferences.getInt("exists", 1) + "   " + preferences.getString("name", null) + "     " + preferences.getString("uid", "uid nai hai") + "   " + preferences.getString("password", "password nai hai") + "    " + preferences.getString("id", "id nai hai"));
+                                    checkLogin();
+                                }
+   /***************************/else{
+                                    /*******************have to do something here*********************/
+                                }
 
 
                             } else {
