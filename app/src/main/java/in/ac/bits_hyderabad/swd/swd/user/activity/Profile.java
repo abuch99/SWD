@@ -92,6 +92,7 @@ public class Profile extends AppCompatActivity {
         queue= Volley.newRequestQueue(this);
 
         fabUpdate=findViewById(R.id.fabUpdate);
+        fabUpdate.setEnabled(false);
         fabUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

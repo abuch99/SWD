@@ -194,6 +194,19 @@ public class User_Nav extends AppCompatActivity
                 startActivity(intent);
                 break;
             }
+
+            case R.id.Deduction: {
+                tag="deductions";
+                if (drawer.isDrawerOpen(GravityCompat.START))
+                    drawer.closeDrawer(GravityCompat.START);
+                actionBar.setTitle(getString(R.string.DeductionsTitle));
+                actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
+                navigationView.setCheckedItem(R.id.docs);
+                fragment=User_DeductionsFragment.newInstance(prefs.getString("uid",null),prefs.getString("id",null),prefs.getString("password",null));
+                manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
+                break;
+
+            }
             case R.id.goodies: {
 
                 tag="goodies";
