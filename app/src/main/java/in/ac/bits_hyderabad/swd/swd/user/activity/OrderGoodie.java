@@ -476,6 +476,7 @@ public class OrderGoodie extends AppCompatActivity {
 
                 Log.e("res",response);
                 dialog.cancel();
+                cbAgree.setChecked(false);
                 try {
                     JSONObject res=new JSONObject(response);
                     if(res.getString("error").equalsIgnoreCase("false")) {
@@ -483,7 +484,7 @@ public class OrderGoodie extends AppCompatActivity {
                         firstTime=false;
                         btnOrder.setText("UPDATE");
                         Toast.makeText(OrderGoodie.this, msg, Toast.LENGTH_SHORT).show();
-                        showOrderSummary(obj,goodie);
+                        //showOrderSummary(obj,goodie);
                     }
                     else
                     {
@@ -499,6 +500,7 @@ public class OrderGoodie extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 dialog.cancel();
+                cbAgree.setChecked(false);
                 Toast.makeText(OrderGoodie.this, "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
             }
         }) {
@@ -626,7 +628,7 @@ public class OrderGoodie extends AppCompatActivity {
 
     }
 
-    public void showOrderSummary(JSONObject object,Goodies goodie) throws JSONException {
+    /*public void showOrderSummary(JSONObject object,Goodies goodie) throws JSONException {
 
         Log.e("obj",object.toString());
 
@@ -749,5 +751,5 @@ public class OrderGoodie extends AppCompatActivity {
 
 
     }
-
+*/
 }
