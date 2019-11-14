@@ -168,7 +168,7 @@ public class User_MessFragment extends Fragment {
         }
     }
 
-    @Override
+    /*@Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.grace_menu,menu);
     }
@@ -178,13 +178,13 @@ public class User_MessFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.grace:
             {
-                requestPreviousGrace();
+                //requestPreviousGrace();
                 break;
             }
         }
         return true;
     }
-
+    */
     public void requestPreviousGrace(){
 
         dialogProgress.show();
