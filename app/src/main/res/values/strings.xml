@@ -133,6 +133,7 @@
     <string name="field_mphone">Mother\'s Phone No. :</string>
     <string name="field_memail">Mother\'s Email :</string>
     <string name="field_moccupation">Mother\'s Occupation :</string>
+    <string name="GRACE_URL">http://swd.bits-hyderabad.ac.in/messgrace1.php</string>
     <string name="BASE_URL">http://swd.bits-hyderabad.ac.in/swd_app/index.php</string>
     <string name="DOCS_URL">http://swd.bits-hyderabad.ac.in/swd_app/gen_appDocs.php</string>
     <string name="quantityofGoodies">Quantity</string>

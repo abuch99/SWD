@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -46,6 +48,8 @@ import java.util.Locale;
 import java.util.Map;
 import in.ac.bits_hyderabad.swd.swd.R;
 import in.ac.bits_hyderabad.swd.swd.helper.customSpan;
+
+import static com.android.volley.VolleyLog.TAG;
 
 public class User_MessFragment extends Fragment {
 
@@ -168,7 +172,7 @@ public class User_MessFragment extends Fragment {
         }
     }
 
-    /*@Override
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.grace_menu,menu);
     }
@@ -178,13 +182,13 @@ public class User_MessFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.grace:
             {
-                //requestPreviousGrace();
+                requestPreviousGrace();
                 break;
             }
         }
         return true;
     }
-    */
+
     public void requestPreviousGrace(){
 
         dialogProgress.show();
@@ -200,9 +204,11 @@ public class User_MessFragment extends Fragment {
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
-        StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.GRACE_URL), new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+
+                Log.e(TAG, "onResponse: "+response);
 
                 if(date_for_grace!=null) {
                     try {
@@ -221,7 +227,7 @@ public class User_MessFragment extends Fragment {
                         JSONObject object = new JSONObject(response);
                         JSONArray array=object.getJSONArray("current");
                         for(int i=0; i<array.length();i++){
-                            String string=array.getJSONObject(i).getString("date");
+                            String string=array.getString(i);
                             CalendarDay date=CalendarDay.from(Integer.parseInt(string.substring(0,4)),Integer.parseInt(string.substring(5,7)),Integer.parseInt(string.substring(8,10)));
                             currentGraces.add(date);
                         }
@@ -245,12 +251,13 @@ public class User_MessFragment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
 
                 Map<String, String> params = new HashMap<>();
-                params.put("tag", "mess_grace");
-                params.put("id",uid);
+                params.put("isapp","1");
+                params.put("uid",uid);
                 params.put("pwd",password);
-                if(date_for_grace!=null)
-                params.put("date",date_for_grace);
-                return params;
+                if(date_for_grace!=null) {
+                    params.put("submitbtn","1");
+                    params.put("date_in", date_for_grace);
+                }return params;
 
             }
         };
@@ -273,6 +280,8 @@ public class User_MessFragment extends Fragment {
             public void onClick(View v) {
 
                 CalendarDay date_selected=graceDatePicker.getSelectedDate();
+
+                graceDatePicker.clearSelection();
 
                 String year = new DecimalFormat("0000").format(date_selected.getYear());
                 String month =  new DecimalFormat("00").format(date_selected.getMonth());
