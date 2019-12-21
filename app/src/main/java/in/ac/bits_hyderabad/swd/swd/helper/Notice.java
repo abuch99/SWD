@@ -12,9 +12,8 @@ public class Notice {
     String image;
     String expiry;
     String utime;
-    String comments;
 
-    public Notice(String pid, String uid, String uname, String category, String title, String subtitle, String body, String link, String image, String expiry, String utime, String comments) {
+    public Notice(String pid, String uid, String uname, String category, String title, String subtitle, String body, String link, String image, String expiry, String utime) {
         this.pid = pid;
         this.uid = uid;
         this.uname = uname;
@@ -26,7 +25,6 @@ public class Notice {
         this.image = image;
         this.expiry = expiry;
         this.utime = utime;
-        this.comments = comments;
     }
 
     public String getPid() {
@@ -115,13 +113,5 @@ public class Notice {
 
     public void setUtime(String utime) {
         this.utime = utime;
-    }
-
-    public String getComments() {
-        return comments;
-    }
-
-    public void setComments(String comments) {
-        this.comments = comments;
     }
 }

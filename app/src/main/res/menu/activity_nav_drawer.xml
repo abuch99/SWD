@@ -19,6 +19,11 @@
             android:id="@+id/goodies"
             android:icon="@drawable/ic_goodie"
             android:title="@string/goodies" />
+        <item
+            android:id="@+id/notices"
+            android:icon="@drawable/ic_note"
+            android:title="@string/notices" />
+
 
         <item
             android:id="@+id/Deduction"

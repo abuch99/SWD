@@ -219,6 +219,18 @@ public class User_Nav extends AppCompatActivity
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }
+            case R.id.notices: {
+
+                tag="notices";
+                actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
+                if (drawer.isDrawerOpen(GravityCompat.START))
+                    drawer.closeDrawer(GravityCompat.START);
+                actionBar.setTitle(R.string.notices_title);
+                navigationView.setCheckedItem(R.id.notices);
+                fragment=User_NoticeFragment.newInstance(prefs.getString("uid",null),prefs.getString("id",null),prefs.getString("password",null));
+                manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
+                break;
+            }
             case R.id.connect: {
 
                 if (drawer.isDrawerOpen(GravityCompat.START))
