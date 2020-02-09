@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
@@ -60,7 +60,7 @@
 
     </style>
 
-    <style name="login_names">
+    <style name="login_names" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:layout_marginTop">@dimen/top</item>
         <item name="android:layout_marginLeft">@dimen/left</item>
         <item name="android:layout_marginRight">@dimen/right</item>
@@ -177,5 +177,13 @@
     <style name="ActionButton" parent="@style/Widget.AppCompat.ActionButton">
         <item name="android:buttonTint">@color/colorPrimaryLight</item>
     </style>
+
+    <style name="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu" tools:ignore="PrivateResource">
+        <item name="materialThemeOverlay">
+            @style/ThemeOverlay.MaterialComponents.AutoCompleteTextView.FilledBox
+        </item>
+        <item name="endIconMode">dropdown_menu</item>
+    </style>
+
 
 </resources>

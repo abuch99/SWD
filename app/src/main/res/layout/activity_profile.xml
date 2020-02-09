@@ -891,8 +891,10 @@
         android:layout_marginRight="10dp"
         android:layout_gravity="end|bottom"
         android:layout_marginBottom="10dp"
-        android:src="@drawable/ic_update_details"
-        android:backgroundTint="@color/colorPrimaryLight"
+        app:backgroundTint="@color/colorPrimaryLight"
+        app:tint="@color/whiteText"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
+        app:srcCompat="@drawable/ic_update_details"
         android:elevation="5dp"
         />
 

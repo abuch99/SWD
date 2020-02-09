@@ -41,30 +41,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:theme="@style/login_input_layout">
+                android:layout_marginEnd="35dp"
+                android:layout_marginStart="35dp"
+                app:boxStrokeColor="@color/whiteText"
+                app:hintTextColor="@color/whiteText"
+                android:hint="@string/ID"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/id_fill"
-                    style="@style/login_names"
                     android:layout_width="match_parent"
+                    android:background="@drawable/loginfields"
                     android:layout_height="wrap_content"
-                    android:hint="@string/ID"
                     android:textColor="#FFFFFF" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/pwd_textinputLayout"
-                style="@style/login_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:passwordToggleEnabled="true">
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/whiteText"
+                android:layout_marginTop="15dp"
+                app:boxStrokeColor="@color/whiteText"
+                android:hint="@string/pwd"
+                app:hintTextColor="@color/whiteText"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="35dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/pwd_fill"
-                    style="@style/login_names"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/pwd"
+                    android:background="@drawable/loginfields"
                     android:inputType="textPassword"
                     android:textColor="@color/whiteText" />
             </com.google.android.material.textfield.TextInputLayout>

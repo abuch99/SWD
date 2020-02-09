@@ -14,6 +14,7 @@
     <color name="background">#f8f8ff</color>
     <color name="semiTransparentColor80">#80ffffff</color>
     <color name="semiTransparentColor50">#50ffffff</color>
+    <color name="semiTransparentColor40">#40ffffff</color>
     <color name="semiTransparentColor20">#20ffffff</color>
     <color name="semiTransparentColor99black">#99000000</color>
     <color name="semiTransparentColor80black">#80000000</color>

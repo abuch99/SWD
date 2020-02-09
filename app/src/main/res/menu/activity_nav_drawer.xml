@@ -7,14 +7,10 @@
             android:id="@+id/home"
             android:icon="@drawable/ic_home"
             android:title="@string/home" />
-
         <item
             android:id="@+id/MyProfile"
             android:icon="@drawable/ic_person"
-            android:title="@string/title_activity_profile">
-
-        </item>
-
+            android:title="@string/title_activity_profile"/>
         <item
             android:id="@+id/goodies"
             android:icon="@drawable/ic_goodie"
@@ -23,48 +19,34 @@
             android:id="@+id/notices"
             android:icon="@drawable/ic_note"
             android:title="@string/notices" />
-
-
         <item
             android:id="@+id/Deduction"
             android:icon="@drawable/ic_ded"
-            android:title="Deductions">
-
-        </item>
-
+            android:title="Deductions"/>
         <item
             android:id="@+id/mess"
             android:icon="@drawable/ic_restaurant"
             android:title="@string/mess" />
-
         <item
             android:id="@+id/messReg"
             android:icon="@drawable/ic_reg"
             android:title="@string/messReg" />
-
         <item
             android:id="@+id/connect"
             android:icon="@drawable/ic_forum"
             android:title="@string/connect" />
-
-
         <item
             android:id="@+id/BusTimings"
             android:icon="@drawable/ic_bus"
             android:title="@string/_212_bus_timings" />
-
         <item
             android:id="@+id/docs"
             android:icon="@drawable/ic_subject"
             android:title="@string/docs" />
-
         <item
             android:id="@+id/logout"
             android:icon="@drawable/ic_logout"
             android:title="@string/logout" />
-
-
-
     </group>
 
 </menu>

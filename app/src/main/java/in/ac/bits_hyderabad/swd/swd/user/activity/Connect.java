@@ -55,7 +55,6 @@ public class Connect extends AppCompatActivity implements PersonAdapter.itemClic
     Toolbar toolbarConnect;
     TabLayout tabLayout;
     ViewPager viewPager;
-    View v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

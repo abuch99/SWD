@@ -199,4 +199,13 @@
     <string name="noticesampletext"><![CDATA[Due to technical issues, the Mess Registration for the month of October has been rescheduled to tomorrow(October 7, 2017), from 11:00 PM to 12:00 PM.<br><br>We sincerely apologize for the inconvenience caused due to this mistake from our side. We understand the importance of choice of Mess as the Mid Semester Examinations are approaching and we want to make sure that everyone should have a fair chance in choosing the Mess they require.<br><br>Please feel free to contact me at +91 98664 69287 or any of Nucleus members for any queries.]]></string>
 
 
+    <string name="upnotice">Upload Notice</string>
+    <string name="idHint">ID</string>
+    <string name="noticetitle">Notice Title</string>
+    <string name="namehint">Name</string>
+    <string name="linkhint">Link</string>
+    <string name="categoryhint">Category</string>
+    <string name="UPLOAD_NOTICE_URL">http://swd.bits-hyderabad.ac.in/swd_app/upnotice.php</string>
+
+
 </resources>

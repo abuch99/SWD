@@ -2,6 +2,7 @@ package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +39,8 @@ import in.ac.bits_hyderabad.swd.swd.helper.Goodies;
 import in.ac.bits_hyderabad.swd.swd.helper.GoodiesAdapter;
 import in.ac.bits_hyderabad.swd.swd.helper.Notice;
 import in.ac.bits_hyderabad.swd.swd.helper.NoticesAdapter;
+import in.ac.bits_hyderabad.swd.swd.user.activity.Upload_Notice;
+import in.ac.bits_hyderabad.swd.swd.user.activity.User_Nav;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,6 +53,7 @@ public class User_NoticeFragment extends Fragment implements NoticesAdapter.item
     ProgressDialog dialog;
     ArrayList<Notice> notices;
     SwipeRefreshLayout swipeRefreshNotices;
+    FloatingActionButton fabAddNotice;
 
     public static User_NoticeFragment newInstance(String uid, String id_no, String password){
         User_NoticeFragment f = new User_NoticeFragment();
@@ -76,6 +81,9 @@ public class User_NoticeFragment extends Fragment implements NoticesAdapter.item
         dialog=new ProgressDialog(getContext());
         dialog.setMessage("Loading...");
         dialog.setCanceledOnTouchOutside(false);
+
+        fabAddNotice=view.findViewById(R.id.fabAddNotice);
+
         notices=new ArrayList<>();
         loadNotices();//define your notices array list here
         rvNoticesList=view.findViewById(R.id.rvNoticesList);
@@ -95,6 +103,15 @@ public class User_NoticeFragment extends Fragment implements NoticesAdapter.item
                 notices.clear();
                 mAdaptor.notifyDataSetChanged();
                 loadNotices();
+            }
+        });
+
+        fabAddNotice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(getActivity(), Upload_Notice.class);
+                fabAddNotice.setEnabled(false);
+                startActivity(intent);
             }
         });
     }
@@ -169,5 +186,11 @@ public class User_NoticeFragment extends Fragment implements NoticesAdapter.item
     public void onItemClicked(int index) {
 
 
+    }
+
+    @Override
+    public void onResume() {
+        fabAddNotice.setEnabled(true);
+        super.onResume();
     }
 }

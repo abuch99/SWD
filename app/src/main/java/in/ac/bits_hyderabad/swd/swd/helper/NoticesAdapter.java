@@ -28,7 +28,7 @@ public class NoticesAdapter extends RecyclerView.Adapter<NoticesAdapter.ViewHold
     NoticesAdapter.itemClicked activity;
     Context context;
     ZoomageView image;
-    boolean error_loading=false;
+    boolean expanded=false;
 
     public interface itemClicked{
         void onItemClicked(int index);
@@ -71,19 +71,26 @@ public class NoticesAdapter extends RecyclerView.Adapter<NoticesAdapter.ViewHold
 
 
         Picasso.get().load(ImageUrl)
-                .resize(700,600)
-                .placeholder(R.drawable.ic_loading)
+                .resize(1000,1000)
                 .centerInside()
-                .error(R.drawable.ic_error)
                 .into(holder.ivNotice);
 
         holder.itemView.setTag(notices.get(position));
         holder.tvNoticeTitle.setText(notices.get(position).getTitle());
+
+
         if(notices.get(position).body.trim().isEmpty()){
             holder.tvNoticeText.setVisibility(View.GONE);
         }
         else {
-            holder.tvNoticeText.setText(notices.get(position).getBody());
+            if(notices.get(position).body.trim().length()>300){
+                String text=notices.get(position).getBody().trim().substring(0,300)+"  ... See More";
+                holder.tvNoticeText.setText(text);
+            }
+            else{
+                String text=notices.get(position).getBody().trim();
+                holder.tvNoticeText.setText(text);
+            }
         }
         if(notices.get(position).link.trim().isEmpty()){
             holder.tvLinks.setVisibility(View.GONE);
@@ -114,6 +121,26 @@ public class NoticesAdapter extends RecyclerView.Adapter<NoticesAdapter.ViewHold
                 myDialog.show();
 
 
+            }
+        });
+
+        holder.tvNoticeText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(notices.get(position).body.trim().length()>300) {
+
+                    if (expanded) {
+                        expanded = false;
+                        String text=notices.get(position).getBody().trim().substring(0,300)+"  ... See More";
+                        holder.tvNoticeText.setText(text);
+
+                    } else {
+                        expanded = true;
+                        String text=notices.get(position).getBody().trim();
+                        holder.tvNoticeText.setText(text);
+                    }
+                }
             }
         });
 

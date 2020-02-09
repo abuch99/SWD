@@ -5,26 +5,31 @@
     android:icon="@drawable/logo"
     android:roundIcon="@mipmap/ic_launcher_round"
     -->
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:icon="@mipmap/ic_launcher"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".user.activity.Connect"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize|keyboardHidden"></activity>
-        <activity android:name=".user.activity.OrderGoodie"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize|keyboardHidden"/>
-        <activity android:name=".user.activity.ForgotPassword"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".user.activity.Splash_Activity"
+        <activity android:name=".user.activity.Upload_Notice"></activity>
+        <activity
+            android:name=".user.activity.Connect"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".user.activity.OrderGoodie"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".user.activity.ForgotPassword"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".user.activity.Splash_Activity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,31 +39,29 @@
         </activity>
         <activity
             android:name=".user.activity.Profile"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/title_activity_profile"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity android:name=".user.activity.User_Login"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".user.activity.User_Login"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".user.activity.User_Nav"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/title_activity_nav"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        
+
         <provider
-            android:authorities="in.ac.bits_hyderabad.swd.swd.fileprovider"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="in.ac.bits_hyderabad.swd.swd.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
-
             <meta-data
-
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
-
     </application>
 
 </manifest>

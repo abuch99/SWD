@@ -231,6 +231,15 @@ public class User_Nav extends AppCompatActivity
                 manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }
+//            case R.id.upnotices: {
+//
+//                tag="upnotices";
+//                if (drawer.isDrawerOpen(GravityCompat.START))
+//                    drawer.closeDrawer(GravityCompat.START);
+//                Intent intent=new Intent(User_Nav.this, Upload_Notice.class);
+//                startActivity(intent);
+//                break;
+//            }
             case R.id.connect: {
 
                 if (drawer.isDrawerOpen(GravityCompat.START))

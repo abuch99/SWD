@@ -25,6 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
+                android:background="@color/whiteText"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -40,14 +41,14 @@
                         android:text="Crux Inductions"
                         android:textColor="@color/black"
                         android:textStyle="bold"
-                        android:textSize="18sp"
+                        android:textSize="20sp"
                         android:layout_marginTop="5dp"
                         android:layout_marginLeft="5dp"/>
                     <TextView
                         android:id="@+id/tvNoticetext"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="15sp"
+                        android:textSize="18sp"
                         android:text="@string/noticesampletext"
                         android:layout_marginTop="10dp"
                         android:layout_marginLeft="5dp"/>
@@ -65,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:text="http://www.google.com"
                         android:layout_marginTop="15dp"
-                        android:textSize="15sp"
+                        android:textSize="18sp"
                         android:autoLink="web"
                         android:layout_marginStart="5dp"/>
 
