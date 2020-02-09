@@ -162,7 +162,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/snap/android-studio/81/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_add_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/snap/android-studio/82/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_filter_list_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -173,7 +173,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_add" />
+                            <entry key="outputName" value="ic_filter" />
                             <entry key="sourceFile" value="$USER_HOME$/Downloads/iconfinder_Indian_Rupee_symbol_1172636.svg" />
                           </map>
                         </option>

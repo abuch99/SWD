@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -55,6 +58,8 @@ public class User_NoticeFragment extends Fragment implements NoticesAdapter.item
     SwipeRefreshLayout swipeRefreshNotices;
     FloatingActionButton fabAddNotice;
 
+    ArrayList<String> filters;
+
     public static User_NoticeFragment newInstance(String uid, String id_no, String password){
         User_NoticeFragment f = new User_NoticeFragment();
         Bundle args=new Bundle();
@@ -66,6 +71,11 @@ public class User_NoticeFragment extends Fragment implements NoticesAdapter.item
     }
 
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,8 +94,10 @@ public class User_NoticeFragment extends Fragment implements NoticesAdapter.item
 
         fabAddNotice=view.findViewById(R.id.fabAddNotice);
 
+        filters=getCategories();
+
         notices=new ArrayList<>();
-        loadNotices();//define your notices array list here
+        loadNotices(filters);//define your notices array list here
         rvNoticesList=view.findViewById(R.id.rvNoticesList);
         rvNoticesList.bringToFront();
         rvNoticesList.setHasFixedSize(false);
@@ -102,7 +114,7 @@ public class User_NoticeFragment extends Fragment implements NoticesAdapter.item
             public void onRefresh() {
                 notices.clear();
                 mAdaptor.notifyDataSetChanged();
-                loadNotices();
+                loadNotices(filters);
             }
         });
 
@@ -116,7 +128,7 @@ public class User_NoticeFragment extends Fragment implements NoticesAdapter.item
         });
     }
 
-    void loadNotices(){
+    void loadNotices(ArrayList<String> filters){
 
         String u_id=this.getArguments().getString("uid");
         String password=this.getArguments().getString("password");
@@ -145,9 +157,10 @@ public class User_NoticeFragment extends Fragment implements NoticesAdapter.item
                         String utime=obj.getString("utime");
 
 
-
                         /*{"g_id":"1000","name":"Duplicate ID Card","hosted_by":"Student Welfare Division","img":"bits_logo.png", "link":"","active":"1","xs":"0","s":"0","m":"0","l":"0","xl":"0","xxl":"0","xxxl":"0","qut":"0","min_amount":"0","max_amount":"0","max_quantity":"0","price":"75","closing_datetime":"2019-05-14 00:00:00","delivery_date":"0000-00-00","custom":"0","acceptance":"0","hoster_name":"Student Welfare Division","hoster_mob_num":"","view_uid":"prasanth","uploaded_on":"2019-04-14 15:08:37"} */
-                        notices.add(new Notice(pid,uid,uname,category,title,subtitle,body,link,image,expiry,utime));
+                        if(filters.contains(category)){
+                            notices.add(new Notice(pid,uid,uname,category,title,subtitle,body,link,image,expiry,utime));
+                        }
                     }
                     mAdaptor.notifyDataSetChanged();
                     swipeRefreshNotices.setRefreshing(false);
@@ -192,5 +205,63 @@ public class User_NoticeFragment extends Fragment implements NoticesAdapter.item
     public void onResume() {
         fabAddNotice.setEnabled(true);
         super.onResume();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.notice_options_menu,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.noticeFilters) {
+
+        }
+        return true;
+    }
+
+    public ArrayList<String> getCategories() {
+
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+
+
+        ArrayList<String> categories = new ArrayList<>();
+        StringRequest request = new StringRequest(Request.Method.POST, getResources().getString(R.string.UPLOAD_NOTICE_URL), new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    JSONArray arr = obj.getJSONArray("categories");
+                    for (int i = 0; i < arr.length(); i++) {
+                        categories.add(arr.getString(i));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> map = new HashMap<>();
+                map.put("tag", "getCategories");
+                return map;
+
+            }
+        };
+
+
+        queue.add(request);
+        return categories;
+
     }
 }
