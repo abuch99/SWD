@@ -43,7 +43,6 @@
             <LinearLayout
                 android:id="@+id/llProfile"
                 android:orientation="vertical"
-                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
@@ -267,17 +266,18 @@
                     android:paddingTop="5dp"
                     android:textColor="@color/black"
                     android:text="@string/field_gender"/>
+
                 <EditText
                     android:id="@+id/etGender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:padding="5dp"
-                    android:background="@drawable/edit_text"
                     android:layout_marginLeft="10dp"
-                    android:textColor="@color/colorPrimaryLight"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="10dp"
+                    android:background="@drawable/edit_text"
                     android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:textColor="@color/colorPrimaryLight"
                     android:textSize="18sp" />
 
                 <TextView
@@ -893,7 +893,6 @@
         android:layout_marginBottom="10dp"
         android:src="@drawable/ic_update_details"
         android:backgroundTint="@color/colorPrimaryLight"
-        android:elevation="5dp"
-        />
+        android:elevation="5dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
