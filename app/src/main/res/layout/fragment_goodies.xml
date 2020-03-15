@@ -7,12 +7,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <GridView
             android:id="@+id/rvGoodiesList"
+            android:layout_height="0dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </androidx.recyclerview.widget.RecyclerView>
+            android:numColumns="2" />
 
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

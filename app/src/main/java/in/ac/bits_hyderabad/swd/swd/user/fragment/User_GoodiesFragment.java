@@ -5,17 +5,16 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.GridView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -38,11 +37,10 @@ import in.ac.bits_hyderabad.swd.swd.helper.Goodies;
 import in.ac.bits_hyderabad.swd.swd.helper.GoodiesAdapter;
 import in.ac.bits_hyderabad.swd.swd.user.activity.OrderGoodie;
 
-public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.itemClicked {
+public class User_GoodiesFragment extends Fragment {
 
-    RecyclerView rvGoodiesList;
-    RecyclerView.Adapter mAdaptor;
-    RecyclerView.LayoutManager mLayoutManager;
+    GridView rvGoodiesList;
+    GoodiesAdapter mAdaptor;
     ProgressDialog dialog;
     ArrayList<Goodies> goodies;
     SwipeRefreshLayout swipeRefresh;
@@ -72,6 +70,7 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
         return view;
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
@@ -80,14 +79,11 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
         dialog=new ProgressDialog(getContext());
         dialog.setMessage("Loading...");
         dialog.setCanceledOnTouchOutside(false);
-        goodies=new ArrayList<>();
+        goodies = new ArrayList<>();
         loadGoodies();//define your goodies array list here
         rvGoodiesList=view.findViewById(R.id.rvGoodiesList);
         rvGoodiesList.bringToFront();
-        rvGoodiesList.setHasFixedSize(false);
-        mLayoutManager =new LinearLayoutManager(this.getActivity());
-        rvGoodiesList.setLayoutManager(mLayoutManager);
-        mAdaptor=new GoodiesAdapter(getActivity(),this,goodies);
+        mAdaptor = new GoodiesAdapter(getContext(), goodies);
         rvGoodiesList.setAdapter(mAdaptor);
         mAdaptor.notifyDataSetChanged();
 
@@ -102,16 +98,7 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
         });
     }
 
-    @Override
-    public void onItemClicked(int index) {
-
-        dialog.show();
-        String u_id=this.getArguments().getString("uid");
-        final String pwd=this.getArguments().getString("password");
-        getPreviousData(u_id,goodies.get(index).getId(),pwd,index);
-
-    }
-    public  void loadGoodies()
+    public void loadGoodies()
     {
         String u_id=this.getArguments().getString("uid");
         String password=this.getArguments().getString("password");

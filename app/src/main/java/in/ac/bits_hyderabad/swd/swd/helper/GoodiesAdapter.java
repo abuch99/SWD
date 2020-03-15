@@ -1,155 +1,69 @@
 package in.ac.bits_hyderabad.swd.swd.helper;
 
-import android.app.Dialog;
 import android.content.Context;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.net.Uri;
-import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jsibbold.zoomage.ZoomageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import in.ac.bits_hyderabad.swd.swd.R;
 
-public class GoodiesAdapter extends RecyclerView.Adapter<GoodiesAdapter.ViewHolder> {
+public class GoodiesAdapter extends BaseAdapter {
 
     private ArrayList<Goodies> goodies;
-    private  String DEBUG_TAG="touch event";
-    itemClicked activity;
-    Context context;
-    ZoomageView image;
-    boolean error_loading=false;
+    LayoutInflater mInflater;
 
-    GestureDetector gestureDetector;
-
-    public interface itemClicked{
-        void onItemClicked(int index);
-    }
-
-    public GoodiesAdapter(Context context,Fragment fragment, ArrayList<Goodies> goodies)
-    {
-        this.context=context;
-        this.goodies=goodies;
-        activity=(itemClicked)fragment;
-    }
-
-    @NonNull
-    @Override
-    public GoodiesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_goodies, viewGroup, false);
-        return new ViewHolder(v);
+    public GoodiesAdapter(Context context, ArrayList<Goodies> goodies) {
+        mInflater = LayoutInflater.from(context);
+        this.goodies = goodies;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final GoodiesAdapter.ViewHolder viewHolder, final int i) {
-
-        final String ImageUrl= "http://swd.bits-hyderabad.ac.in/goodies/img/"+goodies.get(i).getImage();//"All.jpg"  or   goodies.get(i).getImage()
-
-
-        final Context context =viewHolder.ivGoodie.getContext();
-
-        /*Picasso.get().load(ImageUrl)
-                .resize(700,700)
-                .placeholder(R.drawable.ic_loading)
-                .centerInside().error(R.drawable.ic_error)
-                .into(viewHolder.ivGoodie);
-        */
-
-        Picasso.get().load(ImageUrl)
-                .resize(700,600)
-                .placeholder(R.drawable.ic_loading)
-                .centerInside()
-                .error(R.drawable.ic_error)
-                .into(viewHolder.ivGoodie);
-
-        viewHolder.itemView.setTag(goodies.get(i));
-        viewHolder.tvGoodieName.setText(goodies.get(i).getName());
-        viewHolder.tvGoodieHost.setText(goodies.get(i).getHost());
-        viewHolder.tvGoodiePrice.setText(goodies.get(i).getPrice());
-        viewHolder.tvGoodieHosterName.setText(goodies.get(i).getHost_name());
-        viewHolder.tvGoodieHosterMobile.setText(goodies.get(i).getMobile());
-
-        viewHolder.tvGoodieHosterMobile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                callIntent.setData(Uri.parse("tel:"+goodies.get(i).getMobile()));
-                context.startActivity(callIntent);
-
-            }
-        });
-
-
-            viewHolder.ivGoodie.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-
-                        Dialog myDialog=new Dialog(context,android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
-                        myDialog.setContentView(R.layout.dialog_my);
-                        myDialog.getWindow().setBackgroundDrawableResource(R.color.semiTransparentColor99black);
-                        image=myDialog.findViewById(R.id.ivFullGoodieImage);
-
-
-                        Picasso.get().load(ImageUrl)
-                                .resize(1500,1500)
-                                .centerInside()
-                                .placeholder(R.drawable.ic_loading)
-                                .error(R.drawable.ic_error)
-                                .into(image);
-                        myDialog.show();
-
-
-                }
-            });
-
-        };
-
-    @Override
-    public int getItemCount() {
+    public int getCount() {
         return goodies.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    @Override
+    public Object getItem(int position) {
+        return null;
+    }
 
-        ImageView ivGoodie;
-        TextView tvGoodieName,tvGoodieHost,tvGoodiePrice,tvGoodieHosterName,tvGoodieHosterMobile;
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (convertView == null)
+            convertView = mInflater.inflate(R.layout.card_goodies, parent, false);
 
-        public ViewHolder(@NonNull final View itemView) {
-            super(itemView);
+        //TODO: Implement on click listener to take user to goodie details and place an order
 
+        String ImageUrl = "http://swd.bits-hyderabad.ac.in/goodies/img/" + goodies.get(position).getImage();//"All.jpg"  or   goodies.get(i).getImage()
 
-            ivGoodie=itemView.findViewById(R.id.ivGoodie);
-            tvGoodieName=itemView.findViewById(R.id.tvGoodieName);
-            tvGoodieHost=itemView.findViewById(R.id.tvGoodieHost);
-            tvGoodiePrice=itemView.findViewById(R.id.tvGoodiePrice);
-            tvGoodieHosterName=itemView.findViewById(R.id.tvGoodieHosterName);
-            tvGoodieHosterMobile=itemView.findViewById(R.id.tvGoodieHosterMobile);
+        TextView tvGoodieName = convertView.findViewById(R.id.tvGoodieName);
+        ImageView ivGoodie = convertView.findViewById(R.id.ivGoodie);
+        TextView tvGoodiePrice = convertView.findViewById(R.id.tvGoodiePrice);
+        TextView tvGoodieHost = convertView.findViewById(R.id.tvGoodieHost);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    activity.onItemClicked(goodies.indexOf(v.getTag()));
+        Picasso.get().load(ImageUrl)
+                .placeholder(R.drawable.ic_loading)
+                .error(R.drawable.ic_error)
+                .fit().centerInside()
+                .into(ivGoodie);
 
-                }
-            });
+        tvGoodieName.setText(goodies.get(position).getName());
+        tvGoodieHost.setText(goodies.get(position).getHost());
+        tvGoodiePrice.setText(goodies.get(position).getPrice());
 
-        }
+        return convertView;
+    }
 
+    @Override
+    public long getItemId(int position) {
+        return 0;
     }
 
 }

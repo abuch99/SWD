@@ -52,7 +52,7 @@ public class Profile extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_redesigned);
+        setContentView(R.layout.activity_profile);
 
         Toolbar toolbar=findViewById(R.id.profile_toolbar);
         setSupportActionBar(toolbar);
