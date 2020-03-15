@@ -37,7 +37,7 @@ import in.ac.bits_hyderabad.swd.swd.helper.Goodies;
 import in.ac.bits_hyderabad.swd.swd.helper.GoodiesAdapter;
 import in.ac.bits_hyderabad.swd.swd.user.activity.OrderGoodie;
 
-public class User_GoodiesFragment extends Fragment {
+public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.itemClicked {
 
     GridView rvGoodiesList;
     GoodiesAdapter mAdaptor;
@@ -83,7 +83,7 @@ public class User_GoodiesFragment extends Fragment {
         loadGoodies();//define your goodies array list here
         rvGoodiesList=view.findViewById(R.id.rvGoodiesList);
         rvGoodiesList.bringToFront();
-        mAdaptor = new GoodiesAdapter(getContext(), goodies);
+        mAdaptor = new GoodiesAdapter(getActivity(), this, goodies);
         rvGoodiesList.setAdapter(mAdaptor);
         mAdaptor.notifyDataSetChanged();
 
@@ -262,5 +262,13 @@ public class User_GoodiesFragment extends Fragment {
         }
 
         return goodies;
+    }
+
+    @Override
+    public void onItemClicked(int index) {
+        dialog.show();
+        String u_id = this.getArguments().getString("uid");
+        final String pwd = this.getArguments().getString("password");
+        getPreviousData(u_id, goodies.get(index).getId(), pwd, index);
     }
 }

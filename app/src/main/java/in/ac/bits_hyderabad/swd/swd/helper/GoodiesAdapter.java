@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -17,29 +19,21 @@ import in.ac.bits_hyderabad.swd.swd.R;
 public class GoodiesAdapter extends BaseAdapter {
 
     private ArrayList<Goodies> goodies;
-    LayoutInflater mInflater;
+    itemClicked activity;
+    private LayoutInflater mInflater;
+    private Context mContext;
 
-    public GoodiesAdapter(Context context, ArrayList<Goodies> goodies) {
+    public GoodiesAdapter(Context context, Fragment fragment, ArrayList<Goodies> goodies) {
         mInflater = LayoutInflater.from(context);
+        mContext = context;
         this.goodies = goodies;
-    }
-
-    @Override
-    public int getCount() {
-        return goodies.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return null;
+        activity = (itemClicked) fragment;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null)
             convertView = mInflater.inflate(R.layout.card_goodies, parent, false);
-
-        //TODO: Implement on click listener to take user to goodie details and place an order
 
         String ImageUrl = "http://swd.bits-hyderabad.ac.in/goodies/img/" + goodies.get(position).getImage();//"All.jpg"  or   goodies.get(i).getImage()
 
@@ -58,7 +52,28 @@ public class GoodiesAdapter extends BaseAdapter {
         tvGoodieHost.setText(goodies.get(position).getHost());
         tvGoodiePrice.setText(goodies.get(position).getPrice());
 
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.onItemClicked(position);
+            }
+        });
+
         return convertView;
+    }
+
+    @Override
+    public int getCount() {
+        return goodies.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return null;
+    }
+
+    public interface itemClicked {
+        void onItemClicked(int index);
     }
 
     @Override
