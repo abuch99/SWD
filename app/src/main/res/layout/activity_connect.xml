@@ -21,8 +21,7 @@
             android:background="@color/colorPrimary"
             app:contentInsetStartWithNavigation="0dp"
             app:titleTextColor="@color/whiteText"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            app:layout_scrollFlags="scroll|enterAlways">
 
         </androidx.appcompat.widget.Toolbar>
         <com.google.android.material.tabs.TabLayout

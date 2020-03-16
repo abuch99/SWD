@@ -3,18 +3,16 @@ package in.ac.bits_hyderabad.swd.swd.user.fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-
-import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
 import in.ac.bits_hyderabad.swd.swd.R;
 
@@ -26,12 +24,8 @@ public class User_HomeFragment extends Fragment  {
     Fragment fragment;
 
     private CardView cvTD,cvERP,cvOPAC;
-    private FloatingActionButton fabContactUs;
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    private ExtendedFloatingActionButton fabContactUs;
 
-    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -43,7 +37,6 @@ public class User_HomeFragment extends Fragment  {
         cvOPAC=view.findViewById(R.id.cvOPAC);
         fabContactUs=view.findViewById(R.id.fabContactUs);
 
-        fabContactUs.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.ic_chat));
 
         cvOPAC.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,13 +106,6 @@ public class User_HomeFragment extends Fragment  {
 */
         return view;
     }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-
 
 
 

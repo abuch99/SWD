@@ -157,8 +157,7 @@
     <string name="order_button">Order</string>
     <string name="order_cost">Total Cost:</string>
     <string name="order_summary">ORDER SUMMARY</string>
-    <string name="library_opac">LIBRARY\nOPAC</string>
-    <string name="timetable_n_division">TIMETABLE  DIVISION</string>
+    <string name="library_opac">Library OPAC</string>
 
 
     <string name="TD_URL">https://td.bits-hyderabad.ac.in/</string>
@@ -200,6 +199,10 @@
     <string name="parents_details">Parents\' details</string>
     <string name="medical_details">Medical details</string>
     <string name="bank_account_details">Bank account details</string>
+    <string name="contact_us">Contact us</string>
+    <string name="important_links">Important links</string>
+    <string name="timetable_division">Timetable division</string>
+    <string name="erp">ERP</string>
 
 
 </resources>

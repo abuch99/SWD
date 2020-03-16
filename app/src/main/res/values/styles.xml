@@ -7,13 +7,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-
+        <item name="android:navigationBarColor">@color/dark_background</item>
         <item name="colorControlNormal">@color/colorPrimary</item>
         <item name="colorControlActivated">@color/colorAccent</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="actionButtonStyle">@style/ActionButton</item>
         <!--<item name="colorControlHighlight">@color/colorAccent</item>-->
-
         <item name="homeAsUpIndicator">@drawable/back_btn</item>
         <item name="coordinatorLayoutStyle">@style/Widget.Support.CoordinatorLayout</item>
     </style>
@@ -111,10 +110,6 @@
 
     <style name="custom_style" parent="Widget.MaterialComponents.BottomAppBar">
         <item name="android:background">@drawable/bgnd</item>
-    </style>
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
-
     </style>
 
     <style name="text_view_goodies">

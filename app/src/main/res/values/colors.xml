@@ -24,6 +24,7 @@
 
     <color name="dark_blue">#2C3E50</color>
     <color name="green_accent">#18BC9C</color>
-    <color name="dark_background">#0B1026</color>
+    <color name="dark_background">#121212</color>
+    <color name="background_overlay">#171a1d</color>
 
 </resources>

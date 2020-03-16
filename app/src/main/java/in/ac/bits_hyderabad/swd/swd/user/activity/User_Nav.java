@@ -1,14 +1,24 @@
 package in.ac.bits_hyderabad.swd.swd.user.activity;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -20,23 +30,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
-import com.google.gson.JsonObject;
-
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewOutlineProvider;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,9 +38,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.ac.bits_hyderabad.swd.swd.BuildConfig;
-import in.ac.bits_hyderabad.swd.swd.user.fragment.*;
-
 import in.ac.bits_hyderabad.swd.swd.R;
+import in.ac.bits_hyderabad.swd.swd.user.fragment.BusTimingsFragment;
+import in.ac.bits_hyderabad.swd.swd.user.fragment.UserMessRegFragment;
+import in.ac.bits_hyderabad.swd.swd.user.fragment.User_DeductionsFragment;
+import in.ac.bits_hyderabad.swd.swd.user.fragment.User_DocFragment;
+import in.ac.bits_hyderabad.swd.swd.user.fragment.User_GoodiesFragment;
+import in.ac.bits_hyderabad.swd.swd.user.fragment.User_HomeFragment;
+import in.ac.bits_hyderabad.swd.swd.user.fragment.User_MessFragment;
 
 
 public class User_Nav extends AppCompatActivity
@@ -68,16 +66,16 @@ public class User_Nav extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.toolbar_title);
         setSupportActionBar(toolbar);
 
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.home);
         tvNav_header_Id_No=navigationView.getHeaderView(0).findViewById(R.id.tvIdNavHeader);
@@ -130,7 +128,6 @@ public class User_Nav extends AppCompatActivity
 
         switch (id) {
             case R.id.home: {
-                actionBar.setBackgroundDrawable(getDrawable(R.drawable.bgnd_dark));//action bar
                 tag="home";
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
@@ -262,7 +259,6 @@ public class User_Nav extends AppCompatActivity
         itemId=R.id.home;
         tag="home";
         actionBar.setTitle(R.string.toolbar_title);
-        actionBar.setBackgroundDrawable(getDrawable(R.drawable.bgnd_dark));
         navigationView.setCheckedItem(R.id.home);
         fragment=new User_HomeFragment();
         manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
