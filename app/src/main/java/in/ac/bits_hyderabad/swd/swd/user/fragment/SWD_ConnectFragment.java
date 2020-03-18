@@ -1,8 +1,11 @@
 package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,12 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -35,11 +32,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.ac.bits_hyderabad.swd.swd.R;
-import in.ac.bits_hyderabad.swd.swd.helper.Goodies;
-import in.ac.bits_hyderabad.swd.swd.helper.GoodiesAdapter;
 import in.ac.bits_hyderabad.swd.swd.helper.Person;
 import in.ac.bits_hyderabad.swd.swd.helper.PersonAdapter;
-import in.ac.bits_hyderabad.swd.swd.user.activity.Connect;
 
 /**
  * A simple {@link Fragment} subclass.

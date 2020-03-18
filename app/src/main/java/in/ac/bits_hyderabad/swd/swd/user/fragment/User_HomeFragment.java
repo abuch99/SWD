@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,7 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.navigation.NavigationView;
 
 import in.ac.bits_hyderabad.swd.swd.R;
+import in.ac.bits_hyderabad.swd.swd.user.activity.Profile;
 
 public class User_HomeFragment extends Fragment  {
 
@@ -22,6 +24,8 @@ public class User_HomeFragment extends Fragment  {
     Button btnMess,btnGoodies,btnContact;
     NavigationView navigationView;
     Fragment fragment;
+
+    ImageView myProfileImageView;
 
     private CardView cvTD,cvERP,cvOPAC;
     private ExtendedFloatingActionButton fabContactUs;
@@ -35,8 +39,8 @@ public class User_HomeFragment extends Fragment  {
         cvTD=view.findViewById(R.id.cvTD);
         cvERP=view.findViewById(R.id.cvERP);
         cvOPAC=view.findViewById(R.id.cvOPAC);
-        fabContactUs=view.findViewById(R.id.fabContactUs);
 
+        myProfileImageView = view.findViewById(R.id.myProfileImageView);
 
         cvOPAC.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,15 +66,13 @@ public class User_HomeFragment extends Fragment  {
                 startActivity(intent);
             }
         });
-        fabContactUs.setOnClickListener(new View.OnClickListener() {
+        myProfileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto", "swdnucleus@hyderabad.bits-pilani.ac.in", null));
-                startActivity(Intent.createChooser(intent, "Choose an Email client :"));
+                Intent intent = new Intent(getActivity(), Profile.class);
+                startActivity(intent);
             }
         });
-
 
         //btnContact=view.findViewById(R.id.btnContact);
         //btnGoodies=view.findViewById(R.id.btnGoodies);
@@ -90,17 +92,17 @@ public class User_HomeFragment extends Fragment  {
         btnGoodies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((User_Nav)getActivity()).fragment=new User_GoodiesFragment();
-                ((User_Nav)getActivity()).replaceFragment(((User_Nav)getActivity()).fragment,"goodies",getString(R.string.goodies_title));
-                ((User_Nav) getActivity()).navigationView.setCheckedItem(R.id.goodies);
+                ((MainActivity)getActivity()).fragment=new User_GoodiesFragment();
+                ((MainActivity)getActivity()).replaceFragment(((MainActivity)getActivity()).fragment,"goodies",getString(R.string.goodies_title));
+                ((MainActivity) getActivity()).navigationView.setCheckedItem(R.id.goodies);
             }
         });
         btnMess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((User_Nav)getActivity()).fragment=new User_MessFragment();
-                ((User_Nav)getActivity()).replaceFragment(((User_Nav)getActivity()).fragment,"mess",getString(R.string.mess_title));
-                ((User_Nav) getActivity()).navigationView.setCheckedItem(R.id.mess);
+                ((MainActivity)getActivity()).fragment=new User_MessFragment();
+                ((MainActivity)getActivity()).replaceFragment(((MainActivity)getActivity()).fragment,"mess",getString(R.string.mess_title));
+                ((MainActivity) getActivity()).navigationView.setCheckedItem(R.id.mess);
             }
         });
 */

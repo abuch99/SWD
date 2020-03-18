@@ -4,6 +4,11 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,13 +17,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -54,14 +52,10 @@ public class User_DocFragment extends Fragment implements DocumentsAdapter.itemC
     ProgressDialog dialog;
     int PERMISSION =1000;
 
-    public static User_DocFragment newInstance(String uid, String id_no, String password){
-        User_DocFragment f = new User_DocFragment();
-        Bundle args=new Bundle();
-        args.putString("uid",uid);
-        args.putString("id_no",id_no);
-        args.putString("password",password);
-        f.setArguments(args);
-        return f;
+    public User_DocFragment(String uid, String id_no, String password) {
+        this.uid = uid;
+        this.id_no = id_no;
+        this.password = password;
     }
 
     @Override
@@ -80,8 +74,6 @@ public class User_DocFragment extends Fragment implements DocumentsAdapter.itemC
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        uid=this.getArguments().getString("uid");
-        id_no=this.getArguments().getString("id_no");
         dialog=new ProgressDialog(getActivity());
         dialog.setMessage("Loading..");
         dialog.setCancelable(false);

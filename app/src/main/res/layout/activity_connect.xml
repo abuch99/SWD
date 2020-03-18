@@ -7,23 +7,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     android:layout_height="match_parent"
-    tools:context=".user.activity.Connect">
+    tools:context=".user.fragment.User_ConnectFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/AppTheme.AppBarOverlay">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarConnect"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:background="@color/colorPrimary"
-            app:contentInsetStartWithNavigation="0dp"
-            app:titleTextColor="@color/whiteText"
-            app:layout_scrollFlags="scroll|enterAlways">
-
-        </androidx.appcompat.widget.Toolbar>
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"

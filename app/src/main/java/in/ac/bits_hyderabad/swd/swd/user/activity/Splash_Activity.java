@@ -1,19 +1,16 @@
 package in.ac.bits_hyderabad.swd.swd.user.activity;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.Handler;
-
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -31,7 +28,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import in.ac.bits_hyderabad.swd.swd.BuildConfig;
 import in.ac.bits_hyderabad.swd.swd.R;
 
 public class Splash_Activity extends AppCompatActivity {
@@ -46,7 +42,7 @@ public class Splash_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        ProgressBar progressBar=(ProgressBar) findViewById(R.id.progressLoader);
+        ProgressBar progressBar = findViewById(R.id.progressLoader);
         Sprite threeBounce =new ThreeBounce();
         progressBar.setIndeterminateDrawable(threeBounce);
         new Handler().postDelayed(new Runnable() {
@@ -83,7 +79,7 @@ public class Splash_Activity extends AppCompatActivity {
                         Log.e("error", "false");
                         Log.e("error",response);
 
-                        Intent intent = new Intent(Splash_Activity.this, User_Nav.class);
+                        Intent intent = new Intent(Splash_Activity.this, MainActivity.class);
                         if (getIntent().getStringExtra("default") != null) {
                             intent.putExtra("default", getIntent().getStringArrayExtra("default"));
                             if (getIntent().getLongExtra("uploadedTime", -1) != -1) {

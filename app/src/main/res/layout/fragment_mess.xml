@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     android:layout_height="match_parent"
-    tools:context=".user.activity.Connect">
+    tools:context=".user.fragment.User_ConnectFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

@@ -207,7 +207,7 @@ public class User_Login extends AppCompatActivity {
         if(preferences.getInt("exists",0)==1)
         {
 
-            Intent intent = new Intent(User_Login.this, User_Nav.class);
+            Intent intent = new Intent(User_Login.this, MainActivity.class);
             if (getIntent().getStringExtra("default") != null) {
                 intent.putExtra("default", getIntent().getStringArrayExtra("default"));
                 if (getIntent().getLongExtra("uploadedTime", -1) != -1) {

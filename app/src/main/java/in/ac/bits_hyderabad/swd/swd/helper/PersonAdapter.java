@@ -18,7 +18,7 @@ public class PersonAdapter  extends RecyclerView.Adapter<PersonAdapter.ViewHolde
 
     public ArrayList <Person> person;
     Context context;
-    itemClicked activity;
+    private itemClicked activity;
     public interface itemClicked{
         //intent -> 0 for call and 1 for mail
         //data -> phone for call and emailId for mail
@@ -35,7 +35,7 @@ public class PersonAdapter  extends RecyclerView.Adapter<PersonAdapter.ViewHolde
     @Override
     public PersonAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_contact, parent, false);
-        return new PersonAdapter.ViewHolder(v);
+        return new ViewHolder(v);
     }
 
     @Override
@@ -66,12 +66,12 @@ public class PersonAdapter  extends RecyclerView.Adapter<PersonAdapter.ViewHolde
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvContactName, tvDesignation;
         ImageView ivCall, ivMail;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tvContactName=itemView.findViewById(R.id.tvcontact_name);

@@ -47,14 +47,12 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
     boolean LIMITED_GOODIE=false;
     String previous;
 
-    public static User_GoodiesFragment newInstance(String uid, String id_no, String password){
-        User_GoodiesFragment f = new User_GoodiesFragment();
-        Bundle args=new Bundle();
-        args.putString("uid",uid);
-        args.putString("id_no",id_no);
-        args.putString("password",password);
-        f.setArguments(args);
-        return f;
+    String uid, id_no, pwd;
+
+    public User_GoodiesFragment(String uid, String id_no, String pwd) {
+        this.uid = uid;
+        this.id_no = id_no;
+        this.pwd = pwd;
     }
 
     @Override
@@ -100,9 +98,6 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
 
     public void loadGoodies()
     {
-        String u_id=this.getArguments().getString("uid");
-        String password=this.getArguments().getString("password");
-
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
         StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
@@ -163,8 +158,8 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
 
                 Map<String, String> params = new HashMap<>();
                 params.put("tag", "goodies");
-                params.put("id",u_id);
-                params.put("pwd",password);
+                params.put("id", uid);
+                params.put("pwd", pwd);
                 return params;
 
             }
@@ -267,8 +262,6 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
     @Override
     public void onItemClicked(int index) {
         dialog.show();
-        String u_id = this.getArguments().getString("uid");
-        final String pwd = this.getArguments().getString("password");
-        getPreviousData(u_id, goodies.get(index).getId(), pwd, index);
+        getPreviousData(uid, goodies.get(index).getId(), pwd, index);
     }
 }

@@ -16,7 +16,8 @@
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".user.activity.Connect"
+        <activity
+            android:name=".user.fragment.User_ConnectFragment"
             android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|keyboardHidden"></activity>
         <activity android:name=".user.activity.OrderGoodie"
@@ -41,7 +42,7 @@
         <activity android:name=".user.activity.User_Login"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".user.activity.User_Nav"
+            android:name=".user.activity.MainActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/title_activity_nav"

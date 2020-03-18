@@ -1,11 +1,9 @@
 package in.ac.bits_hyderabad.swd.swd.helper;
 
 import android.content.Context;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import in.ac.bits_hyderabad.swd.swd.R;
-import in.ac.bits_hyderabad.swd.swd.user.activity.Connect;
 
 public class DeductionsAdapter extends RecyclerView.Adapter<DeductionsAdapter.ViewHolder> {
 
