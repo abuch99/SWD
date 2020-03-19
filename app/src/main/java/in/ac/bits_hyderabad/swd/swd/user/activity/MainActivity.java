@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    //TODO: Implemet logout
     private void logout() {
         SharedPreferences.Editor editor = prefs.edit();
         editor.clear();

@@ -204,6 +204,7 @@
     <string name="timetable_division">Timetable division</string>
     <string name="erp">ERP</string>
     <string name="miscellaneous">Miscellaneous</string>
+    <string name="view_deductions">View deductions</string>
 
 
 </resources>

@@ -8,7 +8,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -45,6 +48,9 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
     ArrayList<Goodies> goodies;
     SwipeRefreshLayout swipeRefresh;
     boolean LIMITED_GOODIE=false;
+    TextView totalDeductionsText;
+    Button viewDeductionButton;
+    ProgressBar totalDeductionsProgress;
     String previous;
 
     String uid, id_no, pwd;
@@ -65,13 +71,22 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
         // Defines the xml file for the fragment
         View view = inflater.inflate(R.layout.fragment_goodies, parent, false);
 
+        totalDeductionsText = view.findViewById(R.id.totalDeductionsText);
+        viewDeductionButton = view.findViewById(R.id.viewDeductionButton);
+        viewDeductionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().replace(R.id.container, new User_DeductionsFragment(uid, id_no, pwd)).commit();
+            }
+        });
+        totalDeductionsProgress = view.findViewById(R.id.totalDeductionsProgress);
+
         return view;
     }
 
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
         swipeRefresh=view.findViewById(R.id.swipeRefresh);
         swipeRefresh.setRefreshing(true);
         dialog=new ProgressDialog(getContext());
@@ -106,8 +121,7 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
 
                 try {
                     JSONArray jsonArray=new JSONArray(response);
-                    for(int i=0;i<jsonArray.length();i++)
-                    {
+                    for(int i=0; i<jsonArray.length(); i++) {
                         JSONObject obj=jsonArray.getJSONObject(i);
                         String id=obj.getString("g_id");
                         String name=obj.getString("name");
@@ -165,9 +179,46 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
             }
         };
 
+        ArrayList<Integer> deductions = new ArrayList<>();
+        StringRequest request2 = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    int totalDeductions = 0;
+                    JSONArray array = new JSONArray(response);
+                    for (int i = 0; i < array.length(); i++) {
+                        String amount = array.getJSONObject(i).getString("amount");
+                        totalDeductions = totalDeductions + Integer.parseInt(amount);
+                        swipeRefresh.setRefreshing(false);
+                    }
+                    String textToDisplay = "You've spent ₹" + totalDeductions + " this semester";
+                    totalDeductionsProgress.setVisibility(View.GONE);
+                    totalDeductionsText.setText(textToDisplay);
+                } catch (JSONException e) {
+                    Toast.makeText(getActivity(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+                swipeRefresh.setRefreshing(false);
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("tag", "deductions");
+                params.put("id", uid);
+                params.put("pwd", pwd);
+                return params;
+            }
+        };
 
         queue.add(request);
-
+        queue.add(request2);
     }
 
     private void getPreviousData(String u_id, String g_id, String password, int index) {
