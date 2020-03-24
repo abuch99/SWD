@@ -62,7 +62,7 @@ public class OrderGoodie extends AppCompatActivity {
     final String url="http://swd.bits-hyderabad.ac.in/swd_app/index.php";
     ArrayList <EditText> sizes=new ArrayList<>();
     ArrayList <String> sizes_available=new ArrayList<>();
-    Boolean AT_LEAST_ONE_TSHIRT_SIZE_ORDERD=false;
+    boolean AT_LEAST_ONE_TSHIRT_SIZE_ORDERD = false;
 
     ProgressDialog dialog;
     Goodies goodie;
@@ -86,7 +86,7 @@ public class OrderGoodie extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_goodie);
 
-        toolbar = findViewById(R.id.orderGoodiesToolbar);
+        //toolbar = findViewById(R.id.orderGoodiesToolbar);
         toolbar.setTitle("Order Goodies");
 
         prefs = getApplicationContext().getSharedPreferences("USER_LOGIN_DETAILS", MODE_PRIVATE);
@@ -520,40 +520,40 @@ public class OrderGoodie extends AppCompatActivity {
     }
 
     private void initViews() {
-        tvHost=findViewById(R.id.tvHost);
-        tvPrice=findViewById(R.id.tvPrice);
-        llsize=findViewById(R.id.llSize);
-        llprice=findViewById(R.id.llprice);
-        llSummary=findViewById(R.id.llSummary);
-        tvSizeChart=findViewById(R.id.tvSizeChart);
-        tvGoodieOrderName=findViewById(R.id.tvGoodieOrderName);
-        tvminamt=findViewById(R.id.tvminamt);
-        tvmaxamt=findViewById(R.id.tvmaxamt);
-        tvQty=findViewById(R.id.tvqty);
-        tvTotalPrice=findViewById(R.id.tvTotalPrice);
-        rlxs=findViewById(R.id.rlxs);
-        rls=findViewById(R.id.rls);
-        rlm=findViewById(R.id.rlm);
-        rll=findViewById(R.id.rll);
-        rlxl=findViewById(R.id.rlxl);
-        rlxxl=findViewById(R.id.rlxxl);
-        rlxxxl=findViewById(R.id.rlxxxl);
-        rlminamt_fraiser=findViewById(R.id.rlminamt_fraiser);
-        rlmaxamt_fraiser=findViewById(R.id.rlmaxamt_fraiser);
-        rlqty=findViewById(R.id.rlqty);
-        rlcustom=findViewById(R.id.rlcustom);
-        etxsQty=findViewById(R.id.etxsQty);
-        etsQty=findViewById(R.id.etsQty);
-        etmQty=findViewById(R.id.etmQty);
-        etlQty=findViewById(R.id.etlQty);
-        etxlQty=findViewById(R.id.etxlQty);
-        etxxlQty=findViewById(R.id.etxxlQty);
-        etxxxlQty=findViewById(R.id.etxxxlQty);
-        etQty=findViewById(R.id.etQty);
-        etCustom=findViewById(R.id.etCustomName);
-        cbAgree=findViewById(R.id.cbAgree);
-        btnOrder=findViewById(R.id.btnOrder);
-        ivImageOrder=findViewById(R.id.ivimageOrder);
+//        tvHost=findViewById(R.id.tvHost);
+//        tvPrice=findViewById(R.id.tvPrice);
+//        llsize=findViewById(R.id.llSize);
+//        llprice=findViewById(R.id.llprice);
+//        llSummary=findViewById(R.id.llSummary);
+//        tvSizeChart=findViewById(R.id.tvSizeChart);
+//        tvGoodieOrderName=findViewById(R.id.tvGoodieOrderName);
+//        tvminamt=findViewById(R.id.tvminamt);
+//        tvmaxamt=findViewById(R.id.tvmaxamt);
+//        tvQty=findViewById(R.id.tvqty);
+//        tvTotalPrice=findViewById(R.id.tvTotalPrice);
+//        rlxs=findViewById(R.id.rlxs);
+//        rls=findViewById(R.id.rls);
+//        rlm=findViewById(R.id.rlm);
+//        rll=findViewById(R.id.rll);
+//        rlxl=findViewById(R.id.rlxl);
+//        rlxxl=findViewById(R.id.rlxxl);
+//        rlxxxl=findViewById(R.id.rlxxxl);
+//        rlminamt_fraiser=findViewById(R.id.rlminamt_fraiser);
+//        rlmaxamt_fraiser=findViewById(R.id.rlmaxamt_fraiser);
+//        rlqty=findViewById(R.id.rlqty);
+//        rlcustom=findViewById(R.id.rlcustom);
+//        etxsQty=findViewById(R.id.etxsQty);
+//        etsQty=findViewById(R.id.etsQty);
+//        etmQty=findViewById(R.id.etmQty);
+//        etlQty=findViewById(R.id.etlQty);
+//        etxlQty=findViewById(R.id.etxlQty);
+//        etxxlQty=findViewById(R.id.etxxlQty);
+//        etxxxlQty=findViewById(R.id.etxxxlQty);
+//        etQty=findViewById(R.id.etQty);
+//        etCustom=findViewById(R.id.etCustomName);
+//        cbAgree=findViewById(R.id.cbAgree);
+//        btnOrder=findViewById(R.id.btnOrder);
+//        ivImageOrder=findViewById(R.id.ivimageOrder);
 
         sizes.add(etxsQty);
         sizes.add(etsQty);
@@ -589,9 +589,9 @@ public class OrderGoodie extends AppCompatActivity {
 
     public void chkPassed(int type, int amt){
 
-        TextView tvAmount=findViewById(R.id.tvTotalPrice);
+        //TextView tvAmount=findViewById(R.id.tvTotalPrice);
         String amount=" ₹ "+amt;
-        tvAmount.setText(amount);
+        //tvAmount.setText(amount);
 
         btnOrder.setEnabled(true);
         InputMethodManager imm = (InputMethodManager) OrderGoodie.this.getSystemService(Activity.INPUT_METHOD_SERVICE);

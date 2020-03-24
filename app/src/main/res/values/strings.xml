@@ -104,9 +104,6 @@
     <string name="uploads_title">Uploads</string>
     <string name="goodies_title">Goodies</string>
     <string name="goo">goo</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!--Admin Doc End-->
 
     <!--profile activity-->
@@ -134,7 +131,8 @@
     <string name="field_memail">Mother\'s email</string>
     <string name="field_moccupation">Mother\'s occupation</string>
     <string name="GRACE_URL">http://swd.bits-hyderabad.ac.in/messgrace1.php</string>
-    <string name="BASE_URL">http://swd.bits-hyderabad.ac.in/swd_app/index.php</string>
+    <string name="URL">http://swd.bits-hyderabad.ac.in/</string>
+    <string name="BASE_URL">http://swd.bits-hyderabad.ac.in/swd_app/</string>
     <string name="DOCS_URL">http://swd.bits-hyderabad.ac.in/swd_app/gen_appDocs.php</string>
     <string name="quantityofGoodies">Quantity</string>
 
@@ -205,6 +203,7 @@
     <string name="erp">ERP</string>
     <string name="miscellaneous">Miscellaneous</string>
     <string name="view_deductions">View deductions</string>
+    <string name="spent_this_semester">spent this semester</string>
 
 
 </resources>

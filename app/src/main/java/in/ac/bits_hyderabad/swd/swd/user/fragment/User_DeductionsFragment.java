@@ -5,10 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,6 +46,8 @@ public class User_DeductionsFragment extends Fragment {
 
     String uid, id_no, pwd;
 
+    TextView totalDeductionsText;
+
     public User_DeductionsFragment(String uid, String id_no, String pwd) {
         this.uid = uid;
         this.id_no = id_no;
@@ -58,19 +59,16 @@ public class User_DeductionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_deductions, container, false);
-    }
+        View rootView = inflater.inflate(R.layout.fragment_user_deductions, container, false);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
-        rvDeductions=view.findViewById(R.id.rvDeductions);
-        swipeRefreshDed=view.findViewById(R.id.swipeRefreshDed);
+        rvDeductions = rootView.findViewById(R.id.rvDeductions);
+        swipeRefreshDed = rootView.findViewById(R.id.swipeRefreshDed);
         swipeRefreshDed.setRefreshing(true);
         rvDeductions.bringToFront();
         rvDeductions.setHasFixedSize(false);
         deductions=new ArrayList<>();
         loadDeductions();
+        totalDeductionsText = rootView.findViewById(R.id.totalDeductionsText);
         mLayoutManager =new LinearLayoutManager(this.getActivity());
         rvDeductions.setLayoutManager(mLayoutManager);
         mAdaptor=new DeductionsAdapter(this.getActivity(),deductions);
@@ -86,6 +84,7 @@ public class User_DeductionsFragment extends Fragment {
             }
         });
 
+        return rootView;
     }
 
     public void loadDeductions(){
@@ -96,6 +95,7 @@ public class User_DeductionsFragment extends Fragment {
             public void onResponse(String response) {
 
                 try {
+                    int totalDeductions = 0;
                     JSONArray array =new JSONArray(response);
                     for(int i=0;i<array.length();i++){
                         String id=array.getJSONObject(i).getString("id");
@@ -112,8 +112,12 @@ public class User_DeductionsFragment extends Fragment {
                         String type=array.getJSONObject(i).getString("type");
                         String netqut=array.getJSONObject(i).getString("netqut");
                         if(!amount.equals("0")){
-                        deductions.add(new Deduction(type,id,name,amount, xs,s,m,l,xl,xxl,xxxl,qut,netqut));}
+                            deductions.add(new Deduction(type, id, name, amount, xs, s, m, l, xl, xxl, xxxl, qut, netqut));
+                            totalDeductions = totalDeductions + Integer.parseInt(amount);
+                        }
                     }
+                    String totalDeductionsTextDisplay = "₹" + totalDeductions;
+                    totalDeductionsText.setText(totalDeductionsTextDisplay);
                     mAdaptor.notifyDataSetChanged();
                     swipeRefreshDed.setRefreshing(false);
                 } catch (JSONException e) {

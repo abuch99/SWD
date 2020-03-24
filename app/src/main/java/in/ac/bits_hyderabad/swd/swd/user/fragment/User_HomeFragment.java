@@ -1,6 +1,7 @@
 package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,6 +18,9 @@ import com.google.android.material.navigation.NavigationView;
 
 import in.ac.bits_hyderabad.swd.swd.R;
 import in.ac.bits_hyderabad.swd.swd.user.activity.Profile;
+import in.ac.bits_hyderabad.swd.swd.user.activity.User_Login;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class User_HomeFragment extends Fragment  {
 
@@ -25,7 +29,7 @@ public class User_HomeFragment extends Fragment  {
     NavigationView navigationView;
     Fragment fragment;
 
-    ImageView myProfileImageView;
+    ImageView myProfileImageView, logoutImageView;
 
     private CardView cvTD,cvERP,cvOPAC;
     private ExtendedFloatingActionButton fabContactUs;
@@ -41,6 +45,7 @@ public class User_HomeFragment extends Fragment  {
         cvOPAC=view.findViewById(R.id.cvOPAC);
 
         myProfileImageView = view.findViewById(R.id.myProfileImageView);
+        logoutImageView = view.findViewById(R.id.logoutImageView);
 
         cvOPAC.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +76,16 @@ public class User_HomeFragment extends Fragment  {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Profile.class);
                 startActivity(intent);
+            }
+        });
+        logoutImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor editor = getContext().getSharedPreferences("USER_LOGIN_DETAILS", MODE_PRIVATE).edit();
+                editor.clear();
+                editor.commit();
+                startActivity(new Intent(getActivity(), User_Login.class));
+                getActivity().finish();
             }
         });
 

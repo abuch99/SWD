@@ -15,10 +15,10 @@ import in.ac.bits_hyderabad.swd.swd.R;
 
 public class DeductionsAdapter extends RecyclerView.Adapter<DeductionsAdapter.ViewHolder> {
 
-    TextView tvDedName,tvDedPrice ,tvSizeText,tvSize;
+    private TextView tvDedName, tvDedPrice, tvSize;
 
-    public ArrayList<Deduction> deductions;
-    Context context;
+    private ArrayList<Deduction> deductions;
+    private Context context;
     public DeductionsAdapter(Context context, ArrayList<Deduction> deductions){
         this.deductions=deductions;
         this.context=context;
@@ -34,17 +34,16 @@ public class DeductionsAdapter extends RecyclerView.Adapter<DeductionsAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        tvDedName.setText(deductions.get(position).name);
-        tvDedPrice.setText("₹ "+deductions.get(position).amount);
+        String deductionPrice = "₹" + deductions.get(position).amount;
+        String subText = "";
+
+        tvDedName.setText(deductions.get(position).name.trim());
+        tvDedPrice.setText(deductionPrice);
 
         if(deductions.get(position).type.equals("3")){
-            tvSizeText.setText("Quantity :");
-            tvSize.setText(deductions.get(position).netqut);
-            tvSizeText.setVisibility(View.VISIBLE);
-            tvSize.setVisibility(View.VISIBLE);
+            subText = "Quantity: " + deductions.get(position).netqut;
         }
         else if(deductions.get(position).type.equals("2")){
-            tvSizeText.setText("Sizes Ordered :");
             int xs=Integer.parseInt(deductions.get(position).xs);
             int s=Integer.parseInt(deductions.get(position).s);
             int m=Integer.parseInt(deductions.get(position).m);
@@ -52,40 +51,45 @@ public class DeductionsAdapter extends RecyclerView.Adapter<DeductionsAdapter.Vi
             int xl=Integer.parseInt(deductions.get(position).xl);
             int xxl=Integer.parseInt(deductions.get(position).xxl);
             int xxxl=Integer.parseInt(deductions.get(position).xxxl);
+            int count = xs + s + m + l + xl + xxl + xxxl;
 
-            String sizestring="";
+            if (count == 1) {
+                if (xs != 0)
+                    subText = "Size ordered: XS";
+                else if (s != 0)
+                    subText = "Size ordered: S";
+                else if (m != 0)
+                    subText = "Size ordered: M";
+                else if (l != 0)
+                    subText = "Size ordered: L";
+                else if (xl != 0)
+                    subText = "Size ordered: XL";
+                else if (xxl != 0)
+                    subText = "Size ordered: XXL";
+                else
+                    subText = "Size ordered: XXXL";
+            } else {
+                String sizes = "";
+                if (xs != 0)
+                    sizes = sizes + xs + " XS, ";
+                if (s != 0)
+                    sizes = sizes + s + " S, ";
+                if (m != 0)
+                    sizes = sizes + m + " M, ";
+                if (l != 0)
+                    sizes = sizes + l + " L, ";
+                if (xl != 0)
+                    sizes = sizes + xl + " XL, ";
+                if (xxl != 0)
+                    sizes = sizes + xxl + " XXL, ";
+                if (xxl != 0)
+                    sizes = sizes + xxxl + " XXL, ";
+                subText = "Sizes ordered: " + sizes.substring(0, sizes.length() - 2);
+            }
 
-            if(xs!=0){
-                sizestring += (xs+ " XS \n");
-            }
-            if(s!=0){
-                sizestring += (s+ " S \n");
-            }
-
-            if(m!=0){
-                sizestring += (m+ " M \n");
-            }
-            if(l!=0){
-                sizestring += (l+ " L \n");
-            }
-
-            if(xl!=0){
-                sizestring += (xl+ " XL \n");
-            }
-
-            if(xxl!=0){
-                sizestring += (xxl+ " XXL \n");
-            }
-
-            if(xxxl!=0){
-                sizestring += (xxxl+ " XXXL \n");
-            }
-
-            tvSize.setText(sizestring.trim());
-            tvSize.setVisibility(View.VISIBLE);
-            tvSizeText.setVisibility(View.VISIBLE);
         }
 
+        tvSize.setText(subText);
 
     }
 
@@ -94,29 +98,12 @@ public class DeductionsAdapter extends RecyclerView.Adapter<DeductionsAdapter.Vi
         return deductions.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-
-
-        public ViewHolder(@NonNull final View itemView) {
+    class ViewHolder extends RecyclerView.ViewHolder {
+        ViewHolder(@NonNull final View itemView) {
             super(itemView);
-
-
             tvDedName=itemView.findViewById(R.id.tvdeductionName);
             tvDedPrice=itemView.findViewById(R.id.tvdeductionPrice);
-            tvSizeText=itemView.findViewById(R.id.tvSizesOrderedText);
-            tvSize=itemView.findViewById(R.id.tvSizesShow);
-
-            tvSizeText.setVisibility(View.GONE);
-            tvSize.setVisibility(View.GONE);
-
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-
+            tvSize = itemView.findViewById(R.id.tvSize);
         }
 
     }

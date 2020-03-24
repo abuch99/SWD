@@ -2,13 +2,6 @@ package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,39 +9,32 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 import in.ac.bits_hyderabad.swd.swd.R;
-
-import static android.content.Context.MODE_PRIVATE;
+import in.ac.bits_hyderabad.swd.swd.databaseconnection.GetDataService;
+import in.ac.bits_hyderabad.swd.swd.databaseconnection.MessReq;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MessMenu extends Fragment {
-
-
-    StringRequest request;
-    RequestQueue queue;
-
     private String day;
     int mess=0;
     private LinearLayout llMenu;
     private String uid, password;
     private SwipeRefreshLayout swipeRefresh;
+
+    private Retrofit mRetrofitClient;
+    private GetDataService mRetrofitService;
 
     public MessMenu(String day, String uid, String password) {
         this.day=day;
@@ -68,105 +54,43 @@ public class MessMenu extends Fragment {
         tvLunch=view.findViewById(R.id.tvLunch);
         tvSnacks=view.findViewById(R.id.tvSnacks);
         tvDinner=view.findViewById(R.id.tvDinner);
-
+        swipeRefresh=view.findViewById(R.id.swipeRefreshMenu);
         llMenu.setVisibility(View.GONE);
 
-        return view;
-    }
+        mRetrofitClient = new Retrofit.Builder()
+                .baseUrl(getString(R.string.URL))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        mRetrofitService = mRetrofitClient.create(GetDataService.class);
 
-        swipeRefresh=view.findViewById(R.id.swipeRefreshMenu);
+        getMessNo();
         swipeRefresh.setRefreshing(true);
-
-        getMessNo(uid);
 
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
-                getMessNo(uid);
-
+                getMessNo();
             }
         });
 
-        
+        return view;
     }
 
-    public void getMessMenu(final String day, final int messNo){
+    private void getMessNo() {
 
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-        StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
+        Call<in.ac.bits_hyderabad.swd.swd.databaseconnection.MessReq> call = mRetrofitService.getMessReq("mess_req", uid, password);
+
+        call.enqueue(new Callback<MessReq>() {
             @Override
-            public void onResponse(String response) {
-
-                try{
-                    JSONArray menu_array=new JSONArray(response);
-                    for(int i=0;i<menu_array.length();i++)
-                    {
-                        JSONObject object = menu_array.getJSONObject(i);
-                        if(!object.get("mess").toString().equals(messNo+""))
-                            continue;
-                        if(object.get("Day").toString().equals(day))
-                        {
-                            tvDay.setText(day);
-                            tvBreakfast.setText(object.get("Breakfast").toString().trim());
-                            tvLunch.setText(object.get("Lunch").toString().trim());
-                            tvSnacks.setText(object.get("Tiffin").toString().trim());
-                            tvDinner.setText(object.get("Dinner").toString().trim());
-                             break;
-                        }
-                    }
-                    llMenu.setVisibility(View.VISIBLE);
-                    swipeRefresh.setRefreshing(false);
-                }
-                catch (JSONException e)
-                {
-                    swipeRefresh.setRefreshing(false);
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
-                swipeRefresh.setRefreshing(false);
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                Map<String, String> params = new HashMap<>();
-                params.put("tag", "mess_menu");
-                params.put("id",uid);
-                params.put("pwd",password);
-                return params;
-
-            }
-        };
-
-
-        queue.add(request);
-    }
-    public void getMessNo(final String uid)
-    {
-        queue = Volley.newRequestQueue(getContext());
-        request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-                try{
-                    JSONObject object=new JSONObject(response);
-                    if(object.get("error").toString().equals("false")) {
-                        JSONObject newObject = (JSONObject) object.get("data");
-                        String mess_no_string = newObject.get("mess").toString();
+            public void onResponse(Call<MessReq> call, Response<MessReq> response) {
+                if (!response.body().getError()) {
+                    String mess_no_string = response.body().getData().getMess();
                         if(!mess_no_string.equalsIgnoreCase("null")) {
                             mess = Integer.parseInt(mess_no_string);
-
-                            if (!(mess != 1 && mess != 2))
+                            if (!(mess != 1 && mess != 2)) {
                                 getMessMenu(day, mess);
+                            }
                             else
                             {
                                 swipeRefresh.setRefreshing(false);
@@ -185,45 +109,45 @@ public class MessMenu extends Fragment {
                         Toast.makeText(getActivity(),"Sorry! something went wrong. We will be back soon!!",Toast.LENGTH_SHORT).show();
                     }
                 }
-                catch (Exception e)
-                {
-                    swipeRefresh.setRefreshing(false);
-                    Toast.makeText(getActivity(),"Sorry! something went wrong. We will be back soon",Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
+
+            @Override
+            public void onFailure(Call<MessReq> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    private void getMessMenu(final String day, final int messNo) {
+
+        Call<ArrayList<in.ac.bits_hyderabad.swd.swd.databaseconnection.MessMenu>> call = mRetrofitService.getMessMenu("mess_menu", uid, password);
+
+        call.enqueue(new Callback<ArrayList<in.ac.bits_hyderabad.swd.swd.databaseconnection.MessMenu>>() {
+            @Override
+            public void onResponse(Call<ArrayList<in.ac.bits_hyderabad.swd.swd.databaseconnection.MessMenu>> call, retrofit2.Response<ArrayList<in.ac.bits_hyderabad.swd.swd.databaseconnection.MessMenu>> response) {
+                for (int i = 0; i < response.body().size(); i++) {
+                    if (!response.body().get(i).getMess().equals(Integer.toString(messNo)))
+                        continue;
+                    if (response.body().get(i).getDay().equals(day)) {
+                        tvDay.setText(day);
+                        tvBreakfast.setText(response.body().get(i).getBreakfast().trim());
+                        tvLunch.setText(response.body().get(i).getLunch().trim());
+                        tvSnacks.setText(response.body().get(i).getSnacks().trim());
+                        tvDinner.setText(response.body().get(i).getDinner().trim());
+                        break;
+                    }
                 }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+                llMenu.setVisibility(View.VISIBLE);
                 swipeRefresh.setRefreshing(false);
-                Toast.makeText(getContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
             }
-        }) {
+
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                Map<String, String> params = new HashMap<>();
-                params.put("tag", "mess_req");
-                params.put("id",uid);
-                params.put("pwd",password);
-                return params;
-
+            public void onFailure(Call<ArrayList<in.ac.bits_hyderabad.swd.swd.databaseconnection.MessMenu>> call, Throwable t) {
+                swipeRefresh.setRefreshing(false);
+                t.printStackTrace();
             }
-        };
-
-        request.setTag("MessMenu");
-        queue.add(request);
-    }
-
-
-
-    @Override
-    public void onStop() {
-        if(queue!=null) {
-            queue.cancelAll("MessMenu");
-        }
-        super.onStop();
+        });
 
     }
+
 }
