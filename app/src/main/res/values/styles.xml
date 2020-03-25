@@ -3,7 +3,6 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <!-- Customize your theme here. -->
-        <item name="actionBarStyle">@style/custom_style</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -107,10 +106,6 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"></style>
-
-    <style name="custom_style" parent="Widget.MaterialComponents.BottomAppBar">
-        <item name="android:background">@drawable/bgnd</item>
-    </style>
 
     <style name="text_view_goodies">
         <item name="android:gravity">end</item>

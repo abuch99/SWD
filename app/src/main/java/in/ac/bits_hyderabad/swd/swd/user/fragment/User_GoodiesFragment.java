@@ -76,7 +76,7 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
         viewDeductionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.container, new User_DeductionsFragment(uid, id_no, pwd)).commit();
+                getFragmentManager().beginTransaction().replace(R.id.container, new User_DeductionsFragment(uid, id_no, pwd)).addToBackStack("goodies-view").commit();
             }
         });
         totalDeductionsProgress = view.findViewById(R.id.totalDeductionsProgress);

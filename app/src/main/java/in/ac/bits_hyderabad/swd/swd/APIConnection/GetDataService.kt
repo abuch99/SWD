@@ -1,4 +1,4 @@
-package `in`.ac.bits_hyderabad.swd.swd.databaseconnection
+package `in`.ac.bits_hyderabad.swd.swd.APIConnection
 
 import retrofit2.Call
 import retrofit2.http.GET
@@ -11,5 +11,8 @@ interface GetDataService {
 
     @GET("swd_app/")
     fun getMessReq(@Query("tag") tag: String, @Query("id") id: String, @Query("pwd") password: String): Call<MessReq>
+
+    @GET("swd_app/")
+    fun getLoginSuccessful(@Query("tag") tag: String, @Query("id") id: String, @Query("pwd") password: String): Call<LoginSuccessful>
 
 }

@@ -1,4 +1,4 @@
-package `in`.ac.bits_hyderabad.swd.swd.databaseconnection
+package `in`.ac.bits_hyderabad.swd.swd.APIConnection
 
 import com.google.gson.annotations.SerializedName
 
@@ -35,4 +35,11 @@ class MessData {
     var regOpen: Boolean = false
     @SerializedName("message")
     var message: String? = null
+}
+
+class LoginSuccessful {
+    @SerializedName("tag")
+    var tag: String? = null
+    @SerializedName("error")
+    var error: Boolean = false
 }

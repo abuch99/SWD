@@ -14,9 +14,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 
+import in.ac.bits_hyderabad.swd.swd.APIConnection.GetDataService;
+import in.ac.bits_hyderabad.swd.swd.APIConnection.MessReq;
 import in.ac.bits_hyderabad.swd.swd.R;
-import in.ac.bits_hyderabad.swd.swd.databaseconnection.GetDataService;
-import in.ac.bits_hyderabad.swd.swd.databaseconnection.MessReq;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -79,7 +79,7 @@ public class MessMenu extends Fragment {
 
     private void getMessNo() {
 
-        Call<in.ac.bits_hyderabad.swd.swd.databaseconnection.MessReq> call = mRetrofitService.getMessReq("mess_req", uid, password);
+        Call<in.ac.bits_hyderabad.swd.swd.APIConnection.MessReq> call = mRetrofitService.getMessReq("mess_req", uid, password);
 
         call.enqueue(new Callback<MessReq>() {
             @Override
@@ -112,7 +112,9 @@ public class MessMenu extends Fragment {
 
             @Override
             public void onFailure(Call<MessReq> call, Throwable t) {
-
+                swipeRefresh.setRefreshing(false);
+                Toast.makeText(getActivity(), "Sorry! something went wrong. We will be back soon", Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
             }
         });
 
@@ -120,11 +122,11 @@ public class MessMenu extends Fragment {
 
     private void getMessMenu(final String day, final int messNo) {
 
-        Call<ArrayList<in.ac.bits_hyderabad.swd.swd.databaseconnection.MessMenu>> call = mRetrofitService.getMessMenu("mess_menu", uid, password);
+        Call<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.MessMenu>> call = mRetrofitService.getMessMenu("mess_menu", uid, password);
 
-        call.enqueue(new Callback<ArrayList<in.ac.bits_hyderabad.swd.swd.databaseconnection.MessMenu>>() {
+        call.enqueue(new Callback<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.MessMenu>>() {
             @Override
-            public void onResponse(Call<ArrayList<in.ac.bits_hyderabad.swd.swd.databaseconnection.MessMenu>> call, retrofit2.Response<ArrayList<in.ac.bits_hyderabad.swd.swd.databaseconnection.MessMenu>> response) {
+            public void onResponse(Call<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.MessMenu>> call, retrofit2.Response<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.MessMenu>> response) {
                 for (int i = 0; i < response.body().size(); i++) {
                     if (!response.body().get(i).getMess().equals(Integer.toString(messNo)))
                         continue;
@@ -142,7 +144,7 @@ public class MessMenu extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<in.ac.bits_hyderabad.swd.swd.databaseconnection.MessMenu>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.MessMenu>> call, Throwable t) {
                 swipeRefresh.setRefreshing(false);
                 t.printStackTrace();
             }

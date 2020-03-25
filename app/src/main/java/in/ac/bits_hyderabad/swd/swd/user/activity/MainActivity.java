@@ -65,16 +65,16 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.navigation_goodies:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new User_GoodiesFragment(uid, id_no, pwd)).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new User_GoodiesFragment(uid, id_no, pwd)).addToBackStack("home").commit();
                         break;
                     case R.id.navigation_mess:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new User_MessFragment(uid, pwd)).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new User_MessFragment(uid, pwd)).addToBackStack("home").commit();
                         break;
                     case R.id.navigation_connect:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new User_ConnectFragment()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new User_ConnectFragment()).addToBackStack("home").commit();
                         break;
                     case R.id.navigation_miscellaneous:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new User_DocFragment(uid, id_no, pwd)).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new User_DocFragment(uid, id_no, pwd)).addToBackStack("home").commit();
                         break;
                     case R.id.navigation_home:
                     default:

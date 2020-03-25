@@ -15,9 +15,9 @@
 
     <!--Forgot Password-->
     <string name="BitsMail">\@hyderabad.bits-pilani.ac.in</string>
-    <string name="TextForgotPassword">Fill your BITS mail ID and check the same for reset link.</string>
+    <string name="TextForgotPassword">Fill in your BITS email ID and check your email for the password reset link.</string>
     <string name="passwordRecovery">PASSWORD RECOVERY</string>
-    <string name="submitForgot_pass">SUBMIT</string>
+    <string name="resetForgot_pass">Reset</string>
     <string name="RESET_URL">http://swd.bits-hyderabad.ac.in/passmail.php</string>
 
     <!--User nav menu start-->
@@ -204,6 +204,11 @@
     <string name="miscellaneous">Miscellaneous</string>
     <string name="view_deductions">View deductions</string>
     <string name="spent_this_semester">spent this semester</string>
+    <string name="logging_you_in">Logging you in</string>
+    <string name="servers_no_connection">We\'re unable to connect to our servers right now\nPlease try again later</string>
+    <string name="reset">Reset</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="plus">+</string>
 
 
 </resources>
