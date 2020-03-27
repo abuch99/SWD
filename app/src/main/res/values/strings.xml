@@ -151,7 +151,7 @@
     <string name="custom_name_hint">This will be printed on the item</string>
     <string name="minamt_fraiser">Minimum :</string>
     <string name="maxamt_fraiser">Maximum :</string>
-    <string name="cbAgree_text">I agree to pay the above mentioned amount from my Other Advances Account</string>
+    <string name="cbAgree_text">I agree to pay the above amount from my Other Advances account</string>
     <string name="order_button">Order</string>
     <string name="order_cost">Total Cost:</string>
     <string name="order_summary">ORDER SUMMARY</string>
@@ -209,6 +209,11 @@
     <string name="reset">Reset</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="plus">+</string>
+    <string name="_1">1</string>
+    <string name="minus">-</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="amount">Amount</string>
 
 </resources>

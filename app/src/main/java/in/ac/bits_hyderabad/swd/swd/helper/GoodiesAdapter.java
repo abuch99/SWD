@@ -14,16 +14,17 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import in.ac.bits_hyderabad.swd.swd.APIConnection.Goodie;
 import in.ac.bits_hyderabad.swd.swd.R;
 
 public class GoodiesAdapter extends BaseAdapter {
 
-    private ArrayList<Goodies> goodies;
+    private ArrayList<Goodie> goodies;
     itemClicked activity;
     private LayoutInflater mInflater;
     private Context mContext;
 
-    public GoodiesAdapter(Context context, Fragment fragment, ArrayList<Goodies> goodies) {
+    public GoodiesAdapter(Context context, Fragment fragment, ArrayList<Goodie> goodies) {
         mInflater = LayoutInflater.from(context);
         mContext = context;
         this.goodies = goodies;
@@ -35,7 +36,7 @@ public class GoodiesAdapter extends BaseAdapter {
         if (convertView == null)
             convertView = mInflater.inflate(R.layout.card_goodies, parent, false);
 
-        String ImageUrl = "http://swd.bits-hyderabad.ac.in/goodies/img/" + goodies.get(position).getImage();//"All.jpg"  or   goodies.get(i).getImage()
+        String ImageUrl = "http://swd.bits-hyderabad.ac.in/goodies/img/" + goodies.get(position).getImgLink();//"All.jpg"  or   goodies.get(i).getImage()
 
         TextView tvGoodieName = convertView.findViewById(R.id.tvGoodieName);
         ImageView ivGoodie = convertView.findViewById(R.id.ivGoodie);
@@ -49,8 +50,9 @@ public class GoodiesAdapter extends BaseAdapter {
                 .into(ivGoodie);
 
         tvGoodieName.setText(goodies.get(position).getName());
-        tvGoodieHost.setText(goodies.get(position).getHost());
-        tvGoodiePrice.setText(goodies.get(position).getPrice());
+        tvGoodieHost.setText(goodies.get(position).getHostedBy());
+        String priceToDisplay = "₹" + goodies.get(position).getPrice();
+        tvGoodiePrice.setText(priceToDisplay);
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

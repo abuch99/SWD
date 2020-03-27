@@ -14,7 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import in.ac.bits_hyderabad.swd.swd.APIConnection.GetDataService;
-import in.ac.bits_hyderabad.swd.swd.APIConnection.MessReq;
+import in.ac.bits_hyderabad.swd.swd.APIConnection.Login;
 import in.ac.bits_hyderabad.swd.swd.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -69,15 +69,14 @@ public class Splash_Activity extends AppCompatActivity {
                 .build();
         GetDataService retrofitService = retrofitClient.create(GetDataService.class);
 
-        Call<MessReq> call = retrofitService.getMessReq("login", uid, pwd);
-        call.enqueue(new Callback<MessReq>() {
+        Call<Login> call = retrofitService.getLoginSuccessful("login", uid, pwd);
+        call.enqueue(new Callback<Login>() {
             @Override
-            public void onResponse(Call<MessReq> call, Response<MessReq> response) {
+            public void onResponse(Call<Login> call, Response<Login> response) {
                 if (response.body().getError()) {
                     Intent intent = new Intent(Splash_Activity.this, User_Login.class);
                     startActivity(intent);
                     finish();
-                    Log.e("error ", "true");
                     Toast.makeText(Splash_Activity.this, "Password changed, Please login again!", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(Splash_Activity.this, MainActivity.class);
@@ -94,7 +93,7 @@ public class Splash_Activity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<MessReq> call, Throwable t) {
+            public void onFailure(Call<Login> call, Throwable t) {
                 t.printStackTrace();
                 loggingInProgressBar.setVisibility(View.INVISIBLE);
                 noInternetImage.setVisibility(View.VISIBLE);

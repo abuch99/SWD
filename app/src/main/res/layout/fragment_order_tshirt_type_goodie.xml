@@ -11,6 +11,95 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <Button
+            android:id="@+id/button_xs"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/increment_decrement_button_background"
+            android:gravity="center"
+            android:text="@string/xs"
+            android:textColor="@color/whiteText"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/button_s"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider7" />
+
+        <Button
+            android:id="@+id/button_s"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/increment_decrement_button_background"
+            android:gravity="center"
+            android:text="@string/s"
+            android:textColor="@color/whiteText"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/button_m"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button_xs"
+            app:layout_constraintTop_toBottomOf="@+id/divider7" />
+
+        <Button
+            android:id="@+id/button_m"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/increment_decrement_button_background"
+            android:gravity="center"
+            android:text="@string/m"
+            android:textColor="@color/whiteText"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/button_l"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button_s"
+            app:layout_constraintTop_toBottomOf="@+id/divider7" />
+
+        <Button
+            android:id="@+id/button_l"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/increment_decrement_button_background"
+            android:gravity="center"
+            android:text="@string/l"
+            android:textColor="@color/whiteText"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/button_xl"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button_m"
+            app:layout_constraintTop_toBottomOf="@+id/divider7" />
+
+        <Button
+            android:id="@+id/button_xl"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/increment_decrement_button_background"
+            android:gravity="center"
+            android:text="@string/xl"
+            android:textColor="@color/whiteText"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/button_xxl"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button_l"
+            app:layout_constraintTop_toBottomOf="@+id/divider7" />
+
+        <Button
+            android:id="@+id/button_xxl"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/increment_decrement_button_background"
+            android:gravity="center"
+            android:text="@string/xxl"
+            android:textColor="@color/whiteText"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button_xl"
+            app:layout_constraintTop_toBottomOf="@+id/divider7" />
 
         <View
             android:id="@+id/divider6"
@@ -43,7 +132,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider6"
-            tools:text="Duplicate ID card" />
+            tools:text="Arena Jerey" />
 
         <TextView
             android:id="@+id/goodieHostTextView"
@@ -54,7 +143,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/goodieNameTextView"
-            tools:text="Student Welfare Division" />
+            tools:text="Student Union" />
 
         <TextView
             android:id="@+id/goodiePriceTextView"
@@ -66,7 +155,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/goodieHostTextView"
-            tools:text="₹75" />
+            tools:text="₹349" />
 
         <View
             android:id="@+id/divider7"
@@ -88,9 +177,10 @@
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.20"
+            app:layout_constraintHorizontal_bias="0.201"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <View
             android:id="@+id/divider4"
@@ -107,16 +197,14 @@
             android:id="@+id/cb_agree_to_pay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:text="@string/cbAgree_text"
             android:textColor="@color/whiteText"
             app:layout_constraintBottom_toTopOf="@+id/orderGoodieButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/qty_textview"
-            app:layout_constraintVertical_bias="0.5" />
+            app:layout_constraintTop_toBottomOf="@+id/qty_textview" />
 
         <Button
             android:id="@+id/orderGoodieButton"
@@ -138,13 +226,17 @@
             android:id="@+id/order_total_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="4dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="@color/whiteText"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/cb_agree_to_pay"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/qty_textview"
+            app:layout_constraintVertical_bias="1.0"
+            tools:text="Order total: ₹349" />
 
         <Button
             android:id="@+id/button_qty_inc"
@@ -183,26 +275,27 @@
             android:id="@+id/qty_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:text="@string/_1"
             android:textColor="@color/whiteText"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/button_qty_inc"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/button_qty_dec"
-            app:layout_constraintTop_toBottomOf="@+id/divider7"
+            app:layout_constraintTop_toBottomOf="@+id/button_m"
             app:layout_constraintVertical_chainStyle="spread" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ProgressBar
-        android:id="@+id/order_goodie_loading_progress"
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

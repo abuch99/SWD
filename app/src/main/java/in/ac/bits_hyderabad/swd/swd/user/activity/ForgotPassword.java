@@ -1,7 +1,6 @@
 package in.ac.bits_hyderabad.swd.swd.user.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -9,19 +8,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import in.ac.bits_hyderabad.swd.swd.APIConnection.GetDataService;
+import in.ac.bits_hyderabad.swd.swd.APIConnection.Login;
 import in.ac.bits_hyderabad.swd.swd.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ForgotPassword extends AppCompatActivity {
 
@@ -42,14 +38,14 @@ public class ForgotPassword extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setLoading();
-                String username = etUsernameForgotPassword.getText().toString().trim();
-                if(username.isEmpty())
+                String uid = etUsernameForgotPassword.getText().toString().trim();
+                if (uid.isEmpty())
                 {
                     Toast.makeText(ForgotPassword.this,"Please enter your BITS Mail",Toast.LENGTH_LONG).show();
                     setNoLoading();
-                } else if (username.substring(0, 4).equalsIgnoreCase("f201"))
+                } else if (uid.substring(0, 4).equalsIgnoreCase("f201"))
                 {
-                    sendRequest(username);
+                    sendRequest(uid);
                 }
                 else
                 {
@@ -62,52 +58,30 @@ public class ForgotPassword extends AppCompatActivity {
 
     }
 
-    public  void sendRequest(final String username)
+    public void sendRequest(String uid)
     {
-        RequestQueue queue = Volley.newRequestQueue(ForgotPassword.this);
+        Retrofit retrofitClient = new Retrofit.Builder()
+                .baseUrl(getString(R.string.URL))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        GetDataService retrofitService = retrofitClient.create(GetDataService.class);
 
-        StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.RESET_URL), new com.android.volley.Response.Listener<String>() {
+        Call<Login> call = retrofitService.putPasswordResetRequest(uid, "submit");
+        call.enqueue(new Callback<Login>() {
             @Override
-            public void onResponse(String response) {
-                Log.d("onResponse called", "onResponse called");
+            public void onResponse(Call<Login> call, Response<Login> response) {
                 Toast.makeText(getApplicationContext(), "The link to reset your password has been sent to your email address", Toast.LENGTH_LONG).show();
                 etUsernameForgotPassword.setText(null);
                 setNoLoading();
-                /*if(response.contains("Please check if you have entered you email ID in the appropriate format!"))
-                {
-                    Toast.makeText(ForgotPassword.this,"Please check if you have entered your email ID in the appropriate format!", Toast.LENGTH_LONG).show();
-                }
-                else if(response.contains("Password Reset Link Sent to your BITS Mail!"))
-                {
-                    Toast.makeText(ForgotPassword.this,"Password Reset Link Sent to your BITS Mail!", Toast.LENGTH_LONG).show();
-                }*/
-                //Toast.makeText(ForgotPassword.this,"Please check if you have entered your email ID in the appropriate format!", Toast.LENGTH_LONG).show();
-
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "The link to reset your password has been sent to your email address", Toast.LENGTH_LONG).show();
+            public void onFailure(Call<Login> call, Throwable t) {
                 setNoLoading();
-                //Toast.makeText(ForgotPassword.this, "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ForgotPassword.this, "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
             }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                Map<String, String> params = new HashMap<>();
-                params.put("uid", username);
-                params.put("reset", "submit");
-
-                return params;
-
-            }
-        };
-
-
-        queue.add(request);
-
-
+        });
     }
 
     private void setLoading() {

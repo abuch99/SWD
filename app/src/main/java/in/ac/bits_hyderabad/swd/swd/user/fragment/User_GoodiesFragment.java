@@ -1,10 +1,9 @@
 package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
-import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,39 +18,32 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
+import in.ac.bits_hyderabad.swd.swd.APIConnection.Deduction;
+import in.ac.bits_hyderabad.swd.swd.APIConnection.GetDataService;
+import in.ac.bits_hyderabad.swd.swd.APIConnection.Goodie;
 import in.ac.bits_hyderabad.swd.swd.R;
-import in.ac.bits_hyderabad.swd.swd.helper.Goodies;
 import in.ac.bits_hyderabad.swd.swd.helper.GoodiesAdapter;
 import in.ac.bits_hyderabad.swd.swd.user.activity.OrderGoodie;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.itemClicked {
 
     GridView rvGoodiesList;
     GoodiesAdapter mAdaptor;
     ProgressDialog dialog;
-    ArrayList<Goodies> goodies;
+    ArrayList<Goodie> goodies;
     SwipeRefreshLayout swipeRefresh;
-    boolean LIMITED_GOODIE=false;
     TextView totalDeductionsText;
     Button viewDeductionButton;
     ProgressBar totalDeductionsProgress;
-    String previous;
+
+    Retrofit mRetrofitClient;
+    GetDataService mRetrofitService;
 
     String uid, id_no, pwd;
 
@@ -62,14 +54,15 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         // Defines the xml file for the fragment
         View view = inflater.inflate(R.layout.fragment_goodies, parent, false);
+
+        mRetrofitClient = new Retrofit.Builder()
+                .baseUrl(getString(R.string.URL))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        mRetrofitService = mRetrofitClient.create(GetDataService.class);
 
         totalDeductionsText = view.findViewById(R.id.totalDeductionsText);
         viewDeductionButton = view.findViewById(R.id.viewDeductionButton);
@@ -87,18 +80,14 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        swipeRefresh=view.findViewById(R.id.swipeRefresh);
+        swipeRefresh = view.findViewById(R.id.swipeRefresh);
         swipeRefresh.setRefreshing(true);
-        dialog=new ProgressDialog(getContext());
+        dialog = new ProgressDialog(getContext());
         dialog.setMessage("Loading...");
         dialog.setCanceledOnTouchOutside(false);
         goodies = new ArrayList<>();
         loadGoodies();//define your goodies array list here
-        rvGoodiesList=view.findViewById(R.id.rvGoodiesList);
-        rvGoodiesList.bringToFront();
-        mAdaptor = new GoodiesAdapter(getActivity(), this, goodies);
-        rvGoodiesList.setAdapter(mAdaptor);
-        mAdaptor.notifyDataSetChanged();
+        rvGoodiesList = view.findViewById(R.id.rvGoodiesList);
 
 
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -111,208 +100,73 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
         });
     }
 
-    public void loadGoodies()
-    {
-        RequestQueue queue = Volley.newRequestQueue(getContext());
+    private void loadGoodies() {
+        Call<ArrayList<Goodie>> call = mRetrofitService.getGoodies("goodies", uid, pwd);
+        Call<ArrayList<Deduction>> call2 = mRetrofitService.getDeductions("deductions", uid, pwd);
 
-        StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
+        call.enqueue(new Callback<ArrayList<Goodie>>() {
             @Override
-            public void onResponse(String response) {
-
-                try {
-                    JSONArray jsonArray=new JSONArray(response);
-                    for(int i=0; i<jsonArray.length(); i++) {
-                        JSONObject obj=jsonArray.getJSONObject(i);
-                        String id=obj.getString("g_id");
-                        String name=obj.getString("name");
-                        String host=obj.getString("hosted_by");
-                        String image=obj.getString("img");
-                        String price="₹ "+obj.getString("price");
-                        String size_chart=obj.getString("link");
-                        String xs=obj.getString("xs");
-                        String s=obj.getString("s");
-                        String m=obj.getString("m");
-                        String l=obj.getString("l");
-                        String xl=obj.getString("xl");
-                        String xxl=obj.getString("xxl");
-                        String xxxl=obj.getString("xxxl");
-                        String qut=obj.getString("qut");
-                        String min_amount=obj.getString("min_amount");
-                        String max_amount=obj.getString("max_amount");
-                        String max_quantity=obj.getString("max_quantity");
-                        String custom=obj.getString("custom");
-                        String view_uid=obj.getString("view_uid");
-                        String host_name=obj.getString("hoster_name");
-                        String mobile=obj.getString("hoster_mob_num");
-
-                        /*{"g_id":"1000","name":"Duplicate ID Card","hosted_by":"Student Welfare Division","img":"bits_logo.png", "link":"","active":"1","xs":"0","s":"0","m":"0","l":"0","xl":"0","xxl":"0","xxxl":"0","qut":"0","min_amount":"0","max_amount":"0","max_quantity":"0","price":"75","closing_datetime":"2019-05-14 00:00:00","delivery_date":"0000-00-00","custom":"0","acceptance":"0","hoster_name":"Student Welfare Division","hoster_mob_num":"","view_uid":"prasanth","uploaded_on":"2019-04-14 15:08:37"} */
-                        goodies.add(new Goodies(id,name,host,image,price,size_chart,xs,s,m,l,xl,xxl,xxxl,qut,min_amount,max_amount,max_quantity,custom,view_uid,host_name,mobile));
-                    }
-                    goodies=sort(goodies);
-                    mAdaptor.notifyDataSetChanged();
-                    swipeRefresh.setRefreshing(false);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
-                    swipeRefresh.setRefreshing(false);
-                }
-
-
+            public void onResponse(Call<ArrayList<Goodie>> call, retrofit2.Response<ArrayList<Goodie>> response) {
+                Log.d("Goodies", response.toString());
+                goodies = response.body();
+                mAdaptor = new GoodiesAdapter(getActivity(), User_GoodiesFragment.this, goodies);
+                rvGoodiesList.setAdapter(mAdaptor);
+                mAdaptor.notifyDataSetChanged();
+                swipeRefresh.setRefreshing(false);
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void onFailure(Call<ArrayList<Goodie>> call, Throwable t) {
+                t.printStackTrace();
                 Toast.makeText(getActivity(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
                 swipeRefresh.setRefreshing(false);
             }
-        }) {
+        });
+        call2.enqueue(new Callback<ArrayList<Deduction>>() {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                Map<String, String> params = new HashMap<>();
-                params.put("tag", "goodies");
-                params.put("id", uid);
-                params.put("pwd", pwd);
-                return params;
-
-            }
-        };
-
-        ArrayList<Integer> deductions = new ArrayList<>();
-        StringRequest request2 = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    int totalDeductions = 0;
-                    JSONArray array = new JSONArray(response);
-                    for (int i = 0; i < array.length(); i++) {
-                        String amount = array.getJSONObject(i).getString("amount");
-                        totalDeductions = totalDeductions + Integer.parseInt(amount);
-                        swipeRefresh.setRefreshing(false);
-                    }
-                    String textToDisplay = "You've spent ₹" + totalDeductions + " this semester";
-                    totalDeductionsProgress.setVisibility(View.GONE);
-                    totalDeductionsText.setText(textToDisplay);
-                } catch (JSONException e) {
-                    Toast.makeText(getActivity(), "Something went wrong!", Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
+            public void onResponse(Call<ArrayList<Deduction>> call, retrofit2.Response<ArrayList<Deduction>> response) {
+                int totalDeductions = 0;
+                for (int i = 0; i < response.body().size(); i++) {
+                    String amount = response.body().get(i).getAmount();
+                    totalDeductions = totalDeductions + Integer.parseInt(amount);
                 }
-
+                swipeRefresh.setRefreshing(false);
+                String textToDisplay = "You've spent ₹" + totalDeductions + " this semester";
+                totalDeductionsProgress.setVisibility(View.GONE);
+                totalDeductionsText.setText(textToDisplay);
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void onFailure(Call<ArrayList<Deduction>> call, Throwable t) {
+                t.printStackTrace();
                 Toast.makeText(getActivity(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
                 swipeRefresh.setRefreshing(false);
             }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("tag", "deductions");
-                params.put("id", uid);
-                params.put("pwd", pwd);
-                return params;
-            }
-        };
-
-        queue.add(request);
-        queue.add(request2);
+        });
     }
 
-    private void getPreviousData(String u_id, String g_id, String password, int index) {
-
-        RequestQueue queue = Volley.newRequestQueue(getContext());
-
-        StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-                try {
-
-                    JSONObject obj = new JSONObject(response);
-                    int itemsLeft = LIMITED_GOODIE ? Integer.parseInt(obj.getString("items_left")) : 99999999;
-                    String type = obj.getString("type");
-                    JSONObject previousdetails = new JSONObject();
-                    if (type.equals("first_time")) {
-
-                        previousdetails.put("first_time",true);
-
-                    } else {
-                        previousdetails = obj.getJSONObject("previous_details");
-                        previousdetails.put("first_time",false);
-                    }
-
-                    previous=previousdetails.toString();
-                    Intent intent=new Intent(getActivity(),OrderGoodie.class);
-                    intent.putExtra("goodieClicked",goodies.get(index));
-                    intent.putExtra("previous",previous);
-                    intent.putExtra("items_left",itemsLeft);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        startActivity(intent, ActivityOptions.makeCustomAnimation(getContext(),R.xml.slide_in_right,R.xml.slide_in_right).toBundle());
-                        dialog.cancel();
-                    }
-                    else{
-                        startActivity(intent);
-                        dialog.cancel();
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
-                    dialog.cancel();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
-                dialog.cancel();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                Map<String, String> map = new HashMap<>();
-
-                map.put("tag", "goodie_selected");
-                map.put("id", u_id);
-                map.put("pwd",password);
-                map.put("g_id", g_id);
-                return map;
-
-            }
-        };
-
-
-        queue.add(request);
-
-    }
-
-
-    public ArrayList<Goodies> sort(ArrayList<Goodies> goodies){
-
-
-        for (int i=0;i<goodies.size();i++) {
-
-            Goodies min=goodies.get(i);
-            for(int j=i+1;j<goodies.size();j++){
-                if(Integer.parseInt(goodies.get(j).id)<Integer.parseInt(min.id)){
-                    min=goodies.get(j);
-                }
-            }
-            goodies.remove(min);
-            goodies.add(0,min);
-        }
-
-        return goodies;
-    }
 
     @Override
     public void onItemClicked(int index) {
-        dialog.show();
-        getPreviousData(uid, goodies.get(index).getId(), pwd, index);
+        Goodie goodie = goodies.get(index);
+
+        int goodieType = OrderGoodie.ID_WORKSHOP_LUNCH_TYPE;
+
+        if (!(goodie.getMinAmount().equals("0") && goodies.get(index).getMaxAmount().equals("0"))) {
+            goodieType = OrderGoodie.FUNDRAISER_TYPE;
+        } else {
+            if (goodie.getQut().equals("0"))
+                goodieType = OrderGoodie.TSHIRT_TYPE;
+            else if (goodie.getQut().equals("1"))
+                goodieType = OrderGoodie.ID_WORKSHOP_LUNCH_TYPE;
+        }
+
+        Intent intent = new Intent(getActivity(), OrderGoodie.class);
+        intent.putExtra("goodieId", goodie.getGoodieID());
+        intent.putExtra("goodieType", goodieType);
+        intent.putExtra("uid", uid);
+        intent.putExtra("pwd", pwd);
+
+        startActivity(intent);
     }
 }

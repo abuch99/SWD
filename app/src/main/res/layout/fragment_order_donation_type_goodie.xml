@@ -43,7 +43,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider6"
-            tools:text="Duplicate ID card" />
+            tools:text="Donation" />
 
         <TextView
             android:id="@+id/goodieHostTextView"
@@ -54,7 +54,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/goodieNameTextView"
-            tools:text="Student Welfare Division" />
+            tools:text="for Hindi Tarang" />
 
         <TextView
             android:id="@+id/goodiePriceTextView"
@@ -66,7 +66,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/goodieHostTextView"
-            tools:text="₹75" />
+            tools:text="₹1 to ₹1000" />
 
         <View
             android:id="@+id/divider7"
@@ -115,7 +115,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/qty_textview"
+            app:layout_constraintTop_toBottomOf="@+id/donate_amount_layout"
             app:layout_constraintVertical_bias="0.5" />
 
         <Button
@@ -146,52 +146,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/button_qty_inc"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="32dp"
-            android:background="@drawable/increment_decrement_button_background"
-            android:gravity="center"
-            android:text="@string/plus"
-            android:textColor="@color/whiteText"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/qty_textview"
-            app:layout_constraintEnd_toStartOf="@+id/divider4"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/qty_textview"
-            app:layout_constraintTop_toTopOf="@+id/qty_textview" />
-
-        <Button
-            android:id="@+id/button_qty_dec"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginEnd="32dp"
-            android:background="@drawable/increment_decrement_button_background"
-            android:gravity="center"
-            android:text="@string/minus"
-            android:textColor="@color/whiteText"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/qty_textview"
-            app:layout_constraintEnd_toStartOf="@+id/qty_textview"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toEndOf="@+id/divider3"
-            app:layout_constraintTop_toTopOf="@+id/qty_textview" />
-
-        <TextView
-            android:id="@+id/qty_textview"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/donate_amount_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="@string/_1"
-            android:textColor="@color/whiteText"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/button_qty_inc"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button_qty_dec"
-            app:layout_constraintTop_toBottomOf="@+id/divider7"
-            app:layout_constraintVertical_chainStyle="spread" />
+            android:hint="@string/amount"
+            app:boxStrokeColor="@color/profile_input_layout_colors"
+            app:hintTextColor="@color/profile_input_layout_colors"
+            app:layout_constraintEnd_toStartOf="@+id/divider4"
+            app:layout_constraintStart_toEndOf="@+id/divider3"
+            app:layout_constraintTop_toBottomOf="@+id/divider7">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/donate_amount_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
