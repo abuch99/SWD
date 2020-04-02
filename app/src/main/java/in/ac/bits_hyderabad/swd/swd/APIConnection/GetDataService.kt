@@ -22,6 +22,9 @@ interface GetDataService {
     @GET("swd_app/")
     fun getLoginSuccessful(@Query("tag") tag: String, @Query("id") id: String, @Query("pwd") password: String): Call<Login>
 
+    @GET("mess/")
+    fun getMessRegDetails(@Query("isapp") isapp: String): Call<MessReg>
+
     @PUT("passmail.php/")
     fun putPasswordResetRequest(@Query("id") uid: String, @Query("reset") reset: String): Call<Login>
 

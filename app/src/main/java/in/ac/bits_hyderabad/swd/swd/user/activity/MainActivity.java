@@ -33,11 +33,11 @@ import java.util.Map;
 
 import in.ac.bits_hyderabad.swd.swd.BuildConfig;
 import in.ac.bits_hyderabad.swd.swd.R;
+import in.ac.bits_hyderabad.swd.swd.user.fragment.MessMenu;
 import in.ac.bits_hyderabad.swd.swd.user.fragment.User_ConnectFragment;
 import in.ac.bits_hyderabad.swd.swd.user.fragment.User_DocFragment;
 import in.ac.bits_hyderabad.swd.swd.user.fragment.User_GoodiesFragment;
 import in.ac.bits_hyderabad.swd.swd.user.fragment.User_HomeFragment;
-import in.ac.bits_hyderabad.swd.swd.user.fragment.User_MessFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -65,16 +65,16 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.navigation_goodies:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new User_GoodiesFragment(uid, id_no, pwd)).addToBackStack("home").commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new User_GoodiesFragment(uid, id_no, pwd)).commit();
                         break;
                     case R.id.navigation_mess:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new User_MessFragment(uid, pwd)).addToBackStack("home").commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new MessMenu(uid, pwd)).commit();
                         break;
                     case R.id.navigation_connect:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new User_ConnectFragment()).addToBackStack("home").commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new User_ConnectFragment()).commit();
                         break;
                     case R.id.navigation_miscellaneous:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new User_DocFragment(uid, id_no, pwd)).addToBackStack("home").commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new User_DocFragment(uid, id_no, pwd)).commit();
                         break;
                     case R.id.navigation_home:
                     default:

@@ -3,7 +3,6 @@ package in.ac.bits_hyderabad.swd.swd.user.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -41,24 +40,18 @@ public class Splash_Activity extends AppCompatActivity {
         noInternetImage = findViewById(R.id.noInternetImage);
 
         //checking whether the user has logged in before or not
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                prefs = getApplicationContext().getSharedPreferences("USER_LOGIN_DETAILS", MODE_PRIVATE);
+        prefs = getApplicationContext().getSharedPreferences("USER_LOGIN_DETAILS", MODE_PRIVATE);
 
-                if(prefs.getInt("exists",0)==1) {
-                    String uid = prefs.getString("uid", null);
-                    String pwd = prefs.getString("password", null);
-                    Log.d("Encrypted password", pwd);
-                    checkPasswordChanged(uid, pwd);
-                } else {
-                    Intent intent =new Intent(Splash_Activity.this,User_Login.class);
-                    startActivity(intent);
-                    finish();
-                }
-
-            }
-        }, SPLASH_SCREEN_TIMEOUT);
+        if (prefs.getInt("exists", 0) == 1) {
+            String uid = prefs.getString("uid", null);
+            String pwd = prefs.getString("password", null);
+            Log.d("Encrypted password", pwd);
+            checkPasswordChanged(uid, pwd);
+        } else {
+            Intent intent = new Intent(Splash_Activity.this, User_Login.class);
+            startActivity(intent);
+            finish();
+        }
 
     }
 

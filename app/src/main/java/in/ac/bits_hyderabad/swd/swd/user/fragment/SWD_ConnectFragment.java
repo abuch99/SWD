@@ -35,9 +35,6 @@ import in.ac.bits_hyderabad.swd.swd.R;
 import in.ac.bits_hyderabad.swd.swd.helper.Person;
 import in.ac.bits_hyderabad.swd.swd.helper.PersonAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class SWD_ConnectFragment extends Fragment {
 
     private RecyclerView rvSWD;
@@ -50,18 +47,18 @@ public class SWD_ConnectFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_swd__connect, container, false);
+        View view = inflater.inflate(R.layout.fragment_connect_org, container, false);
 
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        swipeRefresh=view.findViewById(R.id.swipeRefreshSWD);
+        swipeRefresh = view.findViewById(R.id.swipeRefreshConnect);
         swipeRefresh.setRefreshing(true);
 
         personSWD =new ArrayList<>();
-        rvSWD=view.findViewById(R.id.rvSWD);
+        rvSWD = view.findViewById(R.id.rvConnect);
         mLayoutManager =new LinearLayoutManager(getActivity());
         rvSWD.setLayoutManager(mLayoutManager);
         mAdaptor=new PersonAdapter(personSWD,getActivity());

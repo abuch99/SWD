@@ -2,6 +2,10 @@ package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,12 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -37,9 +35,6 @@ import in.ac.bits_hyderabad.swd.swd.R;
 import in.ac.bits_hyderabad.swd.swd.helper.Person;
 import in.ac.bits_hyderabad.swd.swd.helper.PersonAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class EC_ConnectFragment extends Fragment {
 
     private RecyclerView rvEC;
@@ -52,17 +47,17 @@ public class EC_ConnectFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ec__connect, container, false);
+        return inflater.inflate(R.layout.fragment_connect_org, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        swipeRefresh=view.findViewById(R.id.swipeRefreshEC);
+        swipeRefresh = view.findViewById(R.id.swipeRefreshConnect);
         swipeRefresh.setRefreshing(true);
 
         personEC =new ArrayList<>();
-        rvEC=view.findViewById(R.id.rvEC);
+        rvEC = view.findViewById(R.id.rvConnect);
         mLayoutManager =new LinearLayoutManager(getActivity());
         rvEC.setLayoutManager(mLayoutManager);
         mAdaptor=new PersonAdapter(personEC,getActivity());

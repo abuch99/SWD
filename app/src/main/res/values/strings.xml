@@ -209,11 +209,14 @@
     <string name="reset">Reset</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="plus">+</string>
+    f
     <string name="_1">1</string>
     <string name="minus">-</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="amount">Amount</string>
+    <string name="mess_reg_instructions">Select which mess you want to register to</string>
+    <string name="mess_reg_closed">Mess registration is closed right now</string>
 
 </resources>

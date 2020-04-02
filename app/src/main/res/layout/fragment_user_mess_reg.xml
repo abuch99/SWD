@@ -1,157 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/swipeRefreshMessReg"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mess_reg_coordinator"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/dark_background"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".user.fragment.UserMessRegFragment">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/llmessRegClosed"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_vertical">
+            android:layout_marginTop="16dp"
+            android:text="@string/messReg_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@color/whiteText"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/messRegInstructionsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/whiteText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
-            <TextView
+        <ProgressBar
+            android:id="@+id/messRegProgress"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/messRegInstructionsText" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshMessReg"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView12"
+            tools:context=".user.fragment.UserMessRegFragment">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Mess Registration is closed "
-                android:textSize="18sp"
-                android:textColor="@color/colorAccent"
-                android:layout_margin="10dp"
-                android:gravity="center" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/llmessRegOpen"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_below="@id/llmessRegClosed"
-            android:padding="25dp"
-            android:orientation="vertical">
+                android:layout_height="match_parent">
 
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="10dp">
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardMessReg"
+                    android:layout_width="0dp"
+                    android:layout_height="250dp"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginEnd="48dp"
+                    app:cardBackgroundColor="@color/dark_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="20dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="Mess  Registration"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textAllCaps="true"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="15dp"
-                        android:layout_gravity="center_horizontal"
-                        android:text="Please select the mess you want to apply for"/>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:orientation="horizontal">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
                         <RadioGroup
                             android:id="@+id/rgMessChoice"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="24dp"
+                            app:layout_constraintBottom_toTopOf="@+id/registerButton"
+                            app:layout_constraintEnd_toStartOf="@+id/mess2SeatsLeft"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
                             <RadioButton
                                 android:id="@+id/rbMess1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginRight="10dp"
-                                android:text="Mess 1"/>
+                                android:text="Mess 1"
+                                android:textColor="@color/whiteText" />
+
                             <RadioButton
                                 android:id="@+id/rbMess2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginRight="10dp"
-                                android:text="Mess 2"/>
+                                android:text="Mess 2"
+                                android:textColor="@color/whiteText" />
 
                         </RadioGroup>
 
-                        <LinearLayout
+                        <TextView
+                            android:id="@+id/mess2SeatsLeft"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
-                            <TextView
-                                android:id="@+id/tvMess1Left"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:gravity="center_vertical"
-                                android:layout_weight="1"
-                                android:layout_marginStart="10dp"
-                                android:text="258 Left"/>
+                            android:layout_height="wrap_content"
+                            android:textAllCaps="false"
+                            android:textColor="@color/whiteText"
+                            app:layout_constraintBottom_toBottomOf="@+id/rgMessChoice"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/rgMessChoice"
+                            app:layout_constraintTop_toBottomOf="@+id/mess1SeatsLeft"
+                            tools:text="All seats left" />
 
-                            <TextView
-                                android:id="@+id/tvMess2Left"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:gravity="center_vertical"
-                                android:layout_weight="1"
-                                android:layout_marginStart="10dp"
-                                android:text="612 Left"/>
-                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/mess1SeatsLeft"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textAllCaps="false"
+                            android:textColor="@color/whiteText"
+                            app:layout_constraintBottom_toTopOf="@+id/mess2SeatsLeft"
+                            app:layout_constraintStart_toStartOf="@+id/mess2SeatsLeft"
+                            app:layout_constraintTop_toTopOf="@+id/rgMessChoice"
+                            tools:text="0 seats left" />
+
+                        <Button
+                            android:id="@+id/registerButton"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="24dp"
+                            android:layout_marginBottom="24dp"
+                            android:background="@drawable/rounded_button"
+                            android:elevation="0dp"
+                            android:fontFamily="sans-serif-black"
+                            android:text="Register"
+                            android:textAllCaps="false"
+                            android:textColor="@color/whiteText"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/mess2SeatsLeft"
+                            app:layout_constraintStart_toStartOf="@+id/rgMessChoice"
+                            app:layout_constraintTop_toBottomOf="@+id/rgMessChoice" />
+
+                        <ImageView
+                            android:id="@+id/messRegErrorImage"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/outline_warning_24"
+                            android:tint="@color/whiteText"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/messRegErrorText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/mess_reg_closed"
+                            android:textColor="@color/whiteText"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.482"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/messRegErrorImage" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
 
 
-                    </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <TextView
-                        android:id="@+id/tvResult"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:textColor="@color/calling_green_color"
-                        android:text="Succesfully registered to mess 1"
-                        android:gravity="center_horizontal">
-
-                    </TextView>
-
-                    <Button
-                        android:id="@+id/btnRegister"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="REGISTER"
-                        android:layout_gravity="center_horizontal"
-                        android:textColor="@color/whiteText"
-                        android:textStyle="bold"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/buttons_submit"/>
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-        </LinearLayout>
-
-    </RelativeLayout>
-
-
-
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

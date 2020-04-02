@@ -131,3 +131,12 @@ class Deduction {
     @SerializedName("type")
     var type: String? = null
 }
+
+class MessReg {
+    @SerializedName("Pass")
+    var pass: String? = null
+    @SerializedName("Mess1left")
+    var mess1SeatsLeft: String? = null
+    @SerializedName("Mess2left")
+    var mess2SeatsLeft: String? = null
+}
