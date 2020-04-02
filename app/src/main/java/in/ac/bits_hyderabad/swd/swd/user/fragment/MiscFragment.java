@@ -7,16 +7,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -25,54 +20,40 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.card.MaterialCardView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import in.ac.bits_hyderabad.swd.swd.R;
-import in.ac.bits_hyderabad.swd.swd.helper.Document;
-import in.ac.bits_hyderabad.swd.swd.helper.DocumentsAdapter;
 import in.ac.bits_hyderabad.swd.swd.helper.PdfDocumentSample;
 
-public class User_DocFragment extends Fragment implements DocumentsAdapter.itemClicked {
+public class MiscFragment extends Fragment {
 
-
-    RecyclerView rvDocs;
-    ArrayList<Document> documents=new ArrayList<>();
-    RecyclerView.Adapter mAdapter;
-    RecyclerView.LayoutManager mLayoutManager;
     String uid, id_no, password;
-    TextView tvDialogmsg, tvDialogTitle;
-    String name_of_item_clicked;
-    String type_of_item_clicked;
     ProgressDialog dialog;
     int PERMISSION =1000;
 
-    public User_DocFragment(String uid, String id_no, String password) {
+    MaterialCardView cardTimings, cardBonafide, cardGoodChar, cardNoObjection, cardVacation;
+
+    public MiscFragment(String uid, String id_no, String password) {
         this.uid = uid;
         this.id_no = id_no;
         this.password = password;
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        // Defines the xml file for the fragment
-        View view = inflater.inflate(R.layout.fragment_doc, parent, false);
-        return view;
-    }
+        View rootView = inflater.inflate(R.layout.fragment_misc, parent, false);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        cardTimings = rootView.findViewById(R.id.cardViewTimings);
+        cardBonafide = rootView.findViewById(R.id.cardViewBonafide);
+        cardGoodChar = rootView.findViewById(R.id.cardViewGoodCharacter);
+        cardNoObjection = rootView.findViewById(R.id.cardViewNoObjection);
+        cardVacation = rootView.findViewById(R.id.cardViewVacation);
 
         dialog=new ProgressDialog(getActivity());
         dialog.setMessage("Loading..");
@@ -80,33 +61,49 @@ public class User_DocFragment extends Fragment implements DocumentsAdapter.itemC
         dialog.setCanceledOnTouchOutside(false);
         dialog.create();
 
+        cardTimings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().replace(R.id.container, new BusTimingsFragment()).commit();
+            }
+        });
 
-        documents.add(new Document("Bonafide Certificate","bonafide"));
-        documents.add(new Document("Good Character Certificate","good_char"));
-        //documents.add(new Document("Medical Insurance Claim Form","claimform.pdf"));
-        documents.add(new Document("No Objection Certificate","noc"));
-        documents.add(new Document("Vacation Letter","vacation"));
+        cardBonafide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDocument("BONAFIDE CERTIFICATE", "bonafide");
+            }
+        });
 
+        cardGoodChar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDocument("GOOD CHARACTER CERTIFICATE", "good_char");
+            }
+        });
 
-        rvDocs=view.findViewById(R.id.rvDocs);
-        mLayoutManager=new GridLayoutManager(getActivity(),2, RecyclerView.VERTICAL,false);
-        rvDocs.setLayoutManager(mLayoutManager);
-        mAdapter=new DocumentsAdapter(getActivity(),this,documents);
-        rvDocs.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
+        cardNoObjection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDocument("NO OBJECTION CERTIFICATE", "noc");
+            }
+        });
+
+        cardVacation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDocument("VACATION LETTER CERTIFICATE", "vacation");
+            }
+        });
+
+        return rootView;
     }
 
-    @Override
-    public void onItemClicked(int index) {
+    public void getDocument(String name, String url) {
 
-        name_of_item_clicked=documents.get(index).getName().toUpperCase();
-        type_of_item_clicked=documents.get(index).getUrl();
-
-
-        boolean ext= ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED;
+        boolean ext = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
 
         if(ext) {
-            dialog.show();
             RequestQueue queue = Volley.newRequestQueue(getActivity());
             StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.DOCS_URL), new com.android.volley.Response.Listener<String>() {
                 @Override
@@ -117,7 +114,7 @@ public class User_DocFragment extends Fragment implements DocumentsAdapter.itemC
 
                         if (!object.getString("error").equalsIgnoreCase("true")) {
                             String content = object.getString("content");
-                            PdfDocumentSample document = new PdfDocumentSample(id_no, name_of_item_clicked,
+                            PdfDocumentSample document = new PdfDocumentSample(id_no, name,
                                     content, getString(R.string.dean), getString(R.string.post),
                                     getString(R.string.doc_address), getString(R.string.doc_contact), getActivity());
                             dialog.cancel();
@@ -147,7 +144,7 @@ public class User_DocFragment extends Fragment implements DocumentsAdapter.itemC
                     Map<String, String> params = new HashMap<>();
                     params.put("tag", "docs");
                     params.put("uid", uid);
-                    params.put("doc_type", type_of_item_clicked);
+                    params.put("doc_type", url);
                     return params;
 
                 }
@@ -155,18 +152,10 @@ public class User_DocFragment extends Fragment implements DocumentsAdapter.itemC
 
 
             queue.add(request);
-        }
-        else
-        {
+        } else {
             ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},PERMISSION);
         }
 
-    }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
     }
 
 }

@@ -34,8 +34,8 @@ import java.util.Map;
 import in.ac.bits_hyderabad.swd.swd.BuildConfig;
 import in.ac.bits_hyderabad.swd.swd.R;
 import in.ac.bits_hyderabad.swd.swd.user.fragment.MessMenu;
+import in.ac.bits_hyderabad.swd.swd.user.fragment.MiscFragment;
 import in.ac.bits_hyderabad.swd.swd.user.fragment.User_ConnectFragment;
-import in.ac.bits_hyderabad.swd.swd.user.fragment.User_DocFragment;
 import in.ac.bits_hyderabad.swd.swd.user.fragment.User_GoodiesFragment;
 import in.ac.bits_hyderabad.swd.swd.user.fragment.User_HomeFragment;
 
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, new User_ConnectFragment()).commit();
                         break;
                     case R.id.navigation_miscellaneous:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new User_DocFragment(uid, id_no, pwd)).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new MiscFragment(uid, id_no, pwd)).commit();
                         break;
                     case R.id.navigation_home:
                     default:

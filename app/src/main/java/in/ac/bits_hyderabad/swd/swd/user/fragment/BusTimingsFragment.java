@@ -2,18 +2,14 @@ package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+
 import in.ac.bits_hyderabad.swd.swd.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class BusTimingsFragment extends Fragment {
 
 

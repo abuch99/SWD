@@ -163,8 +163,8 @@
     <string name="OPAC_URL">http://libraryopac.bits-hyderabad.ac.in/</string>
 
 
-    <string name="busTimeBits_to_Sec">06:55 , 07:55 , 08:50, 09:20, 09:50, 11:00, 12:00, 13:00, 14:00, 15:05, 16:05, 17:20, 18:15, 19:15, 20:15</string>
-    <string name="busTimeSec_to_Bits">07:50, 08:20, 08:50, 09:50, 11:00, 12:00, 13:00, 14:10, 15:05, 16:05, 17:20, 18:15, 19:15, 20:15, 21:15</string>
+    <string name="busTimeBits_to_Sec">\u2022 06:55\n\u2022 07:55\n\u2022 08:50\n\u2022 09:20\n\u2022 09:50\n\u2022 11:00\n\u2022 12:00\n\u2022 13:00\n\u2022 14:00\n\u2022 15:05\n\u2022 16:05\n\u2022 17:20\n\u2022 18:15\n\u2022 19:15\n\u2022 20:15</string>
+    <string name="busTimeSec_to_Bits">\u2022 07:50\n\u2022 08:20\n\u2022 08:50\n\u2022 09:50\n\u2022 11:00\n\u2022 12:00\n\u2022 13:00\n\u2022 14:10\n\u2022 15:05\n\u2022 16:05\n\u2022 17:20\n\u2022 18:15\n\u2022 19:15\n\u2022 20:15\n\u2022 21:15</string>
 
 
     <string name="doc_Bonafide">Bonafide Certificate</string>
@@ -209,14 +209,16 @@
     <string name="reset">Reset</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="plus">+</string>
-    f
     <string name="_1">1</string>
     <string name="minus">-</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="amount">Amount</string>
     <string name="mess_reg_instructions">Select which mess you want to register to</string>
     <string name="mess_reg_closed">Mess registration is closed right now</string>
+    <string name="bits_to_secunderabad">BITS to Secunderabad</string>
+    <string name="secunderabad_to_bits">Secunderabad to BITS</string>
+    <string name="view_timings">View timings</string>
+    <string name="bus_212">Bus 212</string>
+    <string name="get_documents">Get documents</string>
 
 </resources>
