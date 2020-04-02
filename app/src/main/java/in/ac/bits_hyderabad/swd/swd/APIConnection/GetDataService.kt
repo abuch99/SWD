@@ -4,6 +4,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.PUT
 import retrofit2.http.Query
+import retrofit2.http.QueryMap
 
 interface GetDataService {
 
@@ -21,6 +22,9 @@ interface GetDataService {
 
     @GET("swd_app/")
     fun getLoginSuccessful(@Query("tag") tag: String, @Query("id") id: String, @Query("pwd") password: String): Call<Login>
+
+    @GET("swd_app/")
+    fun getGoodieOrderPlacedResponse(@Query("tag") tag: String, @Query("id") id: String, @Query("pwd") password: String, @QueryMap params: Map<String, String>): Call<GoodieOrderPlacedResponse>
 
     @GET("mess/")
     fun getMessRegDetails(@Query("isapp") isapp: String): Call<MessReg>

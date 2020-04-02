@@ -140,3 +140,10 @@ class MessReg {
     @SerializedName("Mess2left")
     var mess2SeatsLeft: String? = null
 }
+
+class GoodieOrderPlacedResponse {
+    @SerializedName("error")
+    var error: Boolean = true
+    @SerializedName("msg")
+    var msg: String? = null
+}

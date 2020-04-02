@@ -1,5 +1,7 @@
 package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,14 +22,22 @@ import androidx.fragment.app.Fragment;
 
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.Executor;
 
 import in.ac.bits_hyderabad.swd.swd.APIConnection.GetDataService;
 import in.ac.bits_hyderabad.swd.swd.APIConnection.Goodie;
+import in.ac.bits_hyderabad.swd.swd.APIConnection.GoodieOrderPlacedResponse;
 import in.ac.bits_hyderabad.swd.swd.R;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -139,6 +149,79 @@ public class OrderIDCardTypeGoodieFragment extends Fragment {
         orderTotalTextView.setText("Order total: ₹" + currentAmount);
     }
 
+    private void placeOrder() {
+        SharedPreferences preferences = getContext().getSharedPreferences("USER_LOGIN_DETAILS", Context.MODE_PRIVATE);
+        String name = preferences.getString("name", null);
+        String fullId = preferences.getString("id", null);
+
+        int xs = 0, s = 0, m = 0, l = 0, xl = 0, xxl = 0, xxxl = 0;
+
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("u_id", uid);
+            obj.put("full_id", fullId);
+            obj.put("u_name", name);
+            obj.put("g_id", goodieId);
+            obj.put("acceptance", String.valueOf(0));
+            obj.put("xs", String.valueOf(xs));
+            obj.put("s", String.valueOf(s));
+            obj.put("m", String.valueOf(m));
+            obj.put("l", String.valueOf(l));
+            obj.put("xl", String.valueOf(xl));
+            obj.put("xxl", String.valueOf(xxl));
+            obj.put("xxxl", String.valueOf(xxxl));
+            obj.put("custom_name", "");
+            obj.put("qut", String.valueOf(goodie.getQut()));
+            obj.put("net_qut", String.valueOf(quantitySelected));
+            obj.put("net_price", String.valueOf(currentAmount));
+            obj.put("type", "0");
+            sendRequest(obj);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void sendRequest(JSONObject obj) {
+        Map<String, String> map = new HashMap<>();
+        try {
+            map = JSONtoMap(obj);
+        } catch (JSONException e) {
+            Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+        }
+
+        Call<in.ac.bits_hyderabad.swd.swd.APIConnection.GoodieOrderPlacedResponse> call = mRetrofitService.getGoodieOrderPlacedResponse("place_order", uid, pwd, map);
+
+        call.enqueue(new Callback<GoodieOrderPlacedResponse>() {
+            @Override
+            public void onResponse(Call<GoodieOrderPlacedResponse> call, Response<GoodieOrderPlacedResponse> response) {
+                if (!response.body().getError())
+                    Toast.makeText(getContext(), response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getContext(), "Something went wrong! Please contact SWD", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<GoodieOrderPlacedResponse> call, Throwable t) {
+                Toast.makeText(getContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public Map<String, String> JSONtoMap(JSONObject object) throws JSONException {
+        Map<String, String> map = new HashMap<String, String>();
+        if (object != JSONObject.NULL) {
+            Iterator<String> keysItr = object.keys();
+            while (keysItr.hasNext()) {
+                String key = keysItr.next();
+                String value = object.getString(key);
+                map.put(key, value);
+            }
+        }
+        return map;
+    }
+
     private void setupQuantityClickListeners() {
 
         qtyDecButton.setOnClickListener(new View.OnClickListener() {
@@ -175,19 +258,27 @@ public class OrderIDCardTypeGoodieFragment extends Fragment {
     }
 
     private void decQty() {
-        if (quantitySelected > 1) {
-            quantitySelected--;
-            currentAmount = quantitySelected * goodiePrice;
-            orderTotalTextView.setText("Order total: ₹" + currentAmount);
-            qtyTextView.setText(Integer.toString(quantitySelected));
+        if (!goodieId.equals("1000")) {
+            if (quantitySelected > 1) {
+                quantitySelected--;
+                currentAmount = quantitySelected * goodiePrice;
+                orderTotalTextView.setText("Order total: ₹" + currentAmount);
+                qtyTextView.setText(Integer.toString(quantitySelected));
+            }
+        } else {
+            Toast.makeText(getContext(), "You can order only one ID card", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void incQty() {
-        quantitySelected++;
-        currentAmount = quantitySelected * goodiePrice;
-        orderTotalTextView.setText("Order total: ₹" + currentAmount);
-        qtyTextView.setText(Integer.toString(quantitySelected));
+        if (!goodieId.equals("1000")) {
+            quantitySelected++;
+            currentAmount = quantitySelected * goodiePrice;
+            orderTotalTextView.setText("Order total: ₹" + currentAmount);
+            qtyTextView.setText(Integer.toString(quantitySelected));
+        } else {
+            Toast.makeText(getContext(), "You can order only one ID card", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void orderGoodie() {
@@ -217,10 +308,6 @@ public class OrderIDCardTypeGoodieFragment extends Fragment {
         } else {
             placeOrder();
         }
-    }
-
-    private void placeOrder() {
-        //TODO: Implement
     }
 
     private boolean isAgreed() {

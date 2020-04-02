@@ -96,9 +96,24 @@
             android:text="@string/xxl"
             android:textColor="@color/whiteText"
             android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/button_xxxl"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/button_xl"
+            app:layout_constraintTop_toBottomOf="@+id/divider7" />
+
+        <Button
+            android:id="@+id/button_xxxl"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/increment_decrement_button_background"
+            android:gravity="center"
+            android:text="@string/xxxl"
+            android:textColor="@color/whiteText"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button_xxl"
             app:layout_constraintTop_toBottomOf="@+id/divider7" />
 
         <View

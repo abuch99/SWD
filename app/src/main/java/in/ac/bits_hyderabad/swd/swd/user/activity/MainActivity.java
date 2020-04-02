@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
     FragmentManager manager;
     ActionBar actionBar;
     SharedPreferences prefs;
-    int itemId = 0;
-    String tag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,16 +88,6 @@ public class MainActivity extends AppCompatActivity {
 
         actionBar = getSupportActionBar();
         manager = getSupportFragmentManager();
-    }
-
-
-    //TODO: Implemet logout
-    private void logout() {
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.clear();
-        editor.commit();
-        startActivity(new Intent(this, User_Login.class));
-        finish();
     }
 
     public void closeApp() {
