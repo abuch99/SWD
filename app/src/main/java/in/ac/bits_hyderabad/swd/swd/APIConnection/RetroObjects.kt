@@ -147,3 +147,14 @@ class GoodieOrderPlacedResponse {
     @SerializedName("msg")
     var msg: String? = null
 }
+
+class MessRegistrationResponse {
+    @SerializedName("Mess")
+    var mess: String? = null
+    @SerializedName("Mess1left")
+    var mess1SeatsLeft: String? = null
+    @SerializedName("Mess2left")
+    var mess2SeatsLeft: String? = null
+    @SerializedName("Pass")
+    var pass: String? = null
+}

@@ -65,10 +65,11 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardMessReg"
                     android:layout_width="0dp"
-                    android:layout_height="250dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="48dp"
                     android:layout_marginEnd="48dp"
                     app:cardBackgroundColor="@color/dark_background"
+                    app:cardCornerRadius="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -84,7 +85,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="24dp"
-                            app:layout_constraintBottom_toTopOf="@+id/registerButton"
+                            android:layout_marginBottom="24dp"
+                            app:layout_constraintBottom_toTopOf="@+id/messRegMsgText"
                             app:layout_constraintEnd_toStartOf="@+id/mess2SeatsLeft"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toStartOf="parent"
@@ -134,7 +136,8 @@
                             android:id="@+id/registerButton"
                             android:layout_width="0dp"
                             android:layout_height="50dp"
-                            android:layout_marginTop="24dp"
+                            android:layout_marginStart="32dp"
+                            android:layout_marginEnd="32dp"
                             android:layout_marginBottom="24dp"
                             android:background="@drawable/rounded_button"
                             android:elevation="0dp"
@@ -144,9 +147,8 @@
                             android:textColor="@color/whiteText"
                             android:textSize="16sp"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@+id/mess2SeatsLeft"
-                            app:layout_constraintStart_toStartOf="@+id/rgMessChoice"
-                            app:layout_constraintTop_toBottomOf="@+id/rgMessChoice" />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
 
                         <ImageView
                             android:id="@+id/messRegErrorImage"
@@ -160,16 +162,19 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/messRegErrorText"
+                            android:id="@+id/messRegMsgText"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="24dp"
                             android:gravity="center"
-                            android:text="@string/mess_reg_closed"
                             android:textColor="@color/whiteText"
+                            app:layout_constraintBottom_toTopOf="@+id/registerButton"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.482"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/messRegErrorImage" />
+                            app:layout_constraintTop_toBottomOf="@+id/messRegErrorImage"
+                            tools:text="Success" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

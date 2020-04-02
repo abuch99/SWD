@@ -29,6 +29,9 @@ interface GetDataService {
     @GET("mess/")
     fun getMessRegDetails(@Query("isapp") isapp: String): Call<MessReg>
 
+    @GET("mess/")
+    fun getMessRegResponse(@Query("isapp") isapp: String, @Query("user_name") uid: String, @Query("user_password") pwd: String, @Query("user_mess") messNo: String): Call<MessRegistrationResponse>
+
     @PUT("passmail.php/")
     fun putPasswordResetRequest(@Query("id") uid: String, @Query("reset") reset: String): Call<Login>
 
