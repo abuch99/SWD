@@ -92,69 +92,8 @@ public class OrderTshirtTypeGoodieFragment extends Fragment {
         this.pwd = pwd;
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_order_tshirt_type_goodie, container, false);
-
-        layout = rootView.findViewById(R.id.order_goodie_outer_layout);
-        loadingProgress = rootView.findViewById(R.id.order_goodie_loading_progress);
-        layout.setVisibility(View.INVISIBLE);
-        loadingProgress.setVisibility(View.VISIBLE);
-        goodieImageView = rootView.findViewById(R.id.goodieImageView);
-        goodieNameTextView = rootView.findViewById(R.id.goodieNameTextView);
-        goodieHostTextView = rootView.findViewById(R.id.goodieHostTextView);
-        goodiePriceTextView = rootView.findViewById(R.id.goodiePriceTextView);
-        xsButton = rootView.findViewById(R.id.button_xs);
-        sButton = rootView.findViewById(R.id.button_s);
-        mButton = rootView.findViewById(R.id.button_m);
-        lButton = rootView.findViewById(R.id.button_l);
-        xlButton = rootView.findViewById(R.id.button_xl);
-        xxlButton = rootView.findViewById(R.id.button_xxl);
-        xxxlButton = rootView.findViewById(R.id.button_xxxl);
-        qtyTextView = rootView.findViewById(R.id.qty_textview);
-        qtyDecButton = rootView.findViewById(R.id.button_qty_dec);
-        qtyIncButton = rootView.findViewById(R.id.button_qty_inc);
-        orderTotalTextView = rootView.findViewById(R.id.order_total_textview);
-        otherAdvancesAgreeCheckbox = rootView.findViewById(R.id.cb_agree_to_pay);
-        orderGoodieButton = rootView.findViewById(R.id.orderGoodieButton);
-
-        quantitySelected = 1;
-
-        mRetrofitClient = new Retrofit.Builder()
-                .baseUrl(getString(R.string.URL))
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        mRetrofitService = mRetrofitClient.create(GetDataService.class);
-
-        Call<ArrayList<Goodie>> call = mRetrofitService.getGoodies("goodies", uid, pwd);
-        call.enqueue(new Callback<ArrayList<Goodie>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Goodie>> call, retrofit2.Response<ArrayList<Goodie>> response) {
-                for (int i = 0; i < response.body().size(); i++) {
-                    Goodie nextGoodie = response.body().get(i);
-                    if (nextGoodie.getGoodieID().equals(goodieId)) {
-                        goodie = nextGoodie;
-                        goodiePrice = Integer.parseInt(goodie.getPrice());
-                        setData();
-                        setupQuantityClickListeners();
-                        layout.setVisibility(View.VISIBLE);
-                        loadingProgress.setVisibility(View.INVISIBLE);
-                        break;
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<Goodie>> call, Throwable t) {
-                t.printStackTrace();
-                Toast.makeText(getActivity(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-        return rootView;
-    }
+    Call<ArrayList<Goodie>> call;
+    Call<in.ac.bits_hyderabad.swd.swd.APIConnection.GoodieOrderPlacedResponse> call2;
 
     private void setData() {
         Picasso.get().load("http://swd.bits-hyderabad.ac.in/goodies/img/" + goodie.getImgLink())
@@ -218,6 +157,70 @@ public class OrderTshirtTypeGoodieFragment extends Fragment {
 
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_order_tshirt_type_goodie, container, false);
+
+        layout = rootView.findViewById(R.id.order_goodie_outer_layout);
+        loadingProgress = rootView.findViewById(R.id.order_goodie_loading_progress);
+        layout.setVisibility(View.INVISIBLE);
+        loadingProgress.setVisibility(View.VISIBLE);
+        goodieImageView = rootView.findViewById(R.id.goodieImageView);
+        goodieNameTextView = rootView.findViewById(R.id.goodieNameTextView);
+        goodieHostTextView = rootView.findViewById(R.id.goodieHostTextView);
+        goodiePriceTextView = rootView.findViewById(R.id.goodiePriceTextView);
+        xsButton = rootView.findViewById(R.id.button_xs);
+        sButton = rootView.findViewById(R.id.button_s);
+        mButton = rootView.findViewById(R.id.button_m);
+        lButton = rootView.findViewById(R.id.button_l);
+        xlButton = rootView.findViewById(R.id.button_xl);
+        xxlButton = rootView.findViewById(R.id.button_xxl);
+        xxxlButton = rootView.findViewById(R.id.button_xxxl);
+        qtyTextView = rootView.findViewById(R.id.qty_textview);
+        qtyDecButton = rootView.findViewById(R.id.button_qty_dec);
+        qtyIncButton = rootView.findViewById(R.id.button_qty_inc);
+        orderTotalTextView = rootView.findViewById(R.id.order_total_textview);
+        otherAdvancesAgreeCheckbox = rootView.findViewById(R.id.cb_agree_to_pay);
+        orderGoodieButton = rootView.findViewById(R.id.orderGoodieButton);
+
+        quantitySelected = 1;
+
+        mRetrofitClient = new Retrofit.Builder()
+                .baseUrl(getString(R.string.URL))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        mRetrofitService = mRetrofitClient.create(GetDataService.class);
+
+        call = mRetrofitService.getGoodies("goodies", uid, pwd);
+        call.enqueue(new Callback<ArrayList<Goodie>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Goodie>> call, retrofit2.Response<ArrayList<Goodie>> response) {
+                for (int i = 0; i < response.body().size(); i++) {
+                    Goodie nextGoodie = response.body().get(i);
+                    if (nextGoodie.getGoodieID().equals(goodieId)) {
+                        goodie = nextGoodie;
+                        goodiePrice = Integer.parseInt(goodie.getPrice());
+                        setData();
+                        setupQuantityClickListeners();
+                        layout.setVisibility(View.VISIBLE);
+                        loadingProgress.setVisibility(View.INVISIBLE);
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Goodie>> call, Throwable t) {
+                t.printStackTrace();
+                Toast.makeText(getActivity(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        return rootView;
+    }
+
     private void sendRequest(JSONObject obj) {
         Map<String, String> map = new HashMap<>();
         try {
@@ -226,9 +229,9 @@ public class OrderTshirtTypeGoodieFragment extends Fragment {
             Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
         }
 
-        Call<in.ac.bits_hyderabad.swd.swd.APIConnection.GoodieOrderPlacedResponse> call = mRetrofitService.getGoodieOrderPlacedResponse("place_order", uid, pwd, map);
+        call2 = mRetrofitService.getGoodieOrderPlacedResponse("place_order", uid, pwd, map);
 
-        call.enqueue(new Callback<GoodieOrderPlacedResponse>() {
+        call2.enqueue(new Callback<GoodieOrderPlacedResponse>() {
             @Override
             public void onResponse(Call<GoodieOrderPlacedResponse> call, Response<GoodieOrderPlacedResponse> response) {
                 if (!response.body().getError())
@@ -528,4 +531,11 @@ public class OrderTshirtTypeGoodieFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        call.cancel();
+        if (call2 != null)
+            call2.cancel();
+    }
 }

@@ -2,7 +2,6 @@ package `in`.ac.bits_hyderabad.swd.swd.APIConnection
 
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.PUT
 import retrofit2.http.Query
 import retrofit2.http.QueryMap
 
@@ -32,7 +31,10 @@ interface GetDataService {
     @GET("mess/")
     fun getMessRegResponse(@Query("isapp") isapp: String, @Query("user_name") uid: String, @Query("user_password") pwd: String, @Query("user_mess") messNo: String): Call<MessRegistrationResponse>
 
-    @PUT("passmail.php/")
-    fun putPasswordResetRequest(@Query("id") uid: String, @Query("reset") reset: String): Call<Login>
+    @GET("passmail.php/")
+    fun getPasswordResetResponse(@Query("id") uid: String, @Query("reset") reset: String): Call<Login>
+
+    @GET("swd_app/")
+    fun getConnectData(@Query("tag") tag: String): Call<ConnectData>
 
 }

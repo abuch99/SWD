@@ -100,9 +100,11 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
         });
     }
 
+    Call<ArrayList<Goodie>> call;
+    Call<ArrayList<Deduction>> call2;
     private void loadGoodies() {
-        Call<ArrayList<Goodie>> call = mRetrofitService.getGoodies("goodies", uid, pwd);
-        Call<ArrayList<Deduction>> call2 = mRetrofitService.getDeductions("deductions", uid, pwd);
+        call = mRetrofitService.getGoodies("goodies", uid, pwd);
+        call2 = mRetrofitService.getDeductions("deductions", uid, pwd);
 
         call.enqueue(new Callback<ArrayList<Goodie>>() {
             @Override
@@ -168,5 +170,12 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
         intent.putExtra("pwd", pwd);
 
         startActivity(intent);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        call.cancel();
+        call2.cancel();
     }
 }

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import in.ac.bits_hyderabad.swd.swd.APIConnection.Deduction;
 import in.ac.bits_hyderabad.swd.swd.R;
 
 public class DeductionsAdapter extends RecyclerView.Adapter<DeductionsAdapter.ViewHolder> {
@@ -34,23 +35,22 @@ public class DeductionsAdapter extends RecyclerView.Adapter<DeductionsAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        String deductionPrice = "₹" + deductions.get(position).amount;
+        String deductionPrice = "₹" + deductions.get(position).getAmount();
         String subText = "";
 
-        tvDedName.setText(deductions.get(position).name.trim());
+        tvDedName.setText(deductions.get(position).getName().trim());
         tvDedPrice.setText(deductionPrice);
 
-        if(deductions.get(position).type.equals("3")){
-            subText = "Quantity: " + deductions.get(position).netqut;
-        }
-        else if(deductions.get(position).type.equals("2")){
-            int xs=Integer.parseInt(deductions.get(position).xs);
-            int s=Integer.parseInt(deductions.get(position).s);
-            int m=Integer.parseInt(deductions.get(position).m);
-            int l=Integer.parseInt(deductions.get(position).l);
-            int xl=Integer.parseInt(deductions.get(position).xl);
-            int xxl=Integer.parseInt(deductions.get(position).xxl);
-            int xxxl=Integer.parseInt(deductions.get(position).xxxl);
+        if (deductions.get(position).getType().equals("3")) {
+            subText = "Quantity: " + deductions.get(position).getNetqut();
+        } else if (deductions.get(position).getType().equals("2")) {
+            int xs = Integer.parseInt(deductions.get(position).getXs());
+            int s = Integer.parseInt(deductions.get(position).getS());
+            int m = Integer.parseInt(deductions.get(position).getM());
+            int l = Integer.parseInt(deductions.get(position).getL());
+            int xl = Integer.parseInt(deductions.get(position).getXl());
+            int xxl = Integer.parseInt(deductions.get(position).getXxl());
+            int xxxl = Integer.parseInt(deductions.get(position).getXxxl());
             int count = xs + s + m + l + xl + xxl + xxxl;
 
             if (count == 1) {

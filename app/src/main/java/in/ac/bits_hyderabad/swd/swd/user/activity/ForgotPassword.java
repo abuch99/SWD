@@ -66,7 +66,7 @@ public class ForgotPassword extends AppCompatActivity {
                 .build();
         GetDataService retrofitService = retrofitClient.create(GetDataService.class);
 
-        Call<Login> call = retrofitService.putPasswordResetRequest(uid, "submit");
+        Call<Login> call = retrofitService.getPasswordResetResponse(uid, "submit");
         call.enqueue(new Callback<Login>() {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {

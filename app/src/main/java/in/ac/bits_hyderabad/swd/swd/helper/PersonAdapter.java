@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import in.ac.bits_hyderabad.swd.swd.APIConnection.Person;
 import in.ac.bits_hyderabad.swd.swd.R;
 
 public class PersonAdapter  extends RecyclerView.Adapter<PersonAdapter.ViewHolder>{
@@ -38,13 +39,13 @@ public class PersonAdapter  extends RecyclerView.Adapter<PersonAdapter.ViewHolde
     public void onBindViewHolder(@NonNull final PersonAdapter.ViewHolder holder, final int position) {
         holder.itemView.setTag(person.get(position));
 
-        holder.tvContactName.setText(person.get(position).name);
-        holder.tvDesignation.setText(person.get(position).designation);
+        holder.tvContactName.setText(person.get(position).getName());
+        holder.tvDesignation.setText(person.get(position).getDesignation());
 
         holder.ivMail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = person.get(position).uid + "@hyderabad.bits-pilani.ac.in";
+                String email = person.get(position).getUid() + "@hyderabad.bits-pilani.ac.in";
                 Intent intentMail = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", email, null));
                 context.startActivity(intentMail);
             }
@@ -52,7 +53,7 @@ public class PersonAdapter  extends RecyclerView.Adapter<PersonAdapter.ViewHolde
         holder.ivCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String number = person.get(position).phone;
+                String number = person.get(position).getPhone();
                 Intent callIntent = new Intent(Intent.ACTION_DIAL);
                 callIntent.setData(Uri.parse("tel:" + number));//change the number
                 context.startActivity(callIntent);

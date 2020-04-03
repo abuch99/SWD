@@ -82,11 +82,14 @@ public class MessMenu extends Fragment {
         return view;
     }
 
+    Call<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.MessMenu>> call2;
+    Call<in.ac.bits_hyderabad.swd.swd.APIConnection.MessReq> call;
+
     private void getMessMenu() {
 
-        Call<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.MessMenu>> call = mRetrofitService.getMessMenu("mess_menu", uid, password);
+        call2 = mRetrofitService.getMessMenu("mess_menu", uid, password);
 
-        call.enqueue(new Callback<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.MessMenu>>() {
+        call2.enqueue(new Callback<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.MessMenu>>() {
             @Override
             public void onResponse(Call<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.MessMenu>> call, retrofit2.Response<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.MessMenu>> response) {
                 for (int i = 0; i < response.body().size(); i++) {
@@ -115,7 +118,7 @@ public class MessMenu extends Fragment {
 
     private void getMessNo() {
 
-        Call<in.ac.bits_hyderabad.swd.swd.APIConnection.MessReq> call = mRetrofitService.getMessReq("mess_req", uid, password);
+        call = mRetrofitService.getMessReq("mess_req", uid, password);
 
         call.enqueue(new Callback<MessReq>() {
             @Override
@@ -176,6 +179,14 @@ public class MessMenu extends Fragment {
                 dayToday = "Saturday";
                 break;
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        call.cancel();
+        if (call2 != null)
+            call2.cancel();
     }
 
 }

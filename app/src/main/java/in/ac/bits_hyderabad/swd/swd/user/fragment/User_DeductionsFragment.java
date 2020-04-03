@@ -13,28 +13,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
+import in.ac.bits_hyderabad.swd.swd.APIConnection.Deduction;
+import in.ac.bits_hyderabad.swd.swd.APIConnection.GetDataService;
 import in.ac.bits_hyderabad.swd.swd.R;
-import in.ac.bits_hyderabad.swd.swd.helper.Deduction;
 import in.ac.bits_hyderabad.swd.swd.helper.DeductionsAdapter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class User_DeductionsFragment extends Fragment {
 
 
@@ -43,6 +32,9 @@ public class User_DeductionsFragment extends Fragment {
     LinearLayoutManager mLayoutManager;
     ArrayList<Deduction> deductions;
     SwipeRefreshLayout swipeRefreshDed;
+
+    Call<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.Deduction>> call;
+    private Retrofit mRetrofitClient;
 
     String uid, id_no, pwd;
 
@@ -54,6 +46,7 @@ public class User_DeductionsFragment extends Fragment {
         this.pwd = pwd;
     }
 
+    private GetDataService mRetrofitService;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,10 +57,17 @@ public class User_DeductionsFragment extends Fragment {
         rvDeductions = rootView.findViewById(R.id.rvDeductions);
         swipeRefreshDed = rootView.findViewById(R.id.swipeRefreshDed);
         swipeRefreshDed.setRefreshing(true);
-        rvDeductions.bringToFront();
-        rvDeductions.setHasFixedSize(false);
         deductions=new ArrayList<>();
+
+        mRetrofitClient = new Retrofit.Builder()
+                .baseUrl(getString(R.string.URL))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        mRetrofitService = mRetrofitClient.create(GetDataService.class);
+
         loadDeductions();
+
         totalDeductionsText = rootView.findViewById(R.id.totalDeductionsText);
         mLayoutManager =new LinearLayoutManager(this.getActivity());
         rvDeductions.setLayoutManager(mLayoutManager);
@@ -87,66 +87,38 @@ public class User_DeductionsFragment extends Fragment {
         return rootView;
     }
 
-    public void loadDeductions(){
-        RequestQueue queue = Volley.newRequestQueue(getContext());
+    private void loadDeductions() {
 
-        StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
+        call = mRetrofitService.getDeductions("deductions", uid, pwd);
+
+        call.enqueue(new Callback<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.Deduction>>() {
             @Override
-            public void onResponse(String response) {
-
-                try {
-                    int totalDeductions = 0;
-                    JSONArray array =new JSONArray(response);
-                    for(int i=0;i<array.length();i++){
-                        String id=array.getJSONObject(i).getString("id");
-                        String name=array.getJSONObject(i).getString("name");
-                        String amount=array.getJSONObject(i).getString("amount");
-                        String xs=array.getJSONObject(i).getString("xs");
-                        String s=array.getJSONObject(i).getString("s");
-                        String m=array.getJSONObject(i).getString("m");
-                        String l=array.getJSONObject(i).getString("l");
-                        String xl=array.getJSONObject(i).getString("xl");
-                        String xxl=array.getJSONObject(i).getString("xxl");
-                        String xxxl=array.getJSONObject(i).getString("xxxl");
-                        String qut=array.getJSONObject(i).getString("qut");
-                        String type=array.getJSONObject(i).getString("type");
-                        String netqut=array.getJSONObject(i).getString("netqut");
-                        if(!amount.equals("0")){
-                            deductions.add(new Deduction(type, id, name, amount, xs, s, m, l, xl, xxl, xxxl, qut, netqut));
-                            totalDeductions = totalDeductions + Integer.parseInt(amount);
-                        }
-                    }
-                    String totalDeductionsTextDisplay = "₹" + totalDeductions;
-                    totalDeductionsText.setText(totalDeductionsTextDisplay);
-                    mAdaptor.notifyDataSetChanged();
-                    swipeRefreshDed.setRefreshing(false);
-                } catch (JSONException e) {
-                    Toast.makeText(getActivity(), "Something went wrong!", Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
+            public void onResponse(Call<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.Deduction>> call, retrofit2.Response<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.Deduction>> response) {
+                int totalDeductions = 0;
+                for (int i = 0; i < response.body().size(); i++) {
+                    String amount = response.body().get(i).getAmount();
+                    totalDeductions = totalDeductions + Integer.parseInt(amount);
+                    deductions.add(response.body().get(i));
                 }
-
+                mAdaptor.notifyDataSetChanged();
+                swipeRefreshDed.setRefreshing(false);
+                String textToDisplay = "₹" + totalDeductions;
+                totalDeductionsText.setText(textToDisplay);
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void onFailure(Call<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.Deduction>> call, Throwable t) {
+                t.printStackTrace();
                 Toast.makeText(getActivity(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
                 swipeRefreshDed.setRefreshing(false);
             }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+        });
 
-                Map<String, String> params = new HashMap<>();
-                params.put("tag", "deductions");
-                params.put("id", uid);
-                params.put("pwd", pwd);
-                return params;
+    }
 
-            }
-        };
-
-
-        queue.add(request);
-
+    @Override
+    public void onStop() {
+        super.onStop();
+        call.cancel();
     }
 }

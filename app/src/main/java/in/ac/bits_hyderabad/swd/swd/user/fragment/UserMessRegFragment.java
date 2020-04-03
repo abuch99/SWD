@@ -79,39 +79,8 @@ public class UserMessRegFragment extends Fragment {
         return rootView;
     }
 
-    public void checkRegStatus(){
-        Call<MessReg> call = mRetrofitService.getMessRegDetails("1");
-        call.enqueue(new Callback<MessReg>() {
-            @Override
-            public void onResponse(Call<MessReg> call, Response<MessReg> response) {
-                swipeRefresh.setVisibility(View.VISIBLE);
-                swipeRefresh.setRefreshing(false);
-                messRegProgress.setVisibility(View.GONE);
-                if (response.body() == null) {
-                    if (response.code() == 502) {
-                        setMessRegClosed();
-                    } else {
-                        setNetworkError();
-                    }
-                } else if (response.body().getPass().equals("0")) {
-                    setMessRegOpened();
-                    String mess1Left = response.body().getMess1SeatsLeft();
-                    String mess2Left = response.body().getMess2SeatsLeft();
-                    showMmessRegLayout(mess1Left, mess2Left);
-                    //TODO: Start registration
-                } else {
-                    setNetworkError();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MessReg> call, Throwable t) {
-                swipeRefresh.setVisibility(View.VISIBLE);
-                messRegProgress.setVisibility(View.GONE);
-                setNetworkError();
-            }
-        });
-    }
+    Call<MessReg> call;
+    Call<MessRegistrationResponse> call2;
 
     private void showMmessRegLayout(String mess1left, String mess2left) {
         boolean anyOneMessFilled = Integer.parseInt(mess1left) == 0 || Integer.parseInt(mess2left) == 0;
@@ -144,9 +113,43 @@ public class UserMessRegFragment extends Fragment {
         mess2SeatsLeft.setText(mess2left);
     }
 
+    public void checkRegStatus(){
+        call = mRetrofitService.getMessRegDetails("1");
+        call.enqueue(new Callback<MessReg>() {
+            @Override
+            public void onResponse(Call<MessReg> call, Response<MessReg> response) {
+                swipeRefresh.setVisibility(View.VISIBLE);
+                swipeRefresh.setRefreshing(false);
+                messRegProgress.setVisibility(View.GONE);
+                if (response.body() == null) {
+                    if (response.code() == 502) {
+                        setMessRegClosed();
+                    } else {
+                        setNetworkError();
+                    }
+                } else if (response.body().getPass().equals("0")) {
+                    setMessRegOpened();
+                    String mess1Left = response.body().getMess1SeatsLeft();
+                    String mess2Left = response.body().getMess2SeatsLeft();
+                    showMmessRegLayout(mess1Left, mess2Left);
+                    //TODO: Start registration
+                } else {
+                    setNetworkError();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MessReg> call, Throwable t) {
+                swipeRefresh.setVisibility(View.VISIBLE);
+                messRegProgress.setVisibility(View.GONE);
+                setNetworkError();
+            }
+        });
+    }
+
     private void sendRequest(String messNo) {
-        Call<MessRegistrationResponse> call = mRetrofitService.getMessRegResponse("1", uid, password, messNo);
-        call.enqueue(new Callback<MessRegistrationResponse>() {
+        call2 = mRetrofitService.getMessRegResponse("1", uid, password, messNo);
+        call2.enqueue(new Callback<MessRegistrationResponse>() {
             @Override
             public void onResponse(Call<MessRegistrationResponse> call, Response<MessRegistrationResponse> response) {
                 MessRegistrationResponse regResponse = response.body();
@@ -216,5 +219,11 @@ public class UserMessRegFragment extends Fragment {
         messRegMsgText.setText("Error connecting to our servers");
     }
 
-
+    @Override
+    public void onStop() {
+        super.onStop();
+        call.cancel();
+        if (call2 != null)
+            call2.cancel();
+    }
 }

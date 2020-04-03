@@ -221,4 +221,7 @@
     <string name="bus_212">Bus 212</string>
     <string name="get_documents">Get documents</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

@@ -158,3 +158,27 @@ class MessRegistrationResponse {
     @SerializedName("Pass")
     var pass: String? = null
 }
+
+class ConnectData {
+    @SerializedName("data")
+    var data: ArrayList<Person>? = null
+}
+
+class Person {
+    @SerializedName("designation")
+    var designation: String? = null
+    @SerializedName("phone")
+    var phone: String? = null
+    @SerializedName("uid")
+    var uid: String? = null
+    @SerializedName("name")
+    var name: String? = null
+    @SerializedName("heading")
+    var heading: String? = null
+    @SerializedName("subheading")
+    var subheading: String? = null
+    @SerializedName("order")
+    var order: String? = null
+    @SerializedName("updated_at")
+    var updatedAt: Long? = null
+}
