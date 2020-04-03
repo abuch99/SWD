@@ -78,7 +78,7 @@ public class ForgotPassword extends AppCompatActivity {
             @Override
             public void onFailure(Call<Login> call, Throwable t) {
                 setNoLoading();
-                Toast.makeText(ForgotPassword.this, "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
             }
         });

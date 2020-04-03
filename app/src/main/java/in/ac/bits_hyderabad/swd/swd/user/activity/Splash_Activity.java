@@ -70,7 +70,7 @@ public class Splash_Activity extends AppCompatActivity {
                     Intent intent = new Intent(Splash_Activity.this, User_Login.class);
                     startActivity(intent);
                     finish();
-                    Toast.makeText(Splash_Activity.this, "Password changed, Please login again!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Password changed, Please login again!", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(Splash_Activity.this, MainActivity.class);
                     if (getIntent().getStringExtra("default") != null) {

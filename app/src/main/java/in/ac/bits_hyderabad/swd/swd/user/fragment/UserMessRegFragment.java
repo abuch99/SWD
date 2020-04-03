@@ -158,7 +158,7 @@ public class UserMessRegFragment extends Fragment {
                     String result = "Successfully registered to mess " + regResponse.getMess();
                     messRegMsgText.setText(result);
                 } else {
-                    Toast.makeText(getActivity(), "Something went wrong. Please register by website! ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Something went wrong. Please register by website! ", Toast.LENGTH_LONG).show();
                 }
 
                 mess1SeatsLeft.setText(regResponse.getMess1SeatsLeft());
@@ -180,7 +180,7 @@ public class UserMessRegFragment extends Fragment {
 
             @Override
             public void onFailure(Call<MessRegistrationResponse> call, Throwable t) {
-                Toast.makeText(getActivity(), "Something went wrong. Please register by website!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Something went wrong. Please register by website!", Toast.LENGTH_LONG).show();
             }
         });
     }

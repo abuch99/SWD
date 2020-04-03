@@ -4,10 +4,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -16,22 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import in.ac.bits_hyderabad.swd.swd.BuildConfig;
 import in.ac.bits_hyderabad.swd.swd.R;
 import in.ac.bits_hyderabad.swd.swd.user.fragment.MessMenu;
 import in.ac.bits_hyderabad.swd.swd.user.fragment.MiscFragment;
@@ -131,46 +115,4 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    public class CheckUpdates extends AsyncTask<Void, Void, Void> {
-
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-            StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    try {
-                        JSONObject obj = new JSONObject(response);
-                        int latest_version = obj.getInt("version");
-                        int current_version = BuildConfig.VERSION_CODE;
-
-                        if (latest_version > current_version) {
-                            showDialog();
-                        }
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(MainActivity.this, "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
-                }
-            }) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-
-                    Map<String, String> params = new HashMap<>();
-                    params.put("tag", "check_updates");
-                    return params;
-
-                }
-            };
-            queue.add(request);
-            return null;
-        }
-    }
 }

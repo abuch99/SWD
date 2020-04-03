@@ -104,14 +104,14 @@ public class User_Login extends AppCompatActivity {
                                 checkLogin();
                             }
                         } else {
-                            Toast.makeText(User_Login.this, "Wrong ID or Password", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Wrong ID or Password", Toast.LENGTH_SHORT).show();
                             removeLoggingIndicator();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Login> call, Throwable t) {
-                        Toast.makeText(User_Login.this, "Error connecting to our servers", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Error connecting to our servers", Toast.LENGTH_SHORT).show();
                     }
                 });
 

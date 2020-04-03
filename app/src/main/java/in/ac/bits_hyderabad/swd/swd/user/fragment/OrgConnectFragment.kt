@@ -77,9 +77,9 @@ class OrgConnectFragment(orgToDisplay: Int) : Fragment() {
                     when (type) {
                         TYPE_SWD -> if (it.heading?.contains(" Student Welfare Division Nucleus", true) == true) peopleToDisplay.add(it)
                         TYPE_SUC -> if (it.heading?.contains("Students' Union Council", true) == true) peopleToDisplay.add(it)
-                        TYPE_CRC -> if (it.heading?.contains("Corroboration and Review Committee") == true) peopleToDisplay.add(it)
-                        TYPE_SMC -> if (it.heading?.contains("Student Mess Council") == true) peopleToDisplay.add(it)
-                        TYPE_EC -> if (it.heading?.contains("Election Commission") == true) peopleToDisplay.add(it)
+                        TYPE_CRC -> if (it.heading?.contains("Corroboration and Review Committee", true) == true) peopleToDisplay.add(it)
+                        TYPE_SMC -> if (it.heading?.contains("Student Mess Council", true) == true) peopleToDisplay.add(it)
+                        TYPE_EC -> if (it.heading?.contains("Election Commission", true) == true) peopleToDisplay.add(it)
                     }
                 }
                 peopleToDisplay.sortBy {

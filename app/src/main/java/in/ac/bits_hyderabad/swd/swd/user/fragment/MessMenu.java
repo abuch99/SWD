@@ -140,13 +140,13 @@ public class MessMenu extends Fragment {
                     }
 
                 } else {
-                    Toast.makeText(getActivity(), "Sorry! something went wrong. We will be back soon!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Sorry! something went wrong. We will be back soon!!", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<MessReq> call, Throwable t) {
-                Toast.makeText(getActivity(), "Sorry! something went wrong. We will be back soon", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Sorry! something went wrong. We will be back soon", Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
             }
         });

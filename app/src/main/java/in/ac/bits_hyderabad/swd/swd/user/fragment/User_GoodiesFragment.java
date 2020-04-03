@@ -120,7 +120,7 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
             @Override
             public void onFailure(Call<ArrayList<Goodie>> call, Throwable t) {
                 t.printStackTrace();
-                Toast.makeText(getActivity(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
                 swipeRefresh.setRefreshing(false);
             }
         });
@@ -141,7 +141,7 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
             @Override
             public void onFailure(Call<ArrayList<Deduction>> call, Throwable t) {
                 t.printStackTrace();
-                Toast.makeText(getActivity(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
                 swipeRefresh.setRefreshing(false);
             }
         });

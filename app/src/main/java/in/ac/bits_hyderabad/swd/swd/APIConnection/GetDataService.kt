@@ -23,6 +23,12 @@ interface GetDataService {
     fun getLoginSuccessful(@Query("tag") tag: String, @Query("id") id: String, @Query("pwd") password: String): Call<Login>
 
     @GET("swd_app/")
+    fun getUpdateLoginResponse(@Query("tag") tag: String, @Query("id") id: String, @Query("pwd") password: String, @QueryMap params: Map<String, String>): Call<UpdateLoginResponse>
+
+    @GET("swd_app/gen_appDocs.php/")
+    fun getDocContent(@Query("tag") tag: String, @Query("uid") uid: String, @Query("doc_type") docType: String): Call<DocContents>
+
+    @GET("swd_app/")
     fun getGoodieOrderPlacedResponse(@Query("tag") tag: String, @Query("id") id: String, @Query("pwd") password: String, @QueryMap params: Map<String, String>): Call<GoodieOrderPlacedResponse>
 
     @GET("mess/")

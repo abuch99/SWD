@@ -9,27 +9,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.card.MaterialCardView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
-
+import in.ac.bits_hyderabad.swd.swd.APIConnection.DocContents;
+import in.ac.bits_hyderabad.swd.swd.APIConnection.GetDataService;
 import in.ac.bits_hyderabad.swd.swd.R;
 import in.ac.bits_hyderabad.swd.swd.helper.PdfDocumentSample;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MiscFragment extends Fragment {
 
@@ -44,6 +37,9 @@ public class MiscFragment extends Fragment {
         this.id_no = id_no;
         this.password = password;
     }
+
+    private Retrofit mRetrofitClient;
+    private GetDataService mRetrofitService;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -60,6 +56,13 @@ public class MiscFragment extends Fragment {
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
         dialog.create();
+
+        mRetrofitClient = new Retrofit.Builder()
+                .baseUrl(getString(R.string.URL))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        mRetrofitService = mRetrofitClient.create(GetDataService.class);
 
         cardTimings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,62 +103,33 @@ public class MiscFragment extends Fragment {
     }
 
     public void getDocument(String name, String url) {
-
         boolean ext = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
 
         if(ext) {
-            RequestQueue queue = Volley.newRequestQueue(getActivity());
-            StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.DOCS_URL), new com.android.volley.Response.Listener<String>() {
+            Call<DocContents> call = mRetrofitService.getDocContent("docs", uid, url);
+            call.enqueue(new Callback<DocContents>() {
                 @Override
-                public void onResponse(String response) {
-
-                    try {
-                        JSONObject object = new JSONObject(response);
-
-                        if (!object.getString("error").equalsIgnoreCase("true")) {
-                            String content = object.getString("content");
-                            PdfDocumentSample document = new PdfDocumentSample(id_no, name,
-                                    content, getString(R.string.dean), getString(R.string.post),
-                                    getString(R.string.doc_address), getString(R.string.doc_contact), getActivity());
-                            dialog.cancel();
-                            document.downloadFile();
-                        } else {
-                            Toast.makeText(getContext(), "Something went wrong! Please contact SWD", Toast.LENGTH_SHORT).show();
-                            dialog.cancel();
-                        }
-
-                    } catch (JSONException e) {
+                public void onResponse(Call<DocContents> call, Response<DocContents> response) {
+                    if (!response.body().getError()) {
+                        String content = response.body().getContent();
+                        PdfDocumentSample document = new PdfDocumentSample(id_no, name,
+                                content, getString(R.string.dean), getString(R.string.post),
+                                getString(R.string.doc_address), getString(R.string.doc_contact), getActivity());
+                        dialog.cancel();
+                        document.downloadFile();
+                    } else {
                         Toast.makeText(getContext(), "Something went wrong! Please contact SWD", Toast.LENGTH_SHORT).show();
                         dialog.cancel();
-                        e.printStackTrace();
                     }
-
                 }
-            }, new Response.ErrorListener() {
+
                 @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
-                    dialog.cancel();
+                public void onFailure(Call<DocContents> call, Throwable t) {
+                    Toast.makeText(getContext(), "Something went wrong! Please contact SWD", Toast.LENGTH_SHORT).show();
+                        dialog.cancel();
+                    t.printStackTrace();
                 }
-            }) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-
-                    Map<String, String> params = new HashMap<>();
-                    params.put("tag", "docs");
-                    params.put("uid", uid);
-                    params.put("doc_type", url);
-                    return params;
-
-                }
-            };
-
-
-            queue.add(request);
-        } else {
-            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},PERMISSION);
+            });
         }
-
     }
-
 }

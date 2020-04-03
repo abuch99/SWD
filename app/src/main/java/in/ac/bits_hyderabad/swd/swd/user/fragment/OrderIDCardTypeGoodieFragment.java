@@ -179,7 +179,7 @@ public class OrderIDCardTypeGoodieFragment extends Fragment {
             @Override
             public void onFailure(Call<ArrayList<Goodie>> call, Throwable t) {
                 t.printStackTrace();
-                Toast.makeText(getActivity(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -298,7 +298,7 @@ public class OrderIDCardTypeGoodieFragment extends Fragment {
                 @Override
                 public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                     super.onAuthenticationSucceeded(result);
-                    Toast.makeText(getActivity(), "Order placed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Order placed", Toast.LENGTH_SHORT).show();
                     placeOrder();
                 }
             });
@@ -317,7 +317,7 @@ public class OrderIDCardTypeGoodieFragment extends Fragment {
         if (otherAdvancesAgreeCheckbox.isChecked())
             return true;
         else {
-            Toast.makeText(getActivity(), "You must agree to pay the amount from your Other Advances account", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "You must agree to pay the amount from your Other Advances account", Toast.LENGTH_SHORT).show();
             return false;
         }
     }

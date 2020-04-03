@@ -4,7 +4,6 @@ package in.ac.bits_hyderabad.swd.swd.user.activity;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -13,13 +12,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -30,7 +22,15 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import in.ac.bits_hyderabad.swd.swd.APIConnection.GetDataService;
+import in.ac.bits_hyderabad.swd.swd.APIConnection.Login;
+import in.ac.bits_hyderabad.swd.swd.APIConnection.UpdateLoginResponse;
 import in.ac.bits_hyderabad.swd.swd.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Profile extends AppCompatActivity {
 
@@ -46,8 +46,10 @@ public class Profile extends AppCompatActivity {
     Boolean updating=false;
     Boolean successfull=false;
     ProgressDialog dialog;
-    RequestQueue queue;
 
+
+    private Retrofit mRetrofitClient;
+    private GetDataService mRetrofitService;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -63,6 +65,14 @@ public class Profile extends AppCompatActivity {
         dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);
 
+        mRetrofitClient = new Retrofit.Builder()
+                .baseUrl(getString(R.string.URL))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        mRetrofitService = mRetrofitClient.create(GetDataService.class);
+
+
         dialog.create();
 
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -75,7 +85,6 @@ public class Profile extends AppCompatActivity {
 
         //mUserTable=new UserTable(getApplicationContext());
         reload();
-        queue = Volley.newRequestQueue(this);
 
         fabUpdate=findViewById(R.id.fabUpdate);
         fabUpdate.setEnabled(false);
@@ -105,94 +114,61 @@ public class Profile extends AppCompatActivity {
     }
 
     public void reload() {
-
-        RequestQueue queue = Volley.newRequestQueue(Profile.this);
-
-        StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
+        Call<Login> call = mRetrofitService.getLoginSuccessful("login", uid, password);
+        call.enqueue(new Callback<Login>() {
             @Override
-            public void onResponse(String response) {
-
-                try {
-                    object = new JSONObject(response);
-                    if (!object.getBoolean("error")) {
-                        try {
-                            setData(object);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            fabUpdate.setEnabled(false);
-                        }
+            public void onResponse(Call<Login> call, Response<Login> response) {
+                if (!response.body().getError()) {
+                    setData(response.body());
                         disable_EditText();
                         fabUpdate.setEnabled(true);
                     } else {
-                        Toast.makeText(Profile.this, "Something went wrong!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Something went wrong!!", Toast.LENGTH_SHORT).show();
                         fabUpdate.setEnabled(false);
                     }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(Profile.this, "Something went wrong!!", Toast.LENGTH_SHORT).show();
-                    fabUpdate.setEnabled(false);
-                }
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Profile.this, "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<Login> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
                 fabUpdate.setEnabled(false);
             }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                Map<String, String> params = new HashMap<>();
-                params.put("tag", "login");
-                params.put("id", uid );
-                params.put("pwd", password);
-
-                return params;
-
-            }
-        };
-
-
-        queue.add(request);
-
-
+        });
     }
 
-    public void setData(JSONObject object) throws JSONException {
-        etName.setText(object.getString("name"));
-        etRoom.setText(object.getString("room"));
-        etPhn.setText(object.getString("phone"));
-        etId.setText(object.getString("id_no"));
-        etGender.setText(object.getString("gender"));
-        etDOB.setText(object.getString("dob"));
-        etAadhaar.setText(object.getString("aadhaar"));
-        etPan.setText(object.getString("pan_card"));
-        etCategory.setText(object.getString("category"));
-        etEmail.setText(object.getString("email"));
-        etBlood.setText(object.getString("blood"));
-        etAddress.setText(object.getString("homeadd"));
-        etCity.setText(object.getString("city"));
-        etState.setText(object.getString("state"));
-        etNat.setText(object.getString("nation"));
-        etFname.setText(object.getString("father"));
-        etFphn.setText(object.getString("fphone"));
-        etFemail.setText(object.getString("fmail"));
-        etFocc.setText(object.getString("foccup"));
-        etfcomp.setText(object.getString("fcomp"));
-        etfdesg.setText(object.getString("fdesg"));
-        etMname.setText(object.getString("mother"));
-        etMemail.setText(object.getString("mmail"));
-        etMphn.setText(object.getString("hphone"));
-        etMocc.setText(object.getString("moccup"));
-        etmcomp.setText(object.getString("mcomp"));
-        etmdesg.setText(object.getString("mdesg"));
-        etmed_history.setText(object.getString("med_history"));
-        etcurrent_med.setText(object.getString("current_med"));
-        etBank.setText(object.getString("bank"));
-        etAccNo.setText(object.getString("acno"));
-        etIfsc.setText(object.getString("ifsc"));
+    public void setData(Login login) {
+        etName.setText(login.getName());
+        etRoom.setText(login.getRoom());
+        etPhn.setText(login.getPhone());
+        etId.setText(login.getIdNo());
+        etGender.setText(login.getGender());
+        etDOB.setText(login.getDob());
+        etAadhaar.setText(login.getAadhaar());
+        etPan.setText(login.getPan_card());
+        etCategory.setText(login.getCategory());
+        etEmail.setText(login.getEmail());
+        etBlood.setText(login.getBlood());
+        etAddress.setText(login.getHomeadd());
+        etCity.setText(login.getCity());
+        etState.setText(login.getState());
+        etNat.setText(login.getNation());
+        etFname.setText(login.getFather());
+        etFphn.setText(login.getFphone());
+        etFemail.setText(login.getFmail());
+        etFocc.setText(login.getFoccup());
+        etfcomp.setText(login.getFcomp());
+        etfdesg.setText(login.getFdesg());
+        etMname.setText(login.getMother());
+        etMemail.setText(login.getMmail());
+        etMphn.setText(login.getHphone());
+        etMocc.setText(login.getMoccup());
+        etmcomp.setText(login.getMcomp());
+        etmdesg.setText(login.getMdesg());
+        etmed_history.setText(login.getMed_history());
+        etcurrent_med.setText(login.getCurrent_med());
+        etBank.setText(login.getBank());
+        etAccNo.setText(login.getAcno());
+        etIfsc.setText(login.getIfsc());
 
         dialog.hide();
     }
@@ -276,10 +252,6 @@ public class Profile extends AppCompatActivity {
         return map;
     }
     public void initialize_views() {
-
-//      "branch":"","aadhar":null,"pan_card":"EPBPB8351D","category":"General","fcomp":"Indian Army","fdesg":"Ex Havaldar","mcomp":"NIL","mdesg":"NIL",
-//      "localadd":"NIL","guardian":"NIL","gphone":"NIL","med_history":"NIL","current_med":"NIL",
-
         etName=findViewById(R.id.etName);
         etRoom=findViewById(R.id.etRoom);
         etPhn=findViewById(R.id.etPhn);
@@ -314,60 +286,32 @@ public class Profile extends AppCompatActivity {
         etIfsc=findViewById(R.id.etIfsc);
     }
 
-    public void updatetoServer(final JSONObject object)throws JSONException {
-        Log.i("object sent to server", object.toString());
+    public void updatetoServer(final JSONObject object) throws JSONException {
         dialog.show();
-        StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new Response.Listener<String>() {
+        Map<String, String> params = JSONtoMap(object);
+        Call<UpdateLoginResponse> call = mRetrofitService.getUpdateLoginResponse("update_details", uid, password, params);
+        call.enqueue(new Callback<UpdateLoginResponse>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(Call<UpdateLoginResponse> call, Response<UpdateLoginResponse> response) {
                 dialog.hide();
                 dialog.dismiss();
-                try{
-                    JSONObject obj = new JSONObject(response);
-                    if (!obj.getBoolean("error")) {
-                        Toast.makeText(Profile.this, "Updated successfully", Toast.LENGTH_SHORT).show();
-                        successfull=true;
-                        fabUpdate.setImageResource(R.drawable.ic_update_details);
-                        updating=false;
-                        disable_EditText();
-
-                    }
-                    else{
-                        Toast.makeText(Profile.this, "Unknown error occurred!", Toast.LENGTH_SHORT).show();
-                    }
+                if (!response.body().getError()) {
+                    Toast.makeText(getApplicationContext(), "Updated successfully", Toast.LENGTH_SHORT).show();
+                    successfull = true;
+                    fabUpdate.setImageResource(R.drawable.ic_update_details);
+                    updating = false;
+                    disable_EditText();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Unknown error occurred!", Toast.LENGTH_SHORT).show();
                 }
-                catch (JSONException e)
-                {
-                    e.printStackTrace();
-                }
-
             }
-        },new Response.ErrorListener(){
-            @Override
-            public void onErrorResponse(VolleyError error) {
 
+            @Override
+            public void onFailure(Call<UpdateLoginResponse> call, Throwable t) {
                 dialog.hide();
-                Toast.makeText(Profile.this,"Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(getApplicationContext(), "Please Check your Internet Connection", Toast.LENGTH_SHORT).show();
             }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                try {
-                    Map<String, String> params = JSONtoMap(object);
-                    params.put("tag", "update_details");
-                    params.put("id",uid);
-                    params.put("pwd",password);
-//                    Log.e("save sent",params.toString());
-                    return params;
-                } catch (JSONException e) {
-//                    Log.e("Error",e.toString());
-                }
-                return null;
-            }
-        };
-        queue.add(request);
-
+        });
     }
 
     @Override

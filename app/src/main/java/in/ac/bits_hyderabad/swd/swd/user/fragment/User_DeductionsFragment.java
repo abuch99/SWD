@@ -109,7 +109,7 @@ public class User_DeductionsFragment extends Fragment {
             @Override
             public void onFailure(Call<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.Deduction>> call, Throwable t) {
                 t.printStackTrace();
-                Toast.makeText(getActivity(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
                 swipeRefreshDed.setRefreshing(false);
             }
         });
