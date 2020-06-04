@@ -43,4 +43,6 @@ interface GetDataService {
     @GET("swd_app/")
     fun getConnectData(@Query("tag") tag: String): Call<ConnectData>
 
+    companion object
+
 }

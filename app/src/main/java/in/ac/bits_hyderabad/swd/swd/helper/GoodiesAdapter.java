@@ -36,7 +36,7 @@ public class GoodiesAdapter extends BaseAdapter {
         if (convertView == null)
             convertView = mInflater.inflate(R.layout.card_goodies, parent, false);
 
-        String ImageUrl = "http://swd.bits-hyderabad.ac.in/goodies/img/" + goodies.get(position).getImgLink();//"All.jpg"  or   goodies.get(i).getImage()
+        String ImageUrl = "http://swd.bits-hyderabad.ac.in/goodies/img/" + goodies.get(position).getImg();//"All.jpg"  or   goodies.get(i).getImage()
 
         TextView tvGoodieName = convertView.findViewById(R.id.tvGoodieName);
         ImageView ivGoodie = convertView.findViewById(R.id.ivGoodie);
@@ -50,7 +50,7 @@ public class GoodiesAdapter extends BaseAdapter {
                 .into(ivGoodie);
 
         tvGoodieName.setText(goodies.get(position).getName());
-        tvGoodieHost.setText(goodies.get(position).getHostedBy());
+        tvGoodieHost.setText(goodies.get(position).getHosted_by());
         String priceToDisplay = "₹" + goodies.get(position).getPrice();
         tvGoodiePrice.setText(priceToDisplay);
 

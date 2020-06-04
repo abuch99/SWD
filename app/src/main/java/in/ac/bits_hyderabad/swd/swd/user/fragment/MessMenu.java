@@ -1,6 +1,8 @@
 package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,23 +41,22 @@ public class MessMenu extends Fragment {
     private Button messRegistrationButton;
     private ConstraintLayout messMenu;
 
-    public MessMenu(String uid, String password) {
-        this.uid=uid;
-        this.password=password;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_mess_menu, container, false);
+        View view = inflater.inflate(R.layout.fragment_mess_menu, container, false);
+
+        SharedPreferences prefs = getContext().getSharedPreferences("USER_LOGIN_DETAILS", Context.MODE_PRIVATE);
+        uid = prefs.getString("uid", null);
+        password = prefs.getString("password", null);
 
         messMenu = view.findViewById(R.id.mess_menu_layout);
         menuProgress = view.findViewById(R.id.messMenuProgress);
-        tvDay=view.findViewById(R.id.tvDay);
-        tvBreakfast=view.findViewById(R.id.tvBreakfast);
-        tvLunch=view.findViewById(R.id.tvLunch);
-        tvSnacks=view.findViewById(R.id.tvSnacks);
-        tvDinner=view.findViewById(R.id.tvDinner);
+        tvDay = view.findViewById(R.id.tvDay);
+        tvBreakfast = view.findViewById(R.id.tvBreakfast);
+        tvLunch = view.findViewById(R.id.tvLunch);
+        tvSnacks = view.findViewById(R.id.tvSnacks);
+        tvDinner = view.findViewById(R.id.tvDinner);
         registeredMessText = view.findViewById(R.id.registeredMessText);
         registeredMessProgress = view.findViewById(R.id.registeredMessProgress);
         messRegistrationButton = view.findViewById(R.id.messRegistrationButton);
@@ -62,7 +64,7 @@ public class MessMenu extends Fragment {
         messRegistrationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.container, new UserMessRegFragment(uid, password)).commit();
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_messMenu_to_userMessRegFragment);
             }
         });
 
@@ -98,7 +100,7 @@ public class MessMenu extends Fragment {
                     if (response.body().get(i).getDay().equals(dayToday)) {
                         tvBreakfast.setText(response.body().get(i).getBreakfast().trim());
                         tvLunch.setText(response.body().get(i).getLunch().trim());
-                        tvSnacks.setText(response.body().get(i).getSnacks().trim());
+                        tvSnacks.setText(response.body().get(i).getTiffin().trim());
                         tvDinner.setText(response.body().get(i).getDinner().trim());
                         menuProgress.setVisibility(View.GONE);
                         messMenu.setVisibility(View.VISIBLE);
@@ -180,13 +182,4 @@ public class MessMenu extends Fragment {
                 break;
         }
     }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        call.cancel();
-        if (call2 != null)
-            call2.cancel();
-    }
-
 }

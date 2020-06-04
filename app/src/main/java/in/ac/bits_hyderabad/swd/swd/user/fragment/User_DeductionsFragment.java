@@ -1,6 +1,8 @@
 package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,13 +40,7 @@ public class User_DeductionsFragment extends Fragment {
 
     String uid, id_no, pwd;
 
-    TextView totalDeductionsText;
-
-    public User_DeductionsFragment(String uid, String id_no, String pwd) {
-        this.uid = uid;
-        this.id_no = id_no;
-        this.pwd = pwd;
-    }
+    TextView totalDeductionsText, spentHeaderText;
 
     private GetDataService mRetrofitService;
 
@@ -54,10 +50,15 @@ public class User_DeductionsFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_user_deductions, container, false);
 
+        SharedPreferences prefs = getContext().getSharedPreferences("USER_LOGIN_DETAILS", Context.MODE_PRIVATE);
+        uid = prefs.getString("uid", null);
+        pwd = prefs.getString("password", null);
+        id_no = prefs.getString("id", null);
+
         rvDeductions = rootView.findViewById(R.id.rvDeductions);
         swipeRefreshDed = rootView.findViewById(R.id.swipeRefreshDed);
         swipeRefreshDed.setRefreshing(true);
-        deductions=new ArrayList<>();
+        deductions = new ArrayList<>();
 
         mRetrofitClient = new Retrofit.Builder()
                 .baseUrl(getString(R.string.URL))
@@ -66,20 +67,18 @@ public class User_DeductionsFragment extends Fragment {
 
         mRetrofitService = mRetrofitClient.create(GetDataService.class);
 
+        totalDeductionsText = rootView.findViewById(R.id.totalDeductionsText);
+        spentHeaderText = rootView.findViewById(R.id.spent_header_text);
+
         loadDeductions();
 
-        totalDeductionsText = rootView.findViewById(R.id.totalDeductionsText);
-        mLayoutManager =new LinearLayoutManager(this.getActivity());
+        mLayoutManager = new LinearLayoutManager(this.getActivity());
         rvDeductions.setLayoutManager(mLayoutManager);
-        mAdaptor=new DeductionsAdapter(this.getActivity(),deductions);
-        rvDeductions.setAdapter(mAdaptor);
-        mAdaptor.notifyDataSetChanged();
 
         swipeRefreshDed.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 deductions.clear();
-                mAdaptor.notifyDataSetChanged();
                 loadDeductions();
             }
         });
@@ -89,18 +88,22 @@ public class User_DeductionsFragment extends Fragment {
 
     private void loadDeductions() {
 
+        spentHeaderText.setVisibility(View.INVISIBLE);
+
         call = mRetrofitService.getDeductions("deductions", uid, pwd);
 
         call.enqueue(new Callback<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.Deduction>>() {
             @Override
             public void onResponse(Call<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.Deduction>> call, retrofit2.Response<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.Deduction>> response) {
+                spentHeaderText.setVisibility(View.VISIBLE);
                 int totalDeductions = 0;
                 for (int i = 0; i < response.body().size(); i++) {
                     String amount = response.body().get(i).getAmount();
                     totalDeductions = totalDeductions + Integer.parseInt(amount);
                     deductions.add(response.body().get(i));
                 }
-                mAdaptor.notifyDataSetChanged();
+                mAdaptor = new DeductionsAdapter(getContext(), deductions);
+                rvDeductions.setAdapter(mAdaptor);
                 swipeRefreshDed.setRefreshing(false);
                 String textToDisplay = "₹" + totalDeductions;
                 totalDeductionsText.setText(textToDisplay);
@@ -114,11 +117,5 @@ public class User_DeductionsFragment extends Fragment {
             }
         });
 
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        call.cancel();
     }
 }

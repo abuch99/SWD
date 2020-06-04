@@ -23,17 +23,15 @@ public class OrderGoodie extends AppCompatActivity {
 
         String goodieId = getIntent().getStringExtra("goodieId");
         int goodieType = getIntent().getIntExtra("goodieType", ID_WORKSHOP_LUNCH_TYPE);
-        String uid = getIntent().getStringExtra("uid");
-        String pwd = getIntent().getStringExtra("pwd");
 
         getBaseContext();
 
         if (goodieType == FUNDRAISER_TYPE) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.order_goodie_frame, new OrderDonationTypeGoodieFragment(goodieId, uid, pwd)).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.order_goodie_frame, new OrderDonationTypeGoodieFragment(goodieId)).commit();
         } else if (goodieType == TSHIRT_TYPE) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.order_goodie_frame, new OrderTshirtTypeGoodieFragment(goodieId, uid, pwd)).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.order_goodie_frame, new OrderTshirtTypeGoodieFragment(goodieId)).commit();
         } else if (goodieType == ID_WORKSHOP_LUNCH_TYPE) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.order_goodie_frame, new OrderIDCardTypeGoodieFragment(goodieId, uid, pwd)).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.order_goodie_frame, new OrderIDCardTypeGoodieFragment(goodieId)).commit();
         }
 
     }

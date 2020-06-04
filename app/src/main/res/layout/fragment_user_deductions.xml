@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10">
+        app:layout_constraintTop_toBottomOf="@+id/spent_header_text">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvDeductions"
@@ -35,13 +35,13 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@color/whiteText"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/textView10"
-        app:layout_constraintStart_toStartOf="@+id/textView10"
+        app:layout_constraintEnd_toEndOf="@+id/spent_header_text"
+        app:layout_constraintStart_toStartOf="@+id/spent_header_text"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="₹1093" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/spent_header_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/spent_this_semester"

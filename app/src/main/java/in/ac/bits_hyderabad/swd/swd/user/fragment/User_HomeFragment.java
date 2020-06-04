@@ -10,9 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import in.ac.bits_hyderabad.swd.swd.R;
@@ -27,9 +27,9 @@ public class User_HomeFragment extends Fragment  {
     public View onCreateView(final LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, parent, false);
 
-        CardView cvTD = view.findViewById(R.id.cvTD);
-        CardView cvERP = view.findViewById(R.id.cvERP);
-        CardView cvOPAC = view.findViewById(R.id.cvOPAC);
+        MaterialCardView cvTD = view.findViewById(R.id.cvTD);
+        MaterialCardView cvERP = view.findViewById(R.id.cvERP);
+        MaterialCardView cvOPAC = view.findViewById(R.id.cvOPAC);
 
         ImageView myProfileImageView = view.findViewById(R.id.myProfileImageView);
         ImageView logoutImageView = view.findViewById(R.id.logoutImageView);
@@ -37,7 +37,7 @@ public class User_HomeFragment extends Fragment  {
         cvOPAC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Intent.ACTION_VIEW);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(getString(R.string.OPAC_URL)));
                 startActivity(intent);
             }

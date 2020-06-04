@@ -12,16 +12,11 @@ import in.ac.bits_hyderabad.swd.swd.R;
 
 public class BusTimingsFragment extends Fragment {
 
-
     public BusTimingsFragment() {
-        // Required empty public constructor
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_bus_timings, container, false);
     }
 

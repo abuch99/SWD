@@ -22,11 +22,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 class OrgConnectFragment(orgToDisplay: Int) : Fragment() {
 
     companion object {
-        val TYPE_SWD = 200
-        val TYPE_SUC = 201
-        val TYPE_CRC = 202
-        val TYPE_SMC = 203
-        val TYPE_EC = 204
+        const val TYPE_SWD = 200
+        const val TYPE_SUC = 201
+        const val TYPE_CRC = 202
+        const val TYPE_SMC = 203
+        const val TYPE_EC = 204
     }
 
     var type: Int = orgToDisplay
@@ -75,7 +75,7 @@ class OrgConnectFragment(orgToDisplay: Int) : Fragment() {
             override fun onResponse(call: Call<ConnectData>, response: Response<ConnectData>) {
                 response.body()?.data?.forEach {
                     when (type) {
-                        TYPE_SWD -> if (it.heading?.contains(" Student Welfare Division Nucleus", true) == true) peopleToDisplay.add(it)
+                        TYPE_SWD -> if (it.heading?.contains("Student Welfare Division Nucleus", true) == true) peopleToDisplay.add(it)
                         TYPE_SUC -> if (it.heading?.contains("Students' Union Council", true) == true) peopleToDisplay.add(it)
                         TYPE_CRC -> if (it.heading?.contains("Corroboration and Review Committee", true) == true) peopleToDisplay.add(it)
                         TYPE_SMC -> if (it.heading?.contains("Student Mess Council", true) == true) peopleToDisplay.add(it)

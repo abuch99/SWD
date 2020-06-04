@@ -84,7 +84,11 @@ public class DeductionsAdapter extends RecyclerView.Adapter<DeductionsAdapter.Vi
                     sizes = sizes + xxl + " XXL, ";
                 if (xxl != 0)
                     sizes = sizes + xxxl + " XXL, ";
-                subText = "Sizes ordered: " + sizes.substring(0, sizes.length() - 2);
+
+                if (sizes.isEmpty())
+                    subText = "Size ordered is unknown";
+                else
+                    subText = "Sizes ordered: " + sizes.substring(0, sizes.length() - 2);
             }
 
         }

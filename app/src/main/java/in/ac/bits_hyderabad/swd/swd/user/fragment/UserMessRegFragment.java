@@ -1,5 +1,7 @@
 package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,14 +42,13 @@ public class UserMessRegFragment extends Fragment {
     private Retrofit mRetrofitClient;
     private GetDataService mRetrofitService;
 
-    public UserMessRegFragment(String uid, String pwd) {
-        this.uid = uid;
-        password = pwd;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_user_mess_reg, container, false);
+
+        SharedPreferences prefs = getContext().getSharedPreferences("USER_LOGIN_DETAILS", Context.MODE_PRIVATE);
+        uid = prefs.getString("uid", null);
+        password = prefs.getString("password", null);
 
         mRetrofitClient = new Retrofit.Builder()
                 .baseUrl(getString(R.string.URL))
@@ -129,8 +130,8 @@ public class UserMessRegFragment extends Fragment {
                     }
                 } else if (response.body().getPass().equals("0")) {
                     setMessRegOpened();
-                    String mess1Left = response.body().getMess1SeatsLeft();
-                    String mess2Left = response.body().getMess2SeatsLeft();
+                    String mess1Left = response.body().getMess1left();
+                    String mess2Left = response.body().getMess2left();
                     showMmessRegLayout(mess1Left, mess2Left);
                     //TODO: Start registration
                 } else {
@@ -161,13 +162,13 @@ public class UserMessRegFragment extends Fragment {
                     Toast.makeText(getContext(), "Something went wrong. Please register by website! ", Toast.LENGTH_LONG).show();
                 }
 
-                mess1SeatsLeft.setText(regResponse.getMess1SeatsLeft());
-                mess2SeatsLeft.setText(regResponse.getMess2SeatsLeft());
+                mess1SeatsLeft.setText(regResponse.getMess1left());
+                mess2SeatsLeft.setText(regResponse.getMess2left());
 
-                boolean anyOneMessFilled = Integer.parseInt(regResponse.getMess1SeatsLeft()) == 0 || Integer.parseInt(regResponse.getMess2SeatsLeft()) == 0;
+                boolean anyOneMessFilled = Integer.parseInt(regResponse.getMess1left()) == 0 || Integer.parseInt(regResponse.getMess2left()) == 0;
                 int filledMess = 0;
                 if (anyOneMessFilled) {
-                    if (Integer.parseInt(regResponse.getMess1SeatsLeft()) == 0)
+                    if (Integer.parseInt(regResponse.getMess1left()) == 0)
                         filledMess = 1;
                     else
                         filledMess = 2;
@@ -217,13 +218,5 @@ public class UserMessRegFragment extends Fragment {
         messRegMsgText.setVisibility(View.VISIBLE);
         messRegErrorImage.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.outline_cloud_off_24));
         messRegMsgText.setText("Error connecting to our servers");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        call.cancel();
-        if (call2 != null)
-            call2.cancel();
     }
 }

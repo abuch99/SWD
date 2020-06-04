@@ -52,16 +52,16 @@ public class User_ConnectFragment extends Fragment {
         public Fragment createFragment(int position) {
             switch (position) {
                 case 1:
-                    return new OrgConnectFragment(OrgConnectFragment.Companion.getTYPE_SUC());
+                    return new OrgConnectFragment(OrgConnectFragment.TYPE_SUC);
                 case 2:
-                    return new OrgConnectFragment(OrgConnectFragment.Companion.getTYPE_CRC());
+                    return new OrgConnectFragment(OrgConnectFragment.TYPE_CRC);
                 case 3:
-                    return new OrgConnectFragment(OrgConnectFragment.Companion.getTYPE_SMC());
+                    return new OrgConnectFragment(OrgConnectFragment.TYPE_SMC);
                 case 4:
-                    return new OrgConnectFragment(OrgConnectFragment.Companion.getTYPE_EC());
+                    return new OrgConnectFragment(OrgConnectFragment.TYPE_EC);
                 case 0:
                 default:
-                    return new OrgConnectFragment(OrgConnectFragment.Companion.getTYPE_SWD());
+                    return new OrgConnectFragment(OrgConnectFragment.TYPE_SWD);
             }
         }
 

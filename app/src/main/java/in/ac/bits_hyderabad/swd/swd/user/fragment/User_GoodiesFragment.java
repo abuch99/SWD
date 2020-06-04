@@ -1,22 +1,22 @@
 package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
-import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 
@@ -33,30 +33,27 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.itemClicked {
 
-    GridView rvGoodiesList;
-    GoodiesAdapter mAdaptor;
-    ProgressDialog dialog;
-    ArrayList<Goodie> goodies;
-    SwipeRefreshLayout swipeRefresh;
-    TextView totalDeductionsText;
-    Button viewDeductionButton;
-    ProgressBar totalDeductionsProgress;
+    private GridView rvGoodiesList;
+    private GoodiesAdapter mAdaptor;
+    private ArrayList<Goodie> goodies = new ArrayList<>();
+    private SwipeRefreshLayout swipeRefresh;
+    private TextView totalDeductionsText;
+    private MaterialButton viewDeductionButton;
+    private ProgressBar totalDeductionsProgress;
 
-    Retrofit mRetrofitClient;
-    GetDataService mRetrofitService;
+    private Retrofit mRetrofitClient;
+    private GetDataService mRetrofitService;
 
-    String uid, id_no, pwd;
-
-    public User_GoodiesFragment(String uid, String id_no, String pwd) {
-        this.uid = uid;
-        this.id_no = id_no;
-        this.pwd = pwd;
-    }
+    private String uid, id_no, pwd;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        // Defines the xml file for the fragment
         View view = inflater.inflate(R.layout.fragment_goodies, parent, false);
+
+        SharedPreferences prefs = getContext().getSharedPreferences("USER_LOGIN_DETAILS", Context.MODE_PRIVATE);
+        uid = prefs.getString("uid", null);
+        pwd = prefs.getString("password", null);
+        id_no = prefs.getString("id", null);
 
         mRetrofitClient = new Retrofit.Builder()
                 .baseUrl(getString(R.string.URL))
@@ -66,54 +63,46 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
 
         totalDeductionsText = view.findViewById(R.id.totalDeductionsText);
         viewDeductionButton = view.findViewById(R.id.viewDeductionButton);
-        viewDeductionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.container, new User_DeductionsFragment(uid, id_no, pwd)).addToBackStack("goodies-view").commit();
-            }
-        });
         totalDeductionsProgress = view.findViewById(R.id.totalDeductionsProgress);
-
-        return view;
-    }
-
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         swipeRefresh = view.findViewById(R.id.swipeRefresh);
-        swipeRefresh.setRefreshing(true);
-        dialog = new ProgressDialog(getContext());
-        dialog.setMessage("Loading...");
-        dialog.setCanceledOnTouchOutside(false);
-        goodies = new ArrayList<>();
-        loadGoodies();//define your goodies array list here
         rvGoodiesList = view.findViewById(R.id.rvGoodiesList);
 
+        loadGoodies();
 
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 goodies.clear();
-                mAdaptor.notifyDataSetChanged();
                 loadGoodies();
             }
         });
+
+        viewDeductionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_user_GoodiesFragment_to_user_DeductionsFragment);
+            }
+        });
+
+        return view;
     }
 
     Call<ArrayList<Goodie>> call;
     Call<ArrayList<Deduction>> call2;
     private void loadGoodies() {
+        swipeRefresh.setRefreshing(true);
+
         call = mRetrofitService.getGoodies("goodies", uid, pwd);
         call2 = mRetrofitService.getDeductions("deductions", uid, pwd);
 
         call.enqueue(new Callback<ArrayList<Goodie>>() {
             @Override
             public void onResponse(Call<ArrayList<Goodie>> call, retrofit2.Response<ArrayList<Goodie>> response) {
-                Log.d("Goodies", response.toString());
                 goodies = response.body();
-                mAdaptor = new GoodiesAdapter(getActivity(), User_GoodiesFragment.this, goodies);
-                rvGoodiesList.setAdapter(mAdaptor);
-                mAdaptor.notifyDataSetChanged();
+                if (getContext() != null) {
+                    mAdaptor = new GoodiesAdapter(getContext(), User_GoodiesFragment.this, goodies);
+                    rvGoodiesList.setAdapter(mAdaptor);
+                }
                 swipeRefresh.setRefreshing(false);
             }
 
@@ -154,7 +143,7 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
 
         int goodieType = OrderGoodie.ID_WORKSHOP_LUNCH_TYPE;
 
-        if (!(goodie.getMinAmount().equals("0") && goodies.get(index).getMaxAmount().equals("0"))) {
+        if (!(goodie.getMin_amount().equals("0") && goodies.get(index).getMax_amount().equals("0"))) {
             goodieType = OrderGoodie.FUNDRAISER_TYPE;
         } else {
             if (goodie.getQut().equals("0"))
@@ -164,18 +153,11 @@ public class User_GoodiesFragment extends Fragment implements GoodiesAdapter.ite
         }
 
         Intent intent = new Intent(getActivity(), OrderGoodie.class);
-        intent.putExtra("goodieId", goodie.getGoodieID());
+        intent.putExtra("goodieId", goodie.getG_id());
         intent.putExtra("goodieType", goodieType);
         intent.putExtra("uid", uid);
         intent.putExtra("pwd", pwd);
 
         startActivity(intent);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        call.cancel();
-        call2.cancel();
     }
 }

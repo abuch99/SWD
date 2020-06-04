@@ -140,7 +140,7 @@ public class Profile extends AppCompatActivity {
         etName.setText(login.getName());
         etRoom.setText(login.getRoom());
         etPhn.setText(login.getPhone());
-        etId.setText(login.getIdNo());
+        etId.setText(login.getId_no());
         etGender.setText(login.getGender());
         etDOB.setText(login.getDob());
         etAadhaar.setText(login.getAadhaar());

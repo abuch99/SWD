@@ -44,11 +44,9 @@ public class User_Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //userTable = new UserTable(getApplicationContext());
         preferences = getApplicationContext().getSharedPreferences("USER_LOGIN_DETAILS", MODE_PRIVATE);
         editor = preferences.edit();
         setContentView(R.layout.activity_login);
-        //checkLogin();
 
         fabContactus=findViewById(R.id.fabContactUsfromLoginPage);
         contactUsImage = findViewById(R.id.contact_us_image);
@@ -94,12 +92,12 @@ public class User_Login extends AppCompatActivity {
                         Log.d("LoginDebug", response.toString());
                         Log.d("LoginDebug", response.message());
                         if (!response.body().getError()) {
-                            if (response.body().getProfileCompleted()) {
+                            if (response.body().getProfile_completed()) {
                                 editor.putInt("exists", 1);
                                 editor.putString("name", response.body().getName());
                                 editor.putString("uid", my_id);
                                 editor.putString("password", hashedPass);
-                                editor.putString("id", response.body().getIdNo());
+                                editor.putString("id", response.body().getId_no());
                                 editor.apply();
                                 checkLogin();
                             }
@@ -112,6 +110,7 @@ public class User_Login extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<Login> call, Throwable t) {
                         Toast.makeText(getApplicationContext(), "Error connecting to our servers", Toast.LENGTH_SHORT).show();
+                        removeLoggingIndicator();
                     }
                 });
 
@@ -160,9 +159,6 @@ public class User_Login extends AppCompatActivity {
         mbutton.setEnabled(true);
         loggingInProgressBar.setVisibility(View.GONE);
     }
-
-
-
 
     public void checkLogin() {
 

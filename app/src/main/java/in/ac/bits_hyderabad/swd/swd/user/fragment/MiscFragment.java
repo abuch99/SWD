@@ -2,6 +2,8 @@ package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.google.android.material.card.MaterialCardView;
 
@@ -32,12 +35,6 @@ public class MiscFragment extends Fragment {
 
     MaterialCardView cardTimings, cardBonafide, cardGoodChar, cardNoObjection, cardVacation;
 
-    public MiscFragment(String uid, String id_no, String password) {
-        this.uid = uid;
-        this.id_no = id_no;
-        this.password = password;
-    }
-
     private Retrofit mRetrofitClient;
     private GetDataService mRetrofitService;
 
@@ -45,13 +42,18 @@ public class MiscFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_misc, parent, false);
 
+        SharedPreferences prefs = getContext().getSharedPreferences("USER_LOGIN_DETAILS", Context.MODE_PRIVATE);
+        uid = prefs.getString("uid", null);
+        password = prefs.getString("password", null);
+        id_no = prefs.getString("id", null);
+
         cardTimings = rootView.findViewById(R.id.cardViewTimings);
         cardBonafide = rootView.findViewById(R.id.cardViewBonafide);
         cardGoodChar = rootView.findViewById(R.id.cardViewGoodCharacter);
         cardNoObjection = rootView.findViewById(R.id.cardViewNoObjection);
         cardVacation = rootView.findViewById(R.id.cardViewVacation);
 
-        dialog=new ProgressDialog(getActivity());
+        dialog = new ProgressDialog(getActivity());
         dialog.setMessage("Loading..");
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
@@ -67,7 +69,7 @@ public class MiscFragment extends Fragment {
         cardTimings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.container, new BusTimingsFragment()).commit();
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_miscFragment_to_busTimingsFragment);
             }
         });
 
@@ -102,10 +104,9 @@ public class MiscFragment extends Fragment {
         return rootView;
     }
 
-    public void getDocument(String name, String url) {
+    private void getDocument(String name, String url) {
         boolean ext = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-
-        if(ext) {
+        if (ext) {
             Call<DocContents> call = mRetrofitService.getDocContent("docs", uid, url);
             call.enqueue(new Callback<DocContents>() {
                 @Override

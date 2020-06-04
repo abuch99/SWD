@@ -72,24 +72,22 @@ public class OrderDonationTypeGoodieFragment extends Fragment {
     private BiometricPrompt biometricPrompt;
     private BiometricPrompt.PromptInfo promptInfo;
 
-    public OrderDonationTypeGoodieFragment(String goodieId, String uid, String pwd) {
-        this.goodieId = goodieId;
-        this.uid = uid;
-        this.pwd = pwd;
-    }
-
     Call<ArrayList<Goodie>> call;
     Call<in.ac.bits_hyderabad.swd.swd.APIConnection.GoodieOrderPlacedResponse> call2;
 
+    public OrderDonationTypeGoodieFragment(String goodie) {
+        goodieId = goodie;
+    }
+
     private void setData() {
-        Picasso.get().load("http://swd.bits-hyderabad.ac.in/goodies/img/" + goodie.getImgLink())
+        Picasso.get().load("http://swd.bits-hyderabad.ac.in/goodies/img/" + goodie.getImg())
                 .placeholder(R.drawable.ic_loading)
                 .error(R.drawable.ic_error)
                 .into(goodieImageView);
 
         goodieNameTextView.setText(goodie.getName());
-        goodieHostTextView.setText(goodie.getHostedBy());
-        String priceRange = "₹" + goodie.getMinAmount() + " to ₹" + goodie.getMaxAmount();
+        goodieHostTextView.setText(goodie.getHosted_by());
+        String priceRange = "₹" + goodie.getMin_amount() + " to ₹" + goodie.getMax_amount();
         currentAmount = minAmount;
         goodiePriceTextView.setText(priceRange);
         String orderTotal = "Order total: ₹" + minAmount;
@@ -199,6 +197,10 @@ public class OrderDonationTypeGoodieFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_order_donation_type_goodie, container, false);
 
+        SharedPreferences prefs = getContext().getSharedPreferences("USER_LOGIN_DETAILS", Context.MODE_PRIVATE);
+        uid = prefs.getString("uid", null);
+        pwd = prefs.getString("password", null);
+
         layout = rootView.findViewById(R.id.order_goodie_outer_layout);
         loadingProgress = rootView.findViewById(R.id.order_goodie_loading_progress);
         layout.setVisibility(View.INVISIBLE);
@@ -224,10 +226,10 @@ public class OrderDonationTypeGoodieFragment extends Fragment {
             public void onResponse(Call<ArrayList<Goodie>> call, retrofit2.Response<ArrayList<Goodie>> response) {
                 for (int i = 0; i < response.body().size(); i++) {
                     Goodie nextGoodie = response.body().get(i);
-                    if (nextGoodie.getGoodieID().equals(goodieId)) {
+                    if (nextGoodie.getG_id().equals(goodieId)) {
                         goodie = nextGoodie;
-                        minAmount = Integer.parseInt(goodie.getMinAmount());
-                        maxAmount = Integer.parseInt(goodie.getMaxAmount());
+                        minAmount = Integer.parseInt(goodie.getMin_amount());
+                        maxAmount = Integer.parseInt(goodie.getMax_amount());
                         setData();
                         setupQuantityClickListeners();
                         layout.setVisibility(View.VISIBLE);
@@ -293,13 +295,5 @@ public class OrderDonationTypeGoodieFragment extends Fragment {
             Toast.makeText(getContext(), "You must agree to pay the amount from your Other Advances account", Toast.LENGTH_SHORT).show();
             return false;
         }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        call.cancel();
-        if (call2 != null)
-            call2.cancel();
     }
 }
