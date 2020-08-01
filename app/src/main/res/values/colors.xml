@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#c1cdc1</color>
+    <color name="colorPrimary">#424242</color>
     <color name="colorPrimaryDark">#1b1b1b</color>
     <color name="colorPrimaryLight">#6d6d6d</color>
     <color name="colorAccent">#6d6d6d</color>
     <color name="colorHint">#c1cdc1</color>
     <color name="whiteText">#FFFFFF</color>
+    <color name="disabledDate">#A9A9A9</color>
     <color name="blueText">#8A9CFA</color>
     <color name="card_background">#eeeeee</color>
     <color name="black">#000000</color>
+    <color name="calling_green_color">#008537</color>
+    <color name="background">#f8f8ff</color>
     <color name="semiTransparentColor80">#80ffffff</color>
     <color name="semiTransparentColor50">#50ffffff</color>
     <color name="semiTransparentColor20">#20ffffff</color>
+    <color name="semiTransparentColor99black">#99000000</color>
     <color name="semiTransparentColor80black">#80000000</color>
     <color name="semiTransparentColor50black">#50000000</color>
     <color name="semiTransparentColor20black">#20000000</color>
+    <color name="semiTransparentColor05black">#05000000</color>
+    <color name="semiTransparentColor10black">#10000000</color>
     <color name="semiTransparentColor00black">#00000000</color>
 </resources>

@@ -3,25 +3,30 @@ package in.ac.bits_hyderabad.swd.swd.user.fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
+import androidx.annotation.Nullable;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import in.ac.bits_hyderabad.swd.swd.R;
-import in.ac.bits_hyderabad.swd.swd.user.activity.User_Nav;
 
 public class User_HomeFragment extends Fragment  {
 
     View view;
     Button btnMess,btnGoodies,btnContact;
-
     NavigationView navigationView;
-
     Fragment fragment;
+
+    private CardView cvTD,cvERP,cvOPAC;
+    private FloatingActionButton fabContactUs;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,17 +34,59 @@ public class User_HomeFragment extends Fragment  {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         // Defines the xml file for the fragment
-        view = inflater.inflate(R.layout.home_fragment, parent, false);
+        view = inflater.inflate(R.layout.fragment_home, parent, false);
 
-        btnContact=view.findViewById(R.id.btnContact);
-        btnGoodies=view.findViewById(R.id.btnGoodies);
-        btnMess=view.findViewById(R.id.btnMess);
+        cvTD=view.findViewById(R.id.cvTD);
+        cvERP=view.findViewById(R.id.cvERP);
+        cvOPAC=view.findViewById(R.id.cvOPAC);
+        fabContactUs=view.findViewById(R.id.fabContactUs);
+
+        fabContactUs.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.ic_chat));
+
+        cvOPAC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(getString(R.string.OPAC_URL)));
+                startActivity(intent);
+            }
+        });
+        cvERP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(getString(R.string.ERP_URL)));
+                startActivity(intent);
+            }
+        });
+        cvTD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(getString(R.string.TD_URL)));
+                startActivity(intent);
+            }
+        });
+        fabContactUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", "swdnucleus@hyderabad.bits-pilani.ac.in", null));
+                startActivity(Intent.createChooser(intent, "Choose an Email client :"));
+            }
+        });
+
+
+        //btnContact=view.findViewById(R.id.btnContact);
+        //btnGoodies=view.findViewById(R.id.btnGoodies);
+        //btnMess=view.findViewById(R.id.btnMess);
 
         //btnMess.setVisibility(View.INVISIBLE);
 
-        btnContact.setOnClickListener(new View.OnClickListener() {
+//changes in home frag
+/*      btnContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
@@ -63,7 +110,7 @@ public class User_HomeFragment extends Fragment  {
                 ((User_Nav) getActivity()).navigationView.setCheckedItem(R.id.mess);
             }
         });
-
+*/
         return view;
     }
 
@@ -71,6 +118,7 @@ public class User_HomeFragment extends Fragment  {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
+
 
 
 

@@ -1,10 +1,9 @@
 package in.ac.bits_hyderabad.swd.swd.user.activity;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telephony.mbms.DownloadProgressListener;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -54,6 +53,7 @@ public class ForgotPassword extends AppCompatActivity {
                 if(username.isEmpty())
                 {
                     Toast.makeText(ForgotPassword.this,"Please enter your BITS Mail",Toast.LENGTH_LONG).show();
+                    dialog.hide();
                 }
                 else if(username.substring(0,4).equalsIgnoreCase("F201") )
                 {
@@ -61,6 +61,7 @@ public class ForgotPassword extends AppCompatActivity {
                 }
                 else
                 {
+                    dialog.hide();
                     Toast.makeText(ForgotPassword.this,"Please enter your BITS Mail in the correct format!!",Toast.LENGTH_LONG).show();
                 }
             }
@@ -76,26 +77,25 @@ public class ForgotPassword extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.RESET_URL), new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("LoginResponse: ", response);
                 etUsernameForgotPassword.setText(null);
                 dialog.hide();
 
-                if(response.contains("Please check if you have entered you email ID in the appropriate format!"))
+                /*if(response.contains("Please check if you have entered you email ID in the appropriate format!"))
                 {
                     Toast.makeText(ForgotPassword.this,"Please check if you have entered your email ID in the appropriate format!", Toast.LENGTH_LONG).show();
                 }
                 else if(response.contains("Password Reset Link Sent to your BITS Mail!"))
                 {
                     Toast.makeText(ForgotPassword.this,"Password Reset Link Sent to your BITS Mail!", Toast.LENGTH_LONG).show();
-                }
+                }*/
+                //Toast.makeText(ForgotPassword.this,"Please check if you have entered your email ID in the appropriate format!", Toast.LENGTH_LONG).show();
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Error", error.toString());
                 dialog.hide();
-                Toast.makeText(ForgotPassword.this, "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ForgotPassword.this, "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override

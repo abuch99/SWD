@@ -7,19 +7,25 @@
             android:id="@+id/home"
             android:icon="@drawable/ic_home"
             android:title="@string/home" />
-        <item
-            android:id="@+id/connect"
-            android:icon="@drawable/ic_forum"
-            android:title="@string/connect" />
-        <item
-            android:id="@+id/notices"
-            android:icon="@drawable/ic_assignment"
-            android:title="@string/notices" />
 
         <item
-            android:id="@+id/complaint"
-            android:icon="@drawable/ic_feedback"
-            android:title="@string/complaint" />
+            android:id="@+id/MyProfile"
+            android:icon="@drawable/ic_person"
+            android:title="@string/title_activity_profile">
+
+        </item>
+
+        <item
+            android:id="@+id/goodies"
+            android:icon="@drawable/ic_goodie"
+            android:title="@string/goodies" />
+
+        <item
+            android:id="@+id/Deduction"
+            android:icon="@drawable/ic_ded"
+            android:title="Deductions">
+
+        </item>
 
         <item
             android:id="@+id/mess"
@@ -27,25 +33,31 @@
             android:title="@string/mess" />
 
         <item
-            android:id="@+id/goodies"
-            android:icon="@drawable/ic_feedback"
-            android:title="@string/goodies" />
+            android:id="@+id/messReg"
+            android:icon="@drawable/ic_reg"
+            android:title="@string/messReg" />
+
+        <item
+            android:id="@+id/connect"
+            android:icon="@drawable/ic_forum"
+            android:title="@string/connect" />
+
+
+        <item
+            android:id="@+id/BusTimings"
+            android:icon="@drawable/ic_bus"
+            android:title="@string/_212_bus_timings" />
+
         <item
             android:id="@+id/docs"
             android:icon="@drawable/ic_subject"
             android:title="@string/docs" />
-        <item
-            android:id="@+id/uploads"
-            android:icon="@drawable/ic_up"
-            android:title="@string/uploads" />
-        <item
-            android:id="@+id/settings"
-            android:icon="@drawable/ic_settings"
-            android:title="@string/settings"/>
+
         <item
             android:id="@+id/logout"
             android:icon="@drawable/ic_logout"
-            android:title="@string/logout"/>
+            android:title="@string/logout" />
+
 
 
     </group>

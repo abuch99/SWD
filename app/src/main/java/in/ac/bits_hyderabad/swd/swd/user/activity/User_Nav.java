@@ -1,40 +1,50 @@
 package in.ac.bits_hyderabad.swd.swd.user.activity;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
-import android.graphics.Point;
-import android.media.Image;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.android.material.navigation.NavigationView;
+import com.google.gson.JsonObject;
+
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
-import android.view.Display;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
-import in.ac.bits_hyderabad.swd.swd.databases.UserTable;
+import in.ac.bits_hyderabad.swd.swd.BuildConfig;
 import in.ac.bits_hyderabad.swd.swd.user.fragment.*;
 
 import in.ac.bits_hyderabad.swd.swd.R;
@@ -45,18 +55,13 @@ public class User_Nav extends AppCompatActivity
     public NavigationView navigationView;
     public Fragment fragment;
     FragmentManager manager;
-
-    UserTable mUserTable;
     ActionBar actionBar;
     DrawerLayout drawer;
-
     ImageView header_img;
     TextView tvNav_header_Id_No,tvNav_header_name;
-
-    Button btnMess;
-    String urlImageIcard;
-
-
+    SharedPreferences prefs;
+    int itemId=0;
+    String tag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,119 +71,52 @@ public class User_Nav extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.toolbar_title);
         setSupportActionBar(toolbar);
-        //space for floating button if needed
-
-
-
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-
-
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.home);
-
         tvNav_header_Id_No=navigationView.getHeaderView(0).findViewById(R.id.tvIdNavHeader);
         tvNav_header_name=navigationView.getHeaderView(0).findViewById(R.id.tvNameNavHeader);
         header_img=navigationView.getHeaderView(0).findViewById(R.id.header_img);
-        mUserTable=new UserTable(getApplicationContext());
-
-        tvNav_header_name.setText(mUserTable.getName());
-        tvNav_header_Id_No.setText(mUserTable.getID());
-
-        Log.e("error",mUserTable.getUID().substring(5)+"    "+mUserTable.getUID().substring(1,5)+"    "+mUserTable.getUID()+"    "+header_img.toString());
-        /*String four_digits=mUserTable.getUID().substring(5);//0459
-        String year=mUserTable.getUID().substring(1,5);//2018
-        String degree=null;//f
-        switch (mUserTable.getUID().charAt(0)){
-            case 'f':
-               degree="fd";
-               break;
-            case 'h':
-                degree="hd";
-                break;
-            case 'p':
-                degree="phd";
-                break;
-        }
-        urlImageIcard="http://swd.bits-hyderabad.ac.in/components/navbar/id/2018/fd/0459H.jpg";//"http://swd.bits-hyderabad.ac.in/components/navbar/id/"+year+"/"+degree+"/"+four_digits+"H.jpg";
-        Picasso.get().load(urlImageIcard)
-                .resize(125,125)
-                .centerInside()
-                .onlyScaleDown()
-                .placeholder(R.drawable.ic_loading)
-                .error(R.drawable.ic_error)
-                .into(header_img);
-
-*/
-        JSONObject o=new JSONObject();
-
-        Log.e("name and id and pwd" ,mUserTable.getName()+mUserTable.getID());
-        fragment=new User_HomeFragment();
-        manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.layout_frame, fragment,"home").commit();
         actionBar=getSupportActionBar();
+        manager = getSupportFragmentManager();
 
-
-        /*btnMess.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                actionBar.setTitle(R.string.mess_title);
-                navigationView.setCheckedItem(R.id.mess);
-                fragment=new User_MessFragment();
-                manager.beginTransaction().replace(R.id.layout_frame,fragment,"mess").commit();
-
-            }
-        });
-        btnGoodies.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                actionBar.setTitle(R.string.goodies_title);
-                navigationView.setCheckedItem(R.id.goodies);
-                fragment=new User_GoodiesFragment();
-                manager.beginTransaction().replace(R.id.layout_frame,fragment,"goodies").commit();
-            }
-        });
-        btnContact.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                actionBar.setTitle(R.string.connect_title);
-                navigationView.setCheckedItem(R.id.connect);
-                fragment=new User_ConnectFragment();
-                manager.beginTransaction().replace(R.id.layout_frame,fragment,"connect").commit();
-            }
-        });*/
-
-        navigationView.getHeaderView(0).setOnClickListener(new View.OnClickListener() {
+        tvNav_header_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent =new Intent(User_Nav.this,Profile.class);
+                if (drawer.isDrawerOpen(GravityCompat.START))
+                    drawer.closeDrawer(GravityCompat.START);
                 startActivity(intent);
-
             }
         });
+
+        prefs=getApplicationContext().getSharedPreferences("USER_LOGIN_DETAILS",MODE_PRIVATE);
+
+        tvNav_header_name.setText(prefs.getString("name",null));
+        tvNav_header_Id_No.setText(prefs.getString("id",null));
+
+        setHome();
+
+
     }
 
     @Override
     public void onBackPressed() {
 
-        Log.e("onbackpressed", "method executed");
 
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-            Log.e("onbackpressed","drawer closed");
         } else if(!fragment.getTag().equals("home")) {
             setHome();
-            Log.e("onbackpressed","home set");
         }else{
             actionBar.setTitle(R.string.toolbar_title);
             super.onBackPressed();
-            Log.e("onbackpressed","super");
         }
     }
 
@@ -186,78 +124,107 @@ public class User_Nav extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        final int id = item.getItemId();
+        if(id!=R.id.logout&&id!=R.id.MyProfile&&id!=R.id.connect)
+            itemId=id;
+
         switch (id) {
             case R.id.home: {
+                actionBar.setBackgroundDrawable(getDrawable(R.drawable.bgnd_dark));//action bar
+                tag="home";
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
                 actionBar.setTitle(R.string.toolbar_title);
                 navigationView.setCheckedItem(R.id.home);
                 fragment=new User_HomeFragment();
-                manager.beginTransaction().replace(R.id.layout_frame,fragment,"home").commit();
-                break;
-            }
-            case R.id.connect: {
-                if (drawer.isDrawerOpen(GravityCompat.START))
-                    drawer.closeDrawer(GravityCompat.START);
-                actionBar.setTitle(R.string.connect_title);
-                navigationView.setCheckedItem(R.id.connect);
-                fragment=new User_ConnectFragment();
-                manager.beginTransaction().replace(R.id.layout_frame,fragment,"connect").commit();
-                break;
-            }
-            case R.id.notices: {
-                if (drawer.isDrawerOpen(GravityCompat.START))
-                    drawer.closeDrawer(GravityCompat.START);
-                actionBar.setTitle(R.string.notices_title);
-                navigationView.setCheckedItem(R.id.notices);
-                fragment=new User_NoticeFragment();
-                manager.beginTransaction().replace(R.id.layout_frame,fragment,"notices").commit();
-                break;
-            }
-            case R.id.complaint: {
-                if (drawer.isDrawerOpen(GravityCompat.START))
-                    drawer.closeDrawer(GravityCompat.START);
-                actionBar.setTitle(R.string.complaints_title);
-                navigationView.setCheckedItem(R.id.complaint);
-                fragment=new User_ComplaintFragment();
-                manager.beginTransaction().replace(R.id.layout_frame,fragment,"complaint").commit();
+                manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }
             case R.id.mess: {
+                tag="mess";
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
                 actionBar.setTitle(R.string.mess_title);
+                actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
                 navigationView.setCheckedItem(R.id.mess);
-                fragment=new User_MessFragment();
-                manager.beginTransaction().replace(R.id.layout_frame,fragment,"mess").commit();
+                fragment=new User_MessFragment(prefs.getString("uid",null),prefs.getString("password",null));
+                manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
+                break;
+            }
+            case R.id.messReg: {
+
+                tag="messReg";
+                if (drawer.isDrawerOpen(GravityCompat.START))
+                    drawer.closeDrawer(GravityCompat.START);
+                actionBar.setTitle(R.string.messReg_title);
+                actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
+                navigationView.setCheckedItem(R.id.messReg);
+                fragment=UserMessRegFragment.newInstance(prefs.getString("uid", null),prefs.getString("password",null));
+                manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
+                break;
+            }
+            case R.id.BusTimings: {
+
+                tag = "busTimings";
+                if (drawer.isDrawerOpen(GravityCompat.START))
+                    drawer.closeDrawer(GravityCompat.START);
+                actionBar.setTitle(R.string.busTimings);
+                actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
+                navigationView.setCheckedItem(R.id.BusTimings);
+                fragment = new BusTimingsFragment();
+                manager.beginTransaction().replace(R.id.layout_frame, fragment, tag).commit();
                 break;
             }
             case  R.id.docs: {
+
+                tag="docs";
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
                 actionBar.setTitle(R.string.docs_title);
+                actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
                 navigationView.setCheckedItem(R.id.docs);
-                fragment=new User_DocFragment();
-                manager.beginTransaction().replace(R.id.layout_frame,fragment,"docs").commit();
+                fragment=User_DocFragment.newInstance(prefs.getString("uid",null),prefs.getString("id",null),prefs.getString("password",null));
+                manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
                 break;
             }
-            case R.id.uploads: {
+            case R.id.MyProfile: {
+                Intent intent =new Intent(User_Nav.this,Profile.class);
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
-                actionBar.setTitle(R.string.uploads_title);
-                navigationView.setCheckedItem(R.id.uploads);
-                fragment=new User_UploadFragment();
-                manager.beginTransaction().replace(R.id.layout_frame,fragment,"uploads").commit();
+                startActivity(intent);
                 break;
             }
+
+            case R.id.Deduction: {
+                tag="deductions";
+                if (drawer.isDrawerOpen(GravityCompat.START))
+                    drawer.closeDrawer(GravityCompat.START);
+                actionBar.setTitle(getString(R.string.DeductionsTitle));
+                actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
+                navigationView.setCheckedItem(R.id.docs);
+                fragment=User_DeductionsFragment.newInstance(prefs.getString("uid",null),prefs.getString("id",null),prefs.getString("password",null));
+                manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
+                break;
+
+            }
             case R.id.goodies: {
+
+                tag="goodies";
+                actionBar.setBackgroundDrawable(getDrawable(R.drawable.toolbar_drawable));
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
                 actionBar.setTitle(R.string.goodies_title);
                 navigationView.setCheckedItem(R.id.goodies);
-                fragment=new User_GoodiesFragment();
-                manager.beginTransaction().replace(R.id.layout_frame,fragment,"goodies").commit();
+                fragment=User_GoodiesFragment.newInstance(prefs.getString("uid",null),prefs.getString("id",null),prefs.getString("password",null));
+                manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
+                break;
+            }
+            case R.id.connect: {
+
+                if (drawer.isDrawerOpen(GravityCompat.START))
+                    drawer.closeDrawer(GravityCompat.START);
+                Intent intent=new Intent(User_Nav.this, Connect.class);
+                startActivity(intent);
                 break;
             }
             case R.id.logout: {
@@ -272,12 +239,18 @@ public class User_Nav extends AppCompatActivity
                                 logout();
                             }
                         })
-                        .setNegativeButton("Cancel", null)
-                        .show();
-                break;
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                navigationView.setCheckedItem(itemId);
 
-            }
-            case R.id.settings: {
+                            }
+                        }).setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                    }
+                }).setCancelable(false).show();
+                break;
 
             }
         }
@@ -286,21 +259,144 @@ public class User_Nav extends AppCompatActivity
 
 
     public void setHome(){
+        itemId=R.id.home;
+        tag="home";
         actionBar.setTitle(R.string.toolbar_title);
+        actionBar.setBackgroundDrawable(getDrawable(R.drawable.bgnd_dark));
         navigationView.setCheckedItem(R.id.home);
         fragment=new User_HomeFragment();
-        manager.beginTransaction().replace(R.id.layout_frame,fragment,"home").commit();
+        manager.beginTransaction().replace(R.id.layout_frame,fragment,tag).commit();
     }
     private void logout() {
-        mUserTable.deleteAll();
+
+        SharedPreferences.Editor editor=prefs.edit();
+        editor.clear();
+        editor.commit();
         startActivity(new Intent(this, User_Login.class));
         finish();
     }
-    public void replaceFragment (Fragment someFragment,String tag,String title){
-        actionBar.setTitle(title);
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.layout_frame, someFragment,tag);
-        transaction.addToBackStack(null);
-        transaction.commit();
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
+
+    @Override
+    protected void onResume() {
+
+
+        switch (tag){
+
+            case "home": {
+                itemId=R.id.home;
+                navigationView.setCheckedItem(R.id.home);
+                break;
+            }
+            case "goodies": {
+                itemId=R.id.goodies;
+                navigationView.setCheckedItem(R.id.goodies);
+                break;
+            }
+            case "mess": {
+                itemId=R.id.mess;
+                navigationView.setCheckedItem(R.id.mess);
+                break;
+            }
+            case "docs": {
+                itemId=R.id.docs;
+                navigationView.setCheckedItem(R.id.docs);
+                break;
+            }
+            default:
+            {
+                itemId=R.id.home;
+                navigationView.setCheckedItem(R.id.home);
+            }
+        }
+        CheckUpdates task=new CheckUpdates();
+        task.execute();
+        super.onResume();
+    }
+
+    public class CheckUpdates extends AsyncTask<Void, Void, Void> {
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            RequestQueue queue = Volley.newRequestQueue(User_Nav.this);
+            StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject obj = new JSONObject(response);
+                        int latest_version = obj.getInt("version");
+                        int current_version = BuildConfig.VERSION_CODE;
+
+                        if (latest_version > current_version) {
+                            showDialog();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(User_Nav.this, "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+
+                    Map<String, String> params = new HashMap<>();
+                    params.put("tag", "check_updates");
+                    return params;
+
+                }
+            };
+            queue.add(request);
+            return null;
+        }
+    }
+    public void closeApp(){
+        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+        homeIntent.addCategory( Intent.CATEGORY_HOME );
+        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(homeIntent);
+    }
+    public void showDialog(){
+
+        AlertDialog.Builder dialogBuilder;
+
+        dialogBuilder=new AlertDialog.Builder(User_Nav.this, R.style.AppCompatAlertDialogStyle);
+        dialogBuilder.setTitle("New Update Available!!");
+            dialogBuilder.setMessage("A new Version of the app is available.");
+            dialogBuilder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    final String appPackageName = "in.ac.bits_hyderabad.swd.swd"; // getPackageName() from Context or Activity object
+                    try {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                    } catch (android.content.ActivityNotFoundException anfe) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                    }
+                }
+            })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            closeApp();
+                        }
+                    }).setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                }
+            });
+            AlertDialog alertDialog = dialogBuilder.create();
+            alertDialog.setCancelable(false);
+            alertDialog.setCanceledOnTouchOutside(false);
+            alertDialog.show();
+        }
 }
