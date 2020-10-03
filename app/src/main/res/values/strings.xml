@@ -7,17 +7,17 @@
     <string name="login">Login</string>
     <string name="ID">User ID</string>
     <string name="pwd">Password</string>
-    <string name="forgot_pwd">Forgot Password</string>
+    <string name="forgot_pwd">Forgot password</string>
     <string name="admin">Admin Side</string>
-    <string name="contact">Contact Us</string>
+    <string name="contact">Contact us</string>
     <string name="login_admin">Administration Login</string>
     <!--User_Login screen end -->
 
     <!--Forgot Password-->
     <string name="BitsMail">\@hyderabad.bits-pilani.ac.in</string>
-    <string name="TextForgotPassword">Fill your BITS mail ID and check the same for reset link.</string>
+    <string name="TextForgotPassword">Fill in your BITS email ID and check your email for the password reset link.</string>
     <string name="passwordRecovery">PASSWORD RECOVERY</string>
-    <string name="submitForgot_pass">SUBMIT</string>
+    <string name="resetForgot_pass">Reset</string>
     <string name="RESET_URL">http://swd.bits-hyderabad.ac.in/passmail.php</string>
 
     <!--User nav menu start-->
@@ -104,37 +104,35 @@
     <string name="uploads_title">Uploads</string>
     <string name="goodies_title">Goodies</string>
     <string name="goo">goo</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!--Admin Doc End-->
 
     <!--profile activity-->
-    <string name="field_name">Name :</string>
-    <string name="field_room_no">Room No. :</string>
-    <string name="field_phone_no">Phone No. :</string>
-    <string name="field_Id_no">ID No. :</string>
-    <string name="field_DOB">DOB :</string>
-    <string name="field_gender">Gender :</string>
-    <string name="field_nationality">Nationality :</string>
-    <string name="field_per_mail">Personal Email :</string>
-    <string name="field_blood_group">Blood Group :</string>
-    <string name="field_address">Address :</string>
-    <string name="field_city">City/Town :</string>
-    <string name="field_state">State :</string>
-    <string name="field_ac_no">Account No. :</string>
-    <string name="field_bank_name">Bank Name :</string>
-    <string name="field_ifsc">IFSC Code :</string>
-    <string name="field_fname">Father\'s Name :</string>
-    <string name="field_fphone">Father\'s Phone No. :</string>
-    <string name="field_femail">Father\'s Email :</string>
-    <string name="field_foccupation">Father\'s Occupation :</string>
-    <string name="field_mname">Mother\'s Name :</string>
-    <string name="field_mphone">Mother\'s Phone No. :</string>
-    <string name="field_memail">Mother\'s Email :</string>
-    <string name="field_moccupation">Mother\'s Occupation :</string>
+    <string name="field_name">Name</string>
+    <string name="field_room_no">Room number</string>
+    <string name="field_phone_no">Phone number</string>
+    <string name="field_Id_no">ID number</string>
+    <string name="field_DOB">Date of birth</string>
+    <string name="field_gender">Gender</string>
+    <string name="field_nationality">Nationality</string>
+    <string name="field_per_mail">Personal email</string>
+    <string name="field_blood_group">Blood group</string>
+    <string name="field_address">Address</string>
+    <string name="field_city">City/Town</string>
+    <string name="field_state">State</string>
+    <string name="field_ac_no">Bank account number</string>
+    <string name="field_bank_name">Bank name</string>
+    <string name="field_ifsc">IFSC code</string>
+    <string name="field_fname">Father\'s name</string>
+    <string name="field_fphone">Father\'s phone number</string>
+    <string name="field_femail">Father\'s email</string>
+    <string name="field_foccupation">Father\'s occupation</string>
+    <string name="field_mname">Mother\'s name</string>
+    <string name="field_mphone">Mother\'s phone number</string>
+    <string name="field_memail">Mother\'s email</string>
+    <string name="field_moccupation">Mother\'s occupation</string>
     <string name="GRACE_URL">http://swd.bits-hyderabad.ac.in/messgrace1.php</string>
-    <string name="BASE_URL">http://swd.bits-hyderabad.ac.in/swd_app/index.php</string>
+    <string name="URL">http://swd.bits-hyderabad.ac.in/</string>
+    <string name="BASE_URL">http://swd.bits-hyderabad.ac.in/swd_app/</string>
     <string name="DOCS_URL">http://swd.bits-hyderabad.ac.in/swd_app/gen_appDocs.php</string>
     <string name="quantityofGoodies">Quantity</string>
 
@@ -153,12 +151,11 @@
     <string name="custom_name_hint">This will be printed on the item</string>
     <string name="minamt_fraiser">Minimum :</string>
     <string name="maxamt_fraiser">Maximum :</string>
-    <string name="cbAgree_text">I agree to pay the above mentioned amount from my Other Advances Account</string>
+    <string name="cbAgree_text">I agree to pay the above amount from my Other Advances account</string>
     <string name="order_button">Order</string>
     <string name="order_cost">Total Cost:</string>
     <string name="order_summary">ORDER SUMMARY</string>
-    <string name="library_opac">LIBRARY\nOPAC</string>
-    <string name="timetable_n_division">TIMETABLE  DIVISION</string>
+    <string name="library_opac">Library OPAC</string>
 
 
     <string name="TD_URL">https://td.bits-hyderabad.ac.in/</string>
@@ -166,8 +163,8 @@
     <string name="OPAC_URL">http://libraryopac.bits-hyderabad.ac.in/</string>
 
 
-    <string name="busTimeBits_to_Sec">06:55 , 07:55 , 08:50, 09:20, 09:50, 11:00, 12:00, 13:00, 14:00, 15:05, 16:05, 17:20, 18:15, 19:15, 20:15</string>
-    <string name="busTimeSec_to_Bits">07:50, 08:20, 08:50, 09:50, 11:00, 12:00, 13:00, 14:10, 15:05, 16:05, 17:20, 18:15, 19:15, 20:15, 21:15</string>
+    <string name="busTimeBits_to_Sec">\u2022 06:55\n\u2022 07:55\n\u2022 08:50\n\u2022 09:20\n\u2022 09:50\n\u2022 11:00\n\u2022 12:00\n\u2022 13:00\n\u2022 14:00\n\u2022 15:05\n\u2022 16:05\n\u2022 17:20\n\u2022 18:15\n\u2022 19:15\n\u2022 20:15</string>
+    <string name="busTimeSec_to_Bits">\u2022 07:50\n\u2022 08:20\n\u2022 08:50\n\u2022 09:50\n\u2022 11:00\n\u2022 12:00\n\u2022 13:00\n\u2022 14:10\n\u2022 15:05\n\u2022 16:05\n\u2022 17:20\n\u2022 18:15\n\u2022 19:15\n\u2022 20:15\n\u2022 21:15</string>
 
 
     <string name="doc_Bonafide">Bonafide Certificate</string>
@@ -186,16 +183,46 @@
     <string name="download_prepMsg">Loading... Please wait</string>
     <string name="MessURL">http://swd.bits-hyderabad.ac.in/mess/</string>
     <string name="MessRegURL">http://swd.bits-hyderabad.ac.in/messreg</string>
-    <string name="field_aadhar">Aadhar :</string>
-    <string name="field_pan">PAN Card :</string>
-    <string name="field_category">Category :</string>
-    <string name="field_fcomp">Father\'s Company :</string>
-    <string name="field_fdesg">Father\'s Designation :</string>
-    <string name="field_mcomp">Mother\'s Company :</string>
-    <string name="field_mdesg">Mother\'s Designation :</string>
-    <string name="field_med_history">Medical History :</string>
-    <string name="field_current_med">Current Medication :</string>
+    <string name="field_aadhar">Aadhar number</string>
+    <string name="field_pan">PAN card number</string>
+    <string name="field_category">Category</string>
+    <string name="field_fcomp">Father\'s company</string>
+    <string name="field_fdesg">Father\'s designation</string>
+    <string name="field_mcomp">Mother\'s company</string>
+    <string name="field_mdesg">Mother\'s designation</string>
+    <string name="field_med_history">Medical history</string>
+    <string name="field_current_med">Current medications</string>
     <string name="DeductionsTitle">Deductions</string>
+    <string name="personal_details">Personal details</string>
+    <string name="parents_details">Parents\' details</string>
+    <string name="medical_details">Medical details</string>
+    <string name="bank_account_details">Bank account details</string>
+    <string name="contact_us">Contact us</string>
+    <string name="important_links">Important links</string>
+    <string name="timetable_division">Timetable division</string>
+    <string name="erp">ERP</string>
+    <string name="miscellaneous">Miscellaneous</string>
+    <string name="view_deductions">View deductions</string>
+    <string name="spent_this_semester">spent this semester</string>
+    <string name="logging_you_in">Logging you in</string>
+    <string name="servers_no_connection">We\'re unable to connect to our servers right now\nPlease try again later</string>
+    <string name="reset">Reset</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="plus">+</string>
+    <string name="_1">1</string>
+    <string name="minus">-</string>
 
+    <string name="amount">Amount</string>
+    <string name="mess_reg_instructions">Select which mess you want to register to</string>
+    <string name="mess_reg_closed">Mess registration is closed right now</string>
+    <string name="bits_to_secunderabad">BITS to Secunderabad</string>
+    <string name="secunderabad_to_bits">Secunderabad to BITS</string>
+    <string name="view_timings">View timings</string>
+    <string name="bus_212">Bus 212</string>
+    <string name="get_documents">Get documents</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="more">More</string>
 
 </resources>

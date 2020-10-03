@@ -2,34 +2,18 @@ package in.ac.bits_hyderabad.swd.swd.user.activity;
 
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import android.os.Bundle;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.util.Log;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Toast;
-
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,14 +22,21 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import in.ac.bits_hyderabad.swd.swd.APIConnection.GetDataService;
+import in.ac.bits_hyderabad.swd.swd.APIConnection.Login;
+import in.ac.bits_hyderabad.swd.swd.APIConnection.UpdateLoginResponse;
 import in.ac.bits_hyderabad.swd.swd.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Profile extends AppCompatActivity {
 
 
     //UserTable mUserTable;
-    EditText etName,etRoom,etPhn,etId,etDOB,etGender,etNat,etEmail,etBlood,etAddress,etCity,etState,etAadhaar,etPan,etfcomp,etfdesg,etmcomp,etmdesg,etmed_history,etcurrent_med,etCategory
-            ,etFname,etFphn,etFemail,etFocc,etMname,etMphn,etMemail,etMocc,etBank,etAccNo,etIfsc;
+    TextInputEditText etName, etRoom, etPhn, etId, etDOB, etGender, etNat, etEmail, etBlood, etAddress, etCity, etState, etAadhaar, etPan, etfcomp, etfdesg, etmcomp, etmdesg, etmed_history, etcurrent_med, etCategory, etFname, etFphn, etFemail, etFocc, etMname, etMphn, etMemail, etMocc, etBank, etAccNo, etIfsc;
     ActionBar actionBar;
     FloatingActionButton fabUpdate;
     String uid,password;
@@ -55,10 +46,10 @@ public class Profile extends AppCompatActivity {
     Boolean updating=false;
     Boolean successfull=false;
     ProgressDialog dialog;
-    RequestQueue queue;
-    LinearLayout llProfile;
-    SwipeRefreshLayout srProfile;
 
+
+    private Retrofit mRetrofitClient;
+    private GetDataService mRetrofitService;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -69,27 +60,31 @@ public class Profile extends AppCompatActivity {
         setSupportActionBar(toolbar);
         actionBar=getSupportActionBar();
 
-        dialog =new ProgressDialog(this);
+        dialog = new ProgressDialog(this);
         dialog.setMessage("Loading");
         dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);
+
+        mRetrofitClient = new Retrofit.Builder()
+                .baseUrl(getString(R.string.URL))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        mRetrofitService = mRetrofitClient.create(GetDataService.class);
+
 
         dialog.create();
 
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
-
-        prefs=getApplicationContext().getSharedPreferences("USER_LOGIN_DETAILS",MODE_PRIVATE);
-        uid=prefs.getString("uid",null);
-        password=prefs.getString("password",null);
+        prefs = getApplicationContext().getSharedPreferences("USER_LOGIN_DETAILS", MODE_PRIVATE);
+        uid = prefs.getString("uid", null);
+        password = prefs.getString("password", null);
         initialize_views();
 
-        llProfile.setVisibility(View.GONE);
         //mUserTable=new UserTable(getApplicationContext());
-        srProfile.setRefreshing(true);
         reload();
-        queue= Volley.newRequestQueue(this);
 
         fabUpdate=findViewById(R.id.fabUpdate);
         fabUpdate.setEnabled(false);
@@ -105,7 +100,7 @@ public class Profile extends AppCompatActivity {
                 else
                 {
                     try {
-                        JSONObject updatedObj=getupdatedJSONObject(object);
+                        JSONObject updatedObj = getupdatedJSONObject(object);
                         updatetoServer(updatedObj);
                     }
                     catch (JSONException e){
@@ -116,111 +111,64 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-        srProfile.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                llProfile.setVisibility(View.GONE);
-                fabUpdate.setImageResource(R.drawable.ic_update_details);
-                updating=false;
-                reload();
-            }
-        });
-
     }
 
     public void reload() {
-
-        RequestQueue queue = Volley.newRequestQueue(Profile.this);
-
-        StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
+        Call<Login> call = mRetrofitService.getLoginSuccessful("login", uid, password);
+        call.enqueue(new Callback<Login>() {
             @Override
-            public void onResponse(String response) {
-
-                try {
-
-                    object = new JSONObject(response);
-                    if (!object.getBoolean("error")) {
-                        try {
-                            setData(object);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            fabUpdate.setEnabled(false);
-                        }
+            public void onResponse(Call<Login> call, Response<Login> response) {
+                if (!response.body().getError()) {
+                    setData(response.body());
                         disable_EditText();
-                        llProfile.setVisibility(View.VISIBLE);
                         fabUpdate.setEnabled(true);
                     } else {
-                        Toast.makeText(Profile.this, "Something went wrong!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Something went wrong!!", Toast.LENGTH_SHORT).show();
                         fabUpdate.setEnabled(false);
                     }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(Profile.this, "Something went wrong!!", Toast.LENGTH_SHORT).show();
-                    fabUpdate.setEnabled(false);
-                }
-
-                srProfile.setRefreshing(false);
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Profile.this, "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<Login> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
                 fabUpdate.setEnabled(false);
-                srProfile.setRefreshing(false);
             }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                Map<String, String> params = new HashMap<>();
-                params.put("tag", "login");
-                params.put("id", uid );
-                params.put("pwd", password);
-
-                return params;
-
-            }
-        };
-
-
-        queue.add(request);
-
-
+        });
     }
-    public void setData(JSONObject object)throws JSONException {
-        etName.setText(object.getString("name"));
-        etRoom.setText(object.getString("room"));
-        etPhn.setText(object.getString("phone"));
-        etId.setText(object.getString("id_no"));
-        etGender.setText(object.getString("gender"));
-        etDOB.setText(object.getString("dob"));
-        etAadhaar.setText(object.getString("aadhaar"));
-        etPan.setText(object.getString("pan_card"));
-        etCategory.setText(object.getString("category"));
-        etEmail.setText(object.getString("email"));
-        etBlood.setText(object.getString("blood"));
-        etAddress.setText(object.getString("homeadd"));
-        etCity.setText(object.getString("city"));
-        etState.setText(object.getString("state"));
-        etNat.setText(object.getString("nation"));
-        etFname.setText(object.getString("father"));
-        etFphn.setText(object.getString("fphone"));
-        etFemail.setText(object.getString("fmail"));
-        etFocc.setText(object.getString("foccup"));
-        etfcomp.setText(object.getString("fcomp"));
-        etfdesg.setText(object.getString("fdesg"));
-        etMname.setText(object.getString("mother"));
-        etMemail.setText(object.getString("mmail"));
-        etMphn.setText(object.getString("hphone"));
-        etMocc.setText(object.getString("moccup"));
-        etmcomp.setText(object.getString("mcomp"));
-        etmdesg.setText(object.getString("mdesg"));
-        etmed_history.setText(object.getString("med_history"));
-        etcurrent_med.setText(object.getString("current_med"));
-        etBank.setText(object.getString("bank"));
-        etAccNo.setText(object.getString("acno"));
-        etIfsc.setText(object.getString("ifsc"));
+
+    public void setData(Login login) {
+        etName.setText(login.getName());
+        etRoom.setText(login.getRoom());
+        etPhn.setText(login.getPhone());
+        etId.setText(login.getId_no());
+        etGender.setText(login.getGender());
+        etDOB.setText(login.getDob());
+        etAadhaar.setText(login.getAadhaar());
+        etPan.setText(login.getPan_card());
+        etCategory.setText(login.getCategory());
+        etEmail.setText(login.getEmail());
+        etBlood.setText(login.getBlood());
+        etAddress.setText(login.getHomeadd());
+        etCity.setText(login.getCity());
+        etState.setText(login.getState());
+        etNat.setText(login.getNation());
+        etFname.setText(login.getFather());
+        etFphn.setText(login.getFphone());
+        etFemail.setText(login.getFmail());
+        etFocc.setText(login.getFoccup());
+        etfcomp.setText(login.getFcomp());
+        etfdesg.setText(login.getFdesg());
+        etMname.setText(login.getMother());
+        etMemail.setText(login.getMmail());
+        etMphn.setText(login.getHphone());
+        etMocc.setText(login.getMoccup());
+        etmcomp.setText(login.getMcomp());
+        etmdesg.setText(login.getMdesg());
+        etmed_history.setText(login.getMed_history());
+        etcurrent_med.setText(login.getCurrent_med());
+        etBank.setText(login.getBank());
+        etAccNo.setText(login.getAcno());
+        etIfsc.setText(login.getIfsc());
 
         dialog.hide();
     }
@@ -257,63 +205,6 @@ public class Profile extends AppCompatActivity {
         etmdesg.setEnabled(false);
         etmed_history.setEnabled(false);
         etcurrent_med.setEnabled(false);
-
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            etRoom.setTextColor(getColor(R.color.colorAccent));
-            etPhn.setTextColor(getColor(R.color.colorAccent));
-            etIfsc.setTextColor(getColor(R.color.colorAccent));
-            etAccNo.setTextColor(getColor(R.color.colorAccent));
-            etMocc.setTextColor(getColor(R.color.colorAccent));
-            etMphn.setTextColor(getColor(R.color.colorAccent));
-            etMemail.setTextColor(getColor(R.color.colorAccent));
-            etState.setTextColor(getColor(R.color.colorAccent));
-            etCity.setTextColor(getColor(R.color.colorAccent));
-            etAddress.setTextColor(getColor(R.color.colorAccent));
-            etEmail.setTextColor(getColor(R.color.colorAccent));
-            etFocc.setTextColor(getColor(R.color.colorAccent));
-            etFemail.setTextColor(getColor(R.color.colorAccent));
-            etFphn.setTextColor(getColor(R.color.colorAccent));
-            etBank.setTextColor(getColor(R.color.colorAccent));
-            etAadhaar.setTextColor(getColor(R.color.colorAccent));
-            etPan.setTextColor(getColor(R.color.colorAccent));
-            etCategory.setTextColor(getColor(R.color.colorAccent));
-            etfcomp.setTextColor(getColor(R.color.colorAccent));
-            etfdesg.setTextColor(getColor(R.color.colorAccent));
-            etmcomp.setTextColor(getColor(R.color.colorAccent));
-            etmdesg.setTextColor(getColor(R.color.colorAccent));
-            etmed_history.setTextColor(getColor(R.color.colorAccent));
-            etcurrent_med.setTextColor(getColor(R.color.colorAccent));
-
-
-        }
-        etRoom.setBackground(getDrawable(R.drawable.edit_text));
-        etPhn.setBackground(getDrawable(R.drawable.edit_text));
-        etIfsc.setBackground(getDrawable(R.drawable.edit_text));
-        etAccNo.setBackground(getDrawable(R.drawable.edit_text));
-        etMocc.setBackground(getDrawable(R.drawable.edit_text));
-        etMphn.setBackground(getDrawable(R.drawable.edit_text));
-        etEmail.setBackground(getDrawable(R.drawable.edit_text));
-        etMemail.setBackground(getDrawable(R.drawable.edit_text));
-        etState.setBackground(getDrawable(R.drawable.edit_text));
-        etCity.setBackground(getDrawable(R.drawable.edit_text));
-        etAddress.setBackground((getDrawable(R.drawable.edit_text)));
-        etFocc.setBackground((getDrawable(R.drawable.edit_text)));
-        etFemail.setBackground((getDrawable(R.drawable.edit_text)));
-        etFphn.setBackground(getDrawable(R.drawable.edit_text));
-        etBank.setBackground(getDrawable(R.drawable.edit_text));
-        etAadhaar.setBackground(getDrawable(R.drawable.edit_text));
-        etPan.setBackground(getDrawable(R.drawable.edit_text));
-        etCategory.setBackground(getDrawable(R.drawable.edit_text));
-        etfcomp.setBackground(getDrawable(R.drawable.edit_text));
-        etfdesg.setBackground(getDrawable(R.drawable.edit_text));
-        etmcomp.setBackground(getDrawable(R.drawable.edit_text));
-        etmdesg.setBackground(getDrawable(R.drawable.edit_text));
-        etmed_history.setBackground(getDrawable(R.drawable.edit_text));
-        etcurrent_med.setBackground(getDrawable(R.drawable.edit_text));
-
-
     }
     public void onEditClick() {
 
@@ -341,87 +232,8 @@ public class Profile extends AppCompatActivity {
         etmed_history.setEnabled(true);
         etcurrent_med.setEnabled(true);
 
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            etRoom.setTextColor(getColor(R.color.black));
-            etPhn.setTextColor(getColor(R.color.black));
-            etIfsc.setTextColor(getColor(R.color.black));
-            etAccNo.setTextColor(getColor(R.color.black));
-            etMocc.setTextColor(getColor(R.color.black));
-            etMphn.setTextColor(getColor(R.color.black));
-            etMemail.setTextColor(getColor(R.color.black));
-            etState.setTextColor(getColor(R.color.black));
-            etCity.setTextColor(getColor(R.color.black));
-            etAddress.setTextColor(getColor(R.color.black));
-            etEmail.setTextColor(getColor(R.color.black));
-            etFocc.setTextColor(getColor(R.color.black));
-            etFemail.setTextColor(getColor(R.color.black));
-            etFphn.setTextColor(getColor(R.color.black));
-            etBank.setTextColor(getColor(R.color.black));
-            etAadhaar.setTextColor(getColor(R.color.black));
-            etPan.setTextColor(getColor(R.color.black));
-            etfcomp.setTextColor(getColor(R.color.black));
-            etfdesg.setTextColor(getColor(R.color.black));
-            etmcomp.setTextColor(getColor(R.color.black));
-            etmdesg.setTextColor(getColor(R.color.black));
-            etmed_history.setTextColor(getColor(R.color.black));
-            etcurrent_med.setTextColor(getColor(R.color.black));
-
-        }
-
-
-        etRoom.setBackground(getDrawable(R.drawable.edit_text_selected));
-        etPhn.setBackground(getDrawable(R.drawable.edit_text_selected));
-        etIfsc.setBackground(getDrawable(R.drawable.edit_text_selected));
-        etAccNo.setBackground(getDrawable(R.drawable.edit_text_selected));
-        etMocc.setBackground(getDrawable(R.drawable.edit_text_selected));
-        etMphn.setBackground(getDrawable(R.drawable.edit_text_selected));
-        etEmail.setBackground(getDrawable(R.drawable.edit_text_selected));
-        etMemail.setBackground(getDrawable(R.drawable.edit_text_selected));
-        etState.setBackground(getDrawable(R.drawable.edit_text_selected));
-        etCity.setBackground(getDrawable(R.drawable.edit_text_selected));
-        etAddress.setBackground((getDrawable(R.drawable.edit_text_selected)));
-        etFocc.setBackground((getDrawable(R.drawable.edit_text_selected)));
-        etFemail.setBackground((getDrawable(R.drawable.edit_text_selected)));
-        etFphn.setBackground(getDrawable(R.drawable.edit_text_selected));
-        etBank.setBackground(getDrawable(R.drawable.edit_text_selected));
-        etAadhaar.setBackground(getDrawable(R.drawable.edit_text_selected));
-        etPan.setBackground(getDrawable(R.drawable.edit_text_selected));
-        etfcomp.setBackground(getDrawable(R.drawable.edit_text_selected));
-        etfdesg.setBackground(getDrawable(R.drawable.edit_text_selected));
-        etmcomp.setBackground(getDrawable(R.drawable.edit_text_selected));
-        etmdesg.setBackground(getDrawable(R.drawable.edit_text_selected));
-        etcurrent_med.setBackground(getDrawable(R.drawable.edit_text_selected));
-        etmed_history.setBackground(getDrawable(R.drawable.edit_text_selected));
-
-
-        etRoom.setFocusable(true);
-        etPhn.setFocusable(true);
-        etIfsc.setFocusable(true);
-        etAccNo.setFocusable(true);
-        etMocc.setFocusable(true);
-        etMphn.setFocusable(true);
-        etMemail.setFocusable(true);
-        etState.setFocusable(true);
-        etCity.setFocusable(true);
-        etAddress.setFocusable(true);
-        etEmail.setFocusable(true);
-        etFocc.setFocusable(true);
-        etFemail.setFocusable(true);
-        etFphn.setFocusable(true);
-        etBank.setFocusable(true);
-        etAadhaar.setFocusable(true);
-        etPan.setFocusable(true);
-        etfcomp.setFocusable(true);
-        etfdesg.setFocusable(true);
-        etmcomp.setFocusable(true);
-        etmdesg.setFocusable(true);
-        etcurrent_med.setFocusable(true);
-        etmed_history.setFocusable(true);
-
         etRoom.requestFocus();
-        InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         imm.showSoftInput(etRoom, InputMethodManager.SHOW_IMPLICIT);
 
     }
@@ -440,12 +252,6 @@ public class Profile extends AppCompatActivity {
         return map;
     }
     public void initialize_views() {
-
-//      "branch":"","aadhar":null,"pan_card":"EPBPB8351D","category":"General","fcomp":"Indian Army","fdesg":"Ex Havaldar","mcomp":"NIL","mdesg":"NIL",
-//      "localadd":"NIL","guardian":"NIL","gphone":"NIL","med_history":"NIL","current_med":"NIL",
-
-        llProfile=findViewById(R.id.llProfile);
-        srProfile=findViewById(R.id.srProfile);
         etName=findViewById(R.id.etName);
         etRoom=findViewById(R.id.etRoom);
         etPhn=findViewById(R.id.etPhn);
@@ -480,60 +286,32 @@ public class Profile extends AppCompatActivity {
         etIfsc=findViewById(R.id.etIfsc);
     }
 
-    public void updatetoServer(final JSONObject object)throws JSONException {
-        Log.i("object sent to server", object.toString());
+    public void updatetoServer(final JSONObject object) throws JSONException {
         dialog.show();
-        StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new Response.Listener<String>() {
+        Map<String, String> params = JSONtoMap(object);
+        Call<UpdateLoginResponse> call = mRetrofitService.getUpdateLoginResponse("update_details", uid, password, params);
+        call.enqueue(new Callback<UpdateLoginResponse>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(Call<UpdateLoginResponse> call, Response<UpdateLoginResponse> response) {
                 dialog.hide();
                 dialog.dismiss();
-                try{
-                    JSONObject obj = new JSONObject(response);
-                    if (!obj.getBoolean("error")) {
-                        Toast.makeText(Profile.this, "Updated successfully", Toast.LENGTH_SHORT).show();
-                        successfull=true;
-                        fabUpdate.setImageResource(R.drawable.ic_update_details);
-                        updating=false;
-                        disable_EditText();
-
-                    }
-                    else{
-                        Toast.makeText(Profile.this, "Unknown error occurred!", Toast.LENGTH_SHORT).show();
-                    }
+                if (!response.body().getError()) {
+                    Toast.makeText(getApplicationContext(), "Updated successfully", Toast.LENGTH_SHORT).show();
+                    successfull = true;
+                    fabUpdate.setImageResource(R.drawable.ic_update_details);
+                    updating = false;
+                    disable_EditText();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Unknown error occurred!", Toast.LENGTH_SHORT).show();
                 }
-                catch (JSONException e)
-                {
-                    e.printStackTrace();
-                }
-
             }
-        },new Response.ErrorListener(){
-            @Override
-            public void onErrorResponse(VolleyError error) {
 
+            @Override
+            public void onFailure(Call<UpdateLoginResponse> call, Throwable t) {
                 dialog.hide();
-                Toast.makeText(Profile.this,"Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(getApplicationContext(), "Please Check your Internet Connection", Toast.LENGTH_SHORT).show();
             }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                try {
-                    Map<String, String> params = JSONtoMap(object);
-                    params.put("tag", "update_details");
-                    params.put("id",uid);
-                    params.put("pwd",password);
-//                    Log.e("save sent",params.toString());
-                    return params;
-                } catch (JSONException e) {
-//                    Log.e("Error",e.toString());
-                }
-                return null;
-            }
-        };
-        queue.add(request);
-
+        });
     }
 
     @Override

@@ -1,67 +1,55 @@
 package in.ac.bits_hyderabad.swd.swd.user.activity;
 
-import android.app.ProgressDialog;
-
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.google.android.material.textfield.TextInputEditText;
 
+import in.ac.bits_hyderabad.swd.swd.APIConnection.GetDataService;
+import in.ac.bits_hyderabad.swd.swd.APIConnection.Login;
 import in.ac.bits_hyderabad.swd.swd.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ForgotPassword extends AppCompatActivity {
 
-    EditText etUsernameForgotPassword;
+    TextInputEditText etUsernameForgotPassword;
     Button btnForgotSubmit;
-    ProgressDialog dialog;
+    ProgressBar sendingRequestProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        etUsernameForgotPassword=findViewById(R.id.etUsernameForgotPassword);
-        btnForgotSubmit=findViewById(R.id.btnForgotSubmit);
-
-        dialog=new ProgressDialog(this);
-        dialog.setMessage("Loading...");
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.create();
-
+        etUsernameForgotPassword = findViewById(R.id.etUsernameForgotPassword);
+        btnForgotSubmit = findViewById(R.id.btnForgotSubmit);
+        sendingRequestProgress = findViewById(R.id.forgot_pwd_progress_bar);
 
         btnForgotSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                dialog.show();
-                String username =etUsernameForgotPassword.getText().toString().trim();
-                if(username.isEmpty())
+                setLoading();
+                String uid = etUsernameForgotPassword.getText().toString().trim();
+                if (uid.isEmpty())
                 {
                     Toast.makeText(ForgotPassword.this,"Please enter your BITS Mail",Toast.LENGTH_LONG).show();
-                    dialog.hide();
-                }
-                else if(username.substring(0,4).equalsIgnoreCase("F201") )
+                    setNoLoading();
+                } else if (uid.substring(0, 4).equalsIgnoreCase("f201"))
                 {
-                    sendRequest(username);
+                    sendRequest(uid);
                 }
                 else
                 {
-                    dialog.hide();
+                    setLoading();
                     Toast.makeText(ForgotPassword.this,"Please enter your BITS Mail in the correct format!!",Toast.LENGTH_LONG).show();
                 }
             }
@@ -70,55 +58,50 @@ public class ForgotPassword extends AppCompatActivity {
 
     }
 
-    public  void sendRequest(final String username)
+    public void sendRequest(String uid)
     {
-        RequestQueue queue = Volley.newRequestQueue(ForgotPassword.this);
+        Retrofit retrofitClient = new Retrofit.Builder()
+                .baseUrl(getString(R.string.URL))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        GetDataService retrofitService = retrofitClient.create(GetDataService.class);
 
-        StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.RESET_URL), new com.android.volley.Response.Listener<String>() {
+        Call<Login> call = retrofitService.getPasswordResetResponse(uid, "submit");
+        call.enqueue(new Callback<Login>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(Call<Login> call, Response<Login> response) {
+                Toast.makeText(getApplicationContext(), "The link to reset your password has been sent to your email address", Toast.LENGTH_LONG).show();
                 etUsernameForgotPassword.setText(null);
-                dialog.hide();
-
-                /*if(response.contains("Please check if you have entered you email ID in the appropriate format!"))
-                {
-                    Toast.makeText(ForgotPassword.this,"Please check if you have entered your email ID in the appropriate format!", Toast.LENGTH_LONG).show();
-                }
-                else if(response.contains("Password Reset Link Sent to your BITS Mail!"))
-                {
-                    Toast.makeText(ForgotPassword.this,"Password Reset Link Sent to your BITS Mail!", Toast.LENGTH_LONG).show();
-                }*/
-                //Toast.makeText(ForgotPassword.this,"Please check if you have entered your email ID in the appropriate format!", Toast.LENGTH_LONG).show();
-
+                setNoLoading();
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
-                dialog.hide();
-                //Toast.makeText(ForgotPassword.this, "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<Login> call, Throwable t) {
+                setNoLoading();
+                Toast.makeText(getApplicationContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
             }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                Map<String, String> params = new HashMap<>();
-                params.put("uid", username);
-                params.put("reset", "submit");
-
-                return params;
-
-            }
-        };
-
-
-        queue.add(request);
-
-
+        });
     }
+
+    private void setLoading() {
+        etUsernameForgotPassword.setEnabled(false);
+        btnForgotSubmit.setEnabled(false);
+        sendingRequestProgress.setVisibility(View.VISIBLE);
+        btnForgotSubmit.setText("");
+    }
+
+    private void setNoLoading() {
+        etUsernameForgotPassword.setEnabled(true);
+        btnForgotSubmit.setEnabled(true);
+        sendingRequestProgress.setVisibility(View.GONE);
+        btnForgotSubmit.setText(getString(R.string.resetForgot_pass));
+    }
+
 
     @Override
     public void onBackPressed() {
-        dialog.dismiss();
+        setNoLoading();
         finish();
         super.onBackPressed();
     }

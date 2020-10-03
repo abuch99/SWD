@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/user_HomeFragment">
+
+    <fragment
+        android:id="@+id/user_HomeFragment"
+        android:name="in.ac.bits_hyderabad.swd.swd.user.fragment.User_HomeFragment"
+        android:label="User_HomeFragment" />
+    <fragment
+        android:id="@+id/user_GoodiesFragment"
+        android:name="in.ac.bits_hyderabad.swd.swd.user.fragment.User_GoodiesFragment"
+        android:label="User_GoodiesFragment">
+        <action
+            android:id="@+id/action_user_GoodiesFragment_to_user_DeductionsFragment"
+            app:destination="@id/user_DeductionsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/messMenu"
+        android:name="in.ac.bits_hyderabad.swd.swd.user.fragment.MessMenu"
+        android:label="MessMenu">
+        <action
+            android:id="@+id/action_messMenu_to_userMessRegFragment"
+            app:destination="@id/userMessRegFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/user_ConnectFragment"
+        android:name="in.ac.bits_hyderabad.swd.swd.user.fragment.User_ConnectFragment"
+        android:label="User_ConnectFragment" />
+    <fragment
+        android:id="@+id/miscFragment"
+        android:name="in.ac.bits_hyderabad.swd.swd.user.fragment.MiscFragment"
+        android:label="MiscFragment">
+        <action
+            android:id="@+id/action_miscFragment_to_busTimingsFragment"
+            app:destination="@id/busTimingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/user_DeductionsFragment"
+        android:name="in.ac.bits_hyderabad.swd.swd.user.fragment.User_DeductionsFragment"
+        android:label="User_DeductionsFragment" />
+    <fragment
+        android:id="@+id/userMessRegFragment"
+        android:name="in.ac.bits_hyderabad.swd.swd.user.fragment.UserMessRegFragment"
+        android:label="fragment_user_mess_reg"
+        tools:layout="@layout/fragment_user_mess_reg" />
+    <fragment
+        android:id="@+id/busTimingsFragment"
+        android:name="in.ac.bits_hyderabad.swd.swd.user.fragment.BusTimingsFragment"
+        android:label="BusTimingsFragment" />
+</navigation>

@@ -1,229 +1,185 @@
 package in.ac.bits_hyderabad.swd.swd.user.fragment;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.Calendar;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import in.ac.bits_hyderabad.swd.swd.APIConnection.GetDataService;
+import in.ac.bits_hyderabad.swd.swd.APIConnection.MessReq;
 import in.ac.bits_hyderabad.swd.swd.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-import static android.content.Context.MODE_PRIVATE;
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class MessMenu extends Fragment {
 
-
-    StringRequest request;
-    RequestQueue queue;
-
-    private String day;
-    int mess=0;
-    private LinearLayout llMenu;
+    int mess = 0;
+    private String dayToday;
     private String uid, password;
-    private SwipeRefreshLayout swipeRefresh;
 
-    public MessMenu(String day, String uid, String password) {
-        this.day=day;
-        this.uid=uid;
-        this.password=password;
-    }
+    private Retrofit mRetrofitClient;
+    private GetDataService mRetrofitService;
+    private TextView tvDay, tvBreakfast, tvLunch, tvSnacks, tvDinner, registeredMessText;
+    private ProgressBar registeredMessProgress, menuProgress;
+    private Button messRegistrationButton;
+    private ConstraintLayout messMenu;
 
-    private TextView tvDay, tvBreakfast, tvLunch, tvSnacks, tvDinner;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_mess_menu, container, false);
-        llMenu=view.findViewById(R.id.llMenu);
-        tvDay=view.findViewById(R.id.tvDay);
-        tvBreakfast=view.findViewById(R.id.tvBreakfast);
-        tvLunch=view.findViewById(R.id.tvLunch);
-        tvSnacks=view.findViewById(R.id.tvSnacks);
-        tvDinner=view.findViewById(R.id.tvDinner);
+        View view = inflater.inflate(R.layout.fragment_mess_menu, container, false);
 
-        llMenu.setVisibility(View.GONE);
+        SharedPreferences prefs = getContext().getSharedPreferences("USER_LOGIN_DETAILS", Context.MODE_PRIVATE);
+        uid = prefs.getString("uid", null);
+        password = prefs.getString("password", null);
+
+        messMenu = view.findViewById(R.id.mess_menu_layout);
+        menuProgress = view.findViewById(R.id.messMenuProgress);
+        tvDay = view.findViewById(R.id.tvDay);
+        tvBreakfast = view.findViewById(R.id.tvBreakfast);
+        tvLunch = view.findViewById(R.id.tvLunch);
+        tvSnacks = view.findViewById(R.id.tvSnacks);
+        tvDinner = view.findViewById(R.id.tvDinner);
+        registeredMessText = view.findViewById(R.id.registeredMessText);
+        registeredMessProgress = view.findViewById(R.id.registeredMessProgress);
+        messRegistrationButton = view.findViewById(R.id.messRegistrationButton);
+
+        messRegistrationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_messMenu_to_userMessRegFragment);
+            }
+        });
+
+        assignDay();
+        String displayDay = "(" + dayToday + ")";
+        tvDay.setText(displayDay);
+
+        mRetrofitClient = new Retrofit.Builder()
+                .baseUrl(getString(R.string.URL))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        mRetrofitService = mRetrofitClient.create(GetDataService.class);
+
+        getMessNo();
 
         return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    Call<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.MessMenu>> call2;
+    Call<in.ac.bits_hyderabad.swd.swd.APIConnection.MessReq> call;
 
-        swipeRefresh=view.findViewById(R.id.swipeRefreshMenu);
-        swipeRefresh.setRefreshing(true);
+    private void getMessMenu() {
 
-        getMessNo(uid);
+        call2 = mRetrofitService.getMessMenu("mess_menu", uid, password);
 
-        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        call2.enqueue(new Callback<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.MessMenu>>() {
             @Override
-            public void onRefresh() {
+            public void onResponse(Call<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.MessMenu>> call, retrofit2.Response<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.MessMenu>> response) {
+                for (int i = 0; i < response.body().size(); i++) {
+                    if (!response.body().get(i).getMess().equals(Integer.toString(mess)))
+                        continue;
+                    if (response.body().get(i).getDay().equals(dayToday)) {
+                        tvBreakfast.setText(response.body().get(i).getBreakfast().trim());
+                        tvLunch.setText(response.body().get(i).getLunch().trim());
+                        tvSnacks.setText(response.body().get(i).getTiffin().trim());
+                        tvDinner.setText(response.body().get(i).getDinner().trim());
+                        menuProgress.setVisibility(View.GONE);
+                        messMenu.setVisibility(View.VISIBLE);
+                        break;
+                    }
+                }
+            }
 
-                getMessNo(uid);
-
+            @Override
+            public void onFailure(Call<ArrayList<in.ac.bits_hyderabad.swd.swd.APIConnection.MessMenu>> call, Throwable t) {
+                Toast.makeText(getContext(), "Error connecting to the internet", Toast.LENGTH_LONG).show();
+                t.printStackTrace();
             }
         });
 
-        
     }
 
-    public void getMessMenu(final String day, final int messNo){
+    private void getMessNo() {
 
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-        StringRequest request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
+        call = mRetrofitService.getMessReq("mess_req", uid, password);
+
+        call.enqueue(new Callback<MessReq>() {
             @Override
-            public void onResponse(String response) {
-
-                try{
-                    JSONArray menu_array=new JSONArray(response);
-                    for(int i=0;i<menu_array.length();i++)
-                    {
-                        JSONObject object = menu_array.getJSONObject(i);
-                        if(!object.get("mess").toString().equals(messNo+""))
-                            continue;
-                        if(object.get("Day").toString().equals(day))
-                        {
-                            tvDay.setText(day);
-                            tvBreakfast.setText(object.get("Breakfast").toString().trim());
-                            tvLunch.setText(object.get("Lunch").toString().trim());
-                            tvSnacks.setText(object.get("Tiffin").toString().trim());
-                            tvDinner.setText(object.get("Dinner").toString().trim());
-                             break;
+            public void onResponse(Call<MessReq> call, Response<MessReq> response) {
+                if (!response.body().getError()) {
+                    String mess_no_string = response.body().getData().getMess();
+                    if (!mess_no_string.equalsIgnoreCase("null")) {
+                        mess = Integer.parseInt(mess_no_string);
+                        if (!(mess != 1 && mess != 2)) {
+                            String registeredMessDisplay = "You're registered to mess " + mess;
+                            registeredMessProgress.setVisibility(View.GONE);
+                            registeredMessText.setText(registeredMessDisplay);
+                            getMessMenu();
+                        } else {
+                            registeredMessText.setText("Unable to determine registered mess");
                         }
+                    } else {
+                        registeredMessText.setText("Unable to determine registered mess");
                     }
-                    llMenu.setVisibility(View.VISIBLE);
-                    swipeRefresh.setRefreshing(false);
+
+                } else {
+                    Toast.makeText(getContext(), "Sorry! something went wrong. We will be back soon!!", Toast.LENGTH_SHORT).show();
                 }
-                catch (JSONException e)
-                {
-                    swipeRefresh.setRefreshing(false);
-                    e.printStackTrace();
-                }
-
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
-                swipeRefresh.setRefreshing(false);
+            public void onFailure(Call<MessReq> call, Throwable t) {
+                Toast.makeText(getContext(), "Sorry! something went wrong. We will be back soon", Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
             }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+        });
 
-                Map<String, String> params = new HashMap<>();
-                params.put("tag", "mess_menu");
-                params.put("id",uid);
-                params.put("pwd",password);
-                return params;
-
-            }
-        };
-
-
-        queue.add(request);
-    }
-    public void getMessNo(final String uid)
-    {
-        queue = Volley.newRequestQueue(getContext());
-        request = new StringRequest(Request.Method.POST, getString(R.string.BASE_URL), new com.android.volley.Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-                try{
-                    JSONObject object=new JSONObject(response);
-                    if(object.get("error").toString().equals("false")) {
-                        JSONObject newObject = (JSONObject) object.get("data");
-                        String mess_no_string = newObject.get("mess").toString();
-                        if(!mess_no_string.equalsIgnoreCase("null")) {
-                            mess = Integer.parseInt(mess_no_string);
-
-                            if (!(mess != 1 && mess != 2))
-                                getMessMenu(day, mess);
-                            else
-                            {
-                                swipeRefresh.setRefreshing(false);
-                                Toast.makeText(getContext(), "You may not be registered to either of the Mess", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                        else
-                        {
-                            swipeRefresh.setRefreshing(false);
-                            Toast.makeText(getContext(), "You may not be registered to either of the Mess", Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-                    else
-                    {
-                        Toast.makeText(getActivity(),"Sorry! something went wrong. We will be back soon!!",Toast.LENGTH_SHORT).show();
-                    }
-                }
-                catch (Exception e)
-                {
-                    swipeRefresh.setRefreshing(false);
-                    Toast.makeText(getActivity(),"Sorry! something went wrong. We will be back soon",Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                swipeRefresh.setRefreshing(false);
-                Toast.makeText(getContext(), "Please check your Internet connection!", Toast.LENGTH_SHORT).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                Map<String, String> params = new HashMap<>();
-                params.put("tag", "mess_req");
-                params.put("id",uid);
-                params.put("pwd",password);
-                return params;
-
-            }
-        };
-
-        request.setTag("MessMenu");
-        queue.add(request);
     }
 
-
-
-    @Override
-    public void onStop() {
-        if(queue!=null) {
-            queue.cancelAll("MessMenu");
+    private void assignDay() {
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        switch (day) {
+            case Calendar.SUNDAY:
+                dayToday = "Sunday";
+                break;
+            case Calendar.MONDAY:
+                dayToday = "Monday";
+                break;
+            case Calendar.TUESDAY:
+                dayToday = "Tuesday";
+                break;
+            case Calendar.WEDNESDAY:
+                dayToday = "Wednesday";
+                break;
+            case Calendar.THURSDAY:
+                dayToday = "Thursday";
+                break;
+            case Calendar.FRIDAY:
+                dayToday = "Friday";
+                break;
+            case Calendar.SATURDAY:
+                dayToday = "Saturday";
+                break;
         }
-        super.onStop();
-
     }
 }

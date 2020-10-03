@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#424242</color>
-    <color name="colorPrimaryDark">#1b1b1b</color>
-    <color name="colorPrimaryLight">#6d6d6d</color>
-    <color name="colorAccent">#6d6d6d</color>
-    <color name="colorHint">#c1cdc1</color>
+    <color name="colorPrimary">#2C3E50</color>
+    <color name="colorPrimaryDark">#2C3E50</color>
+    <color name="colorPrimaryLight">#2C3E50</color>
+    <color name="colorAccent">#18BC9C</color>
     <color name="whiteText">#FFFFFF</color>
     <color name="disabledDate">#A9A9A9</color>
     <color name="blueText">#8A9CFA</color>
@@ -22,4 +21,10 @@
     <color name="semiTransparentColor05black">#05000000</color>
     <color name="semiTransparentColor10black">#10000000</color>
     <color name="semiTransparentColor00black">#00000000</color>
+
+    <color name="dark_blue">#2C3E50</color>
+    <color name="green_accent">#18BC9C</color>
+    <color name="dark_background">#121212</color>
+    <color name="background_overlay">#171a1d</color>
+
 </resources>
